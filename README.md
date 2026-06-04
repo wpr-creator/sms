@@ -1,12 +1,15 @@
-# FALCON FLIGHT SCHOOL
+# SMS Falcon Adventure Camp
 
-A static third grade math review game for GitHub Pages.
+Static GitHub Pages site.
 
-## UPDATE
-This build hides answers from the flight scene and keeps auto-advance after correct answers.
+## Structure
 
-## FILES
-- `index.html`: full game site
+- `index.html` — Falcon Adventure Camp home
+- `flight-school/index.html` — math game
+- `field-lab/index.html` — science placeholder
+- `expedition-corps/index.html` — social studies placeholder
+- `assets/` — shared future assets
 
-## USE
-Copy `index.html` into the repo root and commit the change.
+## Upload
+
+Copy all files into the root of the `sms` repo and commit.
