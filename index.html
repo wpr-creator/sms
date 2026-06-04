@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FALCON FLIGHT SCHOOL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page page-home">
+  <div class="falcon-sky" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Falcon Flight School home">🦅 FALCON FLIGHT SCHOOL</a>
+    <div class="top-stats">
+      <span id="rankPill">RANK: ROOKIE</span>
+      <span id="xpPill">XP: 0</span>
+      <button id="soundBtn" class="mini-btn" type="button">SOUND: ON</button>
+    </div>
+  </header>
+
+  <main class="home-shell">
+    <section class="hero-card">
+      <div class="hero-copy">
+        <p class="eyebrow">3RD GRADE MATH QUEST</p>
+        <h1>FLY THE COURSE</h1>
+        <p class="hero-line">Beat each mission. Keep your lives. Unlock the next flight.</p>
+        <div class="hero-actions">
+          <a id="playBtn" class="game-btn primary" href="mission.html?level=0">PLAY</a>
+          <a id="continueBtn" class="game-btn" href="mission.html?level=0">CONTINUE</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 420 260" role="img">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f7c948"/><stop offset="1" stop-color="#f97316"/></linearGradient>
+          </defs>
+          <path d="M24 188 C86 106, 144 242, 218 122 S350 80,396 150" fill="none" stroke="#5eead4" stroke-width="6" opacity=".65" stroke-linecap="round"/>
+          <circle cx="76" cy="185" r="32" fill="#1e3a5f" stroke="#7dd3fc" stroke-width="4"/>
+          <circle cx="218" cy="122" r="38" fill="#1e3a5f" stroke="#facc15" stroke-width="4"/>
+          <circle cx="364" cy="150" r="32" fill="#1e3a5f" stroke="#7dd3fc" stroke-width="4"/>
+          <text x="76" y="196" text-anchor="middle" font-size="38">×</text>
+          <text x="218" y="136" text-anchor="middle" font-size="38">÷</text>
+          <text x="364" y="162" text-anchor="middle" font-size="38">½</text>
+          <g class="hero-falcon">
+            <text x="15" y="62" font-size="74">🦅</text>
+          </g>
+          <path d="M245 46 h88 l22 22 -22 22 h-88 l22-22z" fill="url(#g)" opacity=".92"/>
+          <text x="300" y="76" text-anchor="middle" font-size="20" fill="#0b1220" font-weight="800">NEXT</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="mission-board" aria-labelledby="missionBoardTitle">
+      <h2 id="missionBoardTitle">MISSION MAP</h2>
+      <div id="missionGrid" class="mission-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">SMS MATH QUEST</footer>
+  <script src="app.js"></script>
+</body>
+</html>
