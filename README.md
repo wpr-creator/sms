@@ -1,24 +1,17 @@
-# SMS MATH QUEST: FALCON FLIGHT SCHOOL
+# Falcon Flight School
 
-Static GitHub Pages site for 3rd grade math review.
+A single-file third grade summer math game for the SMS repo. Students fly through locked missions, keep three lives, answer 15 randomized questions per mission, earn XP, and unlock the next mission.
 
 ## Files
 
-- `index.html`: home base and locked mission map
-- `mission.html`: separate mission play screen
-- `styles.css`: visual design, animations, responsive layout
-- `app.js`: game logic, question banks, progress saving, generated sounds
-
-## How it works
-
-Students start at Falcon Flight School, play one mission at a time, keep three lives during the mission, and unlock the next mission after passing. A completed mission launches the next mission instead of sending students back to the map.
-
-Each mission asks 15 questions, but the game builds from a larger randomized bank so students should not see the same set every time. Progress saves in the browser with `localStorage`.
+- `index.html` contains the full site: HTML, CSS, SVG art, JavaScript, local progress saving, and browser-made sound effects.
 
 ## GitHub Pages
 
-Upload these files to the repo root and enable GitHub Pages from the main branch. No build step is required.
+Copy `index.html` into the root of `https://github.com/wpr-creator/sms` and commit it. It will run as a static GitHub Pages site with no build step.
 
-## Sound
+## Notes
 
-The site uses small browser-generated sound effects through the Web Audio API. There are no audio files to host.
+- The falcon artwork is original SVG/CSS inspired by school colors only. It does not use or copy the school logo.
+- Progress is saved in the student's browser with `localStorage`.
+- Sound effects are generated in the browser, so no audio files are required.
