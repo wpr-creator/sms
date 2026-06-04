@@ -1,15 +1,12 @@
-# Falcon Flight School
+# FALCON FLIGHT SCHOOL
 
-Static third-grade math review game for GitHub Pages.
+A static third grade math review game for GitHub Pages.
 
-## Files
+## UPDATE
+This build hides answers from the flight scene and keeps auto-advance after correct answers.
 
-- `index.html`: complete game site
+## FILES
+- `index.html`: full game site
 
-## Deploy
-
-Copy `index.html` into the root of `https://github.com/wpr-creator/sms`, commit, and push. GitHub Pages will serve the updated page after deployment.
-
-## Notes
-
-The game uses only HTML, CSS, SVG, JavaScript, localStorage, and browser-generated sound effects. No outside asset files are required.
+## USE
+Copy `index.html` into the repo root and commit the change.
