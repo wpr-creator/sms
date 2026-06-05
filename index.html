@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Falcon Adventure Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="camp-page">
+  <div class="sky-noise"></div>
+  <div class="bg-flock" aria-hidden="true"></div>
+  <main class="camp-shell">
+    <section class="camp-hero" aria-labelledby="camp-title">
+      <div class="camp-copy">
+        <p class="eyebrow">SUMMER QUEST</p>
+        <h1 id="camp-title">FALCON ADVENTURE CAMP</h1>
+        <p class="camp-line">Choose a zone. Earn badges. Keep moving.</p>
+        <div class="hud-row" aria-label="Camp progress">
+          <span>RANK: SKY SCOUT</span>
+          <span>BADGES: 0</span>
+          <span>PATHS: 1/3</span>
+        </div>
+      </div>
+      <div class="camp-map" aria-hidden="true">
+        <svg viewBox="0 0 640 440" role="img">
+          <defs>
+            <linearGradient id="goldGlow" x1="0" x2="1"><stop offset="0" stop-color="#f7c948"/><stop offset="1" stop-color="#ffe49a"/></linearGradient>
+          </defs>
+          <path class="trail" d="M70 335 C160 255 220 335 305 250 S445 165 570 95"/>
+          <g class="hill h1"><path d="M10 360 L170 160 L330 360 Z"/></g>
+          <g class="hill h2"><path d="M240 370 L410 130 L635 370 Z"/></g>
+          <g class="camp-building active-building" transform="translate(70 260)"><rect x="0" y="35" width="145" height="74" rx="16"/><path d="M20 40 L73 0 L126 40 Z"/><rect x="55" y="58" width="35" height="51" rx="6"/><circle cx="116" cy="65" r="10"/></g>
+          <g class="camp-building" transform="translate(260 180)"><rect x="0" y="45" width="135" height="70" rx="16"/><path d="M18 45 Q68 -25 118 45 Z"/><circle cx="68" cy="62" r="13"/></g>
+          <g class="camp-building" transform="translate(445 55)"><rect x="0" y="40" width="142" height="78" rx="14"/><path d="M18 40 L72 5 L126 40 Z"/><path d="M30 75 H112"/></g>
+          <g class="map-bird" transform="translate(130 210) scale(.72)"><path d="M10 38 C42 8 82 8 116 28 C86 31 65 44 48 70 C43 58 30 46 10 38 Z"/><path d="M65 28 C92 8 120 10 148 29 C121 30 99 38 80 55 Z"/><path d="M50 38 C67 34 84 39 96 51 C78 51 62 58 50 72 Z"/></g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="zone-grid" aria-label="Camp zones">
+      <a class="zone-card live" href="flight-school.html">
+        <span class="zone-chip">MATH</span>
+        <h2>FLIGHT SCHOOL</h2>
+        <p>Train through math missions.</p>
+        <span class="zone-status">ENTER</span>
+      </a>
+      <a class="zone-card locked" href="field-lab.html">
+        <span class="zone-chip">SCIENCE</span>
+        <h2>FIELD LAB</h2>
+        <p>Investigate science challenges.</p>
+        <span class="zone-status">COMING SOON</span>
+      </a>
+      <a class="zone-card locked" href="expedition-corps.html">
+        <span class="zone-chip">SOCIAL STUDIES</span>
+        <h2>EXPEDITION CORPS</h2>
+        <p>Explore maps, people, and places.</p>
+        <span class="zone-status">COMING SOON</span>
+      </a>
+    </section>
+  </main>
+  <script src="camp.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flight School</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head>
+<body class="game-body">
+<div class="wipe" id="wipe"></div>
+<header class="game-top"><div><a class="home-link" href="index.html">← CAMP</a><h1>FLIGHT SCHOOL</h1></div><div class="game-stats"><span id="rank">SKY SCOUT</span><span id="missionStat">MISSION 1</span><span id="lifeStat">❤ ❤ ❤</span><span id="xpStat">XP 0</span></div></header>
+<main class="game-shell">
+  <section class="scene" aria-hidden="true"><div class="cloud c1"></div><div class="cloud c2"></div><div class="falcon-player" id="bird" style="--progress:0"><svg viewBox="0 0 180 110"><path d="M8 54 C48 10 98 10 144 42 C107 46 80 63 58 99 C50 77 32 62 8 54Z"/><path d="M76 42 C110 12 150 14 174 46 C135 43 108 55 82 80 Z"/><path d="M62 50 C82 43 105 49 121 65 C97 65 77 74 62 96 Z"/></svg></div><div class="perch"></div></section>
+  <section class="mission-card"><p class="eyebrow" id="skillLabel">MATH MISSION</p><h2 id="missionTitle">READY?</h2><div class="bar"><span id="progressBar"></span></div><p class="prompt" id="prompt">Press start to begin.</p><div id="answerArea" class="answers"></div><p id="feedback" class="feedback"></p></section>
+</main>
+<script src="question-bank.js"></script><script src="flight-school.js"></script>
+</body></html>
