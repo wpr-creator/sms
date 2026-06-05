@@ -13,34 +13,35 @@
 <main class="camp-shell">
   <section class="camp-hero">
     <div class="camp-copy">
+      <img class="camp-falcon big" src="falcon.png" alt="">
       <div class="mini-tag">SUMMER QUEST</div>
-      <img class="camp-falcon" src="falcon.png" alt="">
       <h1>FALCON ADVENTURE CAMP</h1>
       <h2>CHOOSE YOUR PATH</h2>
     </div>
-    <div class="camp-map" aria-label="Camp paths">
+    <section class="camp-map" aria-label="camp map">
       <img class="map-sun" src="sun.png" alt="">
       <img class="map-cloud cloud-a" src="cloud1.png" alt="">
       <img class="map-cloud cloud-b" src="cloud2.png" alt="">
-      <div class="camp-card active" onclick="location.href='flight-school.html'">
-        <img src="falcon.png" alt="">
-        <span>MATH</span>
+      <img class="camp-falcon map-flyer" src="falcon.png" alt="">
+      <div class="trail"></div>
+      <a class="camp-card active flight-card" href="flight-school.html">
+        <div class="card-icon hangar-icon"><span></span></div>
         <strong>FLIGHT SCHOOL</strong>
-        <button>ENTER</button>
-      </div>
-      <div class="camp-card locked">
-        <img src="tree03.png" alt="">
-        <span>SCIENCE</span>
+        <span>MATH</span>
+      </a>
+      <a class="camp-card locked lab-card" href="field-lab.html">
+        <div class="card-icon lab-icon"><span></span></div>
         <strong>FIELD LAB</strong>
-        <button>SOON</button>
-      </div>
-      <div class="camp-card locked">
-        <img src="tower_beige.png" alt="">
-        <span>SOCIAL STUDIES</span>
+        <span>SCIENCE</span>
+        <em>COMING SOON</em>
+      </a>
+      <a class="camp-card locked explore-card" href="expedition-corps.html">
+        <div class="card-icon lodge-icon"><span></span></div>
         <strong>EXPEDITION CORPS</strong>
-        <button>SOON</button>
-      </div>
-    </div>
+        <span>SOCIAL STUDIES</span>
+        <em>COMING SOON</em>
+      </a>
+    </section>
   </section>
 </main>
 <script src="camp.js"></script>
