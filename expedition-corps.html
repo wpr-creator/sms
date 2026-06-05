@@ -1,1 +1,404 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Expedition Corps</title><link rel="stylesheet" href="style.css"></head><body class="coming-soon explore-soon"><main class="soon-card"><img src="falcon-explorer.png" alt="Explorer falcon"><p>SOCIAL STUDIES</p><h1>EXPEDITION CORPS</h1><h2>COMING SOON</h2><a href="index.html">BACK TO CAMP</a></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expedition Corps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#10284d;
+      --blue:#174b82;
+      --gold:#f4bf3a;
+      --sand:#fff2c7;
+      --cream:#fff8df;
+      --ink:#12233f;
+      --green:#2f7a63;
+      --red:#c7372f;
+      --shadow:0 18px 45px rgba(9,24,54,.22);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Atkinson Hyperlegible',system-ui,sans-serif;
+      color:var(--ink);
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(244,191,58,.45), transparent 28%),
+        radial-gradient(circle at 90% 20%, rgba(84,160,210,.35), transparent 30%),
+        linear-gradient(135deg,#173e70 0%,#f7d777 58%,#f2a44d 100%);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:url('bg-camp.png');
+      background-size:cover;
+      background-position:center;
+      opacity:.24;
+      z-index:-3;
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:linear-gradient(180deg,rgba(255,248,223,.16),rgba(16,40,77,.34));
+      z-index:-2;
+      pointer-events:none;
+    }
+    .page{width:min(1120px,94vw);margin:0 auto;padding:24px 0 34px}
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:18px 0 14px;
+    }
+    .home-link{
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:.08em;
+      font-size:14px;
+      background:rgba(16,40,77,.55);
+      border:2px solid rgba(255,255,255,.35);
+      padding:12px 16px;
+      border-radius:999px;
+      box-shadow:var(--shadow);
+    }
+    .rank-chip{
+      display:flex;gap:10px;align-items:center;
+      background:rgba(255,248,223,.88);
+      border:2px solid rgba(16,40,77,.12);
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:800;
+      box-shadow:var(--shadow);
+    }
+    .hero{
+      min-height:calc(100vh - 70px);
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:26px;
+    }
+    .title-card{
+      background:rgba(255,248,223,.94);
+      border:4px solid rgba(16,40,77,.18);
+      border-radius:36px;
+      padding:30px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .title-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -40px -60px auto;
+      width:220px;height:220px;
+      background:radial-gradient(circle,var(--gold),transparent 70%);
+      opacity:.38;
+      pointer-events:none;
+    }
+    .eyebrow{font-weight:900;letter-spacing:.14em;color:var(--blue);font-size:14px;margin-bottom:10px}
+    h1,h2,h3,.mission-title{font-family:'Bungee',system-ui,sans-serif;text-transform:uppercase;line-height:1.04;margin:0}
+    h1{font-size:clamp(44px,6vw,78px);color:var(--navy);text-shadow:0 4px 0 rgba(244,191,58,.55)}
+    .hero-line{font-size:clamp(20px,2.2vw,28px);line-height:1.45;font-weight:800;margin:18px 0 24px;color:#213552}
+    .big-actions{display:flex;flex-wrap:wrap;gap:12px}
+    button,.btn{
+      appearance:none;border:0;cursor:pointer;text-decoration:none;
+      font-family:'Atkinson Hyperlegible',system-ui,sans-serif;
+      font-weight:900;font-size:18px;
+      border-radius:18px;padding:15px 20px;
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      min-height:54px;
+    }
+    button:hover,.btn:hover{transform:translateY(-2px);filter:saturate(1.08)}
+    button:focus,.btn:focus{outline:4px solid rgba(244,191,58,.85);outline-offset:3px}
+    .primary{background:var(--gold);color:var(--navy);box-shadow:0 10px 0 #bd7e19, var(--shadow)}
+    .secondary{background:var(--navy);color:white;box-shadow:0 10px 0 #07182f, var(--shadow)}
+    .ghost{background:#fff;color:var(--navy);border:3px solid rgba(16,40,77,.18)}
+    .mascot-card{
+      min-height:560px;
+      background:linear-gradient(180deg,rgba(255,248,223,.8),rgba(255,248,223,.45));
+      border:4px solid rgba(255,255,255,.5);
+      border-radius:40px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      display:flex;align-items:end;justify-content:center;
+      padding:26px;
+    }
+    .trail{position:absolute;inset:0;opacity:.75;background:
+      radial-gradient(circle at 20% 75%,#fff 0 5px,transparent 6px),
+      radial-gradient(circle at 36% 62%,#fff 0 5px,transparent 6px),
+      radial-gradient(circle at 55% 54%,#fff 0 5px,transparent 6px),
+      radial-gradient(circle at 72% 38%,#fff 0 5px,transparent 6px),
+      radial-gradient(circle at 83% 24%,#fff 0 5px,transparent 6px);
+    }
+    .mascot-card img{width:min(430px,88%);max-height:520px;object-fit:contain;filter:drop-shadow(0 24px 14px rgba(25,30,40,.26));animation:bob 1.7s ease-in-out infinite alternate;z-index:1}
+    @keyframes bob{from{transform:translateY(0) rotate(-1deg)}to{transform:translateY(-12px) rotate(1deg)}}
+    .screen{display:none;min-height:calc(100vh - 70px);padding:20px 0 34px}
+    .screen.active{display:block;animation:fade .28s ease both}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .panel{
+      background:rgba(255,248,223,.95);
+      border:4px solid rgba(16,40,77,.14);
+      border-radius:34px;
+      box-shadow:var(--shadow);
+      padding:24px;
+    }
+    .choose-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+    .choice-card{
+      background:linear-gradient(180deg,#fff,#fff2c7);
+      border:4px solid rgba(16,40,77,.12);
+      border-radius:28px;
+      padding:20px;
+      min-height:270px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      box-shadow:0 12px 0 rgba(16,40,77,.09), var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .choice-card::before{content:"";position:absolute;right:-38px;top:-38px;width:140px;height:140px;border-radius:50%;background:rgba(244,191,58,.45)}
+    .choice-card h2{font-size:clamp(26px,3vw,36px);color:var(--navy);position:relative}
+    .choice-card p{font-size:20px;line-height:1.55;font-weight:800;margin:18px 0;position:relative}
+    .mission-top{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;margin-bottom:18px}
+    .progress-wrap{background:rgba(255,255,255,.74);border:3px solid rgba(16,40,77,.14);border-radius:999px;height:22px;overflow:hidden}
+    .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),#ff8f3c);transition:width .28s ease}
+    .mission-title{font-size:clamp(30px,4vw,50px);color:var(--navy)}
+    .step-card{display:grid;grid-template-columns:.92fr 1.08fr;gap:22px;align-items:stretch}
+    .reading-card,.task-card{
+      border-radius:30px;
+      padding:22px;
+      border:4px solid rgba(16,40,77,.12);
+      background:#fff;
+      box-shadow:0 10px 0 rgba(16,40,77,.08);
+      min-height:410px;
+    }
+    .reading-card{background:linear-gradient(180deg,#fff,#fff8df)}
+    .task-card{background:linear-gradient(180deg,#eaf6ff,#fff)}
+    .reading-card h3,.task-card h3{font-size:26px;color:var(--blue);margin-bottom:12px}
+    .reading-card p,.task-card p{font-size:21px;line-height:1.72;font-weight:700;margin:0 0 14px}
+    .quote-box{background:#10284d;color:white;border-radius:22px;padding:16px;margin-top:16px;font-size:20px;line-height:1.55;font-weight:800;border:4px solid var(--gold)}
+    .paragraph-tag{display:inline-flex;background:var(--gold);color:var(--navy);font-weight:900;border-radius:999px;padding:5px 10px;margin-right:8px}
+    .student-move{font-size:24px;font-weight:900;color:var(--navy);background:#fff2c7;border-left:10px solid var(--gold);padding:16px;border-radius:18px;margin-top:14px}
+    .tool-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .pill{font-size:18px;font-weight:900;background:#fff;border:3px solid rgba(16,40,77,.15);border-radius:999px;padding:9px 12px}
+    .step-actions{display:flex;justify-content:space-between;gap:14px;margin-top:20px}
+    .mini-map{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}
+    .dot{height:15px;flex:1;min-width:38px;border-radius:999px;background:rgba(16,40,77,.18)}
+    .dot.done,.dot.current{background:var(--gold)}
+    .dot.current{box-shadow:0 0 0 4px rgba(244,191,58,.25)}
+    .topic-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
+    .topic-grid.geo{grid-template-columns:repeat(4,1fr)}
+    .topic-btn{background:#fff;color:var(--navy);border:4px solid rgba(16,40,77,.14);box-shadow:0 8px 0 rgba(16,40,77,.1);padding:16px;border-radius:22px;font-size:17px;line-height:1.2;min-height:110px}
+    .topic-btn:hover{background:#fff2c7}
+    .finish-card{text-align:center;padding:34px}.finish-card h2{font-size:clamp(36px,5vw,62px);color:var(--navy)}
+    .finish-card p{font-size:23px;line-height:1.55;font-weight:800;max-width:820px;margin:16px auto}
+    .badge-big{font-size:76px;margin:20px auto;filter:drop-shadow(0 12px 12px rgba(0,0,0,.2))}
+    @media (max-width:900px){.hero,.step-card{grid-template-columns:1fr}.choose-grid,.topic-grid,.topic-grid.geo{grid-template-columns:1fr}.mascot-card{min-height:340px}.mission-top{grid-template-columns:1fr}.reading-card,.task-card{min-height:auto}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="home-link" href="index.html">← CAMP</a>
+      <div class="rank-chip">EXPEDITION CORPS</div>
+    </header>
+
+    <main id="home" class="hero screen active">
+      <section class="title-card">
+        <div class="eyebrow">SOCIAL STUDIES QUEST</div>
+        <h1>EXPEDITION CORPS</h1>
+        <p class="hero-line">Choose a mission. Read the clues. Build your one-pager one step at a time.</p>
+        <div class="big-actions">
+          <button class="primary" data-screen="missions">START EXPEDITION</button>
+          <a class="btn secondary" href="index.html">BACK TO CAMP</a>
+        </div>
+      </section>
+      <aside class="mascot-card">
+        <div class="trail"></div>
+        <img src="falcon-explorer.png" alt="Explorer falcon mascot">
+      </aside>
+    </main>
+
+    <section id="missions" class="screen">
+      <div class="panel">
+        <div class="eyebrow">CHOOSE YOUR PATH</div>
+        <h2 class="mission-title">PICK A MISSION</h2>
+        <div class="choose-grid">
+          <article class="choice-card">
+            <h2>HERO HALL</h2>
+            <p>Pick a helper. Find what makes their job important.</p>
+            <button class="primary" data-mission="helpers">GO</button>
+          </article>
+          <article class="choice-card">
+            <h2>MAP MARKET</h2>
+            <p>Pick a place. Show why a family might live there.</p>
+            <button class="primary" data-mission="geo">GO</button>
+          </article>
+          <article class="choice-card">
+            <h2>SMART SHOPPER</h2>
+            <p>Spend $25. Choose needs, wants, goods, and services.</p>
+            <button class="primary" data-mission="shopper">GO</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="topic" class="screen">
+      <div class="panel">
+        <div class="eyebrow" id="topicEyebrow">MISSION CHOICE</div>
+        <h2 class="mission-title" id="topicTitle">CHOOSE ONE</h2>
+        <div id="topicGrid" class="topic-grid"></div>
+        <div class="step-actions"><button class="ghost" data-screen="missions">BACK</button></div>
+      </div>
+    </section>
+
+    <section id="play" class="screen">
+      <div class="panel">
+        <div class="mission-top">
+          <div>
+            <div class="eyebrow" id="missionLabel">MISSION</div>
+            <h2 class="mission-title" id="missionName">MISSION</h2>
+          </div>
+          <div class="rank-chip" id="stepCount">STEP 1</div>
+        </div>
+        <div class="progress-wrap"><div id="progressBar" class="progress-bar"></div></div>
+        <div id="miniMap" class="mini-map"></div>
+        <div class="step-card">
+          <article class="reading-card">
+            <h3 id="readTitle">READ</h3>
+            <div id="readText"></div>
+          </article>
+          <article class="task-card">
+            <h3 id="taskTitle">YOUR MOVE</h3>
+            <div id="taskText"></div>
+            <div id="toolRow" class="tool-row"></div>
+          </article>
+        </div>
+        <div class="step-actions">
+          <button id="backStep" class="ghost">BACK</button>
+          <button id="nextStep" class="primary">NEXT STEP</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="finish" class="screen">
+      <div class="panel finish-card">
+        <div class="badge-big">🏕️</div>
+        <h2 id="finishTitle">MISSION READY</h2>
+        <p id="finishText">You have what you need. Use your one-pager paper to show your final work.</p>
+        <div class="big-actions" style="justify-content:center">
+          <button class="primary" data-screen="missions">CHOOSE ANOTHER MISSION</button>
+          <a class="btn secondary" href="index.html">RETURN TO CAMP</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+function show(id){$$('.screen').forEach(s=>s.classList.remove('active'));$('#'+id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function beep(freq=660){try{const A=window.AudioContext||window.webkitAudioContext;const ctx=new A();const o=ctx.createOscillator();const g=ctx.createGain();o.type='triangle';o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(.05,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.16);o.start();o.stop(ctx.currentTime+.17)}catch(e){}}
+
+const helpers=[
+ {id:'firefighter',name:'FIREFIGHTER',title:'Firefighter',badge:'🔥',paras:[
+  ['Firefighters help when there is danger. They put out fires, rescue people, and teach families how to stay safe.'],
+  ['Firefighters need teamwork, courage, and quick thinking. They use hoses, ladders, helmets, radios, and fire trucks.'],
+  ['Their job can be hard because emergencies can happen fast. Firefighters help the whole community feel safer.']
+ ],quote:'Firefighters help the whole community feel safer.'},
+ {id:'nurse',name:'NURSE',title:'Nurse',badge:'🩺',paras:[
+  ['Nurses care for people who are sick, hurt, or healing. They check symptoms, give care, and explain what patients need.'],
+  ['Nurses need patience, kindness, and careful listening. They use thermometers, bandages, charts, gloves, and medicine tools.'],
+  ['Their work can be challenging because people may feel scared or uncomfortable. Nurses help people get better and feel supported.']
+ ],quote:'Nurses help people get better and feel supported.'},
+ {id:'teacher',name:'TEACHER',title:'Teacher',badge:'📚',paras:[
+  ['Teachers help students learn new skills. They explain ideas, ask questions, and help students practice.'],
+  ['Teachers need planning, patience, and clear communication. They use books, boards, computers, pencils, and learning games.'],
+  ['Their job can be challenging because every student learns differently. Teachers help communities by helping children grow.']
+ ],quote:'Teachers help communities by helping children grow.'},
+ {id:'librarian',name:'LIBRARIAN',title:'Librarian',badge:'📖',paras:[
+  ['Librarians help people find books, facts, and stories. They teach people how to use information carefully.'],
+  ['Librarians need organization, problem solving, and helpful communication. They use books, computers, catalogs, and library cards.'],
+  ['Their work matters because people need places to read, learn, and ask questions. Libraries help communities share knowledge.']
+ ],quote:'Libraries help communities share knowledge.'},
+ {id:'park-ranger',name:'PARK RANGER',title:'Park Ranger',badge:'🌲',paras:[
+  ['Park rangers protect parks, animals, plants, and visitors. They teach people how to enjoy nature safely.'],
+  ['Park rangers need observation, science knowledge, and responsibility. They use maps, radios, signs, first-aid kits, and field notebooks.'],
+  ['Their job can be difficult when weather changes or visitors need help. Park rangers help communities protect outdoor spaces.']
+ ],quote:'Park rangers help communities protect outdoor spaces.'}
+];
+const geo=[
+ {id:'coast',name:'COAST',title:'Coastal Community',badge:'🌊',paras:[
+  ['A coastal community is near the ocean. The climate may be mild, breezy, and sometimes foggy.'],
+  ['Landforms can include beaches, cliffs, bays, and wetlands. People may work in fishing, tourism, shipping, science, or restaurants.'],
+  ['Living near the coast can be beautiful, but storms, high prices, and flooding can be challenges. Geography affects daily life.']
+ ],quote:'Geography affects daily life.'},
+ {id:'mountain',name:'MOUNTAINS',title:'Mountain Community',badge:'⛰️',paras:[
+  ['A mountain community is built near tall landforms. The weather can be cooler and may include snow.'],
+  ['Landforms include peaks, valleys, forests, rivers, and slopes. People may work in parks, tourism, forestry, rescue, or outdoor sports.'],
+  ['Mountains can offer beauty and outdoor fun, but steep roads and winter weather can be difficult. Location changes how people live.']
+ ],quote:'Location changes how people live.'},
+ {id:'desert',name:'DESERT',title:'Desert Community',badge:'🏜️',paras:[
+  ['A desert community is in a dry place. The climate is often hot in the day and cooler at night.'],
+  ['Landforms can include sand, rocky hills, canyons, and dry washes. People may work in solar energy, tourism, building, science, or farming with irrigation.'],
+  ['Deserts can have open space and sunshine, but water and heat can be challenges. People adapt to the land around them.']
+ ],quote:'People adapt to the land around them.'},
+ {id:'city',name:'CITY',title:'City Community',badge:'🏙️',paras:[
+  ['A city community has many people, buildings, roads, and services close together. The weather depends on where the city is located.'],
+  ['City features include neighborhoods, parks, stores, schools, offices, and transportation. People may work in many kinds of jobs.'],
+  ['Cities offer many choices, but traffic, noise, and crowded spaces can be challenges. Geography helps explain where cities grow.']
+ ],quote:'Geography helps explain where cities grow.'}
+];
+const shopper={id:'shopper',name:'SMART SHOPPER',title:'Smart Shopper',badge:'🛒',paras:[
+ ['People make choices because money is limited. A budget helps people plan before they spend.'],
+ ['Needs are things people must have, such as food, water, clothing, and shelter. Wants are things people would like to have.'],
+ ['Goods are things people buy and use. Services are jobs people pay others to do. Smart shoppers compare choices and save money when they can.']
+],quote:'A budget helps people plan before they spend.'};
+let state={mission:null,topic:null,step:0,steps:[]};
+
+function makeSteps(type,item){
+ if(type==='helpers') return [
+  ['MEET THE HERO',`<p><span class="paragraph-tag">1</span>${item.paras[0][0]}</p>`,`<div class="student-move">Choose where the portrait will go on your one-pager.</div><div class="student-move">Write the helper name as your title.</div>`,['portrait','title']],
+  ['JOB CLUES',`<p><span class="paragraph-tag">2</span>${item.paras[1][0]}</p>`,`<div class="student-move">Write what this helper does.</div><div class="student-move">Pick 3 skills from the reading or your own thinking.</div>`,['job','3 skills']],
+  ['TOOLS AND IMPACT',`<p><span class="paragraph-tag">2</span>${item.paras[1][1]}</p><p><span class="paragraph-tag">3</span>${item.paras[2][1]}</p>`,`<div class="student-move">Draw and label tools.</div><div class="student-move">Explain how this helper helps people.</div>`,['tools','impact']],
+  ['CHALLENGE CHECK',`<p><span class="paragraph-tag">3</span>${item.paras[2][0]}</p>`,`<div class="student-move">Write one big challenge this helper faces.</div>`,['challenge']],
+  ['EVIDENCE GRAB',`<div class="quote-box"><span class="paragraph-tag">3</span>“${item.quote}”</div>`,`<div class="student-move">Copy the quote and paragraph number on your one-pager.</div>`,['quote','paragraph #']],
+  ['HALL OF FAME SPEECH',`<p>You are ready to nominate ${item.title.toLowerCase()} for the Hall of Fame.</p>`,`<div class="student-move">Write 3 to 5 sentences explaining why this helper deserves recognition.</div><div class="student-move">Finish with a short summary about why communities need this helper.</div>`,['speech','summary']]
+ ];
+ if(type==='geo') return [
+  ['ARRIVE',`<p><span class="paragraph-tag">1</span>${item.paras[0][0]}</p>`,`<div class="student-move">Name your location.</div><div class="student-move">Start your map with 2 or more features.</div>`,['location name','map']],
+  ['CLIMATE AND LANDFORMS',`<p><span class="paragraph-tag">1</span>${item.paras[0][1]||''}</p><p><span class="paragraph-tag">2</span>${item.paras[1][0]}</p>`,`<div class="student-move">Add climate notes.</div><div class="student-move">Draw and label landforms.</div>`,['climate','landforms']],
+  ['JOBS AND RESOURCES',`<p><span class="paragraph-tag">2</span>${item.paras[1][1]}</p>`,`<div class="student-move">Write jobs people might have here.</div><div class="student-move">Add resources people use.</div>`,['jobs','resources']],
+  ['SELL THE PLACE',`<p><span class="paragraph-tag">3</span>${item.paras[2][0]}</p>`,`<div class="student-move">List 3 advantages.</div><div class="student-move">List 2 challenges.</div>`,['advantages','challenges']],
+  ['EVIDENCE GRAB',`<div class="quote-box"><span class="paragraph-tag">3</span>“${item.quote}”</div>`,`<div class="student-move">Copy the quote and paragraph number on your one-pager.</div>`,['quote','paragraph #']],
+  ['MOVING PITCH',`<p>A family is deciding where to live. Your job is to persuade them.</p>`,`<div class="student-move">Write your moving pitch paragraph.</div><div class="student-move">Finish with a summary about how geography affects where people live.</div>`,['pitch','summary']]
+ ];
+ return [
+  ['START YOUR BUDGET',`<p><span class="paragraph-tag">1</span>${item.paras[0][0]}</p><p><span class="paragraph-tag">1</span>${item.paras[0][1]}</p>`,`<div class="student-move">Write $25 at the top of your budget chart.</div><div class="student-move">Choose how much you want to save.</div>`,['$25 budget','save']],
+  ['NEEDS FIRST',`<p><span class="paragraph-tag">2</span>${item.paras[1][0]}</p>`,`<div class="student-move">List 3 needs.</div><div class="student-move">Explain why each one matters.</div>`,['3 needs']],
+  ['WANTS NEXT',`<p><span class="paragraph-tag">2</span>${item.paras[1][1]}</p>`,`<div class="student-move">List 3 wants.</div><div class="student-move">Choose which wants fit your budget.</div>`,['3 wants']],
+  ['GOODS AND SERVICES',`<p><span class="paragraph-tag">3</span>${item.paras[2][0]}</p><p><span class="paragraph-tag">3</span>${item.paras[2][1]}</p>`,`<div class="student-move">Add goods to your chart.</div><div class="student-move">Add one service if it fits your plan.</div>`,['goods','services']],
+  ['EVIDENCE GRAB',`<div class="quote-box"><span class="paragraph-tag">1</span>“${item.quote}”</div>`,`<div class="student-move">Copy the quote and paragraph number on your one-pager.</div>`,['quote','paragraph #']],
+  ['FINAL CHOICE',`<p><span class="paragraph-tag">3</span>${item.paras[2][2]}</p>`,`<div class="student-move">Explain your spending decisions.</div><div class="student-move">Finish with a summary about how people make economic choices.</div>`,['spending','summary']]
+ ];
+}
+function chooseMission(type){state.mission=type;beep(); if(type==='shopper'){startMission(shopper);return;} const data=type==='helpers'?helpers:geo; $('#topicEyebrow').textContent=type==='helpers'?'HERO HALL':'MAP MARKET'; $('#topicTitle').textContent=type==='helpers'?'CHOOSE A HELPER':'CHOOSE A LOCATION'; const grid=$('#topicGrid'); grid.className='topic-grid'+(type==='geo'?' geo':''); grid.innerHTML=data.map(x=>`<button class="topic-btn" data-topic="${x.id}"><div style="font-size:34px">${x.badge}</div>${x.name}</button>`).join(''); grid.querySelectorAll('button').forEach(b=>b.onclick=()=>startMission(data.find(x=>x.id===b.dataset.topic))); show('topic');}
+function startMission(item){state.topic=item;state.step=0;state.steps=makeSteps(state.mission,item);renderStep();show('play');beep(720);}
+function renderStep(){const step=state.steps[state.step];const total=state.steps.length;$('#missionLabel').textContent=state.topic.name;$('#missionName').textContent=step[0];$('#stepCount').textContent=`STEP ${state.step+1} OF ${total}`;$('#progressBar').style.width=((state.step+1)/total*100)+'%';$('#miniMap').innerHTML=state.steps.map((_,i)=>`<span class="dot ${i<state.step?'done':i===state.step?'current':''}"></span>`).join('');$('#readTitle').textContent='READ THE CLUE';$('#readText').innerHTML=step[1];$('#taskTitle').textContent='BUILD YOUR PAGE';$('#taskText').innerHTML=step[2];$('#toolRow').innerHTML=step[3].map(t=>`<span class="pill">${t}</span>`).join('');$('#backStep').style.visibility=state.step===0?'hidden':'visible';$('#nextStep').textContent=state.step===total-1?'FINISH MISSION':'NEXT STEP';}
+$('#nextStep').onclick=()=>{beep(880); if(state.step<state.steps.length-1){state.step++;renderStep()}else{finishMission()}};
+$('#backStep').onclick=()=>{if(state.step>0){state.step--;renderStep();beep(440)}};
+function finishMission(){localStorage.setItem('expeditionLast',state.topic.name);$('#finishTitle').textContent='MISSION READY';$('#finishText').textContent=`Use your one-pager paper to finish ${state.topic.title}. You have your sections, clue, quote, and final writing move.`;show('finish');beep(980);setTimeout(()=>beep(1180),120)}
+$$('[data-screen]').forEach(b=>b.onclick=()=>{beep();show(b.dataset.screen)});
+$$('[data-mission]').forEach(b=>b.onclick=()=>chooseMission(b.dataset.mission));
+</script>
+</body>
+</html>
