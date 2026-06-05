@@ -1,55 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flight School</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flight School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="flight-page">
-<main class="flight-shell">
-  <header class="flight-header">
-    <a class="back-camp" href="index.html">CAMP</a>
-    <div class="mission-head">
-      <div class="mini-tag">FLIGHT SCHOOL</div>
-      <h1 id="missionTitle">MULTIPLICATION CANYON</h1>
-    </div>
-    <div class="hud" aria-label="game progress">
-      <span id="qHud">0 / 15</span>
-      <span id="lifeHud">❤❤❤</span>
-      <span id="badgeHud">0 BADGES</span>
-    </div>
-  </header>
+<body class="flight-body">
+  <main class="flight-app" id="flightApp">
+    <header class="flight-hud">
+      <a class="camp-link" href="index.html">CAMP</a>
+      <div class="mission-tag"><span id="missionName">FLIGHT SCHOOL</span><strong id="questionCount">READY</strong></div>
+      <div class="hud-stats"><span id="lifeText">❤ ❤ ❤</span><span id="xpText">XP 0</span></div>
+    </header>
 
-  <section class="flight-stage desert" id="stage" aria-label="flight scene">
-    <div class="sky-layer"></div>
-    <img class="scene-sun" id="sceneSun" src="sun.png" alt="">
-    <img class="scene-cloud cloud-one" src="cloud1.png" alt="">
-    <img class="scene-cloud cloud-two" src="cloud2.png" alt="">
-    <div class="level-landmarks" id="landmarks"></div>
-    <div class="ground-strip" id="groundStrip"></div>
-    <img class="falcon-player" id="falcon" src="falcon.png" alt="">
-    <div class="boss-marker" id="bossMarker">?</div>
-    <div class="stage-label" id="stageLabel">CANYON RUN</div>
-  </section>
+    <section class="mission-map" id="missionMap" aria-label="Mission map"></section>
 
-  <section class="play-panel" id="playPanel">
-    <div class="start-card" id="startCard">
-      <h2>READY?</h2>
-      <p id="missionHint">Fly through the canyon.</p>
-      <button id="startBtn" type="button">START</button>
-    </div>
-    <div class="question-card hidden" id="questionCard">
-      <div class="question-line" id="promptText"></div>
-      <div class="choices" id="choices"></div>
-      <div class="feedback" id="feedback"></div>
-    </div>
-  </section>
-</main>
-<script src="question-bank.js"></script>
-<script src="flight-school.js"></script>
+    <section class="flight-stage" id="flightStage" aria-live="polite">
+      <div class="stage-background" id="stageBackground"></div>
+      <div class="stage-overlay" id="stageOverlay"></div>
+      <div class="flight-path" id="flightPath"><img id="pilotFalcon" class="pilot-falcon" src="falcon-pilot.png" alt="Falcon pilot"></div>
+      <div class="boss-badge" id="bossBadge">BOSS</div>
+    </section>
+
+    <section class="play-panel" id="playPanel">
+      <div class="start-card" id="startCard">
+        <p>FLIGHT SCHOOL</p>
+        <h1 id="startTitle">READY FOR TAKEOFF?</h1>
+        <button class="primary-btn" id="startBtn" type="button">START</button>
+        <button class="ghost-btn" id="resetBtn" type="button">RESET FLIGHT</button>
+      </div>
+      <div class="challenge-card hidden" id="challengeCard">
+        <p class="challenge-type" id="challengeType">MISSION</p>
+        <h2 id="promptText">Question</h2>
+        <div class="interactive-zone" id="interactiveZone"></div>
+        <div class="feedback" id="feedbackText"></div>
+      </div>
+      <div class="complete-card hidden" id="completeCard">
+        <p id="completeLabel">BADGE EARNED</p>
+        <h2 id="completeTitle">MISSION COMPLETE</h2>
+        <img src="falcon-ace.png" alt="Ace falcon">
+        <button class="primary-btn" id="continueBtn" type="button">KEEP FLYING</button>
+      </div>
+    </section>
+  </main>
+  <script src="question-bank.js"></script>
+  <script src="flight-school.js"></script>
 </body>
 </html>

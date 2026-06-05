@@ -1,49 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Falcon Adventure Camp</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Falcon Adventure Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="camp-page">
-<main class="camp-shell">
-  <section class="camp-hero">
-    <div class="camp-copy">
-      <img class="camp-falcon big" src="falcon.png" alt="">
-      <div class="mini-tag">SUMMER QUEST</div>
-      <h1>FALCON ADVENTURE CAMP</h1>
-      <h2>CHOOSE YOUR PATH</h2>
-    </div>
-    <section class="camp-map" aria-label="camp map">
-      <img class="map-sun" src="sun.png" alt="">
-      <img class="map-cloud cloud-a" src="cloud1.png" alt="">
-      <img class="map-cloud cloud-b" src="cloud2.png" alt="">
-      <img class="camp-falcon map-flyer" src="falcon.png" alt="">
-      <div class="trail"></div>
-      <a class="camp-card active flight-card" href="flight-school.html">
-        <div class="card-icon hangar-icon"><span></span></div>
-        <strong>FLIGHT SCHOOL</strong>
-        <span>MATH</span>
-      </a>
-      <a class="camp-card locked lab-card" href="field-lab.html">
-        <div class="card-icon lab-icon"><span></span></div>
-        <strong>FIELD LAB</strong>
-        <span>SCIENCE</span>
-        <em>COMING SOON</em>
-      </a>
-      <a class="camp-card locked explore-card" href="expedition-corps.html">
-        <div class="card-icon lodge-icon"><span></span></div>
-        <strong>EXPEDITION CORPS</strong>
-        <span>SOCIAL STUDIES</span>
-        <em>COMING SOON</em>
-      </a>
+<body class="camp-home">
+  <main class="camp-shell">
+    <section class="camp-hero" aria-label="Falcon Adventure Camp">
+      <div class="camp-bg" aria-hidden="true"></div>
+      <div class="sky-motion" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="camp-topbar">
+        <div class="rank-pill"><span>RANK</span><strong id="campRank">ROOKIE</strong></div>
+        <div class="rank-pill"><span>BADGES</span><strong id="badgeCount">0</strong></div>
+      </div>
+      <div class="camp-title-card">
+        <img class="camp-falcon" src="falcon-camp.png" alt="Camp falcon guide">
+        <div>
+          <p class="eyebrow">SUMMER QUEST</p>
+          <h1>FALCON ADVENTURE CAMP</h1>
+          <p class="camp-callout">CHOOSE YOUR PATH</p>
+        </div>
+      </div>
+      <nav class="camp-zones" aria-label="Camp zones">
+        <a class="zone-card active-zone" href="flight-school.html" data-camp-go>
+          <span class="zone-art hangar-art" aria-hidden="true"></span>
+          <span class="zone-subject">MATH</span>
+          <strong>FLIGHT SCHOOL</strong>
+          <small>TAKE OFF</small>
+        </a>
+        <a class="zone-card locked-zone" href="field-lab.html" data-camp-go>
+          <img class="zone-falcon" src="falcon-science.png" alt="">
+          <span class="zone-subject">SCIENCE</span>
+          <strong>FIELD LAB</strong>
+          <small>COMING SOON</small>
+        </a>
+        <a class="zone-card locked-zone" href="expedition-corps.html" data-camp-go>
+          <img class="zone-falcon" src="falcon-explorer.png" alt="">
+          <span class="zone-subject">SOCIAL STUDIES</span>
+          <strong>EXPEDITION CORPS</strong>
+          <small>COMING SOON</small>
+        </a>
+      </nav>
+      <div class="badge-strip" id="badgeStrip" aria-label="Earned badges"></div>
     </section>
-  </section>
-</main>
-<script src="camp.js"></script>
+  </main>
+  <div class="page-wipe" id="pageWipe" aria-hidden="true"></div>
+  <script src="camp.js"></script>
 </body>
 </html>

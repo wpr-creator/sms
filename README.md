@@ -1,24 +1,33 @@
 # Falcon Adventure Camp
 
-Flat GitHub Pages package for the `sms` repo.
+Flat GitHub Pages version.
 
-## Files
+Upload these files to the root of the `sms` repo. Keep all images in the same top-level folder as the HTML, CSS, and JS files.
 
-- `index.html` — Falcon Adventure Camp home
-- `flight-school.html` — math game
-- `field-lab.html` — science placeholder
-- `expedition-corps.html` — social studies placeholder
-- `style.css` — shared design and game visuals
-- `camp.js` — home page progress display
-- `flight-school.js` — game engine
-- `question-bank.js` — randomized mission question generators
+Main pages:
+- `index.html`
+- `flight-school.html`
+- `field-lab.html`
+- `expedition-corps.html`
 
-## Upload
+Core files:
+- `style.css`
+- `camp.js`
+- `flight-school.js`
+- `question-bank.js`
 
-Copy all files into the root of the repo. Then run:
-
-```bash
-git add .
-git commit -m "Upgrade Flight School game"
-git push origin main
-```
+Required image assets already expected at the top level:
+- `bg-camp.png`
+- `bg-canyon.png`
+- `bg-nest.png`
+- `bg-peaks.png`
+- `bg-rapids.png`
+- `bg-forest.png`
+- `bg-tower.png`
+- `bg-area.png`
+- `bg-ridge.png`
+- `falcon-camp.png`
+- `falcon-pilot.png`
+- `falcon-ace.png`
+- `falcon-science.png`
+- `falcon-explorer.png`

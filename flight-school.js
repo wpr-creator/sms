@@ -1,166 +1,40 @@
-const missions = [
-  {name:'MULTIPLICATION CANYON', label:'CANYON RUN', scene:'desert', skill:'multiplication', hint:'Fly through the canyon.', badge:'CANYON PILOT', props:['cloud1.png','cloud2.png','sun.png']},
-  {name:'DIVISION NEST', label:'NEST LANDING', scene:'forest', skill:'division', hint:'Land at the right nest.', badge:'NEST NAVIGATOR', props:['tree01.png','tree02.png','tree03.png','tree04.png','tree05.png']},
-  {name:'PLACE VALUE PEAKS', label:'PEAK CLIMB', scene:'castle', skill:'placeValue', hint:'Build the number.', badge:'PEAK CLIMBER', props:['tower_beige.png','castle_beige.png','tree01.png']},
-  {name:'ROUNDING RAPIDS', label:'RAPID JUMP', scene:'rapids', skill:'rounding', hint:'Jump to the nearest place.', badge:'RAPID RIDER', props:['fence.png','fence_piece.png','tree02.png','tree03.png']},
-  {name:'FRACTION FOREST', label:'FOREST TRAIL', scene:'fall', skill:'fractions', hint:'Follow the fraction trail.', badge:'FOREST SCOUT', props:['tree04.png','tree05.png','tree01.png']},
-  {name:'TIME TOWER', label:'CLOCK DASH', scene:'tower', skill:'time', hint:'Beat the clock.', badge:'TIME KEEPER', props:['tower_beige.png','castle_beige.png','cloud1.png']},
-  {name:'AREA OUTPOST', label:'TILE FLIGHT', scene:'grass', skill:'area', hint:'Cover the ground with tiles.', badge:'TILE CAPTAIN', props:['fence.png','tree03.png','tree04.png']},
-  {name:'PERIMETER RIDGE', label:'RIDGE RUN', scene:'ridge', skill:'perimeter', hint:'Trace the outside path.', badge:'RIDGE RANGER', props:['fence_piece.png','cloud2.png','sun.png']}
-];
-
-let mission = 0;
-let q = 0;
-let lives = 3;
-let deck = [];
-let current = null;
-const perMission = 15;
-const $ = id => document.getElementById(id);
-
-function tone(freq = 600, dur = .08, type = 'sine') {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = type;
-    osc.frequency.value = freq;
-    gain.gain.value = .055;
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + dur);
-    osc.stop(ctx.currentTime + dur);
-  } catch(e) {}
-}
-function getBadges(){ return JSON.parse(localStorage.getItem('fsBadges') || '[]'); }
-function saveBadge(b){ const s = new Set(getBadges()); s.add(b); localStorage.setItem('fsBadges', JSON.stringify([...s])); $('badgeHud').textContent = s.size + ' BADGES'; }
-function makeDeck(skill){
-  const bank = [];
-  for(let i = 0; i < 100; i++) bank.push(makeQuestion(skill));
-  return bank.sort(() => Math.random() - .5).slice(0, perMission);
-}
-function makeQuestion(skill){
-  if(window.FS_BANK && typeof FS_BANK[skill] === 'function') return FS_BANK[skill]();
-  return {prompt:'6 × 4 = ?', answer:24, options:[24,20,28,18]};
-}
-function clearChoices(){ $('choices').innerHTML = ''; }
-
-function setLandmarks(m){
-  const landmarks = $('landmarks');
-  const ground = $('groundStrip');
-  landmarks.innerHTML = '';
-  ground.innerHTML = '';
-  const propSet = [...m.props, ...m.props, ...m.props, ...m.props];
-  propSet.forEach((p, i) => {
-    const img = document.createElement('img');
-    img.src = p;
-    img.alt = '';
-    img.className = 'landmark ' + (i % 4 === 0 ? 'large' : i % 3 === 0 ? 'small' : '');
-    img.style.left = (7 + i * 13) + '%';
-    img.style.bottom = (i % 2 === 0 ? 10 : 30) + 'px';
-    landmarks.appendChild(img);
-  });
-  for(let i = 0; i < 20; i++){
-    const tile = document.createElement('span');
-    tile.className = 'ground-tile';
-    ground.appendChild(tile);
-  }
-}
-
-function setupMission(){
-  const m = missions[mission];
-  $('missionTitle').textContent = m.name;
-  $('stage').className = 'flight-stage ' + m.scene;
-  $('stageLabel').textContent = m.label;
-  $('missionHint').textContent = m.hint;
-  setLandmarks(m);
-  deck = makeDeck(m.skill);
-  q = 0;
-  lives = 3;
-  current = null;
-  $('startCard').classList.remove('hidden');
-  $('questionCard').classList.add('hidden');
-  $('falcon').style.left = '7%';
-  clearChoices();
-  $('feedback').textContent = '';
-  updateHud();
-}
-
-function updateHud(){
-  $('qHud').textContent = `${q} / ${perMission}`;
-  $('lifeHud').textContent = '❤'.repeat(lives) + '♡'.repeat(3 - lives);
-  $('badgeHud').textContent = getBadges().length + ' BADGES';
-  $('falcon').style.left = (7 + (q / perMission) * 75) + '%';
-  $('bossMarker').textContent = (q === 4 || q === 9) ? 'BOSS' : (q === 14 ? 'FINAL' : '?');
-}
-
-function showQuestion(){
-  if(!deck.length) deck = makeDeck(missions[mission].skill);
-  $('startCard').classList.add('hidden');
-  $('questionCard').classList.remove('hidden');
-  current = deck[q] || makeQuestion(missions[mission].skill);
-  $('promptText').textContent = current.prompt;
-  $('feedback').textContent = '';
-  clearChoices();
-  current.options.forEach(opt => {
-    const button = document.createElement('button');
-    button.className = 'choice';
-    button.type = 'button';
-    button.textContent = opt;
-    button.addEventListener('click', () => answer(opt, button));
-    $('choices').appendChild(button);
-  });
-}
-
-function answer(opt, btn){
-  Array.from($('choices').children).forEach(b => b.disabled = true);
-  if(String(opt) === String(current.answer)){
-    btn.classList.add('correct');
-    $('feedback').textContent = (q === 4 || q === 9 || q === 14) ? 'BOSS HIT!' : 'GOOD FLIGHT!';
-    tone(760,.1,'triangle');
-    setTimeout(() => tone(980,.12,'triangle'), 70);
-    $('falcon').classList.add('boost');
-    q++;
-    updateHud();
-    setTimeout(() => {
-      $('falcon').classList.remove('boost');
-      if(q >= perMission) completeMission();
-      else showQuestion();
-    }, 650);
-  } else {
-    btn.classList.add('wrong');
-    $('feedback').textContent = 'TRY THE NEXT ONE.';
-    tone(180,.16,'sawtooth');
-    lives--;
-    updateHud();
-    setTimeout(() => {
-      if(lives <= 0) setupMission();
-      else showQuestion();
-    }, 850);
-  }
-}
-
-function completeMission(){
-  saveBadge(missions[mission].badge);
-  tone(880,.1,'triangle');
-  setTimeout(() => tone(1100,.16,'triangle'), 100);
-  mission++;
-  if(mission >= missions.length){
-    $('startCard').innerHTML = '<h2>FLIGHT SCHOOL COMPLETE!</h2><p>ALL BADGES EARNED.</p><button type="button" id="campReturn">BACK TO CAMP</button>';
-    $('startCard').classList.remove('hidden');
-    $('questionCard').classList.add('hidden');
-    $('campReturn').addEventListener('click', () => location.href = 'index.html');
-    return;
-  }
-  setupMission();
-  setTimeout(showQuestion, 900);
-}
-
-function initFlightSchool(){
-  const start = $('startBtn');
-  if(start) start.addEventListener('click', showQuestion);
-  setupMission();
-}
-
-if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFlightSchool);
-else initFlightSchool();
+(function(){
+  const $=id=>document.getElementById(id);
+  const missions=window.FS_QUESTIONS.missions;
+  const storeKey='fs_progress_v9';
+  const badgeKey='fs_badges';
+  let state=load();
+  let current=0, questions=[], qIndex=0, lives=3, locked=false;
+  const els={
+    missionName:$('missionName'), questionCount:$('questionCount'), lifeText:$('lifeText'), xpText:$('xpText'), missionMap:$('missionMap'),
+    stageBg:$('stageBackground'), stage:$('flightStage'), falcon:$('pilotFalcon'), boss:$('bossBadge'),
+    startCard:$('startCard'), startTitle:$('startTitle'), startBtn:$('startBtn'), resetBtn:$('resetBtn'), challengeCard:$('challengeCard'),
+    prompt:$('promptText'), zone:$('interactiveZone'), feedback:$('feedbackText'), type:$('challengeType'),
+    complete:$('completeCard'), completeTitle:$('completeTitle'), completeLabel:$('completeLabel'), continueBtn:$('continueBtn')
+  };
+  function load(){try{return JSON.parse(localStorage.getItem(storeKey))||{unlocked:0,xp:0,complete:[]}}catch(e){return{unlocked:0,xp:0,complete:[]}}}
+  function save(){localStorage.setItem(storeKey,JSON.stringify(state));}
+  function getBadges(){try{return JSON.parse(localStorage.getItem(badgeKey))||[]}catch(e){return[]}}
+  function saveBadge(name){const b=getBadges(); if(!b.includes(name)){b.push(name);localStorage.setItem(badgeKey,JSON.stringify(b));}}
+  function sound(kind){try{const A=window.AudioContext||window.webkitAudioContext;const a=new A();const o=a.createOscillator();const g=a.createGain();o.connect(g);g.connect(a.destination);o.type=kind==='wrong'?'sawtooth':'triangle';let f=kind==='wrong'?160:kind==='boss'?220:kind==='win'?523:740;o.frequency.value=f;g.gain.value=.05;o.start();if(kind==='win'){o.frequency.setValueAtTime(659,a.currentTime+.08);o.frequency.setValueAtTime(784,a.currentTime+.16)}if(kind==='boss'){o.frequency.setValueAtTime(330,a.currentTime+.08)}g.gain.exponentialRampToValueAtTime(.001,a.currentTime+(kind==='win'?.32:.14));o.stop(a.currentTime+(kind==='win'?.34:.16))}catch(e){}}
+  function renderMap(){els.missionMap.innerHTML='';missions.forEach((m,i)=>{const n=document.createElement('div');n.className='map-node '+(state.complete.includes(i)?'done ':i===current?'current ':'')+(i>state.unlocked?'locked':'');n.textContent=i>state.unlocked?'LOCKED':m.name.split(' ')[0];els.missionMap.appendChild(n);});}
+  function setMissionVisual(i){const m=missions[i];els.missionName.textContent=m.name;els.stageBg.style.backgroundImage=`linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.1)), url('${m.bg}')`;els.stage.className='flight-stage scene-'+m.id;els.boss.classList.remove('show');positionFalcon(0);}
+  function positionFalcon(progress){els.falcon.style.left=(Math.max(0,Math.min(1,progress))*82)+'%';}
+  function updateHud(){els.lifeText.textContent='❤ '.repeat(lives).trim()+' ♡ '.repeat(3-lives).trim();els.xpText.textContent='XP '+state.xp;els.questionCount.textContent=questions.length?`${Math.min(qIndex+1,15)}/15`:'READY';}
+  function show(view){els.startCard.classList.toggle('hidden',view!=='start');els.challengeCard.classList.toggle('hidden',view!=='play');els.complete.classList.toggle('hidden',view!=='complete');}
+  function boot(){current=Math.min(state.unlocked,missions.length-1);renderMap();setMissionVisual(current);updateHud();els.startTitle.textContent=state.unlocked===0?'READY FOR TAKEOFF?':'KEEP FLYING';show('start');}
+  function startMission(i=current){current=i;questions=window.FS_QUESTIONS.makeMissionQuestions(missions[current].id,15);qIndex=0;lives=3;locked=false;setMissionVisual(current);renderMap();updateHud();show('play');renderQuestion();}
+  function renderQuestion(){locked=false;const q=questions[qIndex];const m=missions[current];const isBoss=[4,9,14].includes(qIndex);els.boss.textContent=qIndex===14?'MISSION BOSS':'MINI BOSS';els.boss.classList.toggle('show',isBoss);if(isBoss)sound('boss');els.type.textContent=isBoss?'BOSS ROUND':m.name;els.prompt.textContent=q.prompt;els.feedback.textContent='';els.zone.innerHTML='';els.zone.className='interactive-zone type-'+(q.kind||m.type||'choice');const type=q.kind==='line'?'line':q.kind==='clock'?'clock':m.type;
+    if(type==='line') renderLine(q); else if(type==='clock') renderClock(q); else renderButtons(q,type);
+    positionFalcon(qIndex/15);
+    updateHud();}
+  function renderButtons(q,type){q.options.forEach(opt=>{const b=document.createElement('button');b.type='button';b.className='answer-btn visual-btn '+(type||'cloud');b.textContent=opt;b.addEventListener('click',()=>answer(b,opt,q.answer));els.zone.appendChild(b);});}
+  function renderLine(q){const wrap=document.createElement('div');wrap.className='number-line';q.options.forEach(opt=>{const b=document.createElement('button');b.type='button';b.className='line-choice';b.innerHTML=`<span>${opt}</span>`;b.addEventListener('click',()=>answer(b,opt,q.answer));wrap.appendChild(b);});els.zone.appendChild(wrap);}
+  function renderClock(q){q.options.forEach(opt=>{const [h,m]=opt.split(':').map(Number);const b=document.createElement('button');b.type='button';b.className='answer-btn clock-choice';const hourRot=((h%12)*30)+(m*.5);const minRot=m*6;b.innerHTML=`<div class="clock-face" style="--hourRot:${hourRot}deg;--minRot:${minRot}deg"></div><span>${opt}</span>`;b.addEventListener('click',()=>answer(b,opt,q.answer));els.zone.appendChild(b);});}
+  function answer(btn,opt,ans){if(locked)return;locked=true;if(String(opt)===String(ans)){btn.classList.add('correct');els.feedback.textContent='NICE FLIGHT';sound('correct');state.xp+=10;els.falcon.classList.add('boost');setTimeout(()=>els.falcon.classList.remove('boost'),450);qIndex++;positionFalcon(qIndex/15);updateHud();setTimeout(()=>{qIndex>=questions.length?completeMission():renderQuestion()},650);}else{btn.classList.add('wrong');lives--;els.feedback.textContent=lives>0?'TRY ANOTHER PATH':'START THIS MISSION AGAIN';sound('wrong');updateHud();if(lives<=0){setTimeout(()=>startMission(current),950)}else{setTimeout(()=>{btn.classList.remove('wrong');locked=false;els.feedback.textContent='';},650)}}}
+  function completeMission(){state.complete=[...new Set([...state.complete,current])];saveBadge(missions[current].badge);if(current>=state.unlocked&&state.unlocked<missions.length-1)state.unlocked=current+1;state.xp+=50;save();renderMap();updateHud();els.completeTitle.textContent=missions[current].badge;els.completeLabel.textContent=current===missions.length-1?'FLIGHT SCHOOL COMPLETE':'BADGE EARNED';show('complete');sound('win');positionFalcon(1);if(current<missions.length-1){setTimeout(()=>startMission(current+1),1800)}}
+  els.startBtn.addEventListener('click',()=>startMission(Math.min(state.unlocked,missions.length-1)));
+  els.resetBtn.addEventListener('click',()=>{if(confirm('Reset Flight School progress?')){localStorage.removeItem(storeKey);localStorage.removeItem(badgeKey);state=load();boot();}});
+  els.continueBtn.addEventListener('click',()=>{current<missions.length-1?startMission(current+1):boot();});
+  boot();
+})();
