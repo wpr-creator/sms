@@ -1,178 +1,35 @@
-(function(){
-  const TOTAL_PER_MISSION = 15;
-  let missionIndex = 0, qNum = 0, lives = 3, xp = 0, current, lock=false;
-  const $ = id => document.getElementById(id);
-  const scene=$('scene'), sceneAssets=$('sceneAssets'), falcon=$('falcon'), activity=$('activity'), prompt=$('prompt'), feedback=$('feedback'), overlay=$('overlay');
-
-  const assetScenes = {
-    multiplication: ['sun.png','cloud1.png','cloud2.png','cloud3.png','tower_beige.png'],
-    division: ['cloud1.png','tree01.png','tree02.png','tree03.png','tree04.png','tree05.png'],
-    place: ['cloud1.png','cloud2.png','tower_beige.png','castle_beige.png'],
-    rounding: ['cloud1.png','cloud3.png','fence.png','fence_piece.png','tree01.png'],
-    fractions: ['cloud2.png','tree01.png','tree02.png','tree03.png','tree04.png','tree05.png'],
-    word: ['sun.png','cloud1.png','cloud2.png','cloud3.png','tree01.png','castle_beige.png'],
-    time: ['sun.png','cloud1.png','cloud2.png','tower_beige.png'],
-    area: ['cloud1.png','cloud2.png','fence.png','fence_piece.png','castle_beige.png'],
-    perimeter: ['cloud1.png','cloud3.png','fence.png','fence_piece.png','tree02.png']
-  };
-
-  const backgroundClass = s => {
-    if(s==='multiplication') return 'desert-bg';
-    if(s==='division') return 'forest-bg';
-    if(s==='place') return 'castle-bg';
-    if(s==='rounding') return 'grass-bg';
-    if(s==='fractions') return 'fall-bg';
-    if(s==='time') return 'castle-bg';
-    if(s==='area') return 'grass-bg';
-    if(s==='perimeter') return 'desert-bg';
-    return 'grass-bg';
-  };
-
-  function audio(freq=520,dur=.08,type='sine'){
-    try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();o.type=type;o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.12,ctx.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur+.02)}catch(e){}
-  }
-
-  function saveBadge(badge){
-    const prog=JSON.parse(localStorage.getItem('flightSchoolProgress')||'{}');
-    prog.badges=[...new Set([...(prog.badges||[]),badge])];
-    prog.xp=xp;
-    prog.missionIndex=Math.max(prog.missionIndex||0,missionIndex+1);
-    localStorage.setItem('flightSchoolProgress',JSON.stringify(prog));
-    return prog;
-  }
-
-  function buildScene(sceneName){
-    const m=MISSIONS[missionIndex];
-    scene.className=`scene ${sceneName} ${backgroundClass(sceneName)}`;
-    sceneAssets.innerHTML='';
-    const list = assetScenes[sceneName] || assetScenes.word;
-    list.forEach((src,i)=>{
-      const img=document.createElement('img');
-      img.src=src;
-      img.alt='';
-      img.className=`scene-prop prop-${i%6}`;
-      img.style.setProperty('--delay', `${i * -1.8}s`);
-      img.style.setProperty('--speed', `${14 + (i%4)*4}s`);
-      sceneAssets.appendChild(img);
-    });
-    scene.setAttribute('data-zone', m.name);
-  }
-
-  function setHud(){
-    const m=MISSIONS[missionIndex];
-    $('missionPill').textContent=`MISSION ${missionIndex+1} / ${MISSIONS.length}`;
-    $('livesPill').textContent='♥ '.repeat(lives).trim();
-    $('xpPill').textContent=`XP ${xp}`;
-    $('missionTitle').textContent=m.name;
-    $('distanceBadge').textContent=`${Math.min(qNum+1,TOTAL_PER_MISSION)} / ${TOTAL_PER_MISSION}`;
-    $('progressFill').style.width=`${(qNum/TOTAL_PER_MISSION)*100}%`;
-    const x = Math.min(68, qNum/TOTAL_PER_MISSION*68);
-    falcon.style.transform=`translateX(${x}vw)`;
-  }
-
-  function startMission(){
-    lives=3;qNum=0;feedback.textContent='';overlay.classList.remove('show');
-    buildScene(MISSIONS[missionIndex].scene);
-    setHud();
-    nextQuestion();
-  }
-
-  function nextQuestion(){
-    lock=false;
-    const m=MISSIONS[missionIndex];
-    buildScene(m.scene);
-    current=m.make();
-    current.type=current.type||m.type;
-    const boss = qNum===4 || qNum===9 || qNum===14;
-    $('playCard').classList.toggle('boss',boss);
-    $('bossTag').textContent = boss ? (qNum===14?`FINAL BOSS`:'BOSS') : '';
-    prompt.textContent = boss ? `${m.boss}: ${current.prompt}` : current.prompt;
-    render(current,m,boss);
-    setHud();
-  }
-
-  function render(q,m,boss){
-    activity.innerHTML='';
-    if(q.type==='line'||m.type==='line') return renderLine(q);
-    if(q.type==='clock'||m.type==='clock') return renderClock(q);
-    if(m.type==='blocks') return renderBlocks(q);
-    if(m.type==='tiles') return renderTiles(q);
-    if(m.type==='perches'||m.type==='nests') return renderPerches(q,m.type);
-    return renderChoices(q,m.type==='clouds');
-  }
-
-  function renderChoices(q,clouds=false){
-    const wrap=document.createElement('div');wrap.className='choices '+(clouds?'cloud-choices':'');
-    (q.choices||[]).forEach(c=>wrap.appendChild(btn(c,()=>answer(c))));activity.appendChild(wrap);
-  }
-
-  function renderPerches(q,type){
-    const wrap=document.createElement('div');wrap.className='perch-choices '+(type==='nests'?'nest-choices':'');
-    q.choices.forEach(c=>{const b=document.createElement('button');b.className='perch';b.textContent=c;b.onclick=()=>answer(c);wrap.appendChild(b)});
-    activity.appendChild(wrap);
-  }
-
-  function renderBlocks(q){
-    const wrap=document.createElement('div');wrap.className='block-builder';
-    for(let i=0;i<(q.hundreds||0);i++)wrap.appendChild(block('100','hundred'));
-    for(let i=0;i<(q.tens||0);i++)wrap.appendChild(block('10','ten'));
-    for(let i=0;i<(q.ones||0);i++)wrap.appendChild(block('1','one'));
-    const choices=document.createElement('div');choices.className='choices';q.choices.forEach(c=>choices.appendChild(btn(c,()=>answer(c))));
-    activity.append(wrap,choices);
-  }
-
-  function renderTiles(q){
-    const grid=document.createElement('div');grid.className='tile-grid';grid.style.gridTemplateColumns=`repeat(${Math.min(q.cols||4,10)},34px)`;
-    for(let i=0;i<Math.min((q.rows||3)*(q.cols||4),80);i++){const t=document.createElement('div');t.className='tile';grid.appendChild(t)}
-    const choices=document.createElement('div');choices.className='choices';q.choices.forEach(c=>choices.appendChild(btn(c,()=>answer(c))));activity.append(grid,choices);
-  }
-
-  function renderLine(q){
-    const wrap=document.createElement('div');wrap.className='number-line';const track=document.createElement('div');track.className='line-track';
-    for(let i=0;i<=q.den;i++){const tick=document.createElement('div');tick.className='tick';tick.style.left=`${i/q.den*100}%`;const b=document.createElement('button');b.textContent=i===0?'0':i===q.den?'1':`${i}/${q.den}`;b.onclick=()=>answer(i/q.den);tick.appendChild(b);track.appendChild(tick)}
-    wrap.appendChild(track);activity.appendChild(wrap);
-  }
-
-  function renderClock(q){
-    const wrap=document.createElement('div');wrap.className='choices clock-choices';q.choices.forEach(label=>{const card=document.createElement('button');card.className='choice clock-choice';card.innerHTML=clockSvg(label);card.onclick=()=>answer(label);wrap.appendChild(card)});activity.appendChild(wrap);
-  }
-
-  function clockSvg(label){const [h,m]=label.split(':').map(Number);const minAng=m*6-90;const hourAng=(h%12)*30+m*.5-90;return `<div class="clock-face"><span class="hand minute" style="transform:rotate(${minAng}deg)"></span><span class="hand hour" style="transform:rotate(${hourAng}deg)"></span></div>`;}
-  function block(txt,cls){const d=document.createElement('div');d.className='block '+cls;d.textContent=txt;return d;}
-  function btn(text,fn){const b=document.createElement('button');b.className='choice';b.textContent=text;b.onclick=fn;return b;}
-
-  function answer(value){
-    if(lock)return;lock=true;
-    const ok = String(value)===String(current.answer) || Math.abs(Number(value)-Number(current.answer))<0.001;
-    [...activity.querySelectorAll('button')].forEach(b=>{if(String(b.textContent).trim()===String(current.answer))b.classList.add('correct')});
-    if(ok){
-      audio(660,.07,'triangle');setTimeout(()=>audio(920,.08,'triangle'),70);xp+=10;
-      feedback.textContent = qNum===14 ? 'MISSION CLEAR!' : 'NICE FLIGHT!';
-      falcon.classList.remove('hit');falcon.classList.add('boost');scene.classList.add('success-pulse');
-      qNum++;setHud();
-      setTimeout(()=>{falcon.classList.remove('boost');scene.classList.remove('success-pulse')},520);
-      setTimeout(()=>{qNum>=TOTAL_PER_MISSION?completeMission():nextQuestion()},780);
-    }else{
-      audio(150,.16,'sawtooth');lives--;feedback.textContent='TRY AGAIN';falcon.classList.add('hit');setHud();
-      setTimeout(()=>falcon.classList.remove('hit'),420);
-      setTimeout(()=>{if(lives<=0)restartMission();else lock=false;feedback.textContent=''},800);
-    }
-  }
-
-  function completeMission(){
-    const prog=saveBadge(MISSIONS[missionIndex].badge);
-    audio(720,.1,'triangle');setTimeout(()=>audio(960,.12,'triangle'),110);setTimeout(()=>audio(1200,.15,'triangle'),240);
-    overlay.classList.add('show');
-    overlay.querySelector('.modal').innerHTML=`<h2>${MISSIONS[missionIndex].badge}</h2><p>BADGE EARNED</p><div class="badge-wall">${prog.badges.map(b=>`<span class="badge">${b}</span>`).join('')}</div><button id="nextMission">KEEP FLYING</button><a href="index.html">CAMP</a>`;
-    document.getElementById('nextMission').onclick=()=>{missionIndex++; if(missionIndex>=MISSIONS.length){finishGame()} else startMission();};
-  }
-
-  function restartMission(){
-    overlay.classList.add('show');
-    overlay.querySelector('.modal').innerHTML=`<h2>MISSION RESET</h2><p>TRY THE ZONE AGAIN.</p><button id="retryMission">RETRY</button><a href="index.html">CAMP</a>`;
-    document.getElementById('retryMission').onclick=startMission;
-  }
-
-  function finishGame(){overlay.classList.add('show');overlay.querySelector('.modal').innerHTML=`<h2>SKY CHAMPION</h2><p>YOU CLEARED FLIGHT SCHOOL.</p><a href="index.html">BACK TO CAMP</a>`;}
-  document.getElementById('startBtn').onclick=()=>{audio(520,.08,'triangle');startMission();};
-})();
+const missions=[
+ {name:'MULTIPLICATION CANYON',scene:'desert',skill:'multiplication',hint:'Fly through the canyon. Pick the right products.',badge:'CANYON PILOT',props:['cloud1.png','cloud2.png','cloud3.png','sun.png']},
+ {name:'DIVISION NEST',scene:'forest',skill:'division',hint:'Land near the nest with the right quotient.',badge:'NEST NAVIGATOR',props:['tree01.png','tree02.png','tree03.png','tree04.png','tree05.png']},
+ {name:'PLACE VALUE PEAKS',scene:'castle',skill:'placeValue',hint:'Build numbers with hundreds, tens, and ones.',badge:'PEAK CLIMBER',props:['tower_beige.png','castle_beige.png','tree01.png']},
+ {name:'ROUNDING RAPIDS',scene:'grass',skill:'rounding',hint:'Jump to the nearest safe perch.',badge:'RAPID RIDER',props:['fence.png','fence_piece.png','tree02.png','tree03.png']},
+ {name:'FRACTION FOREST',scene:'fall',skill:'fractions',hint:'Follow the fraction trail.',badge:'FOREST SCOUT',props:['tree04.png','tree05.png','tree01.png']},
+ {name:'TIME TOWER',scene:'castle',skill:'time',hint:'Match the time before the clock tower rings.',badge:'TIME KEEPER',props:['tower_beige.png','castle_beige.png','cloud1.png']},
+ {name:'AREA OUTPOST',scene:'grass',skill:'area',hint:'Cover the ground with the right number of tiles.',badge:'TILE CAPTAIN',props:['fence.png','tree03.png','tree04.png']},
+ {name:'PERIMETER RIDGE',scene:'desert',skill:'perimeter',hint:'Trace the outside path.',badge:'RIDGE RANGER',props:['fence_piece.png','cloud2.png','sun.png']}
+];
+let mission=0,q=0,lives=3,deck=[],current=null;const perMission=15;
+const $=id=>document.getElementById(id);
+const stage=$('stage'),falcon=$('falcon'),land=$('landscapeStrip'),title=$('missionTitle'),qHud=$('qHud'),lifeHud=$('lifeHud'),badgeHud=$('badgeHud'),start=$('startCard'),question=$('questionCard'),prompt=$('promptText'),choices=$('choices'),feedback=$('feedback'),boss=$('bossMarker');
+function tone(freq=600,dur=.08,type='sine'){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const osc=ctx.createOscillator();const gain=ctx.createGain();osc.type=type;osc.frequency.value=freq;gain.gain.value=.06;osc.connect(gain);gain.connect(ctx.destination);osc.start();gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur);osc.stop(ctx.currentTime+dur)}catch(e){}}
+function badges(){return JSON.parse(localStorage.getItem('fsBadges')||'[]')}
+function saveBadge(b){const s=new Set(badges());s.add(b);localStorage.setItem('fsBadges',JSON.stringify([...s]));badgeHud.textContent=s.size+' BADGES'}
+function makeDeck(skill){let arr=[];for(let i=0;i<60;i++)arr.push(makeQuestion(skill,i));return arr.sort(()=>Math.random()-.5).slice(0,perMission)}
+function makeQuestion(skill,i){ if(window.FS_BANK && FS_BANK[skill]) return FS_BANK[skill]();
+ let a=2+Math.floor(Math.random()*11),b=2+Math.floor(Math.random()*11),ans=a*b,txt=`${a} × ${b} = ?`;
+ if(skill==='division'){ans=a;txt=`${a*b} ÷ ${b} = ?`}
+ if(skill==='placeValue'){let h=1+Math.floor(Math.random()*8),t=Math.floor(Math.random()*10),o=Math.floor(Math.random()*10);ans=h*100+t*10+o;txt=`${h} hundreds, ${t} tens, ${o} ones`}
+ if(skill==='rounding'){let n=100+Math.floor(Math.random()*850);let by=Math.random()<.5?10:100;ans=Math.round(n/by)*by;txt=`Round ${n} to the nearest ${by}`}
+ if(skill==='fractions'){let d=[2,3,4,6,8][Math.floor(Math.random()*5)],n=1+Math.floor(Math.random()*(d-1));ans=`${n}/${d}`;txt=`Which fraction shows ${n} of ${d} equal parts?`}
+ if(skill==='time'){let hr=1+Math.floor(Math.random()*12),min=[0,5,10,15,20,25,30,35,40,45,50,55][Math.floor(Math.random()*12)];ans=`${hr}:${String(min).padStart(2,'0')}`;txt=`What time is ${hr} hours and ${min} minutes?`}
+ if(skill==='area'){let w=2+Math.floor(Math.random()*8),h=2+Math.floor(Math.random()*8);ans=w*h;txt=`Area: ${w} rows of ${h}`}
+ if(skill==='perimeter'){let w=2+Math.floor(Math.random()*9),h=2+Math.floor(Math.random()*9);ans=2*(w+h);txt=`Perimeter of ${w} by ${h}`}
+ let opts=new Set([ans]);while(opts.size<4){let delta=Math.floor(Math.random()*12)-6;let v=typeof ans==='number'?Math.max(0,ans+delta):`${1+Math.floor(Math.random()*7)}/${2+Math.floor(Math.random()*7)}`;opts.add(v)}
+ return {prompt:txt,answer:ans,options:[...opts].sort(()=>Math.random()-.5)}
+}
+function setupMission(){const m=missions[mission];title.textContent=m.name;stage.className='flight-stage '+m.scene;land.innerHTML='';[...m.props,...m.props,...m.props].forEach((p,i)=>{let img=document.createElement('img');img.src=p;img.className='prop '+(i%3===0?'small':'');land.appendChild(img)});$('missionHint').textContent=m.hint;deck=makeDeck(m.skill);q=0;lives=3;updateHud();start.classList.remove('hidden');question.classList.add('hidden');falcon.style.left='8%';boss.textContent='?'}
+function updateHud(){qHud.textContent=`${q} / ${perMission}`;lifeHud.textContent='❤'.repeat(lives)+'♡'.repeat(3-lives);badgeHud.textContent=badges().length+' BADGES';let pct=8+(q/perMission)*72;falcon.style.left=pct+'%';boss.textContent=(q===4||q===9)?'BOSS':(q===14?'FINAL':'?')}
+function showQuestion(){start.classList.add('hidden');question.classList.remove('hidden');current=deck[q];prompt.textContent=current.prompt;choices.innerHTML='';feedback.textContent='';current.options.forEach(opt=>{let b=document.createElement('button');b.className='choice';b.textContent=opt;b.onclick=()=>answer(opt,b);choices.appendChild(b)})}
+function answer(opt,btn){[...choices.children].forEach(b=>b.disabled=true);if(String(opt)===String(current.answer)){btn.classList.add('correct');feedback.textContent=(q===4||q===9||q===14)?'BOSS HIT!':'GOOD FLIGHT!';tone(760,.1,'triangle');setTimeout(()=>tone(980,.12,'triangle'),70);falcon.classList.add('boost');q++;updateHud();setTimeout(()=>{falcon.classList.remove('boost'); if(q>=perMission)completeMission(); else showQuestion()},650)}else{btn.classList.add('wrong');feedback.textContent='TRY THE NEXT ONE.';tone(180,.16,'sawtooth');lives--;updateHud();setTimeout(()=>{ if(lives<=0){feedback.textContent='BACK TO THE START OF THIS MISSION.';setTimeout(setupMission,900)} else showQuestion()},800)}}
+function completeMission(){saveBadge(missions[mission].badge);tone(880,.1,'triangle');setTimeout(()=>tone(1100,.16,'triangle'),100);mission++;if(mission>=missions.length){start.innerHTML='<h2>FLIGHT SCHOOL COMPLETE!</h2><p>All badges earned.</p><button onclick="location.href=\'index.html\'">BACK TO CAMP</button>';start.classList.remove('hidden');question.classList.add('hidden');return}setupMission();setTimeout(showQuestion,900)}
+$('startBtn').onclick=showQuestion;setupMission();

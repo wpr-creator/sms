@@ -1,54 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Falcon Adventure Camp</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Falcon Adventure Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body class="camp-page">
-  <div class="sky-layer" aria-hidden="true"></div>
-  <div class="camp-stars" aria-hidden="true"></div>
-  <div class="camp-cloud c1" aria-hidden="true"></div>
-  <div class="camp-cloud c2" aria-hidden="true"></div>
-  <main class="camp-shell">
-    <header class="camp-hero">
-      <div class="mini-kicker">SUMMER QUEST</div>
+<main class="camp-shell">
+  <section class="camp-hero">
+    <div class="camp-copy">
+      <div class="mini-tag">SUMMER QUEST</div>
+      <img class="camp-falcon" src="falcon.png" alt="">
       <h1>FALCON ADVENTURE CAMP</h1>
-      <p class="student-line">CHOOSE A CAMP ZONE</p>
-    </header>
-
-    <section class="camp-map" aria-label="Camp zones">
-      <div class="map-trail" aria-hidden="true"></div>
-      <a class="camp-zone active-zone" href="flight-school.html" data-zone="flight">
-        <span class="zone-art hangar" aria-hidden="true"></span>
-        <span class="zone-label">MATH</span>
+      <h2>CHOOSE YOUR PATH</h2>
+    </div>
+    <div class="camp-map" aria-label="Camp paths">
+      <img class="map-sun" src="sun.png" alt="">
+      <img class="map-cloud cloud-a" src="cloud1.png" alt="">
+      <img class="map-cloud cloud-b" src="cloud2.png" alt="">
+      <div class="camp-card active" onclick="location.href='flight-school.html'">
+        <img src="falcon.png" alt="">
+        <span>MATH</span>
         <strong>FLIGHT SCHOOL</strong>
-        <span class="zone-action">ENTER</span>
-      </a>
-      <a class="camp-zone coming-zone" href="field-lab.html">
-        <span class="zone-art lab" aria-hidden="true"></span>
-        <span class="zone-label">SCIENCE</span>
+        <button>ENTER</button>
+      </div>
+      <div class="camp-card locked">
+        <img src="tree03.png" alt="">
+        <span>SCIENCE</span>
         <strong>FIELD LAB</strong>
-        <span class="zone-action">SOON</span>
-      </a>
-      <a class="camp-zone coming-zone" href="expedition-corps.html">
-        <span class="zone-art lodge" aria-hidden="true"></span>
-        <span class="zone-label">SOCIAL STUDIES</span>
+        <button>SOON</button>
+      </div>
+      <div class="camp-card locked">
+        <img src="tower_beige.png" alt="">
+        <span>SOCIAL STUDIES</span>
         <strong>EXPEDITION CORPS</strong>
-        <span class="zone-action">SOON</span>
-      </a>
-    </section>
-
-    <section class="camp-hud" aria-label="Camp progress">
-      <div><span>RANK</span><strong id="campRank">ROOKIE FLYER</strong></div>
-      <div><span>BADGES</span><strong id="campBadges">0</strong></div>
-      <div><span>FLIGHT SCHOOL</span><strong id="campProgress">READY</strong></div>
-    </section>
-  </main>
-  <script src="camp.js"></script>
+        <button>SOON</button>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="camp.js"></script>
 </body>
 </html>

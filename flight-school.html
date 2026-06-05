@@ -1,61 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flight School</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flight School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body class="flight-page">
-  <main class="game-shell">
-    <header class="flight-hud">
-      <a class="camp-link" href="index.html">CAMP</a>
-      <div>
-        <p id="missionPill" class="mini-label">MISSION 1</p>
-        <h1>FLIGHT SCHOOL</h1>
-      </div>
-      <div class="hud-pills" aria-label="Flight stats">
-        <span class="pill heart" id="livesPill">♥ ♥ ♥</span>
-        <span class="pill" id="xpPill">XP 0</span>
-      </div>
-    </header>
-
-    <section class="flight-stage" aria-label="Flight mission">
-      <div id="scene" class="scene multiplication" aria-hidden="true">
-        <div id="sceneAssets" class="scene-assets"></div>
-        <div class="runway"></div>
-      </div>
-      <div id="falcon" class="falcon" aria-hidden="true">
-        <img src="falcon.png" alt="" draggable="false" />
-      </div>
-      <div class="distance-badge" id="distanceBadge">1 / 15</div>
-    </section>
-
-    <article id="playCard" class="play-card compact-card">
-      <div class="mission-band">
-        <div id="missionTitle" class="mission-title">MULTIPLICATION CANYON</div>
-        <div id="bossTag" class="boss-tag"></div>
-      </div>
-      <div id="prompt" class="prompt">READY?</div>
-      <div id="activity" class="activity"></div>
-      <div id="feedback" class="feedback"></div>
-      <div class="progress-rail" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
-    </article>
-  </main>
-
-  <div id="overlay" class="overlay show">
-    <div class="modal">
-      <h2>READY TO FLY?</h2>
-      <p>BEAT EACH MISSION. KEEP YOUR LIVES. EARN YOUR BADGES.</p>
-      <button id="startBtn">START</button>
-      <a href="index.html">CAMP</a>
+<main class="game-shell">
+  <header class="game-top">
+    <a class="back-camp" href="index.html">CAMP</a>
+    <div>
+      <div class="mini-tag">FLIGHT SCHOOL</div>
+      <h1 id="missionTitle">MULTIPLICATION CANYON</h1>
     </div>
-  </div>
+    <div class="hud">
+      <span id="qHud">0 / 15</span>
+      <span id="lifeHud">❤❤❤</span>
+      <span id="badgeHud">0 BADGES</span>
+    </div>
+  </header>
 
-  <script src="question-bank.js"></script>
-  <script src="flight-school.js"></script>
+  <section class="flight-stage" id="stage">
+    <div class="sky-layer"></div>
+    <img class="scene-sun" src="sun.png" alt="">
+    <img class="scene-cloud cloud-one" src="cloud1.png" alt="">
+    <img class="scene-cloud cloud-two" src="cloud2.png" alt="">
+    <div class="landscape-strip" id="landscapeStrip"></div>
+    <img class="falcon-player" id="falcon" src="falcon.png" alt="">
+    <div class="boss-marker" id="bossMarker">?</div>
+  </section>
+
+  <section class="play-panel" id="playPanel">
+    <div class="start-card" id="startCard">
+      <h2>READY?</h2>
+      <p id="missionHint">Fly through the canyon. Pick the right answers.</p>
+      <button id="startBtn">START</button>
+    </div>
+    <div class="question-card hidden" id="questionCard">
+      <div class="question-line" id="promptText"></div>
+      <div class="choices" id="choices"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </section>
+</main>
+<script src="question-bank.js"></script>
+<script src="flight-school.js"></script>
 </body>
 </html>

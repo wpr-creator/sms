@@ -1,11 +1,1 @@
-(function(){
-  const progress = JSON.parse(localStorage.getItem('flightSchoolProgress') || '{}');
-  const badges = progress.badges || [];
-  const rank = badges.length >= 8 ? 'SKY CAPTAIN' : badges.length >= 4 ? 'WING LEADER' : badges.length >= 1 ? 'SKY SCOUT' : 'ROOKIE FLYER';
-  const rankEl = document.getElementById('campRank');
-  const badgeEl = document.getElementById('campBadges');
-  const progEl = document.getElementById('campProgress');
-  if(rankEl) rankEl.textContent = rank;
-  if(badgeEl) badgeEl.textContent = badges.length;
-  if(progEl) progEl.textContent = badges.length ? `${Math.min(badges.length, 10)}/10` : 'READY';
-})();
+document.querySelectorAll('.camp-card.active').forEach(card=>card.addEventListener('click',()=>{try{const c=new AudioContext(),o=c.createOscillator(),g=c.createGain();o.frequency.value=720;g.gain.value=.06;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.15);o.stop(c.currentTime+.15)}catch(e){}}));
