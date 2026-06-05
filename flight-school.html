@@ -10,32 +10,42 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="flight-page">
-  <main class="game">
-    <header class="flight-top">
-      <h1>FLIGHT SCHOOL</h1>
-      <div class="top-stats" aria-label="Flight stats">
-        <span class="pill" id="missionPill">MISSION 1</span>
+  <main class="game-shell">
+    <header class="flight-hud">
+      <a class="camp-link" href="index.html">CAMP</a>
+      <div>
+        <p id="missionPill" class="mini-label">MISSION 1</p>
+        <h1>FLIGHT SCHOOL</h1>
+      </div>
+      <div class="hud-pills" aria-label="Flight stats">
         <span class="pill heart" id="livesPill">♥ ♥ ♥</span>
         <span class="pill" id="xpPill">XP 0</span>
       </div>
     </header>
-    <section class="game-screen">
-      <div id="scene" class="scene multiplication" aria-hidden="true"></div>
-      <div id="falcon" class="falcon" aria-hidden="true">
-        <svg viewBox="0 0 160 100" role="img"><path d="M18 55 C40 20 74 18 99 35 C118 26 139 26 151 36 C131 41 123 51 119 66 C95 57 68 65 43 86 C48 70 37 61 18 55Z" fill="#f5b82e"/><path d="M30 54 C63 36 90 36 114 52 C93 54 70 62 45 80 C47 67 39 60 30 54Z" fill="#071b3d"/><path d="M94 34 C107 21 129 20 148 34 C128 35 116 42 110 54 Z" fill="#ffffff"/><path d="M108 38 C117 35 126 35 136 38 C125 41 116 45 110 53 Z" fill="#071b3d"/><circle cx="120" cy="38" r="3" fill="#071b3d"/><path d="M137 37 L154 42 L137 48 Z" fill="#f5b82e"/></svg>
+
+    <section class="flight-stage" aria-label="Flight mission">
+      <div id="scene" class="scene multiplication" aria-hidden="true">
+        <div id="sceneAssets" class="scene-assets"></div>
+        <div class="runway"></div>
       </div>
-      <article id="playCard" class="play-card">
-        <div class="mission-band">
-          <div id="missionTitle" class="mission-title">MULTIPLICATION CANYON</div>
-          <div id="bossTag" class="boss-tag">BOSS</div>
-        </div>
-        <div id="prompt" class="prompt">READY?</div>
-        <div id="activity" class="activity"></div>
-        <div id="feedback" class="feedback"></div>
-        <div class="progress-rail" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
-      </article>
+      <div id="falcon" class="falcon" aria-hidden="true">
+        <img src="falcon.png" alt="" draggable="false" />
+      </div>
+      <div class="distance-badge" id="distanceBadge">1 / 15</div>
     </section>
+
+    <article id="playCard" class="play-card compact-card">
+      <div class="mission-band">
+        <div id="missionTitle" class="mission-title">MULTIPLICATION CANYON</div>
+        <div id="bossTag" class="boss-tag"></div>
+      </div>
+      <div id="prompt" class="prompt">READY?</div>
+      <div id="activity" class="activity"></div>
+      <div id="feedback" class="feedback"></div>
+      <div class="progress-rail" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
+    </article>
   </main>
+
   <div id="overlay" class="overlay show">
     <div class="modal">
       <h2>READY TO FLY?</h2>
@@ -44,6 +54,7 @@
       <a href="index.html">CAMP</a>
     </div>
   </div>
+
   <script src="question-bank.js"></script>
   <script src="flight-school.js"></script>
 </body>
