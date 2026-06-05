@@ -1,11 +1,50 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flight School</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head>
-<body class="game-body">
-<div class="wipe" id="wipe"></div>
-<header class="game-top"><div><a class="home-link" href="index.html">← CAMP</a><h1>FLIGHT SCHOOL</h1></div><div class="game-stats"><span id="rank">SKY SCOUT</span><span id="missionStat">MISSION 1</span><span id="lifeStat">❤ ❤ ❤</span><span id="xpStat">XP 0</span></div></header>
-<main class="game-shell">
-  <section class="scene" aria-hidden="true"><div class="cloud c1"></div><div class="cloud c2"></div><div class="falcon-player" id="bird" style="--progress:0"><svg viewBox="0 0 180 110"><path d="M8 54 C48 10 98 10 144 42 C107 46 80 63 58 99 C50 77 32 62 8 54Z"/><path d="M76 42 C110 12 150 14 174 46 C135 43 108 55 82 80 Z"/><path d="M62 50 C82 43 105 49 121 65 C97 65 77 74 62 96 Z"/></svg></div><div class="perch"></div></section>
-  <section class="mission-card"><p class="eyebrow" id="skillLabel">MATH MISSION</p><h2 id="missionTitle">READY?</h2><div class="bar"><span id="progressBar"></span></div><p class="prompt" id="prompt">Press start to begin.</p><div id="answerArea" class="answers"></div><p id="feedback" class="feedback"></p></section>
-</main>
-<script src="question-bank.js"></script><script src="flight-school.js"></script>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="flight-page">
+  <main class="game">
+    <header class="flight-top">
+      <h1>FLIGHT SCHOOL</h1>
+      <div class="top-stats" aria-label="Flight stats">
+        <span class="pill" id="missionPill">MISSION 1</span>
+        <span class="pill heart" id="livesPill">♥ ♥ ♥</span>
+        <span class="pill" id="xpPill">XP 0</span>
+      </div>
+    </header>
+    <section class="game-screen">
+      <div id="scene" class="scene multiplication" aria-hidden="true"></div>
+      <div id="falcon" class="falcon" aria-hidden="true">
+        <svg viewBox="0 0 160 100" role="img"><path d="M18 55 C40 20 74 18 99 35 C118 26 139 26 151 36 C131 41 123 51 119 66 C95 57 68 65 43 86 C48 70 37 61 18 55Z" fill="#f5b82e"/><path d="M30 54 C63 36 90 36 114 52 C93 54 70 62 45 80 C47 67 39 60 30 54Z" fill="#071b3d"/><path d="M94 34 C107 21 129 20 148 34 C128 35 116 42 110 54 Z" fill="#ffffff"/><path d="M108 38 C117 35 126 35 136 38 C125 41 116 45 110 53 Z" fill="#071b3d"/><circle cx="120" cy="38" r="3" fill="#071b3d"/><path d="M137 37 L154 42 L137 48 Z" fill="#f5b82e"/></svg>
+      </div>
+      <article id="playCard" class="play-card">
+        <div class="mission-band">
+          <div id="missionTitle" class="mission-title">MULTIPLICATION CANYON</div>
+          <div id="bossTag" class="boss-tag">BOSS</div>
+        </div>
+        <div id="prompt" class="prompt">READY?</div>
+        <div id="activity" class="activity"></div>
+        <div id="feedback" class="feedback"></div>
+        <div class="progress-rail" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
+      </article>
+    </section>
+  </main>
+  <div id="overlay" class="overlay show">
+    <div class="modal">
+      <h2>READY TO FLY?</h2>
+      <p>BEAT EACH MISSION. KEEP YOUR LIVES. EARN YOUR BADGES.</p>
+      <button id="startBtn">START</button>
+      <a href="index.html">CAMP</a>
+    </div>
+  </div>
+  <script src="question-bank.js"></script>
+  <script src="flight-school.js"></script>
+</body>
+</html>
