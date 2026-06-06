@@ -1,17 +1,39 @@
-(function(){
-  const wipe=document.getElementById('pageWipe');
-  const badges=JSON.parse(localStorage.getItem('fs_badges')||'[]');
-  const rank=document.getElementById('campRank');
-  const badgeCount=document.getElementById('badgeCount');
-  const strip=document.getElementById('badgeStrip');
-  if(rank){rank.textContent=badges.length>=12?'ACE':badges.length>=6?'SKY SCOUT':badges.length>=1?'CADET':'ROOKIE'}
-  if(badgeCount){badgeCount.textContent=String(badges.length)}
-  if(strip){strip.textContent=badges.length?badges.slice(-6).join('  •  '):'BADGES WILL SHOW HERE'}
-  const sound=(f=660,d=.08)=>{try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator();const g=a.createGain();o.frequency.value=f;o.type='triangle';g.gain.value=.045;o.connect(g);g.connect(a.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);o.stop(a.currentTime+d)}catch(e){}}
-  document.querySelectorAll('[data-camp-go]').forEach(link=>{
-    link.addEventListener('click',e=>{
-      e.preventDefault();sound(720,.08); if(wipe) wipe.classList.add('on');
-      setTimeout(()=>{window.location.href=link.getAttribute('href')},260);
+(() => {
+  const wipe = document.getElementById('screenWipe');
+  const playTone = (freq = 620, dur = 0.1, type = 'triangle') => {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.06, ctx.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + dur + 0.02);
+    } catch (e) {}
+  };
+
+  const badges = JSON.parse(localStorage.getItem('facBadges') || '[]');
+  const complete = ['flightComplete','labComplete','expeditionComplete'].filter(k => localStorage.getItem(k) === 'yes').length;
+  const badgePill = document.getElementById('badgePill');
+  const pathPill = document.getElementById('pathPill');
+  const rankPill = document.getElementById('rankPill');
+  if (badgePill) badgePill.textContent = `BADGES: ${badges.length}`;
+  if (pathPill) pathPill.textContent = `PATHS: ${complete}/3`;
+  if (rankPill) rankPill.textContent = complete >= 3 ? 'RANK: CAMP CHAMPION' : complete >= 1 ? 'RANK: TRAIL BLAZER' : 'RANK: SKY SCOUT';
+
+  document.querySelectorAll('a[href]').forEach(link => {
+    link.addEventListener('click', event => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+      event.preventDefault();
+      playTone(640, .08);
+      setTimeout(() => playTone(880, .12), 70);
+      wipe?.classList.add('on');
+      setTimeout(() => { window.location.href = href; }, 320);
     });
   });
 })();

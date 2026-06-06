@@ -1,49 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flight School</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="flight-body">
-  <main class="flight-app" id="flightApp">
-    <header class="flight-hud">
-      <a class="camp-link" href="index.html">CAMP</a>
-      <div class="mission-tag"><span id="missionName">FLIGHT SCHOOL</span><strong id="questionCount">READY</strong></div>
-      <div class="hud-stats"><span id="lifeText">❤ ❤ ❤</span><span id="xpText">XP 0</span></div>
-    </header>
-
-    <section class="mission-map" id="missionMap" aria-label="Mission map"></section>
-
-    <section class="flight-stage" id="flightStage" aria-live="polite">
-      <div class="stage-background" id="stageBackground"></div>
-      <div class="stage-overlay" id="stageOverlay"></div>
-      <div class="flight-path" id="flightPath"><img id="pilotFalcon" class="pilot-falcon" src="falcon-pilot.png" alt="Falcon pilot"></div>
-      <div class="boss-badge" id="bossBadge">BOSS</div>
-    </section>
-
-    <section class="play-panel" id="playPanel">
-      <div class="start-card" id="startCard">
-        <p>FLIGHT SCHOOL</p>
-        <h1 id="startTitle">READY FOR TAKEOFF?</h1>
-        <button class="primary-btn" id="startBtn" type="button">START</button>
-        <button class="ghost-btn" id="resetBtn" type="button">RESET FLIGHT</button>
+<body class="flight-page" style="--mission-bg:url('bg-canyon.png');--falcon-x:10%">
+  <div class="page-bg flight-bg"></div>
+  <header class="topbar">
+    <a href="index.html">← CAMP</a>
+    <div class="topbar-title">FLIGHT SCHOOL</div>
+    <div id="flightRank">SKY SCOUT</div>
+  </header>
+  <main class="flight-shell">
+    <section class="flight-stage">
+      <div class="scene-window" id="sceneWindow">
+        <div class="scene-title">
+          <p class="mission-label" id="missionLabel">MISSION 1</p>
+          <h1 id="missionTitle">MULTIPLICATION CANYON</h1>
+          <p id="missionTag">Fly through the correct answer.</p>
+        </div>
+        <img class="falcon-flyer" id="falconFlyer" src="falcon-pilot.png" alt="Pilot falcon" onerror="this.src='falcon.png'" />
+        <div class="goal-ring" aria-hidden="true"></div>
+        <div class="start-card" id="startCard">
+          <div class="start-inner">
+            <p class="eyebrow">READY</p>
+            <h1>TAKE OFF!</h1>
+            <p class="kid-line">Beat 15 challenges. Keep your 3 hearts.</p>
+            <button class="primary-btn" id="startBtn" type="button">START</button>
+          </div>
+        </div>
+        <div class="boss-banner hidden" id="bossBanner">BOSS ROUND!</div>
+        <div class="complete-card hidden" id="completeCard">
+          <div class="complete-inner">
+            <p class="eyebrow" id="completeEyebrow">BADGE EARNED</p>
+            <h1 id="completeTitle">CANYON PILOT</h1>
+            <p class="kid-line" id="completeText">Next mission loading...</p>
+          </div>
+        </div>
       </div>
-      <div class="challenge-card hidden" id="challengeCard">
-        <p class="challenge-type" id="challengeType">MISSION</p>
-        <h2 id="promptText">Question</h2>
-        <div class="interactive-zone" id="interactiveZone"></div>
-        <div class="feedback" id="feedbackText"></div>
-      </div>
-      <div class="complete-card hidden" id="completeCard">
-        <p id="completeLabel">BADGE EARNED</p>
-        <h2 id="completeTitle">MISSION COMPLETE</h2>
-        <img src="falcon-ace.png" alt="Ace falcon">
-        <button class="primary-btn" id="continueBtn" type="button">KEEP FLYING</button>
+      <div class="challenge-panel" id="challengePanel" aria-live="polite">
+        <div class="flight-hud">
+          <span id="questionCount">QUESTION 0/15</span>
+          <span id="livesCount">HEARTS: ♥ ♥ ♥</span>
+          <span id="badgeCount">BADGES: 0</span>
+        </div>
+        <div class="prompt" id="promptText">Press start.</div>
+        <div class="answer-grid" id="answerGrid"></div>
       </div>
     </section>
   </main>

@@ -1,55 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Falcon Adventure Camp</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="camp-home">
+<body class="camp-page">
+  <div class="page-bg camp-bg"></div>
+  <div class="sky-drift" aria-hidden="true"></div>
   <main class="camp-shell">
     <section class="camp-hero" aria-label="Falcon Adventure Camp">
-      <div class="camp-bg" aria-hidden="true"></div>
-      <div class="sky-motion" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-      <div class="camp-topbar">
-        <div class="rank-pill"><span>RANK</span><strong id="campRank">ROOKIE</strong></div>
-        <div class="rank-pill"><span>BADGES</span><strong id="badgeCount">0</strong></div>
-      </div>
-      <div class="camp-title-card">
-        <img class="camp-falcon" src="falcon-camp.png" alt="Camp falcon guide">
-        <div>
-          <p class="eyebrow">SUMMER QUEST</p>
-          <h1>FALCON ADVENTURE CAMP</h1>
-          <p class="camp-callout">CHOOSE YOUR PATH</p>
+      <div class="camp-copy">
+        <p class="eyebrow">SUMMER QUEST</p>
+        <h1>FALCON ADVENTURE CAMP</h1>
+        <p class="kid-line">Pick a path. Earn badges. Keep moving.</p>
+        <div class="camp-stats" aria-label="Camp progress">
+          <span id="rankPill">RANK: SKY SCOUT</span>
+          <span id="badgePill">BADGES: 0</span>
+          <span id="pathPill">PATHS: 0/3</span>
         </div>
       </div>
-      <nav class="camp-zones" aria-label="Camp zones">
-        <a class="zone-card active-zone" href="flight-school.html" data-camp-go>
-          <span class="zone-art hangar-art" aria-hidden="true"></span>
-          <span class="zone-subject">MATH</span>
-          <strong>FLIGHT SCHOOL</strong>
-          <small>TAKE OFF!</small>
-        </a>
-        <a class="zone-card locked-zone" href="field-lab.html" data-camp-go>
-          <img class="zone-falcon" src="falcon-science.png" alt="">
-          <span class="zone-subject">SCIENCE</span>
-          <strong>FIELD LAB</strong>
-          <small>EXPLORE!</small>
-        </a>
-        <a class="zone-card locked-zone" href="expedition-corps.html" data-camp-go>
-          <img class="zone-falcon" src="falcon-explorer.png" alt="">
-          <span class="zone-subject">SOCIAL STUDIES</span>
-          <strong>EXPEDITION CORPS</strong>
-          <small>LET'S GO!</small>
-        </a>
-      </nav>
-      <div class="badge-strip" id="badgeStrip" aria-label="Earned badges"></div>
+      <img class="camp-falcon" src="falcon-camp.png" alt="Camp guide falcon" onerror="this.src='falcon.png'" />
+    </section>
+
+    <section class="camp-map" aria-label="Choose your camp path">
+      <a class="zone-card zone-flight" href="flight-school.html" data-zone="flight">
+        <div class="zone-art hangar-art" aria-hidden="true"><span>✈</span></div>
+        <p class="zone-subject">MATH</p>
+        <h2>FLIGHT SCHOOL</h2>
+        <p class="zone-action">TAKE OFF!</p>
+      </a>
+
+      <a class="zone-card zone-lab" href="field-lab.html" data-zone="lab">
+        <div class="zone-art lab-art" aria-hidden="true"><img src="falcon-science.png" alt="" onerror="this.style.display='none'"></div>
+        <p class="zone-subject">SCIENCE</p>
+        <h2>FIELD LAB</h2>
+        <p class="zone-action">EXPLORE!</p>
+      </a>
+
+      <a class="zone-card zone-expedition" href="expedition-corps.html" data-zone="expedition">
+        <div class="zone-art map-art" aria-hidden="true"><img src="falcon-explorer.png" alt="" onerror="this.style.display='none'"></div>
+        <p class="zone-subject">SOCIAL STUDIES</p>
+        <h2>EXPEDITION CORPS</h2>
+        <p class="zone-action">LET'S GO!</p>
+      </a>
     </section>
   </main>
-  <div class="page-wipe" id="pageWipe" aria-hidden="true"></div>
+  <div class="screen-wipe" id="screenWipe"></div>
   <script src="camp.js"></script>
 </body>
 </html>
