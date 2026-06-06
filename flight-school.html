@@ -3,18 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flight School</title>
+  <title>FLIGHT SCHOOL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    :root{--navy:#08254f;--blue:#12509b;--gold:#f5bd2f;--paper:#fffaf1;--ink:#102033;--green:#1c7a55;--red:#d64242}
+    *{box-sizing:border-box}
+    body.flight-page{margin:0;min-height:100vh;font-family:"Atkinson Hyperlegible",system-ui,sans-serif;color:white;background:#061936;overflow-x:hidden}
+    body.flight-page:before{content:"";position:fixed;inset:0;background:linear-gradient(#08254fcc,#061936ee),var(--mission-bg) center/cover;filter:saturate(1.1);z-index:-2}
+    body.flight-page:after{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 18%,#ffffff30,transparent 20%),radial-gradient(circle at 80% 10%,#f5bd2f22,transparent 22%);z-index:-1;pointer-events:none}
+    .topbar{width:min(1180px,94vw);margin:0 auto;padding:18px 0;display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
+    .topbar a,.topbar button,.topbar-title,#flightRank{background:#ffffff18;color:white;border:2px solid #ffffff42;border-radius:999px;padding:10px 14px;font-weight:900;text-decoration:none}
+    .topbar-title{font-family:Bungee,system-ui;text-align:center;letter-spacing:.5px}
+    #flightRank{justify-self:end}
+    .reset-flight{justify-self:start}
+    .flight-shell{width:min(1180px,94vw);margin:0 auto 32px}
+    .flight-stage{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}
+    .scene-window,.challenge-panel{border:4px solid #ffffffb8;border-radius:32px;box-shadow:0 24px 70px #0009;overflow:hidden}
+    .scene-window{position:relative;min-height:620px;background:linear-gradient(#ffffff10,#06193655),var(--mission-bg) center/cover}
+    .scene-window:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#00000055,transparent 42%,#00000025),radial-gradient(circle at 22% 22%,#ffffff7a,transparent 22%);pointer-events:none}
+    .scene-window.flash-correct{animation:flashCorrect .45s ease}
+    .scene-window.flash-wrong{animation:flashWrong .45s ease}
+    @keyframes flashCorrect{50%{box-shadow:0 0 0 10px #52d27399,0 24px 70px #0009}}
+    @keyframes flashWrong{50%{box-shadow:0 0 0 10px #d6424299,0 24px 70px #0009}}
+    .scene-title{position:absolute;left:24px;top:22px;z-index:3;color:white;max-width:76%;text-shadow:0 4px 14px #000a}
+    .mission-label{margin:0 0 8px;font-weight:900;letter-spacing:.08em}
+    .scene-title h1{font-family:Bungee,system-ui;font-size:clamp(34px,5vw,64px);line-height:.98;margin:0;text-transform:uppercase}
+    .scene-title p:last-child{font-size:20px;line-height:1.35;margin:10px 0 0;font-weight:800}
+    .falcon-flyer{position:absolute;left:var(--falcon-x,10%);bottom:22%;width:min(210px,28vw);z-index:3;filter:drop-shadow(0 18px 16px #0009);transition:left .55s cubic-bezier(.2,.8,.2,1),transform .35s ease;animation:falconFloat 1.15s ease-in-out infinite alternate}
+    .falcon-flyer.boost{transform:translateY(-26px) rotate(-7deg) scale(1.08)}
+    .falcon-flyer.shake{animation:shake .32s ease}
+    @keyframes falconFloat{to{translate:0 -12px}}
+    @keyframes shake{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-6px)}}
+    .goal-ring{position:absolute;right:10%;bottom:28%;width:120px;height:120px;border:14px solid #f5bd2fcc;border-radius:50%;box-shadow:0 0 0 12px #ffffff55,0 0 28px #f5bd2faa;z-index:2;animation:ringPulse 1.2s infinite alternate}
+    @keyframes ringPulse{to{transform:scale(1.08);opacity:.75}}
+    .start-card,.complete-card{position:absolute;inset:0;display:grid;place-items:center;z-index:5;background:linear-gradient(#08254f66,#061936aa)}
+    .start-inner,.complete-inner{width:min(520px,86%);background:#fffaf1;color:var(--ink);border:4px solid white;border-radius:30px;padding:30px;text-align:center;box-shadow:0 20px 60px #0008}
+    .eyebrow{font-weight:900;color:var(--red);letter-spacing:.12em;margin:0 0 8px}
+    .start-inner h1,.complete-inner h1{font-family:Bungee,system-ui;font-size:clamp(42px,7vw,74px);line-height:.94;color:var(--navy);margin:0}
+    .kid-line{font-size:21px;line-height:1.45;font-weight:800}
+    .primary-btn,.answer-btn,.line-choice,.clock-choice,.finish-btn{border:0;border-radius:20px;background:var(--gold);color:var(--ink);font-weight:900;font-size:20px;padding:15px 18px;box-shadow:0 9px 0 #b57d12;cursor:pointer;transition:.12s}
+    .primary-btn:hover,.answer-btn:hover,.line-choice:hover,.clock-choice:hover,.finish-btn:hover{transform:translateY(-3px);filter:brightness(1.04)}
+    .primary-btn:active,.answer-btn:active,.line-choice:active,.clock-choice:active{transform:translateY(4px);box-shadow:0 4px 0 #b57d12}
+    .boss-banner{position:absolute;top:46%;left:50%;translate:-50% -50%;font-family:Bungee,system-ui;font-size:clamp(34px,8vw,92px);color:#fff;text-shadow:0 8px 24px #000,0 0 18px #f5bd2f;z-index:4;animation:bossPop .65s ease}
+    @keyframes bossPop{from{scale:.5;opacity:0}to{scale:1;opacity:1}}
+    .challenge-panel{background:#fffaf1;color:var(--ink);padding:22px;display:flex;flex-direction:column;min-height:620px}
+    .flight-hud{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+    .flight-hud span{background:#eaf2ff;border:3px solid #d4e3f7;border-radius:999px;padding:10px 12px;text-align:center;font-weight:900}
+    .progress-track{height:16px;background:#dbe7f7;border-radius:999px;overflow:hidden;border:2px solid #fff;box-shadow:inset 0 2px 4px #0002;margin:0 0 16px}
+    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#f5bd2f,#52d273);transition:width .4s ease}
+    .prompt{font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.25;color:var(--navy);margin:6px 0 16px}
+    .feedback{min-height:32px;font-weight:900;font-size:20px;color:var(--blue);margin-bottom:10px}
+    .answer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:auto}
+    .answer-btn{min-height:82px;background:#ffffff;border:3px solid #d7e5f6;box-shadow:0 9px 0 #b9c7d6;font-size:24px}
+    .answer-btn.cloud{border-radius:999px;background:#f5fbff}
+    .answer-btn.perch{border-radius:22px;background:#fff6d4}
+    .answer-btn.block,.answer-btn.tile{border-radius:16px;background:#eef6ff}
+    .answer-btn.correct,.line-choice.correct,.clock-choice.correct,.primary-btn.correct{background:#52d273!important;border-color:#237d45!important;color:#08254f}
+    .answer-btn.wrong,.line-choice.wrong,.clock-choice.wrong,.primary-btn.wrong{background:#ffd8d8!important;border-color:#d64242!important}
+    .input-wrap{display:grid;gap:14px}
+    .input-helper{font-size:20px;line-height:1.45;background:#eef6ff;border-radius:18px;padding:14px;font-weight:800}
+    .input-wrap input{font:inherit;font-size:26px;padding:16px;border-radius:18px;border:4px solid #d7e5f6;width:100%}
+    .number-line{grid-column:1/-1;display:flex;gap:10px;align-items:end;justify-content:space-between;border-bottom:8px solid var(--navy);padding:0 8px 18px;margin:32px 0 8px}
+    .line-choice{position:relative;min-width:78px;background:#fff}
+    .line-choice:after{content:"";position:absolute;left:50%;bottom:-28px;width:4px;height:18px;background:var(--navy)}
+    .clock-choice{background:#fff;border:3px solid #d7e5f6;box-shadow:0 9px 0 #b9c7d6;display:grid;gap:8px;place-items:center}
+    .clock-face{width:84px;height:84px;border:6px solid var(--navy);border-radius:50%;position:relative;background:#fff}
+    .clock-face:before,.clock-face:after{content:"";position:absolute;left:50%;top:50%;transform-origin:bottom center;background:var(--navy);border-radius:999px}
+    .clock-face:before{width:6px;height:26px;transform:translate(-50%,-100%) rotate(var(--hourRot))}
+    .clock-face:after{width:4px;height:34px;transform:translate(-50%,-100%) rotate(var(--minRot));background:var(--red)}
+    .hidden{display:none!important}
+    @media(max-width:900px){
+      .topbar{grid-template-columns:1fr;justify-items:stretch}.topbar-title,#flightRank,.reset-flight{text-align:center;justify-self:stretch}
+      .flight-stage{grid-template-columns:1fr}.scene-window{min-height:430px}.challenge-panel{min-height:auto}.answer-grid{grid-template-columns:1fr}.flight-hud{grid-template-columns:1fr}.falcon-flyer{width:150px}.goal-ring{width:86px;height:86px}
+    }
+  </style>
 </head>
-<body class="flight-page" style="--mission-bg:url('bg-canyon.png');--falcon-x:10%">
-  <div class="page-bg flight-bg"></div>
+<body class="flight-page" style="--mission-bg:url('bg-canyon.png');--falcon-x:8%">
   <header class="topbar">
     <a href="index.html">← CAMP</a>
     <div class="topbar-title">FLIGHT SCHOOL</div>
-    <div id="flightRank">SKY SCOUT</div>
+    <button class="reset-flight" id="resetBtn" type="button">RESET</button>
   </header>
   <main class="flight-shell">
     <section class="flight-stage">
@@ -28,9 +99,9 @@
         <div class="goal-ring" aria-hidden="true"></div>
         <div class="start-card" id="startCard">
           <div class="start-inner">
-            <p class="eyebrow">READY</p>
+            <p class="eyebrow" id="startEyebrow">READY</p>
             <h1>TAKE OFF!</h1>
-            <p class="kid-line">Beat 15 challenges. Keep your 3 hearts.</p>
+            <p class="kid-line" id="startText">Beat 15 challenges. Keep your 3 hearts.</p>
             <button class="primary-btn" id="startBtn" type="button">START</button>
           </div>
         </div>
@@ -39,7 +110,8 @@
           <div class="complete-inner">
             <p class="eyebrow" id="completeEyebrow">BADGE EARNED</p>
             <h1 id="completeTitle">CANYON PILOT</h1>
-            <p class="kid-line" id="completeText">Next mission loading...</p>
+            <p class="kid-line" id="completeText">Next mission loading.</p>
+            <button class="finish-btn" id="continueBtn" type="button">KEEP FLYING</button>
           </div>
         </div>
       </div>
@@ -49,7 +121,9 @@
           <span id="livesCount">HEARTS: ♥ ♥ ♥</span>
           <span id="badgeCount">BADGES: 0</span>
         </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
         <div class="prompt" id="promptText">Press start.</div>
+        <div class="feedback" id="feedbackText"></div>
         <div class="answer-grid" id="answerGrid"></div>
       </div>
     </section>
