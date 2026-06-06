@@ -7,50 +7,323 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root{
+      --navy:#061b3d;
+      --navy2:#0b2d61;
+      --gold:#ffc83d;
+      --gold2:#ffdd7a;
+      --cream:#fff8e7;
+      --sky:#7fd7ff;
+      --ink:#071b3b;
+      --card:rgba(255,255,255,.88);
+      --line:rgba(255,255,255,.52);
+      --shadow:0 24px 60px rgba(0,0,0,.32);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Atkinson Hyperlegible',system-ui,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%,rgba(255,255,255,.2),transparent 28%),
+        linear-gradient(135deg,#06172f 0%,#0b2d61 48%,#06172f 100%);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size:72px 72px;
+      opacity:.55;
+      pointer-events:none;
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:url('bg-camp.png');
+      background-size:cover;
+      background-position:center;
+      opacity:.18;
+      filter:saturate(1.15);
+      pointer-events:none;
+    }
+    .page{
+      position:relative;
+      z-index:1;
+      min-height:100%;
+      padding:28px clamp(18px,4vw,44px) 40px;
+      display:flex;
+      flex-direction:column;
+      gap:28px;
+    }
+    .hero{
+      min-height:410px;
+      border:4px solid rgba(255,255,255,.72);
+      border-radius:38px;
+      background:
+        linear-gradient(105deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.86) 50%,rgba(255,248,231,.92) 100%);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:center;
+      padding:40px clamp(28px,5vw,70px);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url('bg-camp.png');
+      background-size:cover;
+      background-position:center;
+      opacity:.18;
+    }
+    .hero-copy,.hero-art{position:relative;z-index:1}
+    .tag{
+      font-family:'Bungee',system-ui;
+      letter-spacing:.08em;
+      color:var(--navy2);
+      font-size:15px;
+      margin-bottom:16px;
+    }
+    h1{
+      font-family:'Bungee',system-ui;
+      font-size:clamp(54px,8vw,106px);
+      line-height:.96;
+      letter-spacing:.02em;
+      margin:0;
+      color:var(--navy);
+      text-shadow:0 5px 0 var(--gold2);
+    }
+    .subtitle{
+      margin:26px 0 20px;
+      font-size:clamp(23px,2vw,34px);
+      font-weight:800;
+      line-height:1.25;
+      color:var(--navy);
+    }
+    .chips{display:flex;flex-wrap:wrap;gap:14px}
+    .chip{
+      font-family:'Bungee',system-ui;
+      font-size:14px;
+      color:#fff;
+      background:var(--navy);
+      border:3px solid var(--gold);
+      border-radius:999px;
+      padding:12px 18px;
+      box-shadow:0 6px 0 rgba(0,0,0,.18);
+    }
+    .camp-falcon{
+      display:block;
+      width:min(390px,42vw);
+      max-height:360px;
+      object-fit:contain;
+      margin:0 auto;
+      filter:drop-shadow(0 22px 28px rgba(6,27,61,.35));
+      animation:float 2.4s ease-in-out infinite alternate;
+    }
+    @keyframes float{from{transform:translateY(8px) rotate(-1deg)}to{transform:translateY(-10px) rotate(1deg)}}
+    .paths{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+    }
+    .path-card{
+      min-height:330px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      text-decoration:none;
+      color:var(--navy);
+      border:4px solid rgba(255,255,255,.8);
+      border-radius:32px;
+      overflow:hidden;
+      background:var(--card);
+      box-shadow:0 20px 42px rgba(0,0,0,.25);
+      position:relative;
+      transform:translateY(0);
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .path-card:hover,.path-card:focus-visible{
+      transform:translateY(-8px);
+      box-shadow:0 26px 54px rgba(0,0,0,.34);
+      border-color:var(--gold);
+      outline:none;
+    }
+    .path-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:.42;
+      transform:scale(1.04);
+      transition:opacity .22s ease, transform .22s ease;
+    }
+    .path-card:hover::before{opacity:.58;transform:scale(1.08)}
+    .path-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(255,255,255,.56) 0%,rgba(255,255,255,.9) 64%,rgba(255,255,255,.96) 100%);
+    }
+    .flight::before{background-image:url('bg-canyon.png')}
+    .lab::before{background-image:url('bg-lab.png')}
+    .expedition::before{background-image:url('bg-expedition-hub.png')}
+    .card-inner{
+      position:relative;
+      z-index:1;
+      min-height:330px;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      padding:28px;
+    }
+    .subject{
+      font-family:'Bungee',system-ui;
+      font-size:15px;
+      letter-spacing:.1em;
+      color:var(--navy2);
+    }
+    .character-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:130px;
+    }
+    .path-character{
+      width:155px;
+      max-height:150px;
+      object-fit:contain;
+      filter:drop-shadow(0 16px 18px rgba(0,0,0,.25));
+      transition:transform .22s ease;
+    }
+    .path-card:hover .path-character{transform:translateY(-6px) scale(1.06)}
+    .path-title{
+      font-family:'Bungee',system-ui;
+      font-size:clamp(32px,3.3vw,52px);
+      line-height:1;
+      margin:0 0 18px;
+      color:var(--navy);
+    }
+    .button-row{display:flex;align-items:center;justify-content:flex-start}
+    .game-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:54px;
+      padding:0 24px;
+      border-radius:18px;
+      border:4px solid var(--navy);
+      background:var(--gold);
+      color:var(--navy);
+      font-family:'Bungee',system-ui;
+      font-size:17px;
+      box-shadow:0 8px 0 rgba(6,27,61,.25);
+    }
+    .wipe{
+      position:fixed;
+      inset:0;
+      z-index:10;
+      background:radial-gradient(circle at center,var(--gold) 0%,var(--navy) 70%);
+      opacity:0;
+      pointer-events:none;
+      transform:scale(.6);
+      transition:opacity .24s ease, transform .34s ease;
+    }
+    .wipe.on{opacity:1;transform:scale(1.4)}
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;text-align:center;padding:34px 24px}.chips{justify-content:center}.camp-falcon{width:260px}.paths{grid-template-columns:1fr}.path-card{min-height:280px}.card-inner{min-height:280px}.path-title{font-size:40px}
+    }
+  </style>
 </head>
-<body class="camp-page">
-  <div class="page-bg camp-bg"></div>
-  <div class="sky-drift" aria-hidden="true"></div>
-  <main class="camp-shell">
-    <section class="camp-hero" aria-label="Falcon Adventure Camp">
-      <div class="camp-copy">
-        <p class="eyebrow">SUMMER QUEST</p>
-        <h1>FALCON ADVENTURE CAMP</h1>
-        <p class="kid-line">Pick a path. Earn badges. Keep moving.</p>
-        <div class="camp-stats" aria-label="Camp progress">
-          <span id="rankPill">RANK: SKY SCOUT</span>
-          <span id="badgePill">BADGES: 0</span>
-          <span id="pathPill">PATHS: 0/3</span>
+<body>
+  <div class="page">
+    <section class="hero" aria-label="Falcon Adventure Camp">
+      <div class="hero-copy">
+        <div class="tag">SUMMER QUEST</div>
+        <h1>FALCON<br>ADVENTURE<br>CAMP</h1>
+        <p class="subtitle">Where will you go today?</p>
+        <div class="chips" aria-label="Progress tracker">
+          <span class="chip">RANK: SKY SCOUT</span>
+          <span class="chip">BADGES: <span id="badgeCount">0</span></span>
+          <span class="chip">PATHS: <span id="pathCount">0</span>/3</span>
         </div>
       </div>
-      <img class="camp-falcon" src="falcon-camp.png" alt="Camp guide falcon" onerror="this.src='falcon.png'" />
+      <div class="hero-art">
+        <img class="camp-falcon" src="falcon-camp.png" alt="Falcon camp guide">
+      </div>
     </section>
 
-    <section class="camp-map" aria-label="Choose your camp path">
-      <a class="zone-card zone-flight" href="flight-school.html" data-zone="flight">
-        <div class="zone-art hangar-art" aria-hidden="true"><span>✈</span></div>
-        <p class="zone-subject">MATH</p>
-        <h2>FLIGHT SCHOOL</h2>
-        <p class="zone-action">TAKE OFF!</p>
+    <main class="paths" aria-label="Choose an adventure">
+      <a class="path-card flight" href="flight-school.html" data-go>
+        <div class="card-inner">
+          <div class="subject">MATH</div>
+          <div class="character-wrap"><img class="path-character" src="falcon-pilot.png" alt="Pilot falcon"></div>
+          <div>
+            <h2 class="path-title">FLIGHT<br>SCHOOL</h2>
+            <div class="button-row"><span class="game-button">TAKE OFF!</span></div>
+          </div>
+        </div>
       </a>
 
-      <a class="zone-card zone-lab" href="field-lab.html" data-zone="lab">
-        <div class="zone-art lab-art" aria-hidden="true"><img src="falcon-science.png" alt="" onerror="this.style.display='none'"></div>
-        <p class="zone-subject">SCIENCE</p>
-        <h2>FIELD LAB</h2>
-        <p class="zone-action">EXPLORE!</p>
+      <a class="path-card lab" href="field-lab.html" data-go>
+        <div class="card-inner">
+          <div class="subject">SCIENCE</div>
+          <div class="character-wrap"><img class="path-character" src="falcon-science.png" alt="Scientist falcon"></div>
+          <div>
+            <h2 class="path-title">FIELD<br>LAB</h2>
+            <div class="button-row"><span class="game-button">EXPLORE!</span></div>
+          </div>
+        </div>
       </a>
 
-      <a class="zone-card zone-expedition" href="expedition-corps.html" data-zone="expedition">
-        <div class="zone-art map-art" aria-hidden="true"><img src="falcon-explorer.png" alt="" onerror="this.style.display='none'"></div>
-        <p class="zone-subject">SOCIAL STUDIES</p>
-        <h2>EXPEDITION CORPS</h2>
-        <p class="zone-action">LET'S GO!</p>
+      <a class="path-card expedition" href="expedition-corps.html" data-go>
+        <div class="card-inner">
+          <div class="subject">SOCIAL STUDIES</div>
+          <div class="character-wrap"><img class="path-character" src="falcon-explorer.png" alt="Explorer falcon"></div>
+          <div>
+            <h2 class="path-title">EXPEDITION<br>CORPS</h2>
+            <div class="button-row"><span class="game-button">LET'S GO!</span></div>
+          </div>
+        </div>
       </a>
-    </section>
-  </main>
-  <div class="screen-wipe" id="screenWipe"></div>
-  <script src="camp.js"></script>
+    </main>
+  </div>
+  <div class="wipe" id="wipe" aria-hidden="true"></div>
+  <script>
+    const save = JSON.parse(localStorage.getItem('falconCampSave') || '{}');
+    const badges = save.badges || [];
+    document.getElementById('badgeCount').textContent = badges.length || 0;
+    const paths = ['flightSchoolComplete','fieldLabComplete','expeditionComplete'].filter(k => save[k]).length;
+    document.getElementById('pathCount').textContent = paths;
+    function tone(freq=660,dur=.08,type='triangle'){
+      try{
+        const A=window.AudioContext||window.webkitAudioContext;
+        const ctx=new A();
+        const osc=ctx.createOscillator();
+        const gain=ctx.createGain();
+        osc.type=type; osc.frequency.value=freq;
+        gain.gain.setValueAtTime(.0001,ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(.08,ctx.currentTime+.01);
+        gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+dur);
+        osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+dur+.02);
+      }catch(e){}
+    }
+    document.querySelectorAll('[data-go]').forEach(link=>{
+      link.addEventListener('click',event=>{
+        event.preventDefault();
+        tone(620,.08); setTimeout(()=>tone(880,.1),80);
+        document.getElementById('wipe').classList.add('on');
+        setTimeout(()=>{ window.location.href = link.getAttribute('href'); }, 320);
+      });
+    });
+  </script>
 </body>
 </html>
