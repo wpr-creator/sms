@@ -1,1 +1,147 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Field Lab</title><link rel="stylesheet" href="style.css"></head><body class="coming-soon science-soon"><main class="soon-card"><img src="falcon-science.png" alt="Science falcon"><p>SCIENCE</p><h1>FIELD LAB</h1><h2>COMING SOON</h2><a href="index.html">BACK TO CAMP</a></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIELD LAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#061b3a;--blue:#113d7a;--sky:#72c7ff;--gold:#f4bf37;--sand:#f8e7b4;--ink:#10213d;--white:#fffaf1;--green:#1f7a55;--red:#d54242;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Atkinson Hyperlegible",system-ui,sans-serif;color:var(--white);background:radial-gradient(circle at top,#245c92,#061b3a 72%);min-height:100vh;overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(6,27,58,.42),rgba(6,27,58,.75)),url('bg-forest.png') center/cover no-repeat;z-index:-3}
+    body::after{content:"";position:fixed;inset:-20%;background:radial-gradient(circle,#ffffff22 1px,transparent 2px);background-size:46px 46px;animation:drift 18s linear infinite;z-index:-2;opacity:.35}
+    @keyframes drift{to{transform:translate3d(-46px,46px,0)}}
+    .app{width:min(1100px,94vw);margin:0 auto;padding:22px 0 34px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:18px}
+    .home{color:var(--white);text-decoration:none;border:2px solid #ffffff44;border-radius:999px;padding:10px 14px;font-weight:800;background:#ffffff14;box-shadow:0 12px 30px #00000024}
+    .rank{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.pill{border:1px solid #ffffff44;background:#061b3acc;border-radius:999px;padding:9px 12px;font-weight:800;font-size:14px;letter-spacing:.04em}
+    .screen{display:none;min-height:calc(100vh - 90px);align-items:center;justify-content:center}.screen.active{display:flex}
+    .panel{width:100%;border:1px solid #ffffff30;background:linear-gradient(145deg,#ffffff20,#ffffff0c);box-shadow:0 22px 70px #00000055;border-radius:34px;overflow:hidden;backdrop-filter:blur(12px)}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:10px;align-items:center;padding:38px;position:relative}.hero h1,.title{font-family:Bungee,cursive;text-transform:uppercase;letter-spacing:.03em;line-height:.96;margin:0}.hero h1{font-size:clamp(44px,7vw,86px);text-shadow:0 8px 0 #00000022}.hero p{font-size:22px;line-height:1.55;max-width:620px;color:#fff3c8}.hero-art{min-height:360px;position:relative;border-radius:28px;background:linear-gradient(#7ecfff88,#f8e7b444),url('bg-forest.png') center/cover;border:2px solid #ffffff44;overflow:hidden}.falcon{position:absolute;right:6%;bottom:4%;width:min(48%,310px);filter:drop-shadow(0 20px 20px #00193388);animation:bob 1.8s ease-in-out infinite alternate}.bubble{position:absolute;left:22px;top:22px;background:#061b3ae0;border:2px solid #f4bf37;border-radius:24px;padding:14px 16px;font-weight:800;color:#fff3c8;max-width:270px}.lab-glow{position:absolute;inset:auto -20% -30% auto;width:55%;aspect-ratio:1;border-radius:50%;background:#f4bf3755;filter:blur(35px)}
+    @keyframes bob{from{transform:translateY(0) rotate(-2deg)}to{transform:translateY(-16px) rotate(2deg)}}
+    .big-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 38px 38px}.mission-card,.choice,.navbtn{border:0;cursor:pointer;font:inherit}.mission-card{min-height:210px;text-align:left;border-radius:26px;padding:24px;background:#fffaf1;color:var(--ink);box-shadow:0 18px 0 #00000022,0 26px 45px #00000038;position:relative;overflow:hidden;transition:.18s transform,.18s box-shadow}.mission-card:hover,.choice:hover{transform:translateY(-5px)}.mission-card h2{font-family:Bungee,cursive;font-size:28px;line-height:1.05;margin:0 0 12px;color:#08285c}.mission-card p{font-size:19px;line-height:1.5;margin:0;color:#35445b}.mission-card::after{content:"";position:absolute;right:-30px;bottom:-40px;width:160px;height:160px;border-radius:50%;background:var(--gold);opacity:.25}.mission-card span{display:inline-block;margin-top:18px;background:var(--blue);color:white;border-radius:999px;padding:10px 14px;font-weight:900}
+    .choose{padding:34px}.topline{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:22px}.title{font-size:clamp(34px,5vw,58px)}.subtitle{font-size:21px;color:#fff3c8;line-height:1.5;margin:8px 0 0}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.choice{border-radius:26px;padding:24px;text-align:left;color:white;min-height:180px;background:linear-gradient(135deg,#123e7b,#0b244d);border:2px solid #ffffff33;box-shadow:0 16px 36px #00000035;overflow:hidden;position:relative}.choice h3{font-family:Bungee,cursive;font-size:28px;margin:0 0 10px}.choice p{font-size:19px;line-height:1.45;margin:0;color:#e9f5ff}.choice::after{content:"";position:absolute;inset:0;background:var(--bg) center/cover no-repeat;opacity:.35;z-index:0}.choice>*{position:relative;z-index:1}.choice small{display:inline-block;margin-top:16px;background:#f4bf37;color:#061b3a;border-radius:999px;padding:8px 12px;font-weight:900}
+    .station{display:grid;grid-template-columns:1.1fr .9fr;gap:0}.scene{min-height:520px;background:linear-gradient(#68bfff77,#061b3a99),var(--scene) center/cover no-repeat;position:relative;overflow:hidden}.scene .falcon{width:min(34%,230px);right:8%;bottom:10%}.orb{position:absolute;border-radius:50%;background:#f4bf37aa;box-shadow:0 0 35px #f4bf37;animation:float 2s ease-in-out infinite alternate}.o1{width:70px;height:70px;left:14%;top:22%}.o2{width:44px;height:44px;left:36%;top:58%;animation-delay:.4s}.o3{width:58px;height:58px;left:60%;top:18%;animation-delay:.8s}@keyframes float{to{transform:translateY(-18px)}}
+    .content{padding:32px;background:#fffaf1;color:var(--ink);min-height:520px;display:flex;flex-direction:column}.step{font-weight:900;color:#4d5b72;letter-spacing:.08em;text-transform:uppercase}.content h2{font-family:Bungee,cursive;text-transform:uppercase;font-size:38px;line-height:1.04;margin:8px 0 12px;color:#08285c}.content p,.content li{font-size:20px;line-height:1.7}.content ul{padding-left:24px}.quote{background:#eef6ff;border-left:8px solid var(--gold);border-radius:18px;padding:16px 18px;margin:16px 0;font-size:20px;line-height:1.6}.vocab{display:grid;gap:10px}.vocab div{background:#eef6ff;border-radius:16px;padding:12px 14px;font-size:19px}.navrow{display:flex;gap:12px;justify-content:space-between;margin-top:auto}.navbtn{border-radius:18px;padding:14px 18px;font-weight:900;font-size:18px;background:#0b2f65;color:white;box-shadow:0 8px 0 #061b3a}.navbtn.gold{background:var(--gold);color:#061b3a}.navbtn:active{transform:translateY(4px);box-shadow:0 4px 0 #061b3a}.hide{visibility:hidden}
+    .complete{padding:40px;text-align:center}.complete img{width:min(280px,60vw);filter:drop-shadow(0 16px 16px #0008);animation:bob 1.8s ease-in-out infinite alternate}.complete h2{font-family:Bungee,cursive;font-size:clamp(38px,7vw,72px);line-height:.98;margin:16px 0;color:#fff}.complete p{font-size:22px;line-height:1.55;color:#fff3c8;max-width:760px;margin:0 auto 22px}.mission-badge{display:inline-block;background:#f4bf37;color:#061b3a;border-radius:999px;padding:14px 20px;font-weight:900;font-size:19px}
+    @media(max-width:850px){.hero,.station{grid-template-columns:1fr}.big-actions,.choices{grid-template-columns:1fr}.scene{min-height:330px}.hero{padding:24px}.big-actions{padding:0 24px 24px}.topline{display:block}.rank{justify-content:flex-start;margin-top:12px}.content{min-height:auto}.hero-art{min-height:300px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <a class="home" href="index.html">← CAMP</a>
+      <div class="rank"><div class="pill">FIELD LAB</div><div class="pill" id="badgeCount">BADGES 0</div></div>
+    </header>
+
+    <section class="screen active" id="homeScreen">
+      <div class="panel hero">
+        <div>
+          <h1>FIELD LAB</h1>
+          <p>Pick a science mission. Read the clues. Collect evidence. Get ready to build your one-pager.</p>
+        </div>
+        <div class="hero-art"><div class="lab-glow"></div><div class="bubble">Scientist gear ready.</div><img class="falcon" src="falcon-science.png" alt="Scientist falcon"></div>
+        <div class="big-actions" style="grid-column:1/-1">
+          <button class="mission-card" data-mission="habitat"><h2>SAVE THE HABITAT</h2><p>Study an ecosystem and find a way to protect it.</p><span>START</span></button>
+          <button class="mission-card" data-mission="animal"><h2>ADAPTATION SURVIVOR</h2><p>Find out how an animal survives in its habitat.</p><span>START</span></button>
+          <button class="mission-card" data-mission="weather"><h2>WEATHER REPORTER</h2><p>Track extreme weather and prepare a safety report.</p><span>START</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="choiceScreen">
+      <div class="panel choose">
+        <div class="topline"><div><h1 class="title" id="choiceTitle">CHOOSE</h1><p class="subtitle" id="choiceSub">Pick your topic.</p></div><button class="navbtn" id="backHome">BACK</button></div>
+        <div class="choices" id="choiceGrid"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="stationScreen">
+      <div class="panel station">
+        <div class="scene" id="scene"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><img class="falcon" src="falcon-science.png" alt="Scientist falcon"></div>
+        <div class="content">
+          <div class="step" id="stepLabel">STATION 1</div>
+          <h2 id="stationTitle">MISSION</h2>
+          <div id="stationBody"></div>
+          <div class="navrow"><button class="navbtn" id="prevBtn">BACK</button><button class="navbtn gold" id="nextBtn">NEXT STATION</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="completeScreen">
+      <div class="panel complete">
+        <img src="falcon-science-master.png" alt="Master scientist falcon">
+        <h2>REPORT READY</h2>
+        <p id="completeText">You collected the science clues. Now use your worksheet to build your one-pager.</p>
+        <div class="mission-badge" id="earnedBadge">BADGE EARNED</div><br><br>
+        <button class="navbtn gold" id="againBtn">PICK ANOTHER MISSION</button>
+      </div>
+    </section>
+  </main>
+<script>
+const DATA={
+ habitat:{label:'SAVE THE HABITAT',sub:'Choose an ecosystem to investigate.',topics:{
+  desert:{name:'DESERT',bg:'bg-canyon.png',tag:'Dry land',stations:[
+   ['ECOSYSTEM SCAN',`<p><b>Paragraph 1.</b> A desert is a very dry ecosystem. It gets little rain. Many desert days are hot, but nights can be cool.</p><p><b>Paragraph 2.</b> Desert plants and animals save water. Cactus plants store water in thick stems. Many animals rest during the hot day.</p>`],
+   ['VOCAB STATION',`<div class="vocab"><div><b>Ecosystem:</b> living and nonliving things in one place.</div><div><b>Drought:</b> a long time with little rain.</div><div><b>Adaptation:</b> a body part or behavior that helps a living thing survive.</div></div>`],
+   ['FOOD CHAIN',`<p>Use this chain on your one-pager:</p><div class="quote">Sun → Cactus → Insect → Cactus Wren</div><p>Every part has a job. The cactus makes food. The insect eats the cactus. The bird eats the insect.</p>`],
+   ['THREAT CHECK',`<p><b>Paragraph 3.</b> Desert habitats can be harmed by drought, trash, and people building on animal homes.</p><p>A good protection plan could save water, clean up trash, and protect open land.</p>`],
+   ['EVIDENCE CLUE',`<div class="quote">"Desert plants and animals save water." (Paragraph 2)</div><p>Use this quote or choose another sentence from the mission.</p>`]
+  ]},
+  rainforest:{name:'RAINFOREST',bg:'bg-forest.png',tag:'Wet forest',stations:[
+   ['ECOSYSTEM SCAN',`<p><b>Paragraph 1.</b> A rainforest is a warm, wet forest. It rains often. Many plants grow tall and close together.</p><p><b>Paragraph 2.</b> Rainforests have many layers. Animals may live on the ground, in bushes, or high in the trees.</p>`],
+   ['VOCAB STATION',`<div class="vocab"><div><b>Canopy:</b> the top layer of trees.</div><div><b>Habitat:</b> the place where a living thing lives.</div><div><b>Consumer:</b> an animal that eats plants or other animals.</div></div>`],
+   ['FOOD CHAIN',`<div class="quote">Sun → Fruit Tree → Monkey → Jaguar</div><p>The fruit tree is a producer. The monkey and jaguar are consumers.</p>`],
+   ['THREAT CHECK',`<p><b>Paragraph 3.</b> Rainforests can be harmed when too many trees are cut down. Animals may lose food and shelter.</p><p>People can protect rainforests by saving trees and using land carefully.</p>`],
+   ['EVIDENCE CLUE',`<div class="quote">"Rainforests have many layers." (Paragraph 2)</div>`]
+  ]},
+  ocean:{name:'OCEAN',bg:'bg-rapids.png',tag:'Salt water',stations:[
+   ['ECOSYSTEM SCAN',`<p><b>Paragraph 1.</b> The ocean is a huge saltwater ecosystem. It covers most of Earth.</p><p><b>Paragraph 2.</b> Ocean animals need clean water, food, and safe places to live. Coral reefs are homes for many living things.</p>`],
+   ['VOCAB STATION',`<div class="vocab"><div><b>Marine:</b> related to the ocean.</div><div><b>Reef:</b> an underwater habitat made by coral.</div><div><b>Pollution:</b> harmful trash or chemicals in the environment.</div></div>`],
+   ['FOOD CHAIN',`<div class="quote">Sun → Algae → Small Fish → Shark</div><p>Energy starts with the sun and moves through the chain.</p>`],
+   ['THREAT CHECK',`<p><b>Paragraph 3.</b> Plastic trash and pollution can harm ocean animals. Some animals mistake plastic for food.</p><p>People can help by using less plastic and keeping trash out of drains and beaches.</p>`],
+   ['EVIDENCE CLUE',`<div class="quote">"Coral reefs are homes for many living things." (Paragraph 2)</div>`]
+  ]},
+  grassland:{name:'GRASSLAND',bg:'bg-area.png',tag:'Open plains',stations:[
+   ['ECOSYSTEM SCAN',`<p><b>Paragraph 1.</b> Grasslands are wide open places with many grasses and few trees.</p><p><b>Paragraph 2.</b> Grazing animals eat grass. Predators hunt small and large animals on the plains.</p>`],
+   ['VOCAB STATION',`<div class="vocab"><div><b>Prairie:</b> a type of grassland.</div><div><b>Predator:</b> an animal that hunts other animals.</div><div><b>Prey:</b> an animal that is hunted.</div></div>`],
+   ['FOOD CHAIN',`<div class="quote">Sun → Grass → Grasshopper → Hawk</div><p>This chain shows how energy moves in a grassland.</p>`],
+   ['THREAT CHECK',`<p><b>Paragraph 3.</b> Grasslands can be harmed by drought, wildfire, and loss of habitat.</p><p>People can protect grasslands by saving open spaces and planting native grasses.</p>`],
+   ['EVIDENCE CLUE',`<div class="quote">"Grasslands are wide open places with many grasses and few trees." (Paragraph 1)</div>`]
+  ]}
+ }},
+ animal:{label:'ADAPTATION SURVIVOR',sub:'Choose an animal to study.',topics:{
+  camel:{name:'CAMEL',bg:'bg-canyon.png',tag:'Desert survivor',stations:[['HABITAT SCAN',`<p><b>Paragraph 1.</b> Camels live in dry deserts. They can travel far with little water.</p>`],['BODY ADAPTATIONS',`<ul><li>Humps store fat for energy.</li><li>Long eyelashes help block sand.</li><li>Wide feet help them walk on sand.</li></ul>`],['BEHAVIOR MOVES',`<p><b>Paragraph 2.</b> Camels may rest during extreme heat. They can drink a lot of water when they find it.</p>`],['DANGER CHECK',`<p>Heat, drought, and lack of food can threaten camels.</p>`],['EVIDENCE CLUE',`<div class="quote">"They can travel far with little water." (Paragraph 1)</div>`]]},
+  polar:{name:'POLAR BEAR',bg:'bg-tower.png',tag:'Ice hunter',stations:[['HABITAT SCAN',`<p><b>Paragraph 1.</b> Polar bears live in the Arctic. Their habitat is cold and icy.</p>`],['BODY ADAPTATIONS',`<ul><li>Thick fur keeps them warm.</li><li>Large paws help them swim and walk on ice.</li><li>White fur helps them blend in.</li></ul>`],['BEHAVIOR MOVES',`<p><b>Paragraph 2.</b> Polar bears hunt seals. They can wait quietly near breathing holes in the ice.</p>`],['DANGER CHECK',`<p>Melting ice and lack of food can threaten polar bears.</p>`],['EVIDENCE CLUE',`<div class="quote">"Their habitat is cold and icy." (Paragraph 1)</div>`]]},
+  octopus:{name:'OCTOPUS',bg:'bg-rapids.png',tag:'Ocean hider',stations:[['HABITAT SCAN',`<p><b>Paragraph 1.</b> Octopuses live in the ocean. Many hide in rocks, reefs, or small spaces.</p>`],['BODY ADAPTATIONS',`<ul><li>Soft bodies squeeze into small spaces.</li><li>Arms help them grab food.</li><li>They can change color to hide.</li></ul>`],['BEHAVIOR MOVES',`<p><b>Paragraph 2.</b> Octopuses use ink to escape danger. They are also strong problem solvers.</p>`],['DANGER CHECK',`<p>Sharks, eels, and pollution can threaten octopuses.</p>`],['EVIDENCE CLUE',`<div class="quote">"They can change color to hide." (Paragraph 1)</div>`]]},
+  fox:{name:'ARCTIC FOX',bg:'bg-peaks.png',tag:'Snow camo',stations:[['HABITAT SCAN',`<p><b>Paragraph 1.</b> Arctic foxes live in cold places. Snow and ice cover much of their habitat.</p>`],['BODY ADAPTATIONS',`<ul><li>Thick fur keeps them warm.</li><li>Small ears help save heat.</li><li>White winter fur helps them hide.</li></ul>`],['BEHAVIOR MOVES',`<p><b>Paragraph 2.</b> Arctic foxes dig dens. They may follow larger animals to find leftover food.</p>`],['DANGER CHECK',`<p>Cold, hunger, and larger predators can threaten Arctic foxes.</p>`],['EVIDENCE CLUE',`<div class="quote">"White winter fur helps them hide." (Paragraph 1)</div>`]]},
+  wren:{name:'CACTUS WREN',bg:'bg-canyon.png',tag:'Desert bird',stations:[['HABITAT SCAN',`<p><b>Paragraph 1.</b> Cactus wrens live in desert areas. They often build nests in cactus plants.</p>`],['BODY ADAPTATIONS',`<ul><li>Curved beaks help them eat insects.</li><li>Strong feet help them perch on cactus.</li><li>Brown feathers help them blend with desert plants.</li></ul>`],['BEHAVIOR MOVES',`<p><b>Paragraph 2.</b> Cactus wrens build protected nests. They may search for food early before the day gets too hot.</p>`],['DANGER CHECK',`<p>Heat, snakes, and habitat loss can threaten cactus wrens.</p>`],['EVIDENCE CLUE',`<div class="quote">"They often build nests in cactus plants." (Paragraph 1)</div>`]]}
+ }},
+ weather:{label:'WEATHER REPORTER',sub:'Choose a weather event to report.',topics:{
+  hurricane:{name:'HURRICANE',bg:'bg-rapids.png',tag:'Ocean storm',stations:[['WEATHER SCAN',`<p><b>Paragraph 1.</b> A hurricane is a huge storm that forms over warm ocean water.</p>`],['WHAT CAUSES IT?',`<p>Warm water adds energy. Winds spin around a calm center called the eye.</p>`],['IMPACT REPORT',`<ul><li>Strong winds can damage buildings.</li><li>Heavy rain can cause flooding.</li><li>Storm surge can push ocean water onto land.</li></ul>`],['SAFETY CENTER',`<p>Listen to alerts, move away from flood areas, and keep emergency supplies ready.</p>`],['EVIDENCE CLUE',`<div class="quote">"A hurricane is a huge storm that forms over warm ocean water." (Paragraph 1)</div>`]]},
+  tornado:{name:'TORNADO',bg:'bg-area.png',tag:'Spinning wind',stations:[['WEATHER SCAN',`<p><b>Paragraph 1.</b> A tornado is a spinning column of air that reaches from a storm cloud to the ground.</p>`],['WHAT CAUSES IT?',`<p>Strong thunderstorms can make air spin. Some spinning air turns into a tornado.</p>`],['IMPACT REPORT',`<ul><li>Winds can break trees.</li><li>Homes and cars can be damaged.</li><li>Flying objects can be dangerous.</li></ul>`],['SAFETY CENTER',`<p>Go to a low room, stay away from windows, and cover your head.</p>`],['EVIDENCE CLUE',`<div class="quote">"A tornado is a spinning column of air." (Paragraph 1)</div>`]]},
+  blizzard:{name:'BLIZZARD',bg:'bg-peaks.png',tag:'Snow storm',stations:[['WEATHER SCAN',`<p><b>Paragraph 1.</b> A blizzard is a snowstorm with strong wind and low visibility.</p>`],['WHAT CAUSES IT?',`<p>Cold air, moisture, and strong wind can create a blizzard.</p>`],['IMPACT REPORT',`<ul><li>Roads can become unsafe.</li><li>People may lose power.</li><li>It can be hard to see outside.</li></ul>`],['SAFETY CENTER',`<p>Stay indoors, wear warm layers, and keep food, water, and blankets ready.</p>`],['EVIDENCE CLUE',`<div class="quote">"A blizzard is a snowstorm with strong wind and low visibility." (Paragraph 1)</div>`]]},
+  flood:{name:'FLOOD',bg:'bg-rapids.png',tag:'Too much water',stations:[['WEATHER SCAN',`<p><b>Paragraph 1.</b> A flood happens when water covers land that is usually dry.</p>`],['WHAT CAUSES IT?',`<p>Heavy rain, overflowing rivers, or storm surge can cause floods.</p>`],['IMPACT REPORT',`<ul><li>Roads can close.</li><li>Homes can be damaged.</li><li>Clean water can become unsafe.</li></ul>`],['SAFETY CENTER',`<p>Move to higher ground, avoid flood water, and listen to adults and alerts.</p>`],['EVIDENCE CLUE',`<div class="quote">"A flood happens when water covers land that is usually dry." (Paragraph 1)</div>`]]}
+ }}
+};
+let mission=null,topic=null,idx=0;
+const screens=[...document.querySelectorAll('.screen')];
+function show(id){screens.forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function ping(freq=640){try{const c=new AudioContext(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.type='triangle';g.gain.value=.05;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.16);o.stop(c.currentTime+.18)}catch(e){}}
+function badges(){let b=JSON.parse(localStorage.getItem('fieldLabBadges')||'[]');document.getElementById('badgeCount').textContent='BADGES '+b.length}
+badges();
+document.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>{mission=b.dataset.mission;const m=DATA[mission];document.getElementById('choiceTitle').textContent=m.label;document.getElementById('choiceSub').textContent=m.sub;const grid=document.getElementById('choiceGrid');grid.innerHTML='';Object.entries(m.topics).forEach(([key,t])=>{const btn=document.createElement('button');btn.className='choice';btn.style.setProperty('--bg',`url('${t.bg}')`);btn.innerHTML=`<h3>${t.name}</h3><p>${t.tag}</p><small>OPEN FILE</small>`;btn.onclick=()=>{topic=key;idx=0;renderStation();show('stationScreen');ping()};grid.appendChild(btn)});show('choiceScreen');ping(520)});
+document.getElementById('backHome').onclick=()=>show('homeScreen');
+function current(){return DATA[mission].topics[topic]}
+function renderStation(){const t=current(),s=t.stations[idx];document.getElementById('scene').style.setProperty('--scene',`url('${t.bg}')`);document.getElementById('stepLabel').textContent='STATION '+(idx+1)+' OF '+t.stations.length;document.getElementById('stationTitle').textContent=s[0];document.getElementById('stationBody').innerHTML=s[1];document.getElementById('prevBtn').classList.toggle('hide',idx===0);document.getElementById('nextBtn').textContent=idx===t.stations.length-1?'FINISH REPORT':'NEXT STATION'}
+document.getElementById('prevBtn').onclick=()=>{if(idx>0){idx--;renderStation();ping(380)}};
+document.getElementById('nextBtn').onclick=()=>{const t=current();if(idx<t.stations.length-1){idx++;renderStation();ping(760)}else{let b=JSON.parse(localStorage.getItem('fieldLabBadges')||'[]');let badge=DATA[mission].label+' · '+t.name;if(!b.includes(badge)){b.push(badge);localStorage.setItem('fieldLabBadges',JSON.stringify(b))}document.getElementById('earnedBadge').textContent=badge;document.getElementById('completeText').textContent='You finished '+t.name+'. Now use your worksheet to build your one-pager.';badges();show('completeScreen');ping(920);setTimeout(()=>ping(1100),120)}};
+document.getElementById('againBtn').onclick=()=>{show('homeScreen');ping(620)};
+</script>
+</body>
+</html>
