@@ -14,67 +14,64 @@
       --gold:#ffc83d;
       --gold2:#ffdd7a;
       --cream:#fff8e7;
-      --sky:#7fd7ff;
       --ink:#071b3b;
-      --card:rgba(255,255,255,.88);
-      --line:rgba(255,255,255,.52);
-      --shadow:0 24px 60px rgba(0,0,0,.32);
+      --card:rgba(255,255,255,.9);
+      --shadow:0 22px 56px rgba(0,0,0,.32);
+      --green:#1c7a55;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{min-height:100%}
     body{
       margin:0;
       font-family:'Atkinson Hyperlegible',system-ui,sans-serif;
       color:var(--ink);
-      background:
-        radial-gradient(circle at 12% 12%,rgba(255,255,255,.2),transparent 28%),
-        linear-gradient(135deg,#06172f 0%,#0b2d61 48%,#06172f 100%);
+      background:linear-gradient(135deg,#06172f 0%,#0b2d61 48%,#06172f 100%);
       overflow-x:hidden;
     }
     body::before{
       content:"";
       position:fixed;
       inset:0;
-      background:
-        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size:72px 72px;
-      opacity:.55;
+      background-image:url('bg-camp.png');
+      background-size:cover;
+      background-position:center;
+      opacity:.28;
+      filter:saturate(1.1) contrast(1.06);
       pointer-events:none;
     }
     body::after{
       content:"";
       position:fixed;
       inset:0;
-      background-image:url('bg-camp.png');
-      background-size:cover;
-      background-position:center;
-      opacity:.18;
-      filter:saturate(1.15);
+      background:
+        radial-gradient(circle at 18% 10%,rgba(255,255,255,.28),transparent 24%),
+        linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(6,23,47,.22),rgba(6,23,47,.76));
+      background-size:auto,78px 78px,78px 78px,auto;
       pointer-events:none;
     }
     .page{
       position:relative;
       z-index:1;
-      min-height:100%;
-      padding:28px clamp(18px,4vw,44px) 40px;
+      min-height:100vh;
+      padding:22px clamp(16px,4vw,42px) 36px;
       display:flex;
       flex-direction:column;
-      gap:28px;
+      gap:22px;
     }
     .hero{
-      min-height:410px;
-      border:4px solid rgba(255,255,255,.72);
-      border-radius:38px;
-      background:
-        linear-gradient(105deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.86) 50%,rgba(255,248,231,.92) 100%);
+      min-height:330px;
+      border:4px solid rgba(255,255,255,.74);
+      border-radius:34px;
+      background:linear-gradient(105deg,rgba(255,255,255,.95),rgba(255,248,231,.88));
       box-shadow:var(--shadow);
       position:relative;
       overflow:hidden;
       display:grid;
       grid-template-columns:1.05fr .95fr;
       align-items:center;
-      padding:40px clamp(28px,5vw,70px);
+      padding:30px clamp(24px,5vw,58px);
     }
     .hero::before{
       content:"";
@@ -83,60 +80,90 @@
       background-image:url('bg-camp.png');
       background-size:cover;
       background-position:center;
-      opacity:.18;
+      opacity:.26;
     }
     .hero-copy,.hero-art{position:relative;z-index:1}
     .tag{
       font-family:'Bungee',system-ui;
       letter-spacing:.08em;
       color:var(--navy2);
-      font-size:15px;
-      margin-bottom:16px;
+      font-size:14px;
+      margin-bottom:12px;
     }
     h1{
       font-family:'Bungee',system-ui;
-      font-size:clamp(54px,8vw,106px);
-      line-height:.96;
+      font-size:clamp(42px,6.4vw,86px);
+      line-height:.95;
       letter-spacing:.02em;
       margin:0;
       color:var(--navy);
       text-shadow:0 5px 0 var(--gold2);
     }
     .subtitle{
-      margin:26px 0 20px;
-      font-size:clamp(23px,2vw,34px);
+      margin:18px 0 16px;
+      font-size:clamp(22px,2vw,31px);
       font-weight:800;
       line-height:1.25;
       color:var(--navy);
     }
-    .chips{display:flex;flex-wrap:wrap;gap:14px}
+    .chips{display:flex;flex-wrap:wrap;gap:12px}
     .chip{
       font-family:'Bungee',system-ui;
-      font-size:14px;
+      font-size:13px;
       color:#fff;
       background:var(--navy);
       border:3px solid var(--gold);
       border-radius:999px;
-      padding:12px 18px;
+      padding:10px 15px;
       box-shadow:0 6px 0 rgba(0,0,0,.18);
+    }
+    .hero-art{
+      display:grid;
+      grid-template-columns:1fr;
+      place-items:center;
+      gap:12px;
+    }
+    .speech{
+      max-width:420px;
+      background:#fff;
+      border:4px solid var(--navy);
+      border-radius:24px;
+      padding:14px 18px;
+      font-size:20px;
+      line-height:1.35;
+      font-weight:900;
+      color:var(--navy);
+      box-shadow:0 10px 0 rgba(6,27,61,.18);
+      position:relative;
+    }
+    .speech::after{
+      content:"";
+      position:absolute;
+      right:42px;
+      bottom:-18px;
+      width:28px;
+      height:28px;
+      background:#fff;
+      border-right:4px solid var(--navy);
+      border-bottom:4px solid var(--navy);
+      transform:rotate(45deg);
     }
     .camp-falcon{
       display:block;
-      width:min(390px,42vw);
-      max-height:360px;
+      width:min(300px,34vw);
+      max-height:300px;
       object-fit:contain;
-      margin:0 auto;
       filter:drop-shadow(0 22px 28px rgba(6,27,61,.35));
       animation:float 2.4s ease-in-out infinite alternate;
     }
-    @keyframes float{from{transform:translateY(8px) rotate(-1deg)}to{transform:translateY(-10px) rotate(1deg)}}
+    @keyframes float{from{transform:translateY(6px) rotate(-1deg)}to{transform:translateY(-9px) rotate(1deg)}}
     .paths{
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:24px;
+      gap:22px;
     }
     .path-card{
-      min-height:330px;
+      min-height:315px;
       display:flex;
       flex-direction:column;
       justify-content:space-between;
@@ -163,16 +190,16 @@
       inset:0;
       background-size:cover;
       background-position:center;
-      opacity:.42;
+      opacity:.7;
       transform:scale(1.04);
       transition:opacity .22s ease, transform .22s ease;
     }
-    .path-card:hover::before{opacity:.58;transform:scale(1.08)}
+    .path-card:hover::before{opacity:.84;transform:scale(1.08)}
     .path-card::after{
       content:"";
       position:absolute;
       inset:0;
-      background:linear-gradient(180deg,rgba(255,255,255,.56) 0%,rgba(255,255,255,.9) 64%,rgba(255,255,255,.96) 100%);
+      background:linear-gradient(180deg,rgba(255,255,255,.28) 0%,rgba(255,255,255,.78) 56%,rgba(255,255,255,.96) 100%);
     }
     .flight::before{background-image:url('bg-canyon.png')}
     .lab::before{background-image:url('bg-lab.png')}
@@ -180,37 +207,49 @@
     .card-inner{
       position:relative;
       z-index:1;
-      min-height:330px;
+      min-height:315px;
       display:grid;
       grid-template-rows:auto 1fr auto;
-      padding:28px;
+      padding:24px;
     }
     .subject{
+      justify-self:start;
       font-family:'Bungee',system-ui;
-      font-size:15px;
+      font-size:14px;
       letter-spacing:.1em;
-      color:var(--navy2);
+      color:white;
+      background:rgba(6,27,61,.9);
+      border:3px solid var(--gold);
+      border-radius:999px;
+      padding:8px 12px;
     }
     .character-wrap{
       display:flex;
       align-items:center;
       justify-content:center;
-      min-height:130px;
+      min-height:135px;
     }
     .path-character{
-      width:155px;
-      max-height:150px;
+      width:178px;
+      max-height:170px;
       object-fit:contain;
-      filter:drop-shadow(0 16px 18px rgba(0,0,0,.25));
+      filter:drop-shadow(0 17px 18px rgba(0,0,0,.31));
       transition:transform .22s ease;
     }
-    .path-card:hover .path-character{transform:translateY(-6px) scale(1.06)}
+    .path-card:hover .path-character{transform:translateY(-6px) scale(1.07)}
     .path-title{
       font-family:'Bungee',system-ui;
-      font-size:clamp(32px,3.3vw,52px);
+      font-size:clamp(31px,3vw,48px);
       line-height:1;
-      margin:0 0 18px;
+      margin:0 0 8px;
       color:var(--navy);
+    }
+    .path-line{
+      margin:0 0 16px;
+      font-size:18px;
+      line-height:1.35;
+      font-weight:900;
+      color:#12325d;
     }
     .button-row{display:flex;align-items:center;justify-content:flex-start}
     .game-button{
@@ -227,6 +266,39 @@
       font-size:17px;
       box-shadow:0 8px 0 rgba(6,27,61,.25);
     }
+    .camp-goal{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      background:rgba(255,248,231,.94);
+      border:4px solid rgba(255,255,255,.74);
+      border-radius:28px;
+      padding:18px 22px;
+      box-shadow:0 18px 38px rgba(0,0,0,.22);
+      color:var(--navy);
+    }
+    .camp-goal strong{
+      font-family:'Bungee',system-ui;
+      font-size:clamp(20px,2vw,28px);
+    }
+    .goal-track{
+      flex:1;
+      height:18px;
+      min-width:160px;
+      border-radius:999px;
+      background:#d6e2ef;
+      border:3px solid #fff;
+      overflow:hidden;
+      box-shadow:inset 0 2px 6px rgba(0,0,0,.16);
+    }
+    .goal-fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--gold),#52d273);
+      border-radius:999px;
+      transition:width .4s ease;
+    }
     .wipe{
       position:fixed;
       inset:0;
@@ -239,7 +311,7 @@
     }
     .wipe.on{opacity:1;transform:scale(1.4)}
     @media (max-width:980px){
-      .hero{grid-template-columns:1fr;text-align:center;padding:34px 24px}.chips{justify-content:center}.camp-falcon{width:260px}.paths{grid-template-columns:1fr}.path-card{min-height:280px}.card-inner{min-height:280px}.path-title{font-size:40px}
+      .page{padding:16px 14px 28px}.hero{grid-template-columns:1fr;text-align:center;padding:28px 20px}.chips{justify-content:center}.camp-falcon{width:220px}.paths{grid-template-columns:1fr}.path-card{min-height:285px}.card-inner{min-height:285px}.path-title{font-size:40px}.camp-goal{flex-direction:column;text-align:center}.goal-track{width:100%}
     }
   </style>
 </head>
@@ -251,12 +323,13 @@
         <h1>FALCON<br>ADVENTURE<br>CAMP</h1>
         <p class="subtitle">Where will you go today?</p>
         <div class="chips" aria-label="Progress tracker">
-          <span class="chip">RANK: SKY SCOUT</span>
+          <span class="chip">RANK: <span id="rankName">SKY SCOUT</span></span>
           <span class="chip">BADGES: <span id="badgeCount">0</span></span>
           <span class="chip">PATHS: <span id="pathCount">0</span>/3</span>
         </div>
       </div>
       <div class="hero-art">
+        <div class="speech" id="guideSpeech">Choose a path to start your adventure!</div>
         <img class="camp-falcon" src="falcon-camp.png" alt="Falcon camp guide">
       </div>
     </section>
@@ -268,6 +341,7 @@
           <div class="character-wrap"><img class="path-character" src="falcon-pilot.png" alt="Pilot falcon"></div>
           <div>
             <h2 class="path-title">FLIGHT<br>SCHOOL</h2>
+            <p class="path-line">Earn math badges in the sky.</p>
             <div class="button-row"><span class="game-button">TAKE OFF!</span></div>
           </div>
         </div>
@@ -279,6 +353,7 @@
           <div class="character-wrap"><img class="path-character" src="falcon-science.png" alt="Scientist falcon"></div>
           <div>
             <h2 class="path-title">FIELD<br>LAB</h2>
+            <p class="path-line">Scan habitats, animals, and weather.</p>
             <div class="button-row"><span class="game-button">EXPLORE!</span></div>
           </div>
         </div>
@@ -290,19 +365,59 @@
           <div class="character-wrap"><img class="path-character" src="falcon-explorer.png" alt="Explorer falcon"></div>
           <div>
             <h2 class="path-title">EXPEDITION<br>CORPS</h2>
+            <p class="path-line">Explore helpers, places, and choices.</p>
             <div class="button-row"><span class="game-button">LET'S GO!</span></div>
           </div>
         </div>
       </a>
     </main>
+
+    <section class="camp-goal" aria-label="Camp progress">
+      <strong>🏆 CAMP GOAL: COMPLETE ALL 3 PATHS</strong>
+      <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
+      <strong id="goalText">0%</strong>
+    </section>
   </div>
   <div class="wipe" id="wipe" aria-hidden="true"></div>
   <script>
-    const save = JSON.parse(localStorage.getItem('falconCampSave') || '{}');
-    const badges = save.badges || [];
-    document.getElementById('badgeCount').textContent = badges.length || 0;
-    const paths = ['flightSchoolComplete','fieldLabComplete','expeditionComplete'].filter(k => save[k]).length;
+    function safeJSON(key, fallback){
+      try{return JSON.parse(localStorage.getItem(key)) || fallback}catch(e){return fallback}
+    }
+    const campSave = safeJSON('falconCampSave', {});
+    const flightBadges = safeJSON('fs_badges', []);
+    const flightProgress = safeJSON('fs_progress_v9', {complete:[]});
+    const campBadges = Array.isArray(campSave.badges) ? campSave.badges : [];
+    const allBadges = [...new Set([...campBadges, ...flightBadges])];
+    const flightDone = Boolean(campSave.flightSchoolComplete) || (Array.isArray(flightProgress.complete) && flightProgress.complete.length >= 16);
+    const fieldDone = Boolean(campSave.fieldLabComplete);
+    const expeditionDone = Boolean(campSave.expeditionComplete);
+    const paths = [flightDone, fieldDone, expeditionDone].filter(Boolean).length;
+    const progress = Math.round((paths / 3) * 100);
+    const rank = paths === 3 ? 'CAMP CHAMPION' : paths === 2 ? 'TRAIL BLAZER' : paths === 1 ? 'PATHFINDER' : 'SKY SCOUT';
+    document.getElementById('badgeCount').textContent = allBadges.length || 0;
     document.getElementById('pathCount').textContent = paths;
+    document.getElementById('goalFill').style.width = progress + '%';
+    document.getElementById('goalText').textContent = progress + '%';
+    document.getElementById('rankName').textContent = rank;
+    const messages = paths === 3 ? [
+      'Camp complete! You earned every path.',
+      'You are a camp champion!',
+      'Ready to replay your favorite path?'
+    ] : paths === 2 ? [
+      'One path left. You are close!',
+      'Two paths complete. Keep going!',
+      'Choose the final challenge.'
+    ] : paths === 1 ? [
+      'Nice start. Pick your next path!',
+      'One path complete. Keep moving!',
+      'Your next mission is waiting.'
+    ] : [
+      'Choose a path to start your adventure!',
+      'Flight School is ready for takeoff!',
+      'Field Lab needs a scientist!',
+      'Expedition Corps needs an explorer!'
+    ];
+    document.getElementById('guideSpeech').textContent = messages[Math.floor(Math.random()*messages.length)];
     function tone(freq=660,dur=.08,type='triangle'){
       try{
         const A=window.AudioContext||window.webkitAudioContext;
