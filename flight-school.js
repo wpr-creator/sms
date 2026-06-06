@@ -1,119 +1,51 @@
-(() => {
-  const missions = [
-    { key:'multiplication', title:'MULTIPLICATION CANYON', badge:'CANYON PILOT', bg:'bg-canyon.png', tag:'Fly through the right product.' },
-    { key:'division', title:'DIVISION NEST', badge:'NEST NAVIGATOR', bg:'bg-nest.png', tag:'Share into equal groups.' },
-    { key:'place', title:'PLACE VALUE PEAKS', badge:'PEAK CLIMBER', bg:'bg-peaks.png', tag:'Find hundreds, tens, and ones.' },
-    { key:'rounding', title:'ROUNDING RAPIDS', badge:'RAPID RIDER', bg:'bg-rapids.png', tag:'Land on the nearest number.' },
-    { key:'addition', title:'ADDITION AIRWAY', badge:'SUM SKY FLYER', bg:'bg-peaks.png', tag:'Add within 1,000.' },
-    { key:'subtraction', title:'SUBTRACTION SKYWAY', badge:'DIFFERENCE DIVER', bg:'bg-ridge.png', tag:'Subtract within 1,000.' },
-    { key:'multiples10', title:'TEN TIMES TRAIL', badge:'TENS ACE', bg:'bg-canyon.png', tag:'Multiply by multiples of 10.' },
-    { key:'fractionsLine', title:'FRACTION FOREST', badge:'FOREST SCOUT', bg:'bg-forest.png', tag:'Find fractions on the trail.' },
-    { key:'fractionCompare', title:'FRACTION LOOKOUT', badge:'FRACTION LOOKOUT', bg:'bg-forest.png', tag:'Compare fractions.' },
-    { key:'partsWhole', title:'PARTS OF A WHOLE', badge:'WHOLE BUILDER', bg:'bg-area.png', tag:'Match parts to fractions.' },
-    { key:'time', title:'TIME TOWER', badge:'TIME KEEPER', bg:'bg-tower.png', tag:'Read time to the nearest minute.' },
-    { key:'area', title:'AREA OUTPOST', badge:'AREA BUILDER', bg:'bg-area.png', tag:'Count the square units.' },
-    { key:'perimeter', title:'PERIMETER RIDGE', badge:'RIDGE RANGER', bg:'bg-ridge.png', tag:'Trace the outside path.' },
-    { key:'word1', title:'WORD PROBLEM RUNWAY', badge:'STORY SOLVER', bg:'bg-camp.png', tag:'Solve one-step stories.' },
-    { key:'word2', title:'CHAMPIONSHIP FLIGHT', badge:'SKY CHAMPION', bg:'bg-camp.png', tag:'Solve two-step stories.' }
-  ];
-
-  const $ = id => document.getElementById(id);
-  const el = {
-    start:$('startCard'), startBtn:$('startBtn'), complete:$('completeCard'), boss:$('bossBanner'), prompt:$('promptText'), answers:$('answerGrid'),
-    q:$('questionCount'), lives:$('livesCount'), badges:$('badgeCount'), label:$('missionLabel'), title:$('missionTitle'), tag:$('missionTag'), flyer:$('falconFlyer'), rank:$('flightRank'), completeTitle:$('completeTitle'), completeText:$('completeText'), completeEyebrow:$('completeEyebrow')
+(function(){
+  const $=id=>document.getElementById(id);
+  const missions=window.FS_QUESTIONS.missions;
+  const storeKey='fs_progress_v9';
+  const badgeKey='fs_badges';
+  let state=load();
+  let current=0, questions=[], qIndex=0, lives=3, locked=false;
+  const els={
+    missionName:$('missionName'), questionCount:$('questionCount'), lifeText:$('lifeText'), xpText:$('xpText'), missionMap:$('missionMap'),
+    stageBg:$('stageBackground'), stage:$('flightStage'), falcon:$('pilotFalcon'), boss:$('bossBadge'),
+    startCard:$('startCard'), startTitle:$('startTitle'), startBtn:$('startBtn'), resetBtn:$('resetBtn'), challengeCard:$('challengeCard'),
+    prompt:$('promptText'), zone:$('interactiveZone'), feedback:$('feedbackText'), type:$('challengeType'),
+    complete:$('completeCard'), completeTitle:$('completeTitle'), completeLabel:$('completeLabel'), continueBtn:$('continueBtn')
   };
-  let missionIndex = Number(localStorage.getItem('flightMissionIndex') || 0);
-  missionIndex = Math.min(missionIndex, missions.length - 1);
-  let question = 0, lives = 3, current = null, locked = false;
-  const badgeSet = () => new Set(JSON.parse(localStorage.getItem('facBadges') || '[]'));
-  const saveBadges = set => localStorage.setItem('facBadges', JSON.stringify([...set]));
-  const tone = (freq=620,dur=.1,type='triangle') => { try{ const c=new(window.AudioContext||window.webkitAudioContext)(); const o=c.createOscillator(); const g=c.createGain(); o.type=type; o.frequency.value=freq; g.gain.setValueAtTime(.0001,c.currentTime); g.gain.exponentialRampToValueAtTime(.08,c.currentTime+.01); g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+dur); o.connect(g).connect(c.destination); o.start(); o.stop(c.currentTime+dur+.02);}catch(e){} };
-
-  function setMission(){
-    const m = missions[missionIndex];
-    document.body.style.setProperty('--mission-bg', `url('${m.bg}')`);
-    document.body.style.setProperty('--falcon-x', '10%');
-    el.label.textContent = `MISSION ${missionIndex + 1}`;
-    el.title.textContent = m.title;
-    el.tag.textContent = m.tag;
-    el.rank.textContent = missionIndex > 10 ? 'ACE PILOT' : missionIndex > 5 ? 'WING LEADER' : 'SKY SCOUT';
-    el.badges.textContent = `BADGES: ${badgeSet().size}`;
+  function load(){try{return JSON.parse(localStorage.getItem(storeKey))||{unlocked:0,xp:0,complete:[]}}catch(e){return{unlocked:0,xp:0,complete:[]}}}
+  function save(){localStorage.setItem(storeKey,JSON.stringify(state));}
+  function getBadges(){try{return JSON.parse(localStorage.getItem(badgeKey))||[]}catch(e){return[]}}
+  function saveBadge(name){const b=getBadges(); if(!b.includes(name)){b.push(name);localStorage.setItem(badgeKey,JSON.stringify(b));}}
+  function sound(kind){try{const A=window.AudioContext||window.webkitAudioContext;const a=new A();const o=a.createOscillator();const g=a.createGain();o.connect(g);g.connect(a.destination);o.type=kind==='wrong'?'sawtooth':'triangle';let f=kind==='wrong'?160:kind==='boss'?220:kind==='win'?523:740;o.frequency.value=f;g.gain.value=.05;o.start();if(kind==='win'){o.frequency.setValueAtTime(659,a.currentTime+.08);o.frequency.setValueAtTime(784,a.currentTime+.16)}if(kind==='boss'){o.frequency.setValueAtTime(330,a.currentTime+.08)}g.gain.exponentialRampToValueAtTime(.001,a.currentTime+(kind==='win'?.32:.14));o.stop(a.currentTime+(kind==='win'?.34:.16))}catch(e){}}
+  function renderMap(){els.missionMap.innerHTML='';missions.forEach((m,i)=>{const n=document.createElement('div');n.className='map-node '+(state.complete.includes(i)?'done ':i===current?'current ':'')+(i>state.unlocked?'locked':'');n.textContent=i>state.unlocked?'LOCKED':m.name.split(' ')[0];els.missionMap.appendChild(n);});}
+  function setMissionVisual(i){const m=missions[i];els.missionName.textContent=m.name;els.stageBg.style.backgroundImage=`linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.1)), url('${m.bg}')`;els.stage.className='flight-stage scene-'+m.id;els.boss.classList.remove('show');positionFalcon(0);}
+  function positionFalcon(progress){els.falcon.style.left=(Math.max(0,Math.min(1,progress))*82)+'%';}
+  function updateHud(){els.lifeText.textContent='❤ '.repeat(lives).trim()+' ♡ '.repeat(3-lives).trim();els.xpText.textContent='XP '+state.xp;els.questionCount.textContent=questions.length?`${Math.min(qIndex+1,15)}/15`:'READY';}
+  function show(view){els.startCard.classList.toggle('hidden',view!=='start');els.challengeCard.classList.toggle('hidden',view!=='play');els.complete.classList.toggle('hidden',view!=='complete');}
+  function boot(){current=Math.min(state.unlocked,missions.length-1);renderMap();setMissionVisual(current);updateHud();els.startTitle.textContent=state.unlocked===0?'READY FOR TAKEOFF?':'KEEP FLYING';show('start');}
+  function startMission(i=current){current=i;questions=window.FS_QUESTIONS.makeMissionQuestions(missions[current].id,15);qIndex=0;lives=3;locked=false;setMissionVisual(current);renderMap();updateHud();show('play');renderQuestion();}
+  function renderQuestion(){locked=false;const q=questions[qIndex];const m=missions[current];const isBoss=[4,9,14].includes(qIndex);els.boss.textContent=qIndex===14?'MISSION BOSS':'MINI BOSS';els.boss.classList.toggle('show',isBoss);if(isBoss)sound('boss');els.type.textContent=isBoss?'BOSS ROUND':m.name;els.prompt.textContent=q.prompt;els.feedback.textContent='';els.zone.innerHTML='';els.zone.className='interactive-zone type-'+(q.kind||m.type||'choice');const type=q.kind==='line'?'line':q.kind==='clock'?'clock':m.type;
+    if(q.kind==='input') renderInput(q); else if(type==='line') renderLine(q); else if(type==='clock') renderClock(q); else renderButtons(q,type);
+    positionFalcon(qIndex/15);
+    updateHud();}
+  function renderButtons(q,type){q.options.forEach(opt=>{const b=document.createElement('button');b.type='button';b.className='answer-btn visual-btn '+(type||'cloud');b.textContent=opt;b.addEventListener('click',()=>answer(b,opt,q.answer));els.zone.appendChild(b);});}
+  function renderLine(q){const wrap=document.createElement('div');wrap.className='number-line';q.options.forEach(opt=>{const b=document.createElement('button');b.type='button';b.className='line-choice';b.innerHTML=`<span>${opt}</span>`;b.addEventListener('click',()=>answer(b,opt,q.answer));wrap.appendChild(b);});els.zone.appendChild(wrap);}
+  function renderClock(q){q.options.forEach(opt=>{const [h,m]=opt.split(':').map(Number);const b=document.createElement('button');b.type='button';b.className='answer-btn clock-choice';const hourRot=((h%12)*30)+(m*.5);const minRot=m*6;b.innerHTML=`<div class="clock-face" style="--hourRot:${hourRot}deg;--minRot:${minRot}deg"></div><span>${opt}</span>`;b.addEventListener('click',()=>answer(b,opt,q.answer,q.answers));els.zone.appendChild(b);});}
+  function renderInput(q){
+    const wrap=document.createElement('div');wrap.className='input-challenge';
+    const helper=document.createElement('div');helper.className='input-helper';helper.textContent=q.helper||'Type your answer, then launch it.';
+    const input=document.createElement('input');input.type='text';input.inputMode=q.inputMode||'text';input.autocomplete='off';input.placeholder=q.placeholder||'Type answer';input.setAttribute('aria-label','Answer');
+    const btn=document.createElement('button');btn.type='button';btn.className='primary-btn';btn.textContent='LAUNCH ANSWER';
+    const submit=()=>answer(btn,input.value,q.answer,q.answers,input);
+    btn.addEventListener('click',submit);input.addEventListener('keydown',e=>{if(e.key==='Enter')submit();});
+    wrap.append(helper,input,btn);els.zone.appendChild(wrap);setTimeout(()=>input.focus(),60);
   }
-  function startMission(){
-    question = 0; lives = 3; locked = false;
-    el.start.classList.add('hidden');
-    el.complete.classList.add('hidden');
-    updateHud();
-    nextQuestion();
-  }
-  function updateHud(){
-    el.q.textContent = `QUESTION ${question}/15`;
-    el.lives.textContent = `HEARTS: ${'♥ '.repeat(lives).trim()}`;
-    el.badges.textContent = `BADGES: ${badgeSet().size}`;
-    document.body.style.setProperty('--falcon-x', `${10 + (question/15)*76}%`);
-  }
-  function nextQuestion(){
-    locked = false;
-    if(question >= 15) return completeMission();
-    if([5,10].includes(question)){ showBoss('BOSS ROUND!'); }
-    const gen = FlightSchoolBank.generators[missions[missionIndex].key] || FlightSchoolBank.generators.multiplication;
-    current = gen();
-    el.prompt.textContent = current.prompt;
-    el.answers.innerHTML = '';
-    current.choices.forEach(choice => {
-      const btn = document.createElement('button');
-      btn.className = 'answer-btn';
-      btn.type = 'button';
-      btn.textContent = choice;
-      btn.addEventListener('click', () => answer(choice, btn));
-      el.answers.appendChild(btn);
-    });
-    updateHud();
-  }
-  function showBoss(text){
-    el.boss.textContent = text;
-    el.boss.classList.remove('hidden');
-    tone(180,.15,'sawtooth'); setTimeout(()=>tone(240,.15,'sawtooth'),140);
-    setTimeout(()=>el.boss.classList.add('hidden'),900);
-  }
-  function answer(choice, btn){
-    if(locked) return; locked = true;
-    const ok = String(choice) === String(current.answer);
-    if(ok){
-      btn.classList.add('correct'); tone(740,.08); setTimeout(()=>tone(980,.1),70);
-      question++;
-      updateHud();
-      if(question === 15){ showBoss('FINAL BOSS!'); setTimeout(nextQuestion,900); }
-      else setTimeout(nextQuestion,520);
-    }else{
-      btn.classList.add('wrong'); tone(140,.18,'sawtooth'); lives--; updateHud();
-      if(lives <= 0){
-        el.prompt.textContent = 'Try this mission again.';
-        el.answers.innerHTML = '<button class="primary-btn" type="button" id="retryBtn">RESTART MISSION</button>';
-        document.getElementById('retryBtn').addEventListener('click', startMission);
-      } else setTimeout(()=>{locked=false; btn.classList.remove('wrong')},500);
-    }
-  }
-  function completeMission(){
-    const m = missions[missionIndex];
-    const badges = badgeSet(); badges.add(m.badge); saveBadges(badges);
-    localStorage.setItem('flightMissionIndex', String(Math.min(missionIndex + 1, missions.length - 1)));
-    el.completeEyebrow.textContent = 'BADGE EARNED';
-    el.completeTitle.textContent = m.badge;
-    if(missionIndex >= missions.length - 1){
-      localStorage.setItem('flightComplete','yes');
-      el.completeText.textContent = 'Flight School complete! Returning to camp...';
-      el.complete.classList.remove('hidden');
-      tone(520,.12); setTimeout(()=>tone(760,.12),130); setTimeout(()=>tone(1040,.18),260);
-      setTimeout(()=>window.location.href='index.html',2400);
-    }else{
-      el.completeText.textContent = 'Next mission loading...';
-      el.complete.classList.remove('hidden');
-      tone(520,.12); setTimeout(()=>tone(760,.12),130); setTimeout(()=>tone(1040,.18),260);
-      missionIndex++;
-      setTimeout(()=>{ setMission(); startMission(); },2200);
-    }
-  }
-  setMission();
-  el.startBtn.addEventListener('click', startMission);
+  function clean(v){return String(v).toLowerCase().replace(/,/g,'').replace(/\s+/g,'').replace(/×/g,'x');}
+  function isCorrect(opt,ans,answers){const c=clean(opt);return (answers||[ans]).map(clean).includes(c);}
+  function answer(btn,opt,ans,answers,input){if(locked)return;locked=true;if(isCorrect(opt,ans,answers)){btn.classList.add('correct');if(input)input.classList.add('correct');els.feedback.textContent='NICE FLIGHT';sound('correct');state.xp+=10;els.falcon.classList.add('boost');setTimeout(()=>els.falcon.classList.remove('boost'),450);qIndex++;positionFalcon(qIndex/15);updateHud();setTimeout(()=>{qIndex>=questions.length?completeMission():renderQuestion()},650);}else{btn.classList.add('wrong');if(input)input.classList.add('wrong');lives--;els.feedback.textContent=lives>0?'TRY ANOTHER PATH':'START THIS MISSION AGAIN';sound('wrong');updateHud();if(lives<=0){setTimeout(()=>startMission(current),950)}else{setTimeout(()=>{btn.classList.remove('wrong');if(input){input.classList.remove('wrong');input.value='';input.focus();}locked=false;els.feedback.textContent='';},850)}}}
+  function completeMission(){state.complete=[...new Set([...state.complete,current])];saveBadge(missions[current].badge);if(current>=state.unlocked&&state.unlocked<missions.length-1)state.unlocked=current+1;state.xp+=50;save();renderMap();updateHud();els.completeTitle.textContent=missions[current].badge;els.completeLabel.textContent=current===missions.length-1?'FLIGHT SCHOOL COMPLETE':'BADGE EARNED';show('complete');sound('win');positionFalcon(1);if(current<missions.length-1){setTimeout(()=>startMission(current+1),1800)}}
+  els.startBtn.addEventListener('click',()=>startMission(Math.min(state.unlocked,missions.length-1)));
+  els.resetBtn.addEventListener('click',()=>{if(confirm('Reset Flight School progress?')){localStorage.removeItem(storeKey);localStorage.removeItem(badgeKey);state=load();boot();}});
+  els.continueBtn.addEventListener('click',()=>{current<missions.length-1?startMission(current+1):boot();});
+  boot();
 })();
