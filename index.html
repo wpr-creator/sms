@@ -203,7 +203,7 @@
     }
     .flight::before{background-image:url('bg-canyon.png')}
     .lab::before{background-image:url('bg-lab.png')}
-    .expedition::before{background-image:url('bg-expedition-hub.png')}
+    .expedition::before{background-image:url('bg-expedition.png')}
     .card-inner{
       position:relative;
       z-index:1;
@@ -353,7 +353,7 @@
           <div class="character-wrap"><img class="path-character" src="falcon-science.png" alt="Scientist falcon"></div>
           <div>
             <h2 class="path-title">FIELD<br>LAB</h2>
-            <p class="path-line">Scan habitats, animals, and weather.</p>
+            <p class="path-line">Explore habitats, animals, and weather.</p>
             <div class="button-row"><span class="game-button">EXPLORE!</span></div>
           </div>
         </div>
@@ -379,66 +379,6 @@
     </section>
   </div>
   <div class="wipe" id="wipe" aria-hidden="true"></div>
-  <script>
-    function safeJSON(key, fallback){
-      try{return JSON.parse(localStorage.getItem(key)) || fallback}catch(e){return fallback}
-    }
-    const campSave = safeJSON('falconCampSave', {});
-    const flightBadges = safeJSON('fs_badges', []);
-    const flightProgress = safeJSON('fs_progress_v9', {complete:[]});
-    const campBadges = Array.isArray(campSave.badges) ? campSave.badges : [];
-    const allBadges = [...new Set([...campBadges, ...flightBadges])];
-    const flightDone = Boolean(campSave.flightSchoolComplete) || (Array.isArray(flightProgress.complete) && flightProgress.complete.length >= 16);
-    const fieldDone = Boolean(campSave.fieldLabComplete);
-    const expeditionDone = Boolean(campSave.expeditionComplete);
-    const paths = [flightDone, fieldDone, expeditionDone].filter(Boolean).length;
-    const progress = Math.round((paths / 3) * 100);
-    const rank = paths === 3 ? 'CAMP CHAMPION' : paths === 2 ? 'TRAIL BLAZER' : paths === 1 ? 'PATHFINDER' : 'SKY SCOUT';
-    document.getElementById('badgeCount').textContent = allBadges.length || 0;
-    document.getElementById('pathCount').textContent = paths;
-    document.getElementById('goalFill').style.width = progress + '%';
-    document.getElementById('goalText').textContent = progress + '%';
-    document.getElementById('rankName').textContent = rank;
-    const messages = paths === 3 ? [
-      'Camp complete! You earned every path.',
-      'You are a camp champion!',
-      'Ready to replay your favorite path?'
-    ] : paths === 2 ? [
-      'One path left. You are close!',
-      'Two paths complete. Keep going!',
-      'Choose the final challenge.'
-    ] : paths === 1 ? [
-      'Nice start. Pick your next path!',
-      'One path complete. Keep moving!',
-      'Your next mission is waiting.'
-    ] : [
-      'Choose a path to start your adventure!',
-      'Flight School is ready for takeoff!',
-      'Field Lab needs a scientist!',
-      'Expedition Corps needs an explorer!'
-    ];
-    document.getElementById('guideSpeech').textContent = messages[Math.floor(Math.random()*messages.length)];
-    function tone(freq=660,dur=.08,type='triangle'){
-      try{
-        const A=window.AudioContext||window.webkitAudioContext;
-        const ctx=new A();
-        const osc=ctx.createOscillator();
-        const gain=ctx.createGain();
-        osc.type=type; osc.frequency.value=freq;
-        gain.gain.setValueAtTime(.0001,ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(.08,ctx.currentTime+.01);
-        gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+dur);
-        osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+dur+.02);
-      }catch(e){}
-    }
-    document.querySelectorAll('[data-go]').forEach(link=>{
-      link.addEventListener('click',event=>{
-        event.preventDefault();
-        tone(620,.08); setTimeout(()=>tone(880,.1),80);
-        document.getElementById('wipe').classList.add('on');
-        setTimeout(()=>{ window.location.href = link.getAttribute('href'); }, 320);
-      });
-    });
-  </script>
+  <script src="camp.js"></script>
 </body>
 </html>
