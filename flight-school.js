@@ -264,10 +264,34 @@
     }
   }
 
+  function missionPraise(){
+    const id = missions[current]?.id || '';
+    const byMission = {
+      multiplication:['CANYON CLEARED!','PRODUCT FOUND!','MATH BOOST!'],
+      division:['NEST LANDING!','GROUPS SOLVED!','SAFE PERCH!'],
+      oneStep:['RUNWAY CLEAR!','STORY SOLVED!','GOOD READING!'],
+      twoStep:['SKYWAY SOLVED!','BOTH STEPS DONE!','SMART FLIGHT!'],
+      placeValue:['PEAK BUILT!','VALUE FOUND!','NUMBER MASTER!'],
+      rounding:['RAPIDS CLEARED!','ROUNDING RIDER!','SAFE LANDING!'],
+      addition:['OUTPOST BUILT!','SUM FOUND!','ADDITION BOOST!'],
+      subtraction:['RIDGE CROSSED!','DIFFERENCE FOUND!','STRONG SUBTRACTING!'],
+      tens:['TENS TAKEOFF!','TEN BOOST!','MULTIPLYING BY TENS!'],
+      fracLine:['TRAIL FOUND!','FRACTION SPOTTED!','FOREST PATH CLEAR!'],
+      fracCompare:['DUEL WON!','GREATER FRACTION!','FRACTION SCOUT!'],
+      partsWhole:['WHOLE BUILT!','EQUAL PARTS!','SHAPE SOLVED!'],
+      time:['CLOCK MASTER!','TIME FOUND!','TOWER CLEARED!'],
+      area:['OUTPOST MAPPED!','AREA FOUND!','SQUARE UNITS!'],
+      perimeter:['RIDGE TRACED!','PERIMETER FOUND!','OUTSIDE DISTANCE!'],
+      partition:['SHAPE SPLIT!','EQUAL SHARES!','PARTITION PRO!']
+    };
+    const list = byMission[id] || ['NICE FLIGHT!','GOOD BOOST!','YOU GOT IT!','KEEP FLYING!'];
+    return list[Math.floor(Math.random()*list.length)];
+  }
+
   function correct(){
     qIndex++;
     progress.xp = (progress.xp || 0) + 10;
-    els.feedback.textContent = ["NICE FLIGHT!","GOOD BOOST!","YOU GOT IT!","KEEP FLYING!"][Math.floor(Math.random()*4)];
+    els.feedback.textContent = missionPraise();
     els.scene.classList.add("flash-correct");
     els.falcon.classList.add("boost");
     sound("correct");
@@ -323,7 +347,7 @@
     els.boss.classList.add("hidden");
     els.completeEyebrow.textContent = current === missions.length - 1 ? "FLIGHT SCHOOL COMPLETE" : "BADGE EARNED";
     els.completeTitle.textContent = m.badge;
-    els.completeText.textContent = current === missions.length - 1 ? "You finished every mission." : "Next mission is unlocked.";
+    els.completeText.textContent = current === missions.length - 1 ? "You finished every Flight School mission." : "Next mission unlocked. Keep flying.";
     els.complete.classList.remove("hidden");
     els.continueBtn.textContent = current === missions.length - 1 ? "RETURN TO START" : "NEXT MISSION";
     sound("win");

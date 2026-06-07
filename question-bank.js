@@ -17,22 +17,22 @@
   }
 
   const missions=[
-    {id:'multiplication', name:'MULTIPLICATION CANYON', badge:'CANYON PILOT', bg:'bg-canyon.png', type:'cloud', tag:'Fly through the correct product.'},
-    {id:'division', name:'DIVISION NEST', badge:'NEST NAVIGATOR', bg:'bg-nest.png', type:'perch', tag:'Land on the missing group size.'},
-    {id:'oneStep', name:'WORD PROBLEM RUNWAY', badge:'RUNWAY READER', bg:'bg-camp.png', type:'cloud', tag:'Read carefully and choose the path.'},
-    {id:'twoStep', name:'TWO-STEP SKYWAY', badge:'SKYWAY SOLVER', bg:'bg-canyon.png', type:'cloud', tag:'Solve both steps before you fly.'},
-    {id:'placeValue', name:'PLACE VALUE PEAKS', badge:'PEAK BUILDER', bg:'bg-peaks.png', type:'block', tag:'Build numbers by value and form.'},
-    {id:'rounding', name:'ROUNDING RAPIDS', badge:'RAPID RIDER', bg:'bg-rapids.png', type:'perch', tag:'Round to the safest landing spot.'},
-    {id:'addition', name:'ADDITION OUTPOST', badge:'SUM BUILDER', bg:'bg-area.png', type:'block', tag:'Add within 1,000.'},
-    {id:'subtraction', name:'SUBTRACTION RIDGE', badge:'DIFFERENCE DASHER', bg:'bg-ridge.png', type:'perch', tag:'Subtract within 1,000.'},
-    {id:'tens', name:'TENS TAKEOFF', badge:'TENS PILOT', bg:'bg-canyon.png', type:'cloud', tag:'Multiply by multiples of 10.'},
-    {id:'fracLine', name:'FRACTION FOREST TRAIL', badge:'FRACTION FINDER', bg:'bg-forest.png', type:'line', tag:'Find fractions on the trail.'},
-    {id:'fracCompare', name:'FRACTION FOREST DUEL', badge:'FRACTION SCOUT', bg:'bg-forest.png', type:'cloud', tag:'Compare fractions with matching parts.'},
-    {id:'partsWhole', name:'PARTS OF A WHOLE', badge:'WHOLE BUILDER', bg:'bg-forest.png', type:'block', tag:'Name equal parts of a whole.'},
-    {id:'time', name:'TIME TOWER', badge:'TIME KEEPER', bg:'bg-tower.png', type:'clock', tag:'Tell time to the nearest minute.'},
-    {id:'area', name:'AREA OUTPOST', badge:'AREA ARCHITECT', bg:'bg-area.png', type:'tile', tag:'Find area using square units.'},
-    {id:'perimeter', name:'PERIMETER RIDGE', badge:'RIDGE RANGER', bg:'bg-ridge.png', type:'perch', tag:'Trace the outside distance.'},
-    {id:'partition', name:'SHAPE SPLIT SKY', badge:'SHAPE SPLITTER', bg:'bg-peaks.png', type:'block', tag:'Split shapes into equal shares.'}
+    {id:'multiplication', name:'MULTIPLICATION CANYON', badge:'CANYON PILOT', bg:'bg-canyon.png', type:'cloud', tag:'Cross the canyon by finding the correct product.'},
+    {id:'division', name:'DIVISION NEST', badge:'NEST NAVIGATOR', bg:'bg-nest.png', type:'perch', tag:'Land safely in the nest by solving each division challenge.'},
+    {id:'oneStep', name:'WORD PROBLEM RUNWAY', badge:'RUNWAY READER', bg:'bg-camp.png', type:'cloud', tag:'Read the runway story and choose the safe answer.'},
+    {id:'twoStep', name:'TWO-STEP SKYWAY', badge:'SKYWAY SOLVER', bg:'bg-canyon.png', type:'cloud', tag:'Solve both steps to stay on the skyway.'},
+    {id:'placeValue', name:'PLACE VALUE PEAKS', badge:'PEAK BUILDER', bg:'bg-peaks.png', type:'block', tag:'Build, compare, and explain numbers by place value.'},
+    {id:'rounding', name:'ROUNDING RAPIDS', badge:'RAPID RIDER', bg:'bg-rapids.png', type:'perch', tag:'Ride the rapids by rounding to the nearest safe spot.'},
+    {id:'addition', name:'ADDITION OUTPOST', badge:'SUM BUILDER', bg:'bg-area.png', type:'block', tag:'Build the outpost by adding within 1,000.'},
+    {id:'subtraction', name:'SUBTRACTION RIDGE', badge:'DIFFERENCE DASHER', bg:'bg-ridge.png', type:'perch', tag:'Cross the ridge by finding the difference.'},
+    {id:'tens', name:'TENS TAKEOFF', badge:'TENS PILOT', bg:'bg-canyon.png', type:'cloud', tag:'Take off by multiplying with tens.'},
+    {id:'fracLine', name:'FRACTION FOREST TRAIL', badge:'FRACTION FINDER', bg:'bg-forest.png', type:'line', tag:'Follow the forest trail to find each fraction.'},
+    {id:'fracCompare', name:'FRACTION FOREST DUEL', badge:'FRACTION SCOUT', bg:'bg-forest.png', type:'cloud', tag:'Choose the greater fraction to win the forest duel.'},
+    {id:'partsWhole', name:'PARTS OF A WHOLE', badge:'WHOLE BUILDER', bg:'bg-forest.png', type:'block', tag:'Build the whole by naming equal parts.'},
+    {id:'time', name:'TIME TOWER', badge:'TIME KEEPER', bg:'bg-tower.png', type:'clock', tag:'Climb Time Tower by reading each clock.'},
+    {id:'area', name:'AREA OUTPOST', badge:'AREA ARCHITECT', bg:'bg-area.png', type:'tile', tag:'Map the outpost by finding the area.'},
+    {id:'perimeter', name:'PERIMETER RIDGE', badge:'RIDGE RANGER', bg:'bg-ridge.png', type:'perch', tag:'Trace the ridge by finding perimeter.'},
+    {id:'partition', name:'SHAPE SPLIT SKY', badge:'SHAPE SPLITTER', bg:'bg-peaks.png', type:'block', tag:'Split each shape into equal shares.'}
   ];
 
   function q(prompt,answer,options,kind){
@@ -66,7 +66,12 @@
 
     if(id==='placeValue'){
       const h=r(1,9), t=r(0,9), o=r(0,9), num=h*100+t*10+o;
-      const mode=r(1,boss?5:4);
+      const onesWords=['zero','one','two','three','four','five','six','seven','eight','nine'];
+      const teenWords={10:'ten',11:'eleven',12:'twelve',13:'thirteen',14:'fourteen',15:'fifteen',16:'sixteen',17:'seventeen',18:'eighteen',19:'nineteen'};
+      const tensWords={20:'twenty',30:'thirty',40:'forty',50:'fifty',60:'sixty',70:'seventy',80:'eighty',90:'ninety'};
+      function under100(n){ if(n<10) return onesWords[n]; if(n<20) return teenWords[n]; const t=Math.floor(n/10)*10, o=n%10; return o?`${tensWords[t]}-${onesWords[o]}`:tensWords[t]; }
+      function wordForm(n){ const h=Math.floor(n/100), rest=n%100; return rest?`${onesWords[h]} hundred ${under100(rest)}`:`${onesWords[h]} hundred`; }
+      const mode=r(1,boss?8:7);
       if(mode===1) return inputQ(`Build the number: ${h} hundreds, ${t} tens, and ${o} ones.`, num, 'Use hundreds, tens, and ones to type the full number.','Type the number','numeric');
       if(mode===2){
         const placeChoice=shuffle(['hundreds','tens','ones'])[0];
@@ -83,8 +88,21 @@
         const expanded=[h*100,t*10,o].filter(x=>x!==0).join(' + ');
         return inputQ(`What number is ${expanded}?`, num, 'Add the expanded form to make the number.','Type the number','numeric');
       }
-      const compare=num+r(2,40);
-      return q(`Which number is greater?`, Math.max(num,compare), shuffle([num,compare,num-10,compare+10]));
+      if(mode===5){
+        let compare=num+r(-75,75); if(compare<100) compare+=100; if(compare>999) compare-=100; if(compare===num) compare+=10;
+        return q(`Which number is greater?`, Math.max(num,compare), shuffle([num,compare,Math.max(100,num-10),Math.min(999,compare+10)]));
+      }
+      if(mode===6){
+        const nums=shuffle([num, num+r(1,40), Math.max(100,num-r(1,40))]).map(n=>Math.max(100,Math.min(999,n)));
+        const ans=[...nums].sort((a,b)=>a-b).join(', ');
+        return inputQ(`Put these numbers in order from least to greatest: ${nums.join(', ')}`, ans, 'Type the numbers in order with commas between them.','Example: 214, 241, 421','text',[ans, ans.replace(/, /g,',')]);
+      }
+      if(mode===7){
+        return inputQ(`Write ${num} in word form.`, wordForm(num), 'Word form means writing the number using words.','Example: four hundred thirty-eight','text',[wordForm(num), wordForm(num).replace(/-/g,' ')]);
+      }
+      const values=[['hundreds',h*100],['tens',t*10],['ones',o]].filter(x=>x[1]>0);
+      const biggest=values.sort((a,b)=>b[1]-a[1])[0];
+      return q(`In ${num}, which place has the greatest value?`, biggest[0], shuffle(['hundreds','tens','ones','all equal']));
     }
 
     if(id==='rounding'){
