@@ -31,6 +31,21 @@
 @media(max-width:980px){.question-builder,.story-note-grid{grid-template-columns:1fr}.asset-scene{min-height:160px}}
 
 
+/* Storm Watch asset integration */
+.station-hero-art{display:grid;place-items:center;min-height:330px;border-radius:28px;background:linear-gradient(#ffffff55,#ffffff18),url('bg-storm.png') center/cover;overflow:hidden;position:relative}
+.station-hero-art img{width:min(300px,78%);filter:drop-shadow(0 18px 18px #071d4260)}
+.weather-card-icon{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 8px 8px #071d4235);margin-bottom:6px}
+.weather-card .emoji.small{font-size:34px;line-height:1}
+.article-icon-img{width:136px;height:136px;object-fit:contain;justify-self:center;filter:drop-shadow(0 14px 14px #071d4245)}
+.station-caption{display:inline-block;margin-top:10px;background:#ffffffd8;border:2px solid #dce8f6;border-radius:999px;padding:8px 12px;font-weight:900;color:var(--navy)}
+.section-with-art{display:grid;grid-template-columns:1fr 170px;gap:18px;align-items:center}
+.section-art{width:150px;max-width:100%;justify-self:center;filter:drop-shadow(0 12px 12px #071d4228)}
+.snapshot-wrap{display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:center;padding:16px 24px;background:#eef6ff;border-bottom:3px solid #cfe3f8}
+.snapshot-wrap .snapshot-grid{padding:0;border-bottom:0;background:transparent}
+.snapshot-art{width:138px;justify-self:center;filter:drop-shadow(0 10px 10px #071d4228)}
+@media(max-width:980px){.section-with-art,.snapshot-wrap{grid-template-columns:1fr}.section-art,.snapshot-art,.article-icon-img{justify-self:start}.station-hero-art{min-height:230px}.weather-card-icon{width:62px;height:62px}}
+
+
 .snapshot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px 24px;background:#eef6ff;border-bottom:3px solid #cfe3f8}
 .snapshot-card{background:white;border:2px solid #dce8f6;border-radius:18px;padding:13px;font-weight:900;color:var(--navy);font-size:18px;line-height:1.35}
 .snapshot-card strong{display:block;color:var(--blue);font-size:15px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
@@ -62,7 +77,7 @@
     <div class="panel">
       <div class="hero">
         <div><span class="kicker">WEATHER RESEARCH</span><h1>STORM WATCH<br>STATION</h1><p>Choose a severe weather event. Build your preparation plan by exploring what it is, what causes it, what you may experience, and how people stay safe.</p></div>
-        <div class="hero-art"><div class="weather-orb">⛈️</div></div>
+        <div class="station-hero-art"><img src="weather-snapshot.png" alt="Weather station display"></div>
       </div>
       <div class="weather-grid" id="weatherGrid"></div><div class="weather-choice-note">Pick one weather type to study first. Each guide gives you facts, supplies, sensory details, safety ideas, and story ideas.</div>
     </div>
@@ -126,7 +141,7 @@ function questionTrail(key,w){
 }
 function show(id){Object.values(screens).forEach(s=>s&&s.classList.remove('active'));if(screens[id]) screens[id].classList.add('active');window.scrollTo(0,0)}
 function safeSave(){try{const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};save.stormWatchComplete=true;localStorage.setItem('falconCampSave',JSON.stringify(save));}catch(e){}}
-function buildWeatherChoices(){grid.innerHTML='';storyTopics.innerHTML='';Object.entries(WEATHER).forEach(([key,w])=>{const card=document.createElement('button');card.type='button';card.className='weather-card';card.dataset.weather=key;card.style.setProperty('--bg',weatherBackground(key,w));card.setAttribute('aria-label',`Open ${w.title}`);card.innerHTML=`<div><div class="emoji">${w.emoji}</div><h2>${w.title}</h2><p>${w.short}</p></div><span class="open-label">OPEN</span>`;grid.appendChild(card);const topic=document.createElement('button');topic.type='button';topic.className='topic-card';topic.dataset.weather=key;topic.innerHTML=`<span>${w.emoji}</span>${w.title}`;storyTopics.appendChild(topic);})}
+function buildWeatherChoices(){grid.innerHTML='';storyTopics.innerHTML='';Object.entries(WEATHER).forEach(([key,w])=>{const card=document.createElement('button');card.type='button';card.className='weather-card';card.dataset.weather=key;card.style.setProperty('--bg',weatherBackground(key,w));card.setAttribute('aria-label',`Open ${w.title}`);card.innerHTML=`<div><img class="weather-card-icon" src="${WEATHER_ASSETS[key]?.station || 'weather-snapshot.png'}" alt=""><div class="emoji small">${w.emoji}</div><h2>${w.title}</h2><p>${w.short}</p></div><span class="open-label">OPEN</span>`;grid.appendChild(card);const topic=document.createElement('button');topic.type='button';topic.className='topic-card';topic.dataset.weather=key;topic.innerHTML=`<img class="weather-card-icon" src="${WEATHER_ASSETS[key]?.station || 'weather-snapshot.png'}" alt=""><span>${w.emoji}</span>${w.title}`;storyTopics.appendChild(topic);})}
 
 function snapshotHTML(key,w){
   const data={
@@ -137,12 +152,12 @@ function snapshotHTML(key,w){
     drought:['Dry and often hot','Can last many seasons','Dry or farming areas','Water shortage']
   };
   const s=data[key]||['Changing weather','Varies','Many places','Safety'];
-  return `<div class="snapshot-grid">
+  return `<div class="snapshot-wrap"><div class="snapshot-grid">
     <div class="snapshot-card"><strong>Weather Feel</strong>${s[0]}</div>
     <div class="snapshot-card"><strong>Common Time</strong>${s[1]}</div>
     <div class="snapshot-card"><strong>Where It Happens</strong>${s[2]}</div>
     <div class="snapshot-card"><strong>Main Danger</strong>${s[3]}</div>
-  </div>`;
+  </div><img class="snapshot-art" src="weather-snapshot.png" alt="Weather snapshot board"></div>`;
 }
 
 function supplyHTML(list){
@@ -201,7 +216,7 @@ function safetyTips(key){
 }
 
 function openWeather(key){const w=WEATHER[key];if(!w||!articleBody)return;safeSave();articleBody.innerHTML=`
-<div class="article-hero" style="--bg:${weatherBackground(key,w)}"><div><span class="kicker">MY SEVERE WEATHER PLAN</span><h1 class="weather-title">${w.emoji} ${w.title}</h1><p>${w.short}</p></div><div class="article-icon">${w.emoji}</div></div>
+<div class="article-hero" style="--bg:${weatherBackground(key,w)}"><div><span class="kicker">MY SEVERE WEATHER PLAN</span><h1 class="weather-title">${w.emoji} ${w.title}</h1><p>${w.short}</p><div class="station-caption">Today's Weather Station: ${w.title} Observation Area</div></div><img class="article-icon-img" src="${WEATHER_ASSETS[key]?.station || 'weather-snapshot.png'}" alt=""></div>
 ${snapshotHTML(key,w)}
 <div class="asset-scene" style="--scene-bg:${weatherBackground(key,w)}"><div class="asset-scene-card"><h2>Weather Lookout</h2><p>${lookoutText(key)}</p></div></div>
 <div class="plan-strip" aria-label="Weather plan sections">
@@ -214,12 +229,12 @@ ${snapshotHTML(key,w)}
 <nav class="subnav" aria-label="Weather page sections"><a class="jump" href="#about">About</a><a class="jump" href="#prepare">Prepare</a><a class="jump" href="#experience">Experience</a><a class="jump" href="#safe">Stay Safe</a><a class="jump" href="#wear">Wear</a><a class="jump" href="#activities">Activities</a><button type="button" class="jump" data-story>Storm Journal</button></nav>
 <div class="article-body">
 <section class="section feature" id="about"><span class="section-label">I chose to learn about ${w.title}</span><h2>🔎 About My Weather Event</h2><p>${w.about}</p><div class="info-grid"><div class="mini-card"><h3>What is it?</h3><p>${w.short}</p></div><div class="mini-card"><h3>What causes it?</h3><p>${w.causes}</p></div><div class="mini-card"><h3>When and where?</h3><p>${w.where}</p></div></div><div class="vocab"><strong>Word Watch:</strong> ${w.vocab}</div></section>
-<section class="section" id="prepare"><h2>🎒 How I Prepared</h2><p>${w.prepare}</p><h3 style="margin:16px 0 0;color:var(--navy)">Supplies We Might Need</h3><div class="supplies">${supplyHTML(w.supplies)}</div></section>
+<section class="section" id="prepare"><div class="section-with-art"><div><h2>🎒 How I Prepared</h2><p>${w.prepare}</p><h3 style="margin:16px 0 0;color:var(--navy)">Supplies We Might Need</h3></div><img class="section-art" src="weather-backpack.png" alt="Weather supply backpack"></div><div class="supplies">${supplyHTML(w.supplies)}</div></section>
 <section class="section" id="experience"><h2>👀 What I Might Experience</h2><p>Severe weather can change what people notice around them. These details can help a weather observer describe the day clearly.</p><div class="sense-grid"><div class="sense"><h3>👀 See</h3><p>${w.see}</p></div><div class="sense"><h3>👂 Hear</h3><p>${w.hear}</p></div><div class="sense"><h3>✋ Feel</h3><p>${w.feel}</p></div><div class="sense"><h3>👃 Smell</h3><p>${w.smell}</p></div></div></section>
 <section class="section" id="safe"><h2>🦺 How I Will Stay Safe</h2><p>${w.safe}</p><div class="safety-list">${safetyTips(key)}</div></section>
-<section class="section" id="wear"><h2>👕 What I Might Wear</h2><p>${w.wear}</p><div class="gear-grid">${gearList(key)}</div></section>
+<section class="section" id="wear"><div class="section-with-art"><div><h2>👕 What I Might Wear</h2><p>${w.wear}</p></div><img class="section-art" src="weather-clothing.png" alt="Weather clothing display"></div><div class="gear-grid">${gearList(key)}</div></section>
 <section class="section" id="activities"><h2>🎲 A Day During This Weather</h2><p>${w.activities}</p>${dayDuringHTML(key)}</section>
-<section class="section journal"><h2>💡 Weather Observer Notebook</h2><p>${w.learned}</p>${notebookHTML(w)}<h2 style="margin-top:18px">❓ Question Trail</h2><div class="question-builder">${questionTrail(key,w)}</div><div class="memory-card">One important thing to remember: preparation helps people make safer choices when weather changes.</div></section>
+<section class="section journal"><div class="section-with-art"><div><h2>💡 Weather Observer Notebook</h2><p>${w.learned}</p></div><img class="section-art" src="weather-journal.png" alt="Weather observer notebook"></div>${notebookHTML(w)}<h2 style="margin-top:18px">❓ Question Trail</h2><div class="question-builder">${questionTrail(key,w)}</div><div class="memory-card">One important thing to remember: preparation helps people make safer choices when weather changes.</div></section>
 </div>`;show('article')}
 document.addEventListener('click',e=>{const weatherButton=e.target.closest('[data-weather]');if(weatherButton){openWeather(weatherButton.dataset.weather);return}if(e.target.closest('[data-home]')){show('home');return}if(e.target.closest('[data-story]')){show('story')}});
 buildWeatherChoices();
