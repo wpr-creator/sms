@@ -53,9 +53,10 @@
   const flightDone = Boolean(campSave.flightSchoolComplete) || flightCompleteCount >= 16;
   const fieldDone = Boolean(campSave.fieldLabComplete);
   const expeditionDone = Boolean(campSave.expeditionComplete);
-  const paths = [flightDone, fieldDone, expeditionDone].filter(Boolean).length;
-  const progress = Math.round((paths / 3) * 100);
-  const rank = paths === 3 ? 'CAMP CHAMPION' : paths === 2 ? 'TRAIL BLAZER' : paths === 1 ? 'PATHFINDER' : 'SKY SCOUT';
+  const stormWatchDone = Boolean(campSave.stormWatchComplete);
+  const paths = [flightDone, fieldDone, expeditionDone, stormWatchDone].filter(Boolean).length;
+  const progress = Math.round((paths / 4) * 100);
+  const rank = paths === 4 ? 'CAMP CHAMPION' : paths === 3 ? 'TRAIL BLAZER' : paths === 2 ? 'PATHFINDER' : paths === 1 ? 'SKY SCOUT' : 'NEW EXPLORER';
 
   const badgeCount = document.getElementById('badgeCount') || document.getElementById('badgePill');
   const pathCount = document.getElementById('pathCount') || document.getElementById('pathPill');
@@ -71,23 +72,28 @@
   if (goalText) goalText.textContent = progress + '%';
 
   if (guideSpeech) {
-    const messages = paths === 3 ? [
-      'Camp complete! You earned every path.',
+    const messages = paths === 4 ? [
+      'Camp complete! You explored every path.',
       'You are a camp champion!',
-      'Ready to replay your favorite path?'
-    ] : paths === 2 ? [
+      'Ready to revisit your favorite place?'
+    ] : paths === 3 ? [
       'One path left. You are close!',
-      'Two paths complete. Keep going!',
-      'Choose the final challenge.'
+      'Three paths explored. Keep going!',
+      'Choose the final place.'
+    ] : paths === 2 ? [
+      'Two paths explored. Nice work!',
+      'You are building your camp map.',
+      'Pick another place to visit.'
     ] : paths === 1 ? [
       'Nice start. Pick your next path!',
-      'One path complete. Keep moving!',
-      'Your next mission is waiting.'
+      'One path explored. Keep moving!',
+      'Your next stop is waiting.'
     ] : [
       'Choose a path to start your adventure!',
       'Flight School is ready for takeoff!',
       'Field Lab needs a scientist!',
-      'Expedition Corps needs an explorer!'
+      'Expedition Corps needs an explorer!',
+      'Storm Watch Station is open!'
     ];
     guideSpeech.textContent = messages[Math.floor(Math.random() * messages.length)];
   }
