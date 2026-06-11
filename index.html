@@ -372,6 +372,53 @@
       line-height:1.25;
     }
     .signpost-item span{display:block;font-size:30px;margin-bottom:3px}
+
+    .path-card::selection{background:var(--gold);color:var(--navy)}
+    .sparkle-layer{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      overflow:hidden;
+      pointer-events:none;
+    }
+    .sparkle{
+      position:absolute;
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:rgba(255,200,61,.72);
+      box-shadow:0 0 18px rgba(255,221,122,.85);
+      animation:sparkleFloat var(--speed,8s) ease-in-out infinite alternate;
+      opacity:.72;
+    }
+    @keyframes sparkleFloat{
+      from{transform:translate3d(0,0,0) scale(.72)}
+      to{transform:translate3d(var(--drift,24px),-34px,0) scale(1.12)}
+    }
+    .path-card::marker{display:none}
+    .path-card .subject{transition:transform .18s ease, background .18s ease}
+    .path-card:hover .subject,.path-card:focus-visible .subject{transform:translateY(-2px)}
+    .path-card:hover .path-title,.path-card:focus-visible .path-title{text-shadow:0 4px 0 var(--gold2)}
+    .path-card::after{transition:background .22s ease}
+    .path-card:hover::after,.path-card:focus-visible::after{
+      background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.68) 50%,rgba(255,255,255,.98) 100%);
+    }
+    .storm .path-title{letter-spacing:.01em}
+    .storm::before{background-position:center}
+    .storm:hover .path-character,.storm:focus-visible .path-character{transform:translateY(-8px) scale(1.08) rotate(-2deg)}
+    .camp-signpost{position:relative;overflow:hidden}
+    .camp-signpost::before{
+      content:"";
+      position:absolute;
+      inset:-60% auto -60% -30%;
+      width:40%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+      transform:rotate(15deg);
+      animation:signShine 7s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes signShine{0%,55%{left:-40%}75%,100%{left:120%}}
+
     @media (prefers-reduced-motion:reduce){
       .camp-falcon,.hero::after,.path-card{animation:none}
       .path-card,.path-card:hover,.path-card:focus-visible{transition:none;transform:none}
@@ -387,6 +434,7 @@
   </style>
 </head>
 <body>
+  <div class="sparkle-layer" aria-hidden="true"></div>
   <div class="page">
     <section class="hero" aria-label="Falcon Adventure Camp">
       <div class="hero-copy">
@@ -456,9 +504,9 @@
           <div class="subject">LANGUAGE ARTS</div>
           <div class="character-wrap"><img class="path-character" src="weather-journal.png" alt="Weather journal"></div>
           <div>
-            <h2 class="path-title">STORM<br>WATCH</h2>
-            <p class="path-line">Explore severe weather and collect ideas for a storm story.</p>
-            <div class="button-row"><span class="game-button">START STORY!</span></div>
+            <h2 class="path-title">SEVERE<br>WEATHER</h2>
+            <p class="path-line">Research extreme weather and gather ideas for your weather story.</p>
+            <div class="button-row"><span class="game-button">START RESEARCH!</span></div>
           </div>
         </div>
       </a>
@@ -471,6 +519,39 @@
     </section>
   </div>
   <div class="wipe" id="wipe" aria-hidden="true"></div>
+
+  <script>
+    (() => {
+      const speech = document.getElementById('guideSpeech');
+      const layer = document.querySelector('.sparkle-layer');
+      const messages = {
+        flight: 'Flight School is ready for takeoff!',
+        lab: 'Field Lab is open for science exploring!',
+        expedition: 'Expedition Corps is ready for a new route!',
+        storm: 'Severe Weather is ready for research and story ideas!'
+      };
+      document.querySelectorAll('.path-card').forEach(card => {
+        const key = ['flight','lab','expedition','storm'].find(name => card.classList.contains(name));
+        card.addEventListener('mouseenter', () => { if(speech && messages[key]) speech.textContent = messages[key]; });
+        card.addEventListener('focus', () => { if(speech && messages[key]) speech.textContent = messages[key]; });
+        card.addEventListener('mouseleave', () => { if(speech) speech.textContent = 'Choose a path to start your adventure!'; });
+        card.addEventListener('blur', () => { if(speech) speech.textContent = 'Choose a path to start your adventure!'; });
+      });
+      if(layer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        const spots = [[8,82,18],[18,20,28],[31,74,36],[48,18,22],[62,78,30],[77,24,26],[89,70,34],[94,38,20]];
+        spots.forEach(([left,top,drift],i) => {
+          const dot = document.createElement('span');
+          dot.className = 'sparkle';
+          dot.style.left = left + '%';
+          dot.style.top = top + '%';
+          dot.style.setProperty('--drift', drift + 'px');
+          dot.style.setProperty('--speed', (6 + (i % 4)) + 's');
+          dot.style.animationDelay = (-i * .7) + 's';
+          layer.appendChild(dot);
+        });
+      }
+    })();
+  </script>
   <script src="camp.js"></script>
 </body>
 </html>
