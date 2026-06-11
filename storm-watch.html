@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Storm Watch Station</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#071d42;--blue:#12509b;--sky:#eaf6ff;--gold:#f5bd2f;--paper:#fffaf1;--ink:#102033;--green:#247a59}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Atkinson Hyperlegible",system-ui,sans-serif;background:#071d42;color:var(--ink);min-height:100vh}button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;color:inherit}.page{min-height:100vh;background:linear-gradient(180deg,#071d42aa,#071d42ee),url('bg-storm.png') center/cover fixed}.wrap{width:min(1180px,94vw);margin:auto;padding:18px 0 34px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.home,.pill{background:#ffffff18;color:white;border:2px solid #ffffff45;border-radius:999px;padding:10px 14px;font-weight:900}.screen{display:none}.screen.active{display:block}.panel{background:rgba(255,250,241,.96);border:4px solid #ffffffb8;border-radius:32px;box-shadow:0 24px 70px #0008;overflow:hidden}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;padding:34px;background:linear-gradient(135deg,#ffffffec,#fff8d8ee)}.kicker{display:inline-block;background:#eaf6ff;border:2px solid #cfe3f8;color:var(--navy);font-weight:900;border-radius:999px;padding:7px 11px;margin-bottom:12px}.hero h1,.title,.weather-title,.section h2{font-family:Bungee,system-ui;line-height:1;margin:0;color:var(--navy)}.hero h1{font-size:clamp(44px,7vw,86px);text-shadow:0 5px 0 #ffdc76}.hero p{font-size:22px;line-height:1.5;margin:14px 0 0}.hero-art{min-height:330px;border-radius:28px;background:linear-gradient(#ffffff55,#ffffff18),url('bg-storm.png') center/cover;display:grid;place-items:center;position:relative;overflow:hidden}.weather-orb{width:min(270px,64vw);height:min(270px,64vw);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#fff,#dcecff 42%,#6f91c5 100%);font-size:110px;box-shadow:0 20px 45px #071d4240;border:6px solid #fff}.weather-grid,.topic-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:24px}.weather-card{min-height:220px;border-radius:24px;padding:18px;background:linear-gradient(180deg,#ffffffdb,#fffffff4),var(--bg);background-size:cover;background-position:center;border:3px solid #d8e6f6;color:var(--navy);display:flex;flex-direction:column;justify-content:space-between;text-align:left;box-shadow:0 8px 0 #00000016}.weather-card:hover,.weather-card:focus-visible{outline:4px solid var(--gold)}.emoji{font-size:54px}.weather-card h2{font-family:Bungee,system-ui;line-height:1.05;margin:8px 0;color:var(--navy);font-size:25px}.weather-card p{font-size:17px;line-height:1.35;margin:0;font-weight:800}.open-label{align-self:flex-start;margin-top:12px;background:var(--gold);color:var(--navy);border:3px solid var(--navy);border-radius:999px;padding:8px 12px;font-weight:900}.article{background:rgba(255,250,241,.96)}.article-hero{display:grid;grid-template-columns:1fr 160px;gap:18px;align-items:center;padding:28px;background:linear-gradient(135deg,#ffffffdd,#fff8d8ee),var(--bg);background-size:cover;background-position:center;border-bottom:4px solid white}.weather-title{font-size:clamp(38px,6vw,76px)}.article-hero p{font-size:21px;line-height:1.5;margin:10px 0 0;max-width:800px}.article-icon{font-size:96px;justify-self:center}.subnav{display:flex;gap:10px;flex-wrap:wrap;padding:16px 24px;background:#fffaf1;border-bottom:3px solid #efe3c8}.jump{background:white;color:var(--navy);border:2px solid #dce8f6;border-radius:999px;padding:9px 12px;font-weight:900}.jump:hover{background:#eef6ff}.article-body{display:grid;gap:18px;padding:24px}.section{background:white;border:3px solid #dce8f6;border-radius:24px;padding:20px}.section h2{font-size:clamp(24px,3vw,34px);color:var(--blue);margin-bottom:10px}.section p,.section li{font-size:21px;line-height:1.62}.section p{margin:0}.vocab{background:#eef6ff;border-left:8px solid var(--blue);border-radius:18px;padding:14px;margin-top:14px;font-size:20px;line-height:1.45}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}.mini-card{background:#eef6ff;border:2px solid #dce8f6;border-radius:18px;padding:14px}.mini-card h3{margin:0 0 8px;color:var(--navy);font-size:20px}.mini-card p{font-size:19px;line-height:1.45}.supplies{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}.supply{background:#fff8d8;border:2px solid var(--gold);border-radius:16px;padding:12px;text-align:center;font-weight:900;font-size:18px}.sense-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}.sense{background:#fffaf1;border:2px solid #e8d9b6;border-radius:18px;padding:14px}.sense h3{font-family:Bungee,system-ui;color:var(--navy);font-size:20px;line-height:1;margin:0 0 8px}.sense p{font-size:19px;line-height:1.45}.safety-list{display:grid;gap:10px;margin-top:12px}.safety-tip{background:#eef6ff;border:2px solid #dce8f6;border-radius:18px;padding:13px;font-size:20px;line-height:1.4;font-weight:800}.journal{background:#eef6ff;border:3px solid #cfe3f8}.back-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 24px 0}.back{background:var(--navy);color:white;border-radius:999px;padding:12px 16px;font-weight:900}.story-panel{padding:28px}.story-lead{font-size:22px;line-height:1.55;max-width:920px}.topic-grid{grid-template-columns:repeat(5,1fr);padding:18px 0}.topic-card{background:white;border:3px solid #dce8f6;border-radius:20px;padding:16px;text-align:center;font-weight:900;font-size:20px}.topic-card span{display:block;font-size:48px;margin-bottom:4px}.story-box{background:white;border:3px solid #dce8f6;border-radius:24px;padding:20px;margin-top:18px}.story-box h2{font-family:Bungee,system-ui;color:var(--blue);margin:0 0 10px}.story-box p,.story-box li{font-size:21px;line-height:1.6}.footer-note{margin-top:20px;background:#fff8d8;border:3px solid var(--gold);border-radius:20px;padding:16px;font-size:20px;line-height:1.45;font-weight:800}
+.plan-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:16px 24px;background:#fffaf1;border-bottom:3px solid #efe3c8}
+.plan-step{background:white;border:2px solid #dce8f6;border-radius:18px;padding:12px;text-align:center;font-weight:900;color:var(--navy);font-size:17px}
+.plan-step span{display:block;font-size:28px;margin-bottom:4px}.section.feature{border-color:var(--gold);background:linear-gradient(135deg,#ffffff,#fffaf1)}
+.section-label{display:inline-block;background:#eef6ff;border:2px solid #cfe3f8;border-radius:999px;color:var(--navy);font-weight:900;padding:6px 10px;margin-bottom:10px}
+.gear-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}.gear{background:#fff8d8;border:2px solid var(--gold);border-radius:16px;padding:12px;text-align:center;font-weight:900;font-size:18px}
+.memory-card{background:white;border:3px solid var(--gold);border-radius:20px;padding:16px;margin-top:14px;font-size:20px;line-height:1.5;font-weight:800}
+.weather-choice-note{background:#eef6ff;border:3px solid #cfe3f8;border-radius:20px;padding:16px;margin:0 24px 24px;font-size:20px;line-height:1.45;font-weight:800}
+
+.asset-scene{margin:16px 24px 0;border:3px solid #dce8f6;border-radius:24px;min-height:180px;background:linear-gradient(90deg,#071d4270,#ffffff20),var(--scene-bg);background-size:cover;background-position:center;display:flex;align-items:end;overflow:hidden}
+.asset-scene-card{background:#ffffffee;border-top:3px solid #ffffff;border-right:3px solid #ffffff;border-radius:0 22px 0 0;padding:16px;max-width:560px}
+.asset-scene-card h2{font-family:Bungee,system-ui;color:var(--navy);line-height:1.05;margin:0 0 8px;font-size:28px}
+.asset-scene-card p{font-size:20px;line-height:1.45;margin:0}
+.question-builder{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.question-chip{background:white;border:2px solid #dce8f6;border-radius:18px;padding:14px;font-size:20px;line-height:1.4;font-weight:800}
+.story-note-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.story-note{background:#eef6ff;border:2px solid #cfe3f8;border-radius:18px;padding:14px}
+.story-note h3{margin:0 0 8px;color:var(--navy);font-size:20px}
+.story-note p{font-size:19px;line-height:1.45;margin:0}
+@media(max-width:980px){.question-builder,.story-note-grid{grid-template-columns:1fr}.asset-scene{min-height:160px}}
+
+
+.snapshot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px 24px;background:#eef6ff;border-bottom:3px solid #cfe3f8}
+.snapshot-card{background:white;border:2px solid #dce8f6;border-radius:18px;padding:13px;font-weight:900;color:var(--navy);font-size:18px;line-height:1.35}
+.snapshot-card strong{display:block;color:var(--blue);font-size:15px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+.supply{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:92px}
+.supply .supply-icon{font-size:28px;line-height:1}
+.supply .supply-name{font-size:17px;line-height:1.15}
+.day-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.day-card{background:#eef6ff;border:2px solid #dce8f6;border-radius:20px;padding:16px}
+.day-card h3{font-family:Bungee,system-ui;color:var(--navy);line-height:1.05;margin:0 0 8px;font-size:22px}
+.day-card ul{margin:0;padding-left:22px}
+.day-card li{font-size:20px;line-height:1.45;margin:4px 0}
+.notebook-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.notebook-card{background:white;border:2px solid #dce8f6;border-radius:18px;padding:14px}
+.notebook-card h3{margin:0 0 8px;color:var(--navy);font-size:20px}
+.notebook-card p{font-size:19px;line-height:1.45}
+.story-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
+.story-tab{background:#eef6ff;border:2px solid #cfe3f8;border-radius:18px;padding:12px;text-align:center;font-weight:900;color:var(--navy)}
+.story-tab span{display:block;font-size:36px}
+@media(max-width:980px){.snapshot-grid,.day-grid,.notebook-grid,.story-tabs{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.snapshot-grid,.day-grid,.notebook-grid,.story-tabs{grid-template-columns:1fr}}
+
+@media(max-width:980px){.hero,.article-hero{grid-template-columns:1fr}.weather-grid,.topic-grid{grid-template-columns:repeat(2,1fr)}.info-grid,.sense-grid,.supplies,.gear-grid{grid-template-columns:repeat(2,1fr)}.article-icon{justify-self:start}.hero-art{min-height:230px}.weather-orb{font-size:86px}}@media(max-width:560px){.weather-grid,.topic-grid,.info-grid,.sense-grid,.supplies,.gear-grid,.plan-strip{grid-template-columns:1fr}.hero{padding:24px}.article-body{padding:16px}.section p,.section li,.story-box p,.story-box li{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="page"><main class="wrap">
+  <div class="top"><a class="home" href="index.html">← CAMP</a><div class="pill">STORM WATCH STATION</div></div>
+  <section class="screen active" id="home">
+    <div class="panel">
+      <div class="hero">
+        <div><span class="kicker">WEATHER RESEARCH</span><h1>STORM WATCH<br>STATION</h1><p>Choose a severe weather event. Build your preparation plan by exploring what it is, what causes it, what you may experience, and how people stay safe.</p></div>
+        <div class="hero-art"><div class="weather-orb">⛈️</div></div>
+      </div>
+      <div class="weather-grid" id="weatherGrid"></div><div class="weather-choice-note">Pick one weather type to study first. Each guide gives you facts, supplies, sensory details, safety ideas, and story ideas.</div>
+    </div>
+  </section>
+  <section class="screen" id="article">
+    <div class="panel article">
+      <div class="back-row"><button class="back" data-home>← WEATHER TYPES</button><a class="back" href="index.html">FALCON CAMP HOME</a></div>
+      <div id="articleBody"></div>
+    </div>
+  </section>
+  <section class="screen" id="story">
+    <div class="panel story-panel">
+      <button class="back" data-home>← WEATHER TYPES</button>
+      <span class="kicker" style="margin-top:20px">STORM JOURNAL</span>
+      <h1 class="title" style="font-size:clamp(38px,6vw,72px)">WEATHER STORY<br>WORKSHOP</h1>
+      <p class="story-lead">Imagine that you are getting ready for severe weather. Think about what the sky looks like, what your family does to prepare, what you wear, and how you stay safe when the weather arrives.</p>
+      <div class="story-tabs"><div class="story-tab"><span>🔎</span>Choose</div><div class="story-tab"><span>🎒</span>Prepare</div><div class="story-tab"><span>👀</span>Notice</div><div class="story-tab"><span>🦺</span>Stay Safe</div><div class="story-tab"><span>💭</span>Remember</div></div>
+      <div class="topic-grid" id="storyTopics"></div>
+      <div class="story-box"><h2>Storm Opening</h2><p>I looked out the window and noticed the weather was changing. The air felt different, and everyone in my home started getting ready. I knew this weather could be serious, so I paid close attention to what we needed to do next.</p></div>
+      <div class="story-box"><h2>Question Trail</h2><ul><li>What kind of severe weather is coming?</li><li>How do people prepare before it arrives?</li><li>What do you see, hear, feel, or smell when the weather begins?</li><li>What supplies or clothing help people?</li><li>What safe choice helps the narrator?</li></ul></div>
+      <div class="footer-note">A memorable storm journal can include the weather, the preparation, the problem, the safe choices, and what the narrator remembers afterward.</div>
+    </div>
+  </section>
+</main></div>
+<script>
+const WEATHER = {"blizzard": {"emoji": "❄️", "title": "Blizzard", "bg": "linear-gradient(135deg,#e8f7ff,#a8c8e8)", "short": "Snow, wind, and very low visibility.", "about": "A blizzard is a severe winter storm with heavy snow, strong wind, and very low visibility. Visibility means how far a person can see. Blizzards form when cold air, moisture, and strong wind come together. They are more common in cold climates where winter temperatures stay low for a long time. A blizzard can make roads, buildings, and people hard to see.", "causes": "Blizzards happen when cold air meets moist air and strong winds blow snow through the air. Snow may fall from clouds or blow around after it is already on the ground. Strong wind is what makes a snowstorm much more dangerous. The storm can last for hours or even longer. Weather forecasts help people know when a blizzard may be coming.", "where": "Blizzards often happen in places with cold winters, open land, and freezing temperatures. They can happen in northern states, mountain areas, and other cold regions. They are most common during winter months. A place with a cold climate may have a higher chance of blizzards. Even one blizzard can affect schools, roads, homes, and power.", "prepare": "Before a blizzard arrives, families can check the forecast and gather supplies. Water, canned food, flashlights, batteries, medicine, blankets, and a radio can help if the power goes out. Phones and devices should be charged early. People should avoid travel before roads become icy or hard to see. A good plan helps everyone know where to stay warm and safe.", "safe": "During a blizzard, the safest place is usually indoors. People should stay away from icy roads unless travel is truly needed. If someone must go outside, they should dress warmly and stay with an adult or group. It is important to keep skin covered in freezing air. Weather alerts help people know when the storm is ending.", "wear": "Warm layers help protect the body during a blizzard. A coat, hat, gloves, scarf, thick socks, and boots are good choices. Waterproof boots help feet stay dry in snow and slush. Gloves or mittens protect fingers from freezing air. Bright clothing can help people be seen in blowing snow.", "activities": "During a blizzard, safe activities are usually indoors. People can read, draw, play board games, build with blocks, bake with an adult, or tell stories. A family can watch snow from a safe window. If the power stays on, movies or music can make the day feel calmer. Outdoor play should wait until the storm is over and an adult says it is safe.", "see": "white snow blowing sideways, icy windows, gray clouds, snowdrifts", "hear": "wind howling, snow hitting windows, quiet streets, weather alerts", "feel": "cold air, heavy clothing, worry, relief from being indoors", "smell": "warm food, wet coats, candles or batteries nearby, cold fresh air when a door opens", "supplies": ["💧 Water", "🥫 Food", "🔦 Flashlight", "🔋 Batteries", "📻 Radio", "🧣 Blankets"], "learned": "Blizzards can make travel unsafe because snow and wind lower visibility. Preparing early helps families stay warm, fed, and connected while they wait for the weather to pass."}, "thunderstorm": {"emoji": "⛈️", "title": "Thunderstorm", "bg": "linear-gradient(135deg,#dce8ff,#5a6f9f)", "short": "Lightning, thunder, rain, and strong wind.", "about": "A thunderstorm is a storm with lightning and thunder. It can also bring heavy rain, dark clouds, strong wind, and sometimes hail. Thunder is the sound made after lightning heats the air very quickly. Thunderstorms form when warm, moist air rises into cooler air. In some climates, thunderstorms happen often during warm seasons.", "causes": "Thunderstorms begin when warm, moist air rises and cools. Clouds grow taller as more air rises. Inside the cloud, water and ice can move around and build electric charge. Lightning happens when that energy is released. Thunderstorms can grow quickly, so forecasts and alerts are important.", "where": "Thunderstorms can happen in many places, especially where warm and moist air is common. They often happen in spring and summer. Some places have a climate that brings frequent afternoon storms. Thunderstorms can happen over cities, farms, mountains, or beaches. They may be short, but they can still be dangerous.", "prepare": "Before a thunderstorm, people can check the forecast and bring outdoor items inside. Families can close windows and bring pets indoors. Flashlights and batteries are helpful if the power goes out. It is smart to know a safe indoor place before the storm arrives. Electronics can be protected when possible.", "safe": "When thunder is heard, people should go indoors. Lightning can strike even before heavy rain begins. It is safer to stay away from tall trees, open fields, metal fences, and water. Indoors, people should stay away from windows and avoid wired electronics. Outdoor activities should wait until the storm has passed.", "wear": "A rain jacket and closed-toe shoes can help if someone must move quickly indoors. Umbrellas are not safe near lightning in open places. Dry clothes are helpful after coming inside. The safest choice is getting to shelter, not staying outside because of clothing. Shoes should protect feet from puddles and slippery ground.", "activities": "Thunderstorms are a good time for quiet indoor activities. People can read, draw, do puzzles, play cards, or listen to music at a safe volume. Watching clouds from a safe window can be interesting. A storm journal can describe rain, wind, and thunder. Outdoor sports, swimming, and playground time should wait.", "see": "dark clouds, flashes of lightning, rain on windows, moving tree branches", "hear": "thunder, rain tapping, wind, weather alerts", "feel": "cool air, nervous excitement, damp clothes, safer indoors", "smell": "rain on pavement, wet grass, fresh air after rain, indoor food", "supplies": ["🔦 Flashlight", "🔋 Batteries", "📻 Radio", "🐾 Pet Supplies", "💧 Water", "📱 Charged Phone"], "learned": "Thunderstorms can become dangerous because lightning can strike quickly. Moving indoors early is one of the best ways to stay safe."}, "heatwave": {"emoji": "🌡️", "title": "Heat Wave", "bg": "linear-gradient(135deg,#fff0b8,#ff9b59)", "short": "Many days of hotter-than-usual weather.", "about": "A heat wave is a period of very hot weather that lasts for more than one day. It can happen when hot air stays over a place and temperatures rise higher than usual. Temperature means how hot or cold the air is. Climate can affect how often heat waves happen in an area. Heat waves can be dangerous because the body can get too hot.", "causes": "Heat waves happen when a large area of hot air stays in one place. Sunshine, dry ground, and little wind can make the heat feel stronger. Cities can feel even hotter because roads and buildings hold heat. Weather forecasts can warn people before the hottest days arrive. Preparing early helps people avoid heat sickness.", "where": "Heat waves can happen in many places, but they are common in warm climates and during summer. Deserts, cities, valleys, and dry regions can become very hot. A heat wave may affect schools, homes, parks, and outdoor jobs. It can also hurt pets, plants, and crops. Even places with cooler climates can have dangerous heat.", "prepare": "Before a heat wave, people can plan ways to stay cool. Families can gather water, fans, sunscreen, and light meals. Curtains can be closed during the hottest part of the day. Outdoor plans may move to the morning or evening. Adults should check on children, older people, and pets.", "safe": "During a heat wave, drinking water is very important. People should rest in shade, air conditioning, or cool rooms when possible. Running, sports, and hard outdoor work should be limited during the hottest hours. Signs of heat sickness can include dizziness, headache, weakness, or feeling very hot. Anyone who feels sick from heat should tell an adult right away.", "wear": "Lightweight clothing helps the body stay cooler. Light-colored shirts, shorts, breathable fabric, hats, and sunglasses can help. Sunscreen protects skin from sunburn. Shoes should protect feet from hot ground. A reusable water bottle is one of the most important things to carry.", "activities": "During a heat wave, cooler activities are best. People can swim with adult supervision, visit a library, go to a museum, watch a movie, or do art indoors. Water games in shade can be fun if they are safe and allowed. Reading, building, and board games are good indoor choices. Outdoor play should happen early or late when the air is cooler.", "see": "bright sun, heat shimmer, dry grass, people looking for shade", "hear": "fans, air conditioners, quiet playgrounds, ice in cups", "feel": "hot air, sweat, thirst, relief in shade", "smell": "sunscreen, warm pavement, dry grass, cold drinks", "supplies": ["💧 Water", "🧴 Sunscreen", "🧢 Hat", "🕶️ Sunglasses", "🪭 Fan", "🥗 Light Snacks"], "learned": "Heat waves can be dangerous because people can get too hot. Drinking water, resting in cool places, and avoiding the hottest hours help people stay safe."}, "hailstorm": {"emoji": "🧊", "title": "Hailstorm", "bg": "linear-gradient(135deg,#e9f5ff,#b7c6d8)", "short": "Ice balls falling from storm clouds.", "about": "A hailstorm is a storm that drops balls or pieces of ice called hail. Hail forms inside strong thunderstorm clouds when water freezes and grows into ice. Hailstones can be small like peas or large enough to damage cars, roofs, and crops. Hailstorms are connected to weather, while climate helps explain where storms are more common over time. Hail can be dangerous because it falls fast and hard.", "causes": "Hail forms when strong winds inside a storm push drops of water high into very cold air. The drops freeze into ice. More water can freeze around the ice, making the hailstone grow. When the hailstone gets too heavy, it falls to the ground. Strong thunderstorms are the main cause of hailstorms.", "where": "Hailstorms can happen in places with strong thunderstorms. They are often more likely during spring and summer. Some regions have a climate where hailstorms happen more often than others. Hail can fall over homes, farms, roads, and parks. Even a short hailstorm can cause damage.", "prepare": "Before a hailstorm, people can watch weather alerts and move indoors. Cars, bikes, toys, and outdoor tools can be moved under cover if there is time. Pets should come inside before the storm reaches the area. Families can close curtains or blinds to protect themselves if glass breaks. Preparing early helps prevent damage and injuries.", "safe": "The safest place during a hailstorm is inside a sturdy building. People should stay away from windows and skylights. If someone is outside, they should find shelter quickly and protect their head. A car is safer than being outside, but a building is better if one is nearby. People should wait until hail and lightning risk are gone before going outside.", "wear": "Protective clothing matters only when moving quickly to shelter. A thick jacket, hood, or backpack can help protect the head and shoulders for a short time. Closed-toe shoes protect feet from ice and broken objects. Wet clothes should be changed after coming inside. It is not safe to stay outside just because someone has a coat.", "activities": "A hailstorm is a time for indoor activities. People can read, sketch the storm from memory, play a quiet game, or build something inside. Listening to hail from a safe place can help someone describe the sound. After the storm, an adult may check for damage outside. Outdoor activities should wait until the hail and lightning risk are gone.", "see": "ice balls, dark clouds, bouncing hail, wet streets", "hear": "hail hitting roofs, thunder, rain, wind", "feel": "surprise, cold air, worry, safer indoors", "smell": "rain, wet pavement, damp clothes, fresh storm air", "supplies": ["🔦 Flashlight", "🔋 Batteries", "📻 Radio", "🐾 Pet Supplies", "👟 Closed Shoes", "🧥 Thick Jacket"], "learned": "Hailstorms can hurt people and damage property because hail falls hard and fast. Moving inside and staying away from windows helps people stay protected."}, "drought": {"emoji": "🌵", "title": "Drought", "bg": "linear-gradient(135deg,#fff2c7,#c9a66b)", "short": "A long time with very little rain.", "about": "A drought is a long period with much less rain than usual. During a drought, rivers, lakes, soil, and plants can become very dry. Climate can affect how often droughts happen because some places are naturally drier than others. Drought can make it harder for people, animals, and farms to get enough water. Unlike a storm, drought can happen slowly and last for weeks, months, or longer.", "causes": "A drought can happen when rain does not fall for a long time. Hot weather can dry out soil and water sources faster. Wind and dry air can make plants lose water. Climate patterns can make some places more likely to have drought. People may not notice a drought at first because it often begins slowly.", "where": "Droughts can happen in dry climates, farming areas, forests, and even cities. They may happen during hot seasons or after many months with little rain. Rivers, lakes, lawns, gardens, and farms can all show signs of drought. Drought affects people and wildlife because water is a basic need. A long drought can change daily life for a whole community.", "prepare": "People prepare for drought by saving water before the problem gets worse. Families can fix leaks, take shorter showers, and use water carefully. Communities may make rules about watering lawns or washing cars. Farmers may choose plants that need less water. Preparing for drought means thinking carefully about every drop of water.", "safe": "Staying safe during a drought means using water wisely and protecting health. People should drink enough clean water, especially on hot days. Dry land can raise the risk of dust and wildfire, so people should follow local safety rules. Plants and animals may need extra care when water is limited. Local updates help families know what water rules are in place.", "wear": "Drought often happens with dry and sometimes hot weather. Light clothing, hats, sunglasses, and sunscreen can help outside. Closed-toe shoes protect feet on dry, dusty ground. A water bottle is important during outdoor time. If the air is dusty, an adult may suggest staying inside.", "activities": "During a drought, activities should use little or no extra water. People can read, draw, play indoor games, visit a library, or make a nature journal. A family can look for signs of dry weather, such as brown grass or cracked soil, without wasting water. Water-saving challenges can help everyone think like problem solvers. Splashing games and water play may need to wait.", "see": "brown grass, cracked soil, low water, dusty air", "hear": "dry leaves, quiet sprinklers, wind, community updates", "feel": "hot dry air, thirst, dust, concern for plants", "smell": "dry grass, dust, warm soil, smoke if fires are nearby", "supplies": ["💧 Water", "🧴 Sunscreen", "🧢 Hat", "🌱 Native Plants", "🪣 Water-Saving Tools", "📻 Updates"], "learned": "Droughts can last a long time and affect water, plants, animals, and people. Saving water and following local rules help communities get through dry periods."}};
+const screens={home:document.getElementById('home'),article:document.getElementById('article'),story:document.getElementById('story')};
+const grid=document.getElementById('weatherGrid');
+const storyTopics=document.getElementById('storyTopics');
+const articleBody=document.getElementById('articleBody');
+const WEATHER_ASSETS={
+  blizzard:{bg:'bg-blizzard.png',station:'blizzard_icon.png'},
+  thunderstorm:{bg:'bg-thunderstorm.png',station:'thunderstorm_icon.png'},
+  heatwave:{bg:'bg-heatwave.png',station:'heatwave_icon.png'},
+  hailstorm:{bg:'bg-hailstorm.png',station:'hailstorm_icon.png'},
+  drought:{bg:'bg-drought.png',station:'drought_icon.png'}
+};
+function weatherBackground(key,w){
+  const asset=WEATHER_ASSETS[key]&&WEATHER_ASSETS[key].bg;
+  return asset ? `url('${asset}'), ${w.bg}` : w.bg;
+}
+function lookoutText(key){
+  const text={
+    blizzard:'Snow and wind can hide roads, signs, and buildings. A weather observer watches from a safe indoor place.',
+    thunderstorm:'Dark clouds, lightning, rain, and wind can change the sky quickly. A weather observer listens for thunder and moves inside.',
+    heatwave:'Strong sun and hot air can make the day feel heavy and still. A weather observer looks for shade, water, and cooler places.',
+    hailstorm:'Ice can fall fast from storm clouds and bounce off roofs, streets, and cars. A weather observer stays away from windows.',
+    drought:'Dry land, low water, and brown plants can show that rain has been missing for a long time. A weather observer looks for slow changes.'
+  };
+  return text[key]||'Weather can change what people see, hear, and feel.';
+}
+function questionTrail(key,w){
+  const questions={
+    blizzard:['How will my family know the blizzard is coming?','What supplies will help us stay warm?','What might be hard to see during the storm?','How will we know when it is safe again?'],
+    thunderstorm:['What signs show a thunderstorm is nearby?','Where should people go when thunder starts?','What sounds will the narrator hear?','How will the sky change after the storm?'],
+    heatwave:['How will people know the heat is dangerous?','Where can the narrator go to cool down?','What will the narrator carry outside?','How will the day feel different from a normal day?'],
+    hailstorm:['What might the first hailstones sound like?','Where should people move before the hail gets worse?','What could hail damage outside?','How will the narrator feel while waiting indoors?'],
+    drought:['What signs show the land is too dry?','How can people save water each day?','What might happen to plants and animals?','How will the community change its routines?']
+  };
+  return (questions[key]||['What is happening?','How can people prepare?','What will people notice?']).map(q=>`<div class="question-chip">${q}</div>`).join('');
+}
+function show(id){Object.values(screens).forEach(s=>s&&s.classList.remove('active'));if(screens[id]) screens[id].classList.add('active');window.scrollTo(0,0)}
+function safeSave(){try{const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};save.stormWatchComplete=true;localStorage.setItem('falconCampSave',JSON.stringify(save));}catch(e){}}
+function buildWeatherChoices(){grid.innerHTML='';storyTopics.innerHTML='';Object.entries(WEATHER).forEach(([key,w])=>{const card=document.createElement('button');card.type='button';card.className='weather-card';card.dataset.weather=key;card.style.setProperty('--bg',weatherBackground(key,w));card.setAttribute('aria-label',`Open ${w.title}`);card.innerHTML=`<div><div class="emoji">${w.emoji}</div><h2>${w.title}</h2><p>${w.short}</p></div><span class="open-label">OPEN</span>`;grid.appendChild(card);const topic=document.createElement('button');topic.type='button';topic.className='topic-card';topic.dataset.weather=key;topic.innerHTML=`<span>${w.emoji}</span>${w.title}`;storyTopics.appendChild(topic);})}
+
+function snapshotHTML(key,w){
+  const data={
+    blizzard:['Very cold','Winter','Cold regions','Low visibility'],
+    thunderstorm:['Warm, moist air','Spring or summer','Many places','Lightning'],
+    heatwave:['Very hot','Summer','Cities and dry areas','Heat sickness'],
+    hailstorm:['Stormy and cold aloft','Spring or summer','Thunderstorm areas','Falling ice'],
+    drought:['Dry and often hot','Can last many seasons','Dry or farming areas','Water shortage']
+  };
+  const s=data[key]||['Changing weather','Varies','Many places','Safety'];
+  return `<div class="snapshot-grid">
+    <div class="snapshot-card"><strong>Weather Feel</strong>${s[0]}</div>
+    <div class="snapshot-card"><strong>Common Time</strong>${s[1]}</div>
+    <div class="snapshot-card"><strong>Where It Happens</strong>${s[2]}</div>
+    <div class="snapshot-card"><strong>Main Danger</strong>${s[3]}</div>
+  </div>`;
+}
+
+function supplyHTML(list){
+  return list.map(item=>{
+    const parts=item.trim().split(' ');
+    const icon=parts.shift()||'•';
+    const name=parts.join(' ');
+    return `<div class="supply"><span class="supply-icon">${icon}</span><span class="supply-name">${name}</span></div>`;
+  }).join('');
+}
+
+function dayDuringHTML(key){
+  const data={
+    blizzard:{safe:['Read near a warm window.','Play board games or cards.','Bake or make warm food with an adult.','Tell stories while the snow falls.'],outside:['Snow may blow sideways.','Roads may disappear under snow.','Tree branches may bend under ice.','The world may look quiet and white.']},
+    thunderstorm:{safe:['Draw or write during the rain.','Work on puzzles or card games.','Listen to calm music indoors.','Watch clouds from a safe window.'],outside:['Clouds may turn dark fast.','Lightning may flash in the sky.','Rain may hit windows loudly.','Tree branches may move in the wind.']},
+    heatwave:{safe:['Read or play games in a cool room.','Visit a library or museum.','Swim with adult supervision.','Drink water and rest often.'],outside:['Sidewalks may feel very hot.','Grass may look dry.','Playgrounds may be quiet.','People may look for shade.']},
+    hailstorm:{safe:['Read or build indoors.','Sketch the storm after it passes.','Play a quiet game away from windows.','Wait for an adult before checking outside.'],outside:['Ice may bounce on the ground.','Cars and roofs may make loud sounds.','Streets may become wet and icy.','Dark clouds may cover the sky.']},
+    drought:{safe:['Keep a nature journal.','Play indoor games that use no water.','Look for dry-weather clues outside.','Try a water-saving challenge.'],outside:['Grass may turn brown.','Soil may crack.','Rivers or lakes may look lower.','Dust may blow in dry air.']}
+  };
+  const d=data[key]||{safe:['Read.','Draw.','Play indoors.','Listen to weather updates.'],outside:['The weather may change.']};
+  return `<div class="day-grid">
+    <div class="day-card"><h3>🏠 Safe Things to Do</h3><ul>${d.safe.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="day-card"><h3>🌎 What You Might Notice</h3><ul>${d.outside.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  </div>`;
+}
+
+function notebookHTML(w){
+  return `<div class="notebook-grid">
+    <div class="notebook-card"><h3>Weather Type</h3><p>${w.emoji} ${w.title}</p></div>
+    <div class="notebook-card"><h3>Important Fact</h3><p>${w.learned}</p></div>
+    <div class="notebook-card"><h3>Safety Idea</h3><p>Preparation helps people make safer choices when weather changes.</p></div>
+    <div class="notebook-card"><h3>Story Detail</h3><p>Use what you might see, hear, feel, and smell to make the storm feel real.</p></div>
+  </div>`;
+}
+
+function gearList(key){
+  const gear = {
+    blizzard:['🧥 Coat','🧤 Gloves','🧣 Scarf','👢 Boots','🧢 Hat'],
+    thunderstorm:['🧥 Rain Jacket','👟 Closed Shoes','🧦 Dry Socks','🎒 Backpack','🏠 Shelter'],
+    heatwave:['👕 Light Shirt','🧢 Hat','🕶️ Sunglasses','🧴 Sunscreen','💧 Water Bottle'],
+    hailstorm:['🧥 Thick Jacket','👟 Closed Shoes','🎒 Backpack','🧢 Hood','🏠 Shelter'],
+    drought:['👕 Light Clothes','🧢 Hat','🕶️ Sunglasses','👟 Closed Shoes','💧 Water Bottle']
+  };
+  return (gear[key]||[]).map(item=>`<div class="gear">${item}</div>`).join('');
+}
+
+function safetyTips(key){
+  const tips = {
+    blizzard:['Stay indoors and keep warm.','Avoid icy roads and blowing snow.','Keep flashlights, blankets, and weather updates nearby.','Cover skin if you must go outside.'],
+    thunderstorm:['Go indoors when you hear thunder.','Stay away from windows, water, and tall trees.','Wait until the storm has passed before outdoor play.','Keep pets and outdoor items safe.'],
+    heatwave:['Drink water often.','Rest in shade or a cool room.','Avoid hard exercise during the hottest hours.','Tell an adult if you feel dizzy, weak, or sick.'],
+    hailstorm:['Move inside a sturdy building.','Stay away from windows and skylights.','Protect your head if you are caught outside.','Wait for hail and lightning danger to end.'],
+    drought:['Use water carefully.','Drink clean water on hot days.','Follow local water rules.','Watch for dust, dry plants, and wildfire danger.']
+  };
+  return (tips[key]||[]).map(t=>`<div class="safety-tip">${t}</div>`).join('');
+}
+
+function openWeather(key){const w=WEATHER[key];if(!w||!articleBody)return;safeSave();articleBody.innerHTML=`
+<div class="article-hero" style="--bg:${weatherBackground(key,w)}"><div><span class="kicker">MY SEVERE WEATHER PLAN</span><h1 class="weather-title">${w.emoji} ${w.title}</h1><p>${w.short}</p></div><div class="article-icon">${w.emoji}</div></div>
+${snapshotHTML(key,w)}
+<div class="asset-scene" style="--scene-bg:${weatherBackground(key,w)}"><div class="asset-scene-card"><h2>Weather Lookout</h2><p>${lookoutText(key)}</p></div></div>
+<div class="plan-strip" aria-label="Weather plan sections">
+  <div class="plan-step"><span>🔎</span>About</div>
+  <div class="plan-step"><span>🎒</span>Prepare</div>
+  <div class="plan-step"><span>👀</span>Experience</div>
+  <div class="plan-step"><span>🦺</span>Stay Safe</div>
+  <div class="plan-step"><span>💡</span>Learned</div>
+</div>
+<nav class="subnav" aria-label="Weather page sections"><a class="jump" href="#about">About</a><a class="jump" href="#prepare">Prepare</a><a class="jump" href="#experience">Experience</a><a class="jump" href="#safe">Stay Safe</a><a class="jump" href="#wear">Wear</a><a class="jump" href="#activities">Activities</a><button type="button" class="jump" data-story>Storm Journal</button></nav>
+<div class="article-body">
+<section class="section feature" id="about"><span class="section-label">I chose to learn about ${w.title}</span><h2>🔎 About My Weather Event</h2><p>${w.about}</p><div class="info-grid"><div class="mini-card"><h3>What is it?</h3><p>${w.short}</p></div><div class="mini-card"><h3>What causes it?</h3><p>${w.causes}</p></div><div class="mini-card"><h3>When and where?</h3><p>${w.where}</p></div></div><div class="vocab"><strong>Word Watch:</strong> ${w.vocab}</div></section>
+<section class="section" id="prepare"><h2>🎒 How I Prepared</h2><p>${w.prepare}</p><h3 style="margin:16px 0 0;color:var(--navy)">Supplies We Might Need</h3><div class="supplies">${supplyHTML(w.supplies)}</div></section>
+<section class="section" id="experience"><h2>👀 What I Might Experience</h2><p>Severe weather can change what people notice around them. These details can help a weather observer describe the day clearly.</p><div class="sense-grid"><div class="sense"><h3>👀 See</h3><p>${w.see}</p></div><div class="sense"><h3>👂 Hear</h3><p>${w.hear}</p></div><div class="sense"><h3>✋ Feel</h3><p>${w.feel}</p></div><div class="sense"><h3>👃 Smell</h3><p>${w.smell}</p></div></div></section>
+<section class="section" id="safe"><h2>🦺 How I Will Stay Safe</h2><p>${w.safe}</p><div class="safety-list">${safetyTips(key)}</div></section>
+<section class="section" id="wear"><h2>👕 What I Might Wear</h2><p>${w.wear}</p><div class="gear-grid">${gearList(key)}</div></section>
+<section class="section" id="activities"><h2>🎲 A Day During This Weather</h2><p>${w.activities}</p>${dayDuringHTML(key)}</section>
+<section class="section journal"><h2>💡 Weather Observer Notebook</h2><p>${w.learned}</p>${notebookHTML(w)}<h2 style="margin-top:18px">❓ Question Trail</h2><div class="question-builder">${questionTrail(key,w)}</div><div class="memory-card">One important thing to remember: preparation helps people make safer choices when weather changes.</div></section>
+</div>`;show('article')}
+document.addEventListener('click',e=>{const weatherButton=e.target.closest('[data-weather]');if(weatherButton){openWeather(weatherButton.dataset.weather);return}if(e.target.closest('[data-home]')){show('home');return}if(e.target.closest('[data-story]')){show('story')}});
+buildWeatherChoices();
+</script>
+</body>
+</html>
