@@ -77,40 +77,89 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
 .map-node.current{border-color:var(--gold);background:#fff8d8;transform:translateY(-3px)}
 .map-node.done{background:#e8f7ee;border-color:#60c58d}
 /* ── Room layout ── */
+/* Scene (left): background art + passage rendered as a scroll/journal overlay
+   Panel (right): task label + interaction only — no passage, no scrolling */
 .room{display:grid;grid-template-columns:1fr 1fr;min-height:690px}
-.room-scene{position:relative;min-height:690px;border-right:4px solid #fff;
+.room-scene{
+  position:relative;min-height:690px;border-right:4px solid #fff;
   background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(7,29,66,.18)),var(--room-bg);
-  background-size:cover;background-position:center;overflow:hidden}
+  background-size:cover;background-position:center;overflow:hidden;
+  display:flex;flex-direction:column;
+}
 .room-scene::before{content:"";position:absolute;inset:0;
-  background:radial-gradient(circle at 24% 20%,rgba(255,255,255,.46),transparent 22%),
-    linear-gradient(90deg,rgba(255,255,255,.08),transparent 48%,rgba(7,29,66,.22))}
-.guide{position:absolute;left:22px;bottom:22px;width:min(240px,38%);min-height:300px;font-size:0}
-.guide::after{content:"";display:block;width:100%;height:300px;
+  background:radial-gradient(circle at 24% 20%,rgba(255,255,255,.38),transparent 22%),
+    linear-gradient(90deg,rgba(255,255,255,.06),transparent 48%,rgba(7,29,66,.18))}
+/* Passage journal — scrollable area inside the scene */
+.scene-journal{
+  position:relative;z-index:2;
+  margin:16px 16px 0;
+  background:rgba(255,250,241,.93);
+  border:3px solid rgba(255,255,255,.88);
+  border-radius:22px;
+  padding:16px 18px;
+  font-size:18px;line-height:1.68;font-weight:800;color:var(--ink);
+  flex:1;overflow-y:auto;
+  box-shadow:0 8px 22px rgba(7,29,66,.18);
+}
+.scene-journal-label{
+  font-family:Bungee,system-ui;font-size:12px;letter-spacing:.1em;
+  color:var(--royal);margin-bottom:8px;display:flex;align-items:center;gap:6px;
+}
+/* Sentence tiles rendered inside the journal (Room 1) */
+.journal-sent-tile{
+  display:block;width:100%;text-align:left;background:rgba(255,255,255,.7);
+  border:2px solid #dce8f6;border-radius:12px;padding:10px 12px;
+  font-size:17px;font-weight:900;color:var(--navy);cursor:pointer;
+  transition:.16s;line-height:1.45;margin:4px 0;
+  box-shadow:0 3px 0 rgba(7,29,66,.08);
+}
+.journal-sent-tile:hover:not(:disabled){background:#fff8d8;border-color:var(--gold);transform:translateX(3px)}
+.journal-sent-tile.selected{background:#fff8d8;border-color:var(--gold);transform:translateX(3px)}
+.journal-sent-tile.placed{opacity:.38;cursor:default;transform:none;background:rgba(255,255,255,.4)}
+.journal-sent-tile.correct{background:#e8f7ee;border-color:#60c58d;opacity:1;cursor:default}
+.journal-sent-tile.wrong-flash{animation:sentShake .3s ease;border-color:var(--red);background:#fff0ee}
+/* Guide falcon — bottom of scene */
+.guide{
+  position:absolute;right:12px;bottom:0;
+  width:min(150px,26%);z-index:3;font-size:0;
+}
+.guide::after{content:"";display:block;width:100%;height:200px;
   background:url('falcon-palace-guide.png') center bottom/contain no-repeat;
-  filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));
+  filter:drop-shadow(0 12px 12px rgba(7,29,66,.32));
   animation:guideBob 1.4s ease-in-out infinite alternate}
-@keyframes guideBob{to{transform:translateY(-10px)}}
-.guide-bubble{position:absolute;left:22px;top:24px;max-width:min(520px,86%);
-  background:#ffffffe8;border:4px solid var(--navy);border-radius:24px;
-  padding:14px 16px;font-weight:900;font-size:20px;line-height:1.32;
-  box-shadow:0 10px 0 rgba(7,29,66,.16)}
-.room-panel{padding:28px;background:rgba(255,250,241,.94);display:flex;flex-direction:column;min-height:690px;overflow-y:auto}
-.room-kicker{color:var(--royal);font-size:14px;margin-bottom:8px;font-family:Bungee,system-ui;letter-spacing:.08em}
+@keyframes guideBob{to{transform:translateY(-8px)}}
+/* Guide bubble — top of scene */
+.guide-bubble{
+  position:absolute;left:14px;top:14px;
+  max-width:min(58%,300px);
+  background:#ffffffe8;border:3px solid var(--navy);
+  border-radius:18px;padding:10px 13px;font-weight:900;font-size:17px;
+  line-height:1.3;box-shadow:0 7px 0 rgba(7,29,66,.14);z-index:4;
+}
+/* Right panel — interaction only */
+.room-panel{
+  padding:22px 24px 20px;
+  background:rgba(255,250,241,.94);
+  display:flex;flex-direction:column;
+  min-height:690px;overflow-y:auto;
+  gap:10px;
+}
+.room-kicker{color:var(--royal);font-size:13px;margin-bottom:4px;font-family:Bungee,system-ui;letter-spacing:.08em}
 .room-title{font-family:Bungee,system-ui;line-height:.96;margin:0;color:var(--navy);
-  text-shadow:0 5px 0 #fff,0 9px 0 rgba(255,200,61,.55);font-size:clamp(34px,5vw,58px)}
-.story-label{margin-top:14px;display:inline-block;background:#eef8ff;border:2px solid #cfe7f9;
-  border-radius:999px;padding:7px 11px;font-weight:900;color:var(--royal)}
-.passage{background:white;border:3px solid #dce8f6;border-radius:24px;padding:18px;margin:12px 0 14px;
-  font-size:20px;line-height:1.62;font-weight:800;max-height:260px;overflow:auto}
-/* ── Passage sentence highlighting (Room 4 & 7) ── */
-.passage .p-sent{display:inline;cursor:pointer;border-radius:6px;padding:1px 3px;transition:.15s}
-.passage .p-sent:hover{background:#fff3c0}
-.passage .p-sent.wrong-sent{background:#ffd8d8;animation:sentShake .3s ease}
-.passage .p-sent.correct-sent{background:#c8f5d8;font-weight:900}
+  text-shadow:0 5px 0 #fff,0 9px 0 rgba(255,200,61,.55);font-size:clamp(28px,3.8vw,48px)}
+/* Task label — replaces the long instruction box */
+.task-label{
+  font-family:Bungee,system-ui;font-size:14px;letter-spacing:.06em;
+  color:var(--royal);background:#eef8ff;border:2px solid #cfe7f9;
+  border-radius:999px;padding:8px 14px;width:fit-content;
+  margin:2px 0;
+}
+/* ── Sentence click highlighting (Room 4 & 7 passage sentences) ── */
+.p-sent{display:inline;cursor:pointer;border-radius:6px;padding:2px 4px;transition:.15s}
+.p-sent:hover{background:#fff3c0}
+.p-sent.wrong-sent{background:#ffd8d8;animation:sentShake .3s ease}
+.p-sent.correct-sent{background:#c8f5d8;font-weight:900}
 @keyframes sentShake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-/* ── Instruction box ── */
-.instruction{background:#eef8ff;border:3px solid #cfe7f9;border-radius:22px;padding:16px;
-  font-size:21px;line-height:1.35;font-weight:900;margin-bottom:12px}
 /* ── Feedback ── */
 .feedback{min-height:72px;border-radius:22px;padding:15px;font-size:20px;line-height:1.45;font-weight:900;
   background:#fff8d8;border:3px solid var(--gold);display:none}
@@ -157,8 +206,8 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
   display:flex;align-items:center}
 .sort-slot.filled{background:#e8f7ee;border-color:#60c58d;color:var(--navy)}
 /* Room 2 — Context Clues */
-.clue-passage{background:white;border:3px solid #dce8f6;border-radius:24px;padding:18px;
-  margin:12px 0;font-size:20px;line-height:1.72;font-weight:800}
+/* clickable-passage-inner — sentences rendered inline inside scene-journal */
+.clickable-passage-inner{line-height:2}
 .mystery-word{background:var(--gold);color:var(--navy);border-radius:8px;padding:2px 8px;
   font-family:Bungee,system-ui;font-size:22px;cursor:default}
 .clue-mask{background:#d2ecff;color:var(--royal);border:2px solid #cfe7f9;border-radius:8px;
@@ -200,8 +249,6 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
   border-radius:16px;padding:12px;margin-bottom:12px;font-size:18px;font-weight:900;
   color:#7a4f00;display:flex;align-items:center}
 .evidence-slot.filled{background:#e8f7ee;border-style:solid;border-color:#60c58d;color:var(--green)}
-.clickable-passage{background:white;border:3px solid #dce8f6;border-radius:24px;padding:18px;margin:12px 0;
-  font-size:19px;line-height:1.8;font-weight:800}
 /* Room 5 — POV Sort */
 .pov-bins{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
 .pov-bin{border:3px solid #dce8f6;border-radius:20px;padding:12px;background:#eef8ff;min-height:120px}
@@ -293,19 +340,22 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
 /* ── Responsive ── */
 @media(max-width:900px){
   .hero,.room,.final{grid-template-columns:1fr}
-  .room-scene{min-height:420px;border-right:0;border-bottom:4px solid #fff}
+  /* On tablet: scene stacks above panel, scene is shorter */
+  .room-scene{min-height:340px;border-right:0;border-bottom:4px solid #fff;flex-direction:column}
+  .scene-journal{margin:12px 12px 0;font-size:16px;max-height:280px}
   .room-panel{min-height:auto}
   .hero{text-align:center}.hero-actions{justify-content:center}
   .keys-bar{align-items:flex-start;grid-template-columns:1fr}
   .map-track{grid-template-columns:1fr 1fr}
   .hero::after{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.45))}
-  .guide{width:190px}.guide::after{height:230px}
+  .guide{width:130px;right:8px}.guide::after{height:170px}
   .seq-board,.pov-bins,.choice-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:560px){
-  .hero h1,.final-title{font-size:42px}.room-title{font-size:34px}
+  .hero h1,.final-title{font-size:42px}.room-title{font-size:28px}
   .guide{display:none}
-  .guide-bubble{position:relative;left:auto;top:auto;margin:18px}
+  .guide-bubble{position:relative;left:auto;top:auto;margin:10px 12px;max-width:100%}
+  .scene-journal{margin:8px 10px 0;font-size:15px;max-height:220px}
   .map-track{grid-template-columns:1fr}
   .seq-board,.pov-bins{grid-template-columns:1fr}
   .choice-grid{grid-template-columns:1fr}
@@ -349,14 +399,13 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
     </div>
     <div class="room">
       <div class="room-scene" id="roomScene">
-        <div class="guide-bubble" id="guideBubble">Welcome, explorer. Read the lost journal carefully.</div>
+        <div class="guide-bubble" id="guideBubble">Welcome, explorer.</div>
+        <div id="passageArea"></div>
         <div class="guide" aria-hidden="true"></div>
       </div>
       <div class="room-panel" id="roomPanel">
         <div class="room-kicker" id="roomKicker">CHAPTER 1</div>
         <h1 class="room-title" id="roomTitle">Arrival Gate</h1>
-        <div class="story-label">Lost Palace Journal</div>
-        <div id="passageArea"></div>
         <div id="mechanicArea"></div>
         <div class="feedback" id="feedback"></div>
         <div class="journal-page" id="journalPage"></div>
@@ -808,6 +857,7 @@ function renderRoom() {
   $('#roomKicker').textContent = 'CHAPTER ' + (roomIndex + 1) + ' · ' + r.skill;
   $('#roomTitle').textContent = r.title;
   $('#roomScene').style.setProperty('--room-bg', r.bg);
+  // Guide bubble shows the task instruction — one clear sentence, not a wall of text
   $('#guideBubble').textContent = r.guide;
   $('#feedback').className = 'feedback';
   $('#feedback').innerHTML = '';
@@ -820,6 +870,9 @@ function renderRoom() {
 
   const passageArea = $('#passageArea');
   const mechanicArea = $('#mechanicArea');
+  // Clear both areas
+  passageArea.innerHTML = '';
+  mechanicArea.innerHTML = '';
 
   if (r.mechanic === 'sort') {
     renderSort(r, passageArea, mechanicArea);
@@ -840,34 +893,37 @@ function renderRoom() {
 
 // ═══════════════════════════════════════════════════════════════════
 // ROOM 1 — SENTENCE SORT
+// Passage rendered as clickable sentence tiles in the scene journal.
+// Right panel: 3 collection slots + check button only.
 // ═══════════════════════════════════════════════════════════════════
 function renderSort(r, passageArea, mechanicArea) {
-  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
-
   const shuffled = shuffleArr(r.sentences);
-  const totalMain = r.sentences.filter(s => s.main).length; // 3
+  const totalMain = r.sentences.filter(s => s.main).length;
 
-  mechanicArea.innerHTML = `
-    <div class="instruction">${r.instruction}</div>
-    <div class="main-idea-zone">
-      <h3>📖 MAIN IDEA JOURNAL (choose ${totalMain})</h3>
-      <div class="sort-slots" id="sortSlots">
-        ${Array.from({length: totalMain}, (_, i) =>
-          `<div class="sort-slot" id="slot${i}" data-slot="${i}">Click a sentence below to place it here</div>`
+  // Scene: journal with sentences as tappable tiles
+  passageArea.innerHTML = `
+    <div class="scene-journal">
+      <div class="scene-journal-label">📖 LOST PALACE JOURNAL · Chapter ${roomIndex + 1}</div>
+      <div id="sortPool">
+        ${shuffled.map((s, i) =>
+          `<button class="journal-sent-tile" data-sidx="${i}" data-main="${s.main}">${s.text}</button>`
         ).join('')}
       </div>
     </div>
-    <div class="sort-pool" id="sortPool">
-      ${shuffled.map((s, i) =>
-        `<button class="sent-tile" data-sidx="${i}" data-main="${s.main}">${s.text}</button>`
-      ).join('')}
-    </div>
-    <button class="check-btn" id="sortCheck" style="margin-top:8px">CHECK MY CHOICES</button>
   `;
 
-  // Store shuffled order for click handler
-  mechanicArea._shuffledSentences = shuffled;
+  // Right panel: task label + 3 slots + check button
+  mechanicArea.innerHTML = `
+    <div class="task-label">📌 SELECT ${totalMain} MAIN IDEAS</div>
+    <div id="sortSlots" style="display:grid;gap:8px;margin:8px 0">
+      ${Array.from({length: totalMain}, (_, i) =>
+        `<div class="sort-slot" id="slot${i}" data-slot="${i}">Tap a sentence to place it here</div>`
+      ).join('')}
+    </div>
+    <button class="check-btn" id="sortCheck">CHECK MY CHOICES</button>
+  `;
 
+  mechanicArea._shuffledSentences = shuffled;
   let currentSlot = 0;
 
   document.addEventListener('click', handleSortClick, { signal: roomSignal() });
@@ -875,78 +931,62 @@ function renderSort(r, passageArea, mechanicArea) {
   function handleSortClick(e) {
     if (roomAnswered) return;
 
-    const tile = e.target.closest('.sent-tile');
+    const tile = e.target.closest('.journal-sent-tile');
     const checkBtn = e.target.closest('#sortCheck');
 
     if (tile) {
-      if (tile.classList.contains('correct')) return;
-      // Toggle selection
-      $$('.sent-tile').forEach(t => t.classList.remove('selected'));
-      if (sortSelected === tile) {
-        sortSelected = null;
-        return;
-      }
+      if (tile.classList.contains('correct') || tile.classList.contains('placed')) return;
+      $$('.journal-sent-tile').forEach(t => t.classList.remove('selected'));
+
+      if (sortSelected === tile) { sortSelected = null; return; }
       sortSelected = tile;
       tile.classList.add('selected');
 
-      // Auto-place into next available slot
-      const slot = document.getElementById('slot' + currentSlot);
-      if (slot && currentSlot < totalMain) {
+      // Find first empty slot
+      const emptySlotIndex = Array.from({length: totalMain}, (_, i) => i)
+        .find(i => !document.getElementById('slot' + i)?.classList.contains('filled'));
+
+      if (emptySlotIndex !== undefined) {
+        const slot = document.getElementById('slot' + emptySlotIndex);
         const idx = Number(tile.dataset.sidx);
         const sentence = shuffled[idx];
-        sortSlotsFilled[currentSlot] = { sentence, tile, idx };
         slot.textContent = sentence.text;
         slot.classList.add('filled');
         slot.dataset.sidx = idx;
-        tile.classList.add('selected');
-        tile.disabled = true;
-        tile.style.opacity = '0.38';
+        tile.classList.add('placed');
+        tile.classList.remove('selected');
         sortSelected = null;
-        currentSlot++;
+        currentSlot = $$('.sort-slot.filled').length;
         clearFeedback();
-      } else if (currentSlot >= totalMain) {
-        showFeedback('You have filled all three slots. Click CHECK MY CHOICES or click a filled slot to swap.', 'oops');
       }
     }
 
-    // Allow clicking a filled slot to return a sentence to the pool
+    // Click a filled slot to return it
     const slot = e.target.closest('.sort-slot.filled');
     if (slot && !roomAnswered) {
       const sidx = Number(slot.dataset.sidx);
-      const tile = document.querySelector(`.sent-tile[data-sidx="${sidx}"]`);
-      if (tile) {
-        tile.disabled = false;
-        tile.style.opacity = '';
-        tile.classList.remove('selected');
-      }
-      slot.textContent = 'Click a sentence below to place it here';
+      const tile = document.querySelector(`.journal-sent-tile[data-sidx="${sidx}"]`);
+      if (tile) { tile.classList.remove('placed', 'selected'); }
+      slot.textContent = 'Tap a sentence to place it here';
       slot.classList.remove('filled');
       delete slot.dataset.sidx;
-      // Rebuild currentSlot
       currentSlot = $$('.sort-slot.filled').length;
-      sortSlotsFilled = sortSlotsFilled.filter((_, i) => {
-        return document.getElementById('slot' + i)?.classList.contains('filled');
-      });
     }
 
     if (checkBtn) {
-      // Must have 3 slots filled
       const filled = $$('.sort-slot.filled');
       if (filled.length < totalMain) {
-        showFeedback('Choose ' + totalMain + ' sentences before checking. You have ' + filled.length + ' so far.', 'oops');
+        showFeedback(`Choose ${totalMain} sentences. You have ${filled.length} so far.`, 'oops');
         return;
       }
       const selectedIdxs = filled.map(s => Number(s.dataset.sidx));
       const allCorrect = selectedIdxs.every(idx => shuffled[idx].main);
       if (allCorrect) {
-        filled.forEach(s => s.classList.add('filled'));
-        $$('.sent-tile').forEach(t => t.disabled = true);
+        $$('.journal-sent-tile').forEach(t => { t.disabled = true; t.classList.remove('selected'); });
         document.getElementById('sortCheck').disabled = true;
         showFeedback('✅ ' + r.explain, 'good');
         lockRoom();
-        playCorrect();
       } else {
-        // Mark wrong ones
         selectedIdxs.forEach((idx, i) => {
           if (!shuffled[idx].main) {
             filled[i].classList.add('wrong-slot');
@@ -956,38 +996,46 @@ function renderSort(r, passageArea, mechanicArea) {
         playWrong();
         const attempts = (mechanicArea._attempts = (mechanicArea._attempts || 0) + 1);
         if (attempts >= r.hintAfter) {
-          showHint('Look for the sentences that tell us about the PALACE, the MAP, and the WARNING. Details about clouds or walls are not the main idea.');
+          showHint('Look for sentences about the PALACE, the MAP warning, and the BRONZE FALCON. Details about clouds or the color of walls are not the main idea.');
         } else {
-          showFeedback('Not quite. At least one of your choices is a small detail, not a main idea. Review and try again.', 'oops');
+          showFeedback('At least one choice is a small detail, not a main idea. Tap it in the slot to return it, then try a different sentence.', 'oops');
         }
       }
     }
   }
 }
 
+
 // ═══════════════════════════════════════════════════════════════════
 // ROOM 2 — CONTEXT CLUES (Masked Clues)
 // ═══════════════════════════════════════════════════════════════════
 function renderContext(r, passageArea, mechanicArea) {
-  // Build passage HTML with mystery word highlighted and clues masked
+  // Build passage with mystery word gold-highlighted and clue words masked
   let passageHTML = r.passage
     .replace('[FRAGILE]', '<span class="mystery-word">FRAGILE</span>')
     .replace('[CLUE1]', '<button class="clue-mask" data-clue="0">[?]</button>')
     .replace('[CLUE2]', '<button class="clue-mask" data-clue="1">[?]</button>')
     .replace('[CLUE3]', '<button class="clue-mask" data-clue="2">[?]</button>');
 
-  passageArea.innerHTML = `<div class="clue-passage">${passageHTML}</div>`;
+  // Scene: passage with tappable clue masks
+  passageArea.innerHTML = `
+    <div class="scene-journal">
+      <div class="scene-journal-label">📖 LOST PALACE JOURNAL · Chapter ${roomIndex + 1}</div>
+      <div>${passageHTML}</div>
+    </div>
+  `;
 
   const shuffledChoices = shuffleArr(r.choices);
+  // Right panel: clues revealed counter + 4 answer choices
   mechanicArea.innerHTML = `
-    <div class="instruction">${r.instruction}</div>
-    <div class="clue-reveal-info" id="clueInfo">Clues revealed: 0 of 3 — (fewer clues = sharper reader)</div>
+    <div class="task-label">🔍 TAP [?] IN THE JOURNAL TO REVEAL CLUES</div>
+    <div id="clueInfo" style="font-size:15px;font-weight:900;color:var(--royal);margin:6px 0 10px">Clues revealed: 0 of 3 — tap fewer for a sharper reader bonus</div>
     <div class="choice-grid" id="contextChoices" style="display:none">
       ${shuffledChoices.map(c =>
         `<button class="choice-btn" data-cval="${c}">${c}</button>`
       ).join('')}
     </div>
-    <p id="choicePrompt" style="font-size:19px;font-weight:900;color:var(--royal);margin:10px 0">Reveal at least one clue word, then choose what FRAGILE means.</p>
+    <p id="choicePrompt" style="font-size:17px;font-weight:900;color:var(--royal);margin:8px 0">Reveal at least one clue, then choose what FRAGILE means ↑</p>
   `;
 
   document.addEventListener('click', handleContextClick, { signal: roomSignal() });
@@ -1045,17 +1093,21 @@ function renderContext(r, passageArea, mechanicArea) {
 // ROOM 3 — SEQUENCE (Drag-select and place)
 // ═══════════════════════════════════════════════════════════════════
 function renderSequence(r, passageArea, mechanicArea) {
-  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+  passageArea.innerHTML = `
+    <div class="scene-journal">
+      <div class="scene-journal-label">📖 LOST PALACE JOURNAL · Chapter ${roomIndex + 1}</div>
+      <div>${r.passage}</div>
+    </div>
+  `;
 
   const shuffledEvents = shuffleArr(r.events);
-
   mechanicArea.innerHTML = `
-    <div class="instruction">${r.instruction}</div>
+    <div class="task-label">🃏 PUT THE EVENTS IN ORDER</div>
     <div class="seq-board">
       ${[1,2,3,4].map(n =>
         `<div class="seq-slot" id="seqSlot${n}" data-slot="${n}">
-          <div class="seq-slot-label">${n === 1 ? 'FIRST' : n === 2 ? 'SECOND' : n === 3 ? 'THIRD' : 'FOURTH'}</div>
-          <div class="seq-slot-content" id="seqContent${n}">— tap a card, then tap here —</div>
+          <div class="seq-slot-label">${['FIRST','SECOND','THIRD','FOURTH'][n-1]}</div>
+          <div class="seq-slot-content" id="seqContent${n}">tap a card, then tap here</div>
         </div>`
       ).join('')}
     </div>
@@ -1067,7 +1119,7 @@ function renderSequence(r, passageArea, mechanicArea) {
         </button>`
       ).join('')}
     </div>
-    <button class="check-btn" id="seqCheck" style="margin-top:8px">CHECK MY ORDER</button>
+    <button class="check-btn" id="seqCheck">CHECK MY ORDER</button>
   `;
 
   document.addEventListener('click', handleSeqClick, { signal: roomSignal() });
@@ -1167,19 +1219,23 @@ function renderSequence(r, passageArea, mechanicArea) {
 // ROOM 4 — EVIDENCE (Click the sentence)
 // ═══════════════════════════════════════════════════════════════════
 function renderEvidence(r, passageArea, mechanicArea) {
-  passageArea.style.display = 'none';
-
+  // Scene: passage sentences are the interactive element — each is tappable
   const sentenceButtons = r.sentences.map((s, i) =>
-    `<button class="p-sent" data-sentidx="${i}">${s.text}</button>`
-  ).join(' ');
+    `<button class="p-sent" data-sentidx="${i}">${s.text}</button> `
+  ).join('');
 
-  mechanicArea.innerHTML = `
-    <div class="instruction">${r.instruction}</div>
-    <div class="claim-box">
-      <strong>CLAIM:</strong> ${r.claim}
+  passageArea.innerHTML = `
+    <div class="scene-journal">
+      <div class="scene-journal-label">📖 LOST PALACE JOURNAL · Chapter ${roomIndex + 1}</div>
+      <div class="clickable-passage-inner">${sentenceButtons}</div>
     </div>
-    <div class="evidence-slot" id="evidenceSlot">Click the sentence in the passage below that supports this claim</div>
-    <div class="clickable-passage">${sentenceButtons}</div>
+  `;
+
+  // Right panel: claim + evidence slot only
+  mechanicArea.innerHTML = `
+    <div class="task-label">🔭 TAP THE SUPPORTING SENTENCE</div>
+    <div class="claim-box"><strong>CLAIM:</strong> ${r.claim}</div>
+    <div class="evidence-slot" id="evidenceSlot">Tap the sentence in the journal that supports this claim</div>
   `;
 
   document.addEventListener('click', handleEvidenceClick, { signal: roomSignal() });
@@ -1216,12 +1272,16 @@ function renderEvidence(r, passageArea, mechanicArea) {
 // ROOM 5 — POINT OF VIEW SORT
 // ═══════════════════════════════════════════════════════════════════
 function renderPOV(r, passageArea, mechanicArea) {
-  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+  passageArea.innerHTML = `
+    <div class="scene-journal">
+      <div class="scene-journal-label">📖 LOST PALACE JOURNAL · Chapter ${roomIndex + 1}</div>
+      <div>${r.passage}</div>
+    </div>
+  `;
 
   const shuffledChips = shuffleArr(r.chips);
-
   mechanicArea.innerHTML = `
-    <div class="instruction">${r.instruction}</div>
+    <div class="task-label">🖼️ SORT WORDS INTO THE RIGHT VOICE</div>
     <div class="chip-pool" id="chipPool">
       ${shuffledChips.map(c =>
         `<button class="pov-chip" data-chipid="${c.id}" data-pov="${c.pov}">${c.text}</button>`
@@ -1231,12 +1291,12 @@ function renderPOV(r, passageArea, mechanicArea) {
       ${r.bins.map(b =>
         `<div class="pov-bin" data-binkey="${b.key}">
           <h3>${b.label}</h3>
-          <div style="font-size:13px;font-weight:900;color:#8aa0bc;margin-bottom:6px">${b.hint}</div>
+          <div style="font-size:12px;font-weight:900;color:#8aa0bc;margin-bottom:6px">${b.hint}</div>
           <div class="bin-slots" id="bin_${b.key}"></div>
         </div>`
       ).join('')}
     </div>
-    <button class="check-btn" id="povCheck" style="margin-top:8px">CHECK ALL PLACEMENTS</button>
+    <button class="check-btn" id="povCheck">CHECK ALL</button>
   `;
 
   document.addEventListener('click', handlePOVClick, { signal: roomSignal() });
@@ -1329,23 +1389,27 @@ function renderPOV(r, passageArea, mechanicArea) {
 // ROOM 6 — WORD BANK BUILDER
 // ═══════════════════════════════════════════════════════════════════
 function renderBuilder(r, passageArea, mechanicArea) {
-  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+  passageArea.innerHTML = `
+    <div class="scene-journal">
+      <div class="scene-journal-label">📖 LOST PALACE JOURNAL · Chapter ${roomIndex + 1}</div>
+      <div>${r.passage}</div>
+    </div>
+  `;
 
   const shuffledBank = shuffleArr(r.bankWords);
-
   mechanicArea.innerHTML = `
-    <div class="instruction">${r.instruction}</div>
+    <div class="task-label">🌿 BUILD THE THEME SENTENCE</div>
     <div class="theme-builder">
-      <div style="font-size:15px;font-weight:900;color:var(--royal);margin-bottom:8px">BUILD THE THEME:</div>
-      <div class="theme-display" id="themeDisplay"><span style="color:#aac0d8;font-size:18px">Tap words below to build your sentence...</span></div>
+      <div style="font-size:14px;font-weight:900;color:#8aa0bc;margin-bottom:6px">⚠️ Two words are traps — tapping them removes your last word</div>
+      <div class="theme-display" id="themeDisplay"><span style="color:#aac0d8;font-size:17px">Tap words to build the sentence…</span></div>
       <div class="word-bank" id="wordBank">
         ${shuffledBank.map(w =>
           `<button class="word-btn" data-word="${w}" data-trap="${r.traps.includes(w)}">${w}</button>`
         ).join('')}
       </div>
       <div class="builder-controls">
-        <button class="undo-btn" id="builderUndo">↩ Undo last word</button>
-        <button class="check-btn" id="builderCheck">CHECK SENTENCE</button>
+        <button class="undo-btn" id="builderUndo">↩ Undo</button>
+        <button class="check-btn" id="builderCheck">CHECK</button>
       </div>
     </div>
   `;
@@ -1433,11 +1497,16 @@ function renderBuilder(r, passageArea, mechanicArea) {
 // ROOM 7 — THREE-PART GAUNTLET
 // ═══════════════════════════════════════════════════════════════════
 function renderGauntlet(r, passageArea, mechanicArea) {
-  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+  passageArea.innerHTML = `
+    <div class="scene-journal">
+      <div class="scene-journal-label">📖 LOST PALACE JOURNAL · Final Chapter</div>
+      <div id="gauntletPassageInner">${r.passage}</div>
+    </div>
+  `;
 
   mechanicArea.innerHTML = `
     <div class="gauntlet-progress">
-      <span class="gauntlet-label">THREE KEYS TO UNLOCK:</span>
+      <span class="gauntlet-label">THREE KEYS:</span>
       <div class="gauntlet-key" id="gKey0">🔑</div>
       <div class="gauntlet-key" id="gKey1">🔑</div>
       <div class="gauntlet-key" id="gKey2">🔑</div>
@@ -1452,27 +1521,31 @@ function renderGauntletPart(r) {
   if (!partEl) return;
 
   if (gauntletPart === 0) {
-    // Part A — Evidence
-    const sentenceButtons = r.partA.sentences.map((s, i) =>
-      `<button class="p-sent" data-gaidx="${i}">${s.text}</button>`
-    ).join(' ');
+    // Replace scene journal content with clickable sentences
+    const inner = document.getElementById('gauntletPassageInner');
+    if (inner) {
+      const sentBtns = ROOMS[6].partA.sentences.map((s, i) =>
+        `<button class="p-sent" data-gaidx="${i}">${s.text}</button> `
+      ).join('');
+      inner.innerHTML = sentBtns;
+    }
     partEl.innerHTML = `
-      <div class="part-label">${r.partA.label}</div>
-      <div class="instruction">${r.instruction.replace('challenges', 'challenge (Part A)')} Find the sentence that supports the claim.</div>
+      <div class="task-label">🗝️ PART A · TAP THE SUPPORTING SENTENCE</div>
       <div class="claim-box"><strong>CLAIM:</strong> ${r.partA.claim}</div>
-      <div class="evidence-slot" id="gEvidenceSlot">Tap the sentence below that supports this claim</div>
-      <div class="clickable-passage">${sentenceButtons}</div>
+      <div class="evidence-slot" id="gEvidenceSlot">Tap the sentence in the journal that supports this claim</div>
     `;
     document.addEventListener('click', handleGauntletAClick, { signal: roomSignal() });
 
   } else if (gauntletPart === 1) {
-    // Part B — Word Builder
+    // Part B — Word Builder — restore plain passage in scene
+    const inner = document.getElementById('gauntletPassageInner');
+    if (inner) inner.innerHTML = ROOMS[6].passage;
     const shuffledBank = shuffleArr(r.partB.bankWords);
     partEl.innerHTML = `
-      <div class="part-label">${r.partB.label}</div>
-      <div class="instruction">${r.partB.instruction}</div>
+      <div class="task-label">🗝️ PART B · BUILD THE MISSING WORDS</div>
       <div class="theme-builder">
-        <div style="font-size:15px;font-weight:900;color:var(--royal);margin-bottom:8px">
+        <div style="font-size:14px;font-weight:900;color:#8aa0bc;margin-bottom:6px">⚠️ Two trap words will undo your last word</div>
+        <div style="font-size:15px;font-weight:900;color:var(--royal);margin-bottom:6px">
           ${r.partB.prefix} <span id="gBuiltDisplay" style="color:var(--navy)">___</span> ${r.partB.suffix}
         </div>
         <div class="word-bank" id="gWordBank">
@@ -1489,10 +1562,11 @@ function renderGauntletPart(r) {
     document.addEventListener('click', handleGauntletBClick, { signal: roomSignal() });
 
   } else if (gauntletPart === 2) {
-    // Part C — True / False
+    // Part C — True/False — restore plain passage in scene
+    const inner = document.getElementById('gauntletPassageInner');
+    if (inner) inner.innerHTML = ROOMS[6].passage;
     partEl.innerHTML = `
-      <div class="part-label">${r.partC.label}</div>
-      <div class="instruction">${r.partC.instruction}</div>
+      <div class="task-label">🗝️ PART C · TRUE OR FALSE</div>
       <div class="tf-grid">
         ${r.partC.statements.map((s, i) => `
           <div class="tf-row" id="tfRow${i}">
@@ -1504,7 +1578,7 @@ function renderGauntletPart(r) {
           </div>
         `).join('')}
       </div>
-      <button class="check-btn" id="tfCheck" style="margin-top:12px">CHECK ALL</button>
+      <button class="check-btn" id="tfCheck" style="margin-top:10px">CHECK ALL</button>
     `;
     document.addEventListener('click', handleGauntletCClick, { signal: roomSignal() });
   }
@@ -1681,6 +1755,7 @@ let _abortController = null;
 function roomSignal() {
   if (_abortController) _abortController.abort();
   _abortController = new AbortController();
+  window._abortController = _abortController; // expose for dev-tools
   return _abortController.signal;
 }
 
@@ -1757,6 +1832,8 @@ renderKeys();
 window.FalconDev = {
   site: 'Prinslow Palace',
   complete() {
+    // Abort any live room signal to kill stale event listeners
+    if (_abortController) { _abortController.abort(); _abortController = null; }
     keys = 7;
     roomIndex = ROOMS.length - 1;
     roomAnswered = true;
@@ -1776,15 +1853,63 @@ window.FalconDev = {
     return 'Prinslow Palace reset.';
   },
   actions: [
-    { label: 'Next Room', run() {
+    { label: 'Skip This Room', run() {
+      // Abort listeners, force the room complete, show next button
+      if (_abortController) { _abortController.abort(); _abortController = null; }
       roomAnswered = true;
       keys = Math.max(keys, roomIndex + 1);
-      advanceRoom();
-      return 'Advanced.';
+      const r = ROOMS[roomIndex];
+      $('#feedback').className = 'feedback show good';
+      $('#feedback').innerHTML = '✅ DEV: Room skipped. ' + r.explain;
+      $('#journalPage').className = 'journal-page show';
+      $('#journalPage').innerHTML = `<strong>Journal Page ${roomIndex + 1} Collected</strong>${r.journal}`;
+      $('#sharpBadge').classList.remove('show'); // skip means no sharp reader
+      $('#nextRoom').classList.add('show');
+      renderKeys();
+      saveProgress();
+      return 'Room ' + (roomIndex + 1) + ' skipped.';
     }},
-    { label: 'Complete Room', run() {
-      lockRoom();
-      return 'Room completed.';
+    { label: 'Next Room →', run() {
+      if (_abortController) { _abortController.abort(); _abortController = null; }
+      if (!roomAnswered) {
+        // Force completion first
+        roomAnswered = true;
+        keys = Math.max(keys, roomIndex + 1);
+        saveProgress();
+      }
+      advanceRoom();
+      return 'Advanced to room ' + (roomIndex + 1) + '.';
+    }},
+    { label: 'Show Answer', run() {
+      const r = ROOMS[roomIndex];
+      if (!r) return 'No active room.';
+      // Return mechanic-specific answer info
+      if (r.mechanic === 'sort') {
+        const mains = r.sentences.filter(s => s.main).map(s => s.text.substring(0, 50) + '…');
+        return 'Main idea sentences:\n' + mains.join('\n');
+      }
+      if (r.mechanic === 'context') return 'Answer: ' + r.answer + '\nClue words: ' + r.clues.map(c => c.word).join(', ');
+      if (r.mechanic === 'sequence') return 'Order: ' + r.events.sort((a,b) => a.order - b.order).map(e => e.order + '. ' + e.text.substring(0,40)).join('\n');
+      if (r.mechanic === 'evidence') return 'Correct sentence: ' + r.sentences.find(s => s.correct)?.text;
+      if (r.mechanic === 'pov') return 'First: ' + r.chips.filter(c=>c.pov==='first').map(c=>c.text).join(', ') + '\nSecond: ' + r.chips.filter(c=>c.pov==='second').map(c=>c.text).join(', ') + '\nThird: ' + r.chips.filter(c=>c.pov==='third').map(c=>c.text).join(', ');
+      if (r.mechanic === 'builder') return 'Target: ' + r.targetWords.join(' ') + '\nTraps: ' + r.traps.join(', ');
+      if (r.mechanic === 'gauntlet') {
+        const parts = ['Part A answer: ' + r.partA.sentences.find(s=>s.correct)?.text, 'Part B answer: ' + r.partB.targetWords.join(' '), 'Part C T/F: ' + r.partC.statements.map((s,i) => (i+1)+'. '+(s.answer?'TRUE':'FALSE')).join(', ')];
+        return parts.join('\n');
+      }
+      return 'No answer data for this mechanic.';
+    }},
+    { label: 'All Keys', run() {
+      keys = 7; renderKeys(); saveProgress();
+      return 'All 7 keys set.';
+    }},
+    { label: 'Final Chamber', run() {
+      if (_abortController) { _abortController.abort(); _abortController = null; }
+      keys = 7; renderFinalJournal(); showScreen('final'); saveProgress();
+      return 'Final chamber opened.';
+    }}
+  ]
+};
     }},
     { label: 'All Keys', run() {
       keys = 7; renderKeys(); saveProgress();
