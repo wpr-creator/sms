@@ -296,6 +296,13 @@ function spotlightHTML(text){
 function animalFieldGuideHTML(card){
   return `<div class="animal-hint">Choose an animal emoji to open its research card.</div><div class="animal-links">${card.animals.map((a,idx)=>`<button class="animal-link" data-animal="${idx}">${a.name}</button>`).join('')}</div><div class="animal-detail" id="animalDetail"><div class="research-card-label">ANIMAL FIELD GUIDE</div><h3>${card.animals[0].name}</h3><p>${card.animals[0].text}</p></div>`;
 }
+function markFieldLabComplete(){
+  try{
+    const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};
+    save.fieldLabComplete=true;
+    localStorage.setItem('falconCampSave',JSON.stringify(save));
+  }catch(e){}
+}
 function discover(i){
   const item=DATA[mission].choices[topic], card=item.cards[i];
   if(!card)return;
@@ -323,13 +330,43 @@ function discover(i){
   }
   renderJournal(item);
   updateProgress();
-  if(found.length===item.cards.length && mission!=='habitat'){
-    showCelebration();
+  if(found.length===item.cards.length){
+    markFieldLabComplete();
+    if(mission!=='habitat') showCelebration();
     document.getElementById('complete').classList.add('show');
   }
 }
 function renderJournal(item){document.getElementById('journal').innerHTML=found.map(i=>`<div class="journal-card"><strong>${item.cards[i].title}</strong><br>${item.cards[i].note}</div>`).join('')}
 function updateProgress(){const total=(DATA[mission]&&DATA[mission].choices[topic]&&DATA[mission].choices[topic].cards.length)||5;document.getElementById('markerCount').textContent=mission==='habitat'?`${found.length}/${total} RESEARCH CARDS OPENED`:`${found.length}/${total} FIELD NOTES`;document.querySelectorAll('.dot').forEach((d,i)=>{d.style.display=i<total?'inline-block':'none';d.classList.toggle('on',i<found.length)})}
 document.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>chooseMission(b.dataset.mission));document.querySelectorAll('[data-back-home]').forEach(b=>b.onclick=()=>show('home'));document.querySelectorAll('[data-back-choose]').forEach(b=>b.onclick=()=>show('choose'));document.querySelectorAll('[data-discover]').forEach(b=>b.onclick=()=>discover(Number(b.dataset.discover)));
+
+window.FalconDev={
+  site:'Field Lab',
+  complete(){
+    const item=DATA[mission]&&DATA[mission].choices[topic];
+    if(item&&item.cards){found=item.cards.map((_,i)=>i);renderJournal(item);updateProgress();}
+    markFieldLabComplete();
+    const complete=document.getElementById('complete');
+    if(complete) complete.classList.add('show');
+    return 'Field Lab marked complete.';
+  },
+  reset(){
+    found=[];
+    const complete=document.getElementById('complete');
+    if(complete) complete.classList.remove('show');
+    try{const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};save.fieldLabComplete=false;localStorage.setItem('falconCampSave',JSON.stringify(save));}catch(e){}
+    updateProgress();
+    return 'Field Lab progress reset.';
+  },
+  actions:[
+    {label:'Open Habitat',run(){chooseMission('habitat');return 'Habitat Rescue opened.';}},
+    {label:'Open Weather',run(){chooseMission('weather');return 'Weather Lab opened.';}},
+    {label:'Open Earth',run(){chooseMission('earth');return 'Earth Lab opened.';}},
+    {label:'Open Forces',run(){chooseMission('forces');return 'Forces Lab opened.';}},
+    {label:'Reveal Cards',run(){const item=DATA[mission]&&DATA[mission].choices[topic];if(item&&item.cards){found=item.cards.map((_,i)=>i);renderJournal(item);updateProgress();return 'All current cards opened.';}return 'No cards found.';}}
+  ]
+};
+
 </script>
+  <script src="dev-tools.js"></script>
 </body></html>

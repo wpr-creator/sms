@@ -224,7 +224,27 @@ ${snapshotHTML(key,w)}
 <section class="section journal"><div class="section-with-art"><div><h2>💡 Weather Observer Notebook</h2><p>${w.learned}</p></div><img class="section-art" src="weather-journal.png" alt="Weather observer notebook"></div>${notebookHTML(w)}<div class="memory-card">One important thing to remember: preparation helps people make safer choices when weather changes.</div></section>
 </div>`;show('article')}
 document.addEventListener('click',e=>{const weatherButton=e.target.closest('[data-weather]');if(weatherButton){openWeather(weatherButton.dataset.weather);return}if(e.target.closest('[data-home]')){show('home');return}if(e.target.closest('[data-story]')){show('story')}});
+
+window.FalconDev={
+  site:'Severe Weather',
+  complete(){safeSave();return 'Severe Weather marked complete.';},
+  reset(){
+    try{const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};save.stormWatchComplete=false;localStorage.setItem('falconCampSave',JSON.stringify(save));}catch(e){}
+    show('home');
+    return 'Severe Weather progress reset.';
+  },
+  actions:[
+    {label:'Open Blizzard',run(){openWeather('blizzard');return 'Blizzard opened.';}},
+    {label:'Open Thunderstorm',run(){openWeather('thunderstorm');return 'Thunderstorm opened.';}},
+    {label:'Open Heat Wave',run(){openWeather('heatwave');return 'Heat Wave opened.';}},
+    {label:'Open Hailstorm',run(){openWeather('hailstorm');return 'Hailstorm opened.';}},
+    {label:'Open Drought',run(){openWeather('drought');return 'Drought opened.';}},
+    {label:'Story Workshop',run(){show('story');return 'Story Workshop opened.';}}
+  ]
+};
+
 buildWeatherChoices();
 </script>
+  <script src="dev-tools.js"></script>
 </body>
 </html>
