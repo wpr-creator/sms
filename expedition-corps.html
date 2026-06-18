@@ -76,7 +76,7 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
 <div class="learn-card"><h2>🤝 SERVICES</h2><p>A service is work someone does for another person. You pay for the action or help, not for an object you carry away.</p><ul><li>Haircut</li><li>Dentist visit</li><li>Doctor visit</li><li>Bus ride</li></ul></div>
 </div><div style="margin-top:20px"><button class="primary" id="enterMarket">ENTER MARKET</button></div></div></section>
 
-<section class="screen" id="shopper"><div class="panel shopper"><div class="market-scene"><div class="budget-badge" id="budgetBadge">$25 LEFT</div><img class="falcon-shop" src="falcon-explorer.png" alt="Explorer falcon"><div class="market-grid" id="marketGrid"></div></div><div class="shop-info"><div class="shop-top"><h1 class="mission-title">BUILD YOUR BUDGET</h1><button class="back" data-back-shop-learn>INFO</button></div><div class="choice-note">You have $25. Choose needs and wants. Some choices are goods. Some choices are services. You do not have to spend all your money.</div><div class="shop-summary"><div class="summary-card"><strong>💵 SPENT</strong><span id="spentText">$0</span></div><div class="summary-card"><strong>🐖 SAVED</strong><span id="savedText">$25</span></div><div class="summary-card"><strong>✅ NEEDS</strong><span id="needsText">0</span></div><div class="summary-card"><strong>⭐ WANTS</strong><span id="wantsText">0</span></div></div><div class="bag"><h2>🛒 SHOPPING BAG</h2><div id="bagList">Your bag is empty. Choose an item from the market.</div></div><div class="shop-buttons"><button id="finishShop">FINISH SHOPPING</button><button id="resetShop">RESET CART</button></div><div class="shop-complete" id="shopComplete"><h2>SHOPPING RESULTS</h2><p id="shopReport"></p><div class="onepager">A budget is a plan for how to spend and save money.</div></div></div></div></section>
+<section class="screen" id="shopper"><div class="panel shopper"><div class="market-scene"><div class="budget-badge" id="budgetBadge">$25 LEFT</div><img class="falcon-shop" src="falcon-explorer.png" alt="Explorer falcon"><div class="market-grid" id="marketGrid"></div></div><div class="shop-info"><div class="shop-top"><h1 class="mission-title">BUILD YOUR BUDGET</h1><button class="back" data-back-shop-learn>INFO</button></div><div class="choice-note">You have $25. Choose needs and wants. Some choices are goods. Some choices are services. You do not have to spend all your money.</div><div class="shop-summary"><div class="summary-card"><strong>💵 SPENT</strong><span id="spentText">$0</span></div><div class="summary-card"><strong>🐖 SAVED</strong><span id="savedText">$25</span></div><div class="summary-card"><strong>✅ NEEDS</strong><span id="needsText">0</span></div><div class="summary-card"><strong>⭐ WANTS</strong><span id="wantsText">0</span></div></div><div class="bag"><h2>🛒 SHOPPING BAG</h2><div id="bagList">Your bag is empty. Choose an item from the market.</div></div><div class="shop-buttons"><button id="finishShop">FINISH SHOPPING</button><button id="resetShop">RESET CART</button></div><div class="shop-complete" id="shopComplete"><h2>SHOPPING RESULTS</h2><p id="shopReport"></p><div class="onepager">A budget is a plan for how to spend and save money.</div><div style="margin-top:14px"><button class="back" data-back-home>← BACK TO MISSIONS</button></div></div></div></div></section>
 
 </main></div>
 <script>
@@ -113,7 +113,7 @@ sanitation:{title:'SANITATION WORKER',bg:'bg-community.png',spots:['♻️ JOB',
 {title:'⚠️ CHALLENGES',text:'Sanitation work can be physically difficult. Workers may lift heavy bins and work in hot, cold, or rainy weather. They may be near traffic while trucks stop on streets. Some trash can include sharp or unsafe objects. Workers must pay close attention to stay safe.',vocab:'Vocabulary: hazard means something that could be dangerous.',note:'Sanitation workers face heavy work, traffic, weather, and possible hazards.'},
 {title:'🌟 COMMUNITY IMPACT',text:'Sanitation workers help communities stay clean, healthy, and safe. Their work keeps trash from spreading into streets and parks. Recycling collection can also help reduce waste. Clean neighborhoods are better for people, animals, and the environment. This job helps the whole community every day.',vocab:'Vocabulary: environment means the land, air, water, and living things around us.',note:'Sanitation workers help protect people, animals, neighborhoods, and the environment.'}]}
 }},
-geo:{title:'GEOGRAPHY REALTOR',sub:'Choose one location to learn about.',bg:'bg-geography.png',character:'falcon-cartographer.png',explore:true,complete:'You collected information about climate, landforms, resources, jobs, challenges, and interesting facts.',choices:{
+geo:{title:'GEOGRAPHY REALTOR',sub:'Choose one location to learn about.',bg:'bg-geography.png',character:'falcon-explorer.png',explore:true,complete:'You collected information about climate, landforms, resources, jobs, challenges, and interesting facts.',choices:{
 coast:{title:'COAST',bg:'bg-ocean.png',spots:['🌦️ CLIMATE','🗺️ LANDFORMS','💼 JOBS','⚠️ CHALLENGES','🌟 INTERESTING FACTS'],cards:[
 {title:'🌦️ CLIMATE',text:'A coast is land next to an ocean or sea. Coastal weather is often mild, breezy, and sometimes rainy. The ocean can cool the air in summer. It can also keep temperatures from changing too quickly. People who live near the coast often pay close attention to storms and tides.',vocab:'Vocabulary: climate means the usual weather in a place over a long time.',note:'Coastal places often have mild, breezy, and sometimes rainy weather.'},
 {title:'🗺️ LANDFORMS',text:'Coastal places can have beaches, cliffs, bays, harbors, wetlands, and ocean views. These landforms affect where people build homes, roads, parks, and stores. A harbor can help boats stay protected. Wetlands can give animals a place to live. Waves and wind can slowly change the shape of the land.',vocab:'Vocabulary: landform means a natural feature of Earth’s surface.',note:'Coastal landforms include beaches, cliffs, bays, harbors, wetlands, and ocean areas.'},
@@ -144,10 +144,38 @@ shop:{title:'SMART SHOPPER',sub:'Learn money choices, then build your $25 budget
 
 const screens={home:document.getElementById('home'),choose:document.getElementById('choose'),explore:document.getElementById('explore'),shopLearn:document.getElementById('shopLearn'),shopper:document.getElementById('shopper')};
 let mission='',topic='',found=[];let cart=[],budget=25;
+
 function show(id){Object.values(screens).forEach(s=>s.classList.remove('active'));screens[id].classList.add('active');window.scrollTo(0,0)}
+
+// ── Completion tracking ───────────────────────────────────────────────────────
+// Writes expeditionComplete:true to falconCampSave so camp.js can read it
+// and update the homepage progress bar and path-done badge.
+function markExpeditionComplete(){
+  try{
+    const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};
+    save.expeditionComplete=true;
+    localStorage.setItem('falconCampSave',JSON.stringify(save));
+  }catch(e){}
+}
+
 function chooseMission(m){mission=m;const pack=DATA[m];if(pack.shopGame){show('shopLearn');return}document.getElementById('chooseTitle').textContent=pack.title;document.getElementById('chooseSub').textContent=pack.sub;const grid=document.getElementById('choices');grid.innerHTML='';Object.entries(pack.choices).forEach(([key,item])=>{const b=document.createElement('button');b.className='choice';b.style.setProperty('--bg',`url('${item.bg}')`);b.innerHTML=`<h2>${item.title}</h2><p>Enter the mission scene and learn five important facts.</p><span>ENTER MISSION</span>`;b.onclick=()=>openTopic(key);grid.appendChild(b);});show('choose')}
+
 function openTopic(key){topic=key;const pack=DATA[mission],item=pack.choices[key];found=[];document.getElementById('exploreTitle').textContent=item.title;document.getElementById('exploreScene').style.setProperty('--bg',`url('${item.bg}')`);document.getElementById('exploreCharacter').src=pack.character;document.querySelectorAll('[data-discover]').forEach((b,i)=>{b.classList.remove('done');b.textContent=item.spots[i]||'DISCOVER'});document.getElementById('discovery').innerHTML='<h2>START EXPLORING</h2><p>Choose a marker in the scene. Each one gives you information about this topic.</p>';document.getElementById('journal').innerHTML='';document.getElementById('completeText').textContent=pack.complete||'You explored all five parts of this topic.';document.getElementById('complete').classList.remove('show');updateProgress();show('explore')}
-function discover(i){const item=DATA[mission].choices[topic],card=item.cards[i];if(!card)return;if(!found.includes(i))found.push(i);document.querySelector(`[data-discover="${i}"]`).classList.add('done');document.getElementById('discovery').innerHTML=`<h2>${card.title}</h2><p>${card.text}</p><div class="vocab">${card.vocab}</div>`;renderJournal(item);updateProgress();if(found.length===item.cards.length)document.getElementById('complete').classList.add('show')}
+
+function discover(i){
+  const item=DATA[mission].choices[topic],card=item.cards[i];
+  if(!card)return;
+  if(!found.includes(i))found.push(i);
+  document.querySelector(`[data-discover="${i}"]`).classList.add('done');
+  document.getElementById('discovery').innerHTML=`<h2>${card.title}</h2><p>${card.text}</p><div class="vocab">${card.vocab}</div>`;
+  renderJournal(item);
+  updateProgress();
+  if(found.length===item.cards.length){
+    markExpeditionComplete();
+    document.getElementById('complete').classList.add('show');
+  }
+}
+
 function renderJournal(item){document.getElementById('journal').innerHTML=found.map(i=>`<div class="journal-card"><strong>${item.cards[i].title}</strong><br>${item.cards[i].note}</div>`).join('')}
 function updateProgress(){document.getElementById('findCount').textContent=`${found.length}/5 NOTES COLLECTED`;document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i<found.length))}
 
@@ -168,9 +196,93 @@ function startShopper(){cart=[];budget=25;renderMarket();renderShop();show('shop
 function renderMarket(){const grid=document.getElementById('marketGrid');grid.innerHTML=SHOP_ITEMS.map(item=>`<button class="shop-item" data-buy="${item.id}"><strong>${item.emoji} ${item.name}</strong><small>$${item.price} · ${item.need?'Need':'Want'} · ${item.type}</small></button>`).join('');document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>buyItem(b.dataset.buy))}
 function buyItem(id){const item=SHOP_ITEMS.find(x=>x.id===id);if(!item)return;if(cart.some(x=>x.id===id))return;if(item.price>budget){document.getElementById('bagList').innerHTML=`<p>⚠️ ${item.name} costs $${item.price}, but you only have $${budget} left. Choose a different item or reset your cart.</p>`;return}cart.push(item);budget-=item.price;renderShop()}
 function renderShop(){document.getElementById('budgetBadge').textContent=`$${budget} LEFT`;const spent=25-budget,needs=cart.filter(x=>x.need).length,wants=cart.filter(x=>!x.need).length;document.getElementById('spentText').textContent=`$${spent}`;document.getElementById('savedText').textContent=`$${budget}`;document.getElementById('needsText').textContent=needs;document.getElementById('wantsText').textContent=wants;document.querySelectorAll('[data-buy]').forEach(b=>{const item=SHOP_ITEMS.find(x=>x.id===b.dataset.buy);b.classList.toggle('bought',cart.some(x=>x.id===item.id));b.classList.toggle('disabled',!cart.some(x=>x.id===item.id)&&item.price>budget)});document.getElementById('bagList').innerHTML=cart.length?`<ul>${cart.map(x=>`<li>${x.emoji} ${x.name}: $${x.price} · ${x.need?'Need':'Want'} · ${x.type}</li>`).join('')}</ul>`:'Your bag is empty. Choose an item from the market.';document.getElementById('shopComplete').classList.remove('show')}
-function finishShop(){const needs=cart.filter(x=>x.need),wants=cart.filter(x=>!x.need),goods=cart.filter(x=>x.type==='Good'),services=cart.filter(x=>x.type==='Service');const spent=25-budget;let report='';if(cart.length===0){report='You did not buy anything yet. Try choosing at least one need and one want before finishing.'}else{report=`You spent $${spent} and saved $${budget}. Needs: ${needs.map(x=>x.emoji+' '+x.name).join(', ')||'none yet'}. Wants: ${wants.map(x=>x.emoji+' '+x.name).join(', ')||'none yet'}. Goods: ${goods.map(x=>x.emoji+' '+x.name).join(', ')||'none yet'}. Services: ${services.map(x=>x.emoji+' '+x.name).join(', ')||'none yet'}. Details: ${cart.map(x=>x.reason).slice(0,4).join(' ')}`}document.getElementById('shopReport').textContent=report;document.getElementById('shopComplete').classList.add('show')}
-document.getElementById('enterMarket').onclick=startShopper;document.getElementById('finishShop').onclick=finishShop;document.getElementById('resetShop').onclick=startShopper;
-document.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>chooseMission(b.dataset.mission));document.querySelectorAll('[data-back-home]').forEach(b=>b.onclick=()=>show('home'));document.querySelectorAll('[data-back-choose]').forEach(b=>b.onclick=()=>show('choose'));document.querySelectorAll('[data-back-shop-learn]').forEach(b=>b.onclick=()=>show('shopLearn'));document.querySelectorAll('[data-discover]').forEach(b=>b.onclick=()=>discover(Number(b.dataset.discover)));
+function finishShop(){
+  const needs=cart.filter(x=>x.need);
+  const wants=cart.filter(x=>!x.need);
+  const goods=cart.filter(x=>x.type==='Good');
+  const services=cart.filter(x=>x.type==='Service');
+  const spent=25-budget;
+
+  if(cart.length===0){
+    document.getElementById('shopReport').innerHTML='<p style="font-size:20px;font-weight:900">You have not chosen anything yet. Pick at least one need and one want before finishing.</p>';
+    document.getElementById('shopComplete').classList.add('show');
+    return;
+  }
+
+  // Mark expedition complete when the student finishes shopping
+  markExpeditionComplete();
+
+  // Build a structured results table instead of a run-on paragraph
+  function row(label,value){return`<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:2px solid #dce8f6;font-size:19px;font-weight:900"><span>${label}</span><span style="color:var(--blue)">${value}</span></div>`;}
+  const needNames=needs.map(x=>x.emoji+' '+x.name).join(', ')||'None';
+  const wantNames=wants.map(x=>x.emoji+' '+x.name).join(', ')||'None';
+  const goodNames=goods.map(x=>x.emoji+' '+x.name).join(', ')||'None';
+  const serviceNames=services.map(x=>x.emoji+' '+x.name).join(', ')||'None';
+
+  document.getElementById('shopReport').innerHTML=
+    row('💵 Money Spent','$'+spent)+
+    row('🐖 Money Saved','$'+budget)+
+    row('✅ Needs',needNames)+
+    row('⭐ Wants',wantNames)+
+    row('🛍️ Goods',goodNames)+
+    row('🤝 Services',serviceNames);
+
+  document.getElementById('shopComplete').classList.add('show');
+}
+
+document.getElementById('enterMarket').onclick=startShopper;
+document.getElementById('finishShop').onclick=finishShop;
+document.getElementById('resetShop').onclick=startShopper;
+document.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>chooseMission(b.dataset.mission));
+document.querySelectorAll('[data-back-home]').forEach(b=>b.onclick=()=>show('home'));
+document.querySelectorAll('[data-back-choose]').forEach(b=>b.onclick=()=>show('choose'));
+document.querySelectorAll('[data-back-shop-learn]').forEach(b=>b.onclick=()=>show('shopLearn'));
+document.querySelectorAll('[data-discover]').forEach(b=>b.onclick=()=>discover(Number(b.dataset.discover)));
+
+// ── Dev Tools ─────────────────────────────────────────────────────────────────
+window.FalconDev = {
+  site: 'Expedition Corps',
+  complete() {
+    markExpeditionComplete();
+    // If we're mid-explore, fast-finish the current topic
+    if(mission && topic){
+      const item=DATA[mission]&&DATA[mission].choices[topic];
+      if(item&&item.cards){
+        found=item.cards.map((_,i)=>i);
+        renderJournal(item);
+        updateProgress();
+        document.getElementById('complete').classList.add('show');
+      }
+    }
+    return 'Expedition Corps marked complete.';
+  },
+  reset() {
+    try{
+      const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};
+      save.expeditionComplete=false;
+      localStorage.setItem('falconCampSave',JSON.stringify(save));
+    }catch(e){}
+    found=[];
+    show('home');
+    return 'Expedition Corps reset.';
+  },
+  actions: [
+    { label: 'Hero Hall',      run(){ chooseMission('hero'); return 'Hero Hall opened.'; } },
+    { label: 'Geography',      run(){ chooseMission('geo');  return 'Geography Realtor opened.'; } },
+    { label: 'Smart Shopper',  run(){ chooseMission('shop'); return 'Smart Shopper opened.'; } },
+    { label: 'Reveal Cards',   run(){
+      const item=DATA[mission]&&DATA[mission].choices[topic];
+      if(!item||!item.cards) return 'No active topic. Open a mission first.';
+      found=item.cards.map((_,i)=>i);
+      document.querySelectorAll('[data-discover]').forEach(b=>b.classList.add('done'));
+      renderJournal(item); updateProgress();
+      markExpeditionComplete();
+      document.getElementById('complete').classList.add('show');
+      return 'All cards revealed.';
+    }},
+    { label: 'Finish Shop', run(){ finishShop(); return 'Shop finished.'; } }
+  ]
+};
 </script>
   <script src="dev-tools.js"></script>
 </body>
