@@ -315,7 +315,7 @@
     updateHud();
 
     if(lives <= 0){
-      autoTimer = setTimeout(()=>startMission(current),1000);
+      autoTimer = setTimeout(()=>startMission(current),1800);
       return;
     }
 
@@ -352,8 +352,15 @@
     els.continueBtn.textContent = current === missions.length - 1 ? "RETURN TO START" : "NEXT MISSION";
     sound("win");
 
-    if(current < missions.length - 1){
-      autoTimer = setTimeout(()=>startMission(current + 1),2200);
+    // No auto-advance — the NEXT MISSION button lets the student
+    // read their badge and move on at their own pace.
+    if(current === missions.length - 1){
+      // Mark Flight School complete on the camp save when all missions done
+      try {
+        const save = JSON.parse(localStorage.getItem("falconCampSave")) || {};
+        save.flightSchoolComplete = true;
+        localStorage.setItem("falconCampSave", JSON.stringify(save));
+      } catch(e) {}
     }
   }
 
@@ -366,51 +373,17 @@
     if(confirm("Reset Flight School progress?")){
       localStorage.removeItem(storeKey);
       localStorage.removeItem(badgeKey);
-      progress = loadProgress();
-      current = 0;
-      questions = [];
-      qIndex = 0;
-      lives = 3;
-    
-  window.FalconDev = {
-    site: "Flight School",
-    complete(){
-      progress.unlocked = missions.length ? missions.length - 1 : 0;
-      progress.complete = missions.map((_, i) => i);
-      progress.xp = Math.max(progress.xp || 0, missions.length * 50);
-      saveProgress();
-      missions.forEach(m => m.badge && saveBadge(m.badge));
-      try {
-        const save = JSON.parse(localStorage.getItem("falconCampSave")) || {};
-        save.flightSchoolComplete = true;
-        localStorage.setItem("falconCampSave", JSON.stringify(save));
-      } catch(e) {}
-      updateHud();
-      return "Flight School marked complete.";
-    },
-    reset(){
-      localStorage.removeItem(storeKey);
-      localStorage.removeItem(badgeKey);
       try {
         const save = JSON.parse(localStorage.getItem("falconCampSave")) || {};
         save.flightSchoolComplete = false;
         localStorage.setItem("falconCampSave", JSON.stringify(save));
       } catch(e) {}
       progress = loadProgress();
-      current = 0; questions = []; qIndex = 0; lives = 3;
+      current = 0;
+      questions = [];
+      qIndex = 0;
+      lives = 3;
       showStart();
-      return "Flight School reset.";
-    },
-    actions: [
-      {label:"Start Mission", run(){ startMission(Math.min(progress.unlocked || 0, missions.length - 1)); return "Mission started."; }},
-      {label:"Next Mission", run(){ startMission(Math.min(current + 1, missions.length - 1)); return "Next mission opened."; }},
-      {label:"Show Answer", run(){ const q = questions[qIndex]; return q ? "Answer: " + ((q.answers || [q.answer]).join(" or ")) : "No active question."; }},
-      {label:"Correct Current", run(){ const q = questions[qIndex]; if(!q) return "No active question."; correct(); return "Marked current answer correct."; }},
-      {label:"Complete Mission", run(){ completeMission(); return "Mission completed."; }}
-    ]
-  };
-
-  showStart();
     }
   });
 
