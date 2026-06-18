@@ -172,5 +172,6 @@ function finishShop(){const needs=cart.filter(x=>x.need),wants=cart.filter(x=>!x
 document.getElementById('enterMarket').onclick=startShopper;document.getElementById('finishShop').onclick=finishShop;document.getElementById('resetShop').onclick=startShopper;
 document.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>chooseMission(b.dataset.mission));document.querySelectorAll('[data-back-home]').forEach(b=>b.onclick=()=>show('home'));document.querySelectorAll('[data-back-choose]').forEach(b=>b.onclick=()=>show('choose'));document.querySelectorAll('[data-back-shop-learn]').forEach(b=>b.onclick=()=>show('shopLearn'));document.querySelectorAll('[data-discover]').forEach(b=>b.onclick=()=>discover(Number(b.dataset.discover)));
 </script>
+  <script src="dev-tools.js"></script>
 </body>
 </html>
