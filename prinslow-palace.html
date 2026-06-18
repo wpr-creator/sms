@@ -206,12 +206,94 @@ a{text-decoration:none;color:inherit}
   .hero h1,.final-title{font-size:42px}.room-title{font-size:34px}.passage,.question{font-size:19px}.guide{display:none}
   .guide-bubble{position:relative;left:auto;top:auto;margin:18px}.dev-grid{grid-template-columns:1fr}.map-track{grid-template-columns:1fr}
 }
+
+/* Prinslow Palace asset integration */
+body{
+  background:
+    linear-gradient(180deg,rgba(120,198,255,.68),rgba(255,248,223,.88)),
+    url('bg-sky-dock.png') center/cover fixed;
+}
+.page{
+  background:
+    radial-gradient(circle at 18% 10%,rgba(255,255,255,.62),transparent 16%),
+    radial-gradient(circle at 80% 18%,rgba(255,255,255,.42),transparent 18%),
+    linear-gradient(180deg,rgba(255,255,255,.05),rgba(7,29,66,.18));
+}
+.top .pill{display:none}
+.hero{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.86),rgba(233,248,255,.68)),
+    url('card-prinslow-palace.png') center/cover;
+  min-height:500px;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.72) 42%,rgba(255,255,255,.08) 100%);
+  pointer-events:none;
+}
+.hero > *{position:relative;z-index:1}
+.sky-palace{
+  background:
+    radial-gradient(circle at 50% 82%,rgba(255,255,255,.84),transparent 30%),
+    linear-gradient(180deg,rgba(255,255,255,.18),rgba(116,200,255,.16)),
+    url('card-prinslow-palace.png') center/contain no-repeat;
+}
+.palace-svg{display:none}
+.guide{
+  width:min(240px,38%);
+  min-height:300px;
+  font-size:0;
+}
+.guide::before{display:none}
+.guide::after{
+  content:"";
+  display:block;
+  width:100%;
+  height:300px;
+  background:url('falcon-palace-guide.png') center bottom/contain no-repeat;
+  filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));
+  animation:guideBob 1.4s ease-in-out infinite alternate;
+}
+.room-art{
+  display:none;
+}
+.room-scene{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.18),rgba(7,29,66,.18)),
+    var(--room-bg);
+  background-size:cover;
+  background-position:center;
+}
+.room-scene::before{
+  background:
+    radial-gradient(circle at 24% 20%,rgba(255,255,255,.46),transparent 22%),
+    linear-gradient(90deg,rgba(255,255,255,.08),transparent 48%,rgba(7,29,66,.22));
+}
+.final{
+  background:
+    radial-gradient(circle at 70% 28%,rgba(255,200,61,.35),transparent 25%),
+    linear-gradient(135deg,rgba(255,253,240,.90),rgba(234,249,255,.74)),
+    url('bg-topaz-chamber.png') center/cover;
+}
+.treasure{
+  background:
+    radial-gradient(circle,rgba(255,251,220,.88) 0 18%,rgba(255,213,106,.62) 19% 38%,rgba(123,205,247,.42) 39% 100%),
+    url('bg-topaz-chamber.png') center/cover;
+}
+@media(max-width:900px){
+  .hero::after{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.45))}
+  .guide{width:190px}
+  .guide::after{height:230px}
+}
+
 </style>
 </head>
 <body>
 <div class="page">
   <main class="wrap">
-    <div class="top"><a class="home" href="index.html">← CAMP</a><div class="pill">HIDDEN BONUS ADVENTURE</div></div>
+    <div class="top"><a class="home" href="index.html">← SUMMER QUEST</a><div class="pill"></div></div>
 
     <section class="screen active" id="intro">
       <div class="panel hero">
@@ -224,29 +306,7 @@ a{text-decoration:none;color:inherit}
             <a class="secondary" href="index.html">RETURN TO CAMP</a>
           </div>
         </div>
-        <div class="sky-palace" aria-label="Floating glass palace">
-          <svg class="palace-svg" viewBox="0 0 420 360" role="img" aria-label="Crystal palace in the clouds">
-            <defs>
-              <linearGradient id="glass" x1="0" x2="1">
-                <stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#bfeaff"/><stop offset="1" stop-color="#ffffff"/>
-              </linearGradient>
-              <linearGradient id="gold" x1="0" x2="1">
-                <stop offset="0" stop-color="#ffc83d"/><stop offset="1" stop-color="#d8951e"/>
-              </linearGradient>
-            </defs>
-            <ellipse cx="210" cy="314" rx="180" ry="32" fill="#fff" opacity=".9"/>
-            <path d="M70 260h280l-28 48H98z" fill="url(#gold)" stroke="#fff" stroke-width="7"/>
-            <rect x="105" y="140" width="210" height="125" rx="18" fill="url(#glass)" stroke="#fff" stroke-width="8"/>
-            <path d="M115 140l95-95 95 95z" fill="url(#glass)" stroke="#fff" stroke-width="8"/>
-            <rect x="185" y="178" width="50" height="87" rx="16" fill="#fff8d8" stroke="#ffc83d" stroke-width="6"/>
-            <rect x="128" y="170" width="38" height="45" rx="10" fill="#eaf9ff" stroke="#fff" stroke-width="5"/>
-            <rect x="254" y="170" width="38" height="45" rx="10" fill="#eaf9ff" stroke="#fff" stroke-width="5"/>
-            <path d="M70 255V132l55-52 55 52v123z" fill="url(#glass)" stroke="#fff" stroke-width="8"/>
-            <path d="M240 255V112l55-62 55 62v143z" fill="url(#glass)" stroke="#fff" stroke-width="8"/>
-            <circle cx="210" cy="120" r="20" fill="#ffc83d" stroke="#fff" stroke-width="6"/>
-            <path d="M210 92l11 20 22 4-16 16 4 23-21-11-21 11 4-23-16-16 22-4z" fill="#fff8d8"/>
-          </svg>
-        </div>
+        <div class="sky-palace" aria-label="Prinslow Palace"><img src="falcon-palace-guide.png" alt="Falcon palace guide" style="width:min(250px,72%);max-height:310px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));"></div>
       </div>
     </section>
 
@@ -328,7 +388,7 @@ const ROOMS=[
     short:'Sky Dock',
     skill:'MAIN IDEA',
     icon:'🌉',
-    bg:'linear-gradient(135deg,#dff5ff,#ffffff 55%,#bdeaff)',
+    bg:'url('bg-sky-dock.png')',
     guide:'The bridge to Prinslow Palace is hidden in the clouds. Find what this chapter is mostly about.',
     passage:'Avery had never seen clouds from above before. They spread below the sky dock like a white ocean, rolling and shining under the morning sun. Ahead stood Prinslow Palace, a castle of glass towers, golden rails, and floating bridges. Every wall caught the light and sent it flashing in soft blue and yellow. Avery held the old map with both hands. The map had belonged to a palace keeper who vanished years ago. At the bottom of the map, tiny writing warned, Only a careful reader can reach the Topaz Falcon. Avery took one step onto the glass bridge. A bronze falcon statue turned its head, even though no wind was blowing. Seven empty keyholes glowed along the palace gate.',
     question:'What is the main idea of this chapter?',
@@ -347,7 +407,7 @@ const ROOMS=[
     short:'Library',
     skill:'CONTEXT CLUES',
     icon:'📚',
-    bg:'linear-gradient(135deg,#f2fbff,#d6f1ff 52%,#fff)',
+    bg:'url('bg-crystal-library.png')',
     guide:'The library shelves drift through the clouds. Use clues around the word to unlock the next page.',
     passage:'Inside the palace, Avery entered a library where shelves floated without ropes or ladders. Books glided through the air like birds. One silver book landed softly on a crystal table and opened by itself. Its pages were fragile. Avery knew this because the paper was thin, cracked at the edges, and trembling each time the room breathed a cool breeze. The writing inside described a bronze falcon that once guarded the palace. It was not a normal statue. It watched, listened, and learned from every visitor. Avery leaned closer, but a page corner began to tear. Slowly, Avery placed one finger under the page and turned it with care.',
     question:'What does fragile most likely mean?',
@@ -366,7 +426,7 @@ const ROOMS=[
     short:'Silent Falcon',
     skill:'INFERENCE',
     icon:'🦅',
-    bg:'linear-gradient(135deg,#eaf9ff,#fff8d8 48%,#cfefff)',
+    bg:'url('bg-silent-falcon.png')',
     guide:'The palace falcon does not speak. Use its actions to infer what it may feel.',
     passage:'The bronze falcon waited at the end of the hall. Its wings were folded tightly against its sides, and one claw rested on a cracked stone perch. Avery stepped closer. The falcon did not fly away. It only tilted its head and looked toward a locked door covered in dust. Beside the door sat a tiny metal bowl, empty except for one topaz feather. Avery noticed scratches on the floor, as if the falcon had walked back and forth for a very long time. When Avery picked up the feather, the falcon’s eyes glowed softly. It took one slow step forward, then stopped and waited.',
     question:'What can the reader infer about the bronze falcon?',
@@ -385,7 +445,7 @@ const ROOMS=[
     short:'Observatory',
     skill:'TEXT EVIDENCE',
     icon:'🔭',
-    bg:'linear-gradient(135deg,#d5e6ff,#ffffff 46%,#b0d4ff)',
+    bg:'url('bg-observatory.png')',
     guide:'The observatory shows clues through the glass. Choose the sentence that best supports the answer.',
     passage:'Avery climbed a spiral staircase into the observatory. A giant telescope pointed through the glass ceiling, aimed at a ring of clouds around the palace. The bronze falcon followed, tapping its beak twice against the floor whenever Avery chose the correct stair. At the top, Avery found a journal page pinned beneath a crystal star. The page said the palace had been built to protect stories, not treasure. Avery read that sentence twice. If the palace protected stories, then the Topaz Falcon might not be valuable because it was gold. It might be valuable because it remembered every story the palace had ever kept.',
     question:'Which sentence best supports the idea that the Topaz Falcon is important because of stories?',
@@ -404,7 +464,7 @@ const ROOMS=[
     short:'Gallery',
     skill:'POINT OF VIEW',
     icon:'🖼️',
-    bg:'linear-gradient(135deg,#fff5d6,#e8f7ff 52%,#ffffff)',
+    bg:'url('bg-gallery.png')',
     guide:'The paintings speak in different voices. Watch for words that show who is telling the story.',
     passage:'A painting shimmered, and a voice filled the gallery. I was the last keeper of Prinslow Palace. I polished the glass bridges each morning and read to the bronze falcon each night. I believed the falcon understood every word. When the storm clouds rose too high, I hid the Topaz Falcon where only a thoughtful explorer could find it. I left seven keys behind, not to keep readers out, but to help them slow down and notice what mattered. If you are reading this, the palace has chosen you to listen carefully.',
     question:'Which point of view is used in the painting’s message?',
@@ -423,7 +483,7 @@ const ROOMS=[
     short:'Garden',
     skill:'THEME',
     icon:'🌿',
-    bg:'linear-gradient(135deg,#e6fff0,#ffffff 50%,#c8f1d6)',
+    bg:'url('bg-glass-garden.png')',
     guide:'A glass garden grows high above the clouds. Find the lesson hidden in this chapter.',
     passage:'In the glass garden, Avery found the sixth key trapped inside a crystal vine. The bronze falcon pulled at the vine with its beak, but the vine tightened. Avery tried to tug the key free alone, but the crystal only scraped Avery’s hands. Then Avery remembered the journal: slow down and notice what mattered. The vine had six leaves, and each leaf glowed when touched gently. Avery touched one leaf, and the falcon tapped another. Together they moved around the vine until all six leaves shone. The vine opened without breaking, and the key dropped softly into Avery’s palm.',
     question:'What is the best theme of this chapter?',
@@ -442,7 +502,7 @@ const ROOMS=[
     short:'Topaz Chamber',
     skill:'MIXED CHALLENGE',
     icon:'🗝️',
-    bg:'linear-gradient(135deg,#fff8d8,#eaf9ff 50%,#ffffff)',
+    bg:'url('bg-topaz-chamber.png')',
     guide:'The final chamber mixes your reading powers. Use inference, theme, and evidence to finish the quest.',
     passage:'The final door opened into a quiet chamber filled with golden light. The bronze falcon stepped onto a round platform and lowered its head. Avery placed the seven keys into the floor. One by one, the keys began to shine. The old journal pages lifted into the air and circled the room like bright birds. Avery finally understood. The palace had not been testing readers to keep them away. It had been teaching them how to pay attention. The Topaz Falcon appeared, glowing at the center of the chamber. The bronze falcon looked at Avery, then at the journal pages, as if asking the explorer to remember what had been learned.',
     question:'Which sentence best states the lesson Avery learns?',
