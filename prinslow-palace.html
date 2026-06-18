@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Legend of Prinslow Palace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#071d42;
+  --royal:#163b86;
+  --sky:#bfeaff;
+  --cloud:#f6fbff;
+  --glass:#eaf9ffcc;
+  --gold:#ffc83d;
+  --topaz:#f6b93b;
+  --ink:#102033;
+  --green:#247a59;
+  --red:#c94b4b;
+  --shadow:0 22px 62px rgba(7,29,66,.35);
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0;
+  font-family:"Atkinson Hyperlegible",system-ui,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(180deg,#78c6ff 0%,#d9f6ff 38%,#fff8df 100%);
+  overflow-x:hidden;
+}
+button,a{font:inherit}
+button{border:0;cursor:pointer}
+a{text-decoration:none;color:inherit}
+.page{
+  min-height:100vh;
+  position:relative;
+  padding:18px clamp(14px,4vw,42px) 34px;
+  background:
+    radial-gradient(circle at 18% 10%,rgba(255,255,255,.8),transparent 16%),
+    radial-gradient(circle at 80% 18%,rgba(255,255,255,.55),transparent 18%),
+    linear-gradient(180deg,rgba(255,255,255,.05),rgba(7,29,66,.10));
+}
+.page::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 18% 84%,rgba(255,255,255,.85) 0 12%,transparent 13%),
+    radial-gradient(ellipse at 62% 88%,rgba(255,255,255,.72) 0 17%,transparent 18%),
+    radial-gradient(ellipse at 90% 78%,rgba(255,255,255,.72) 0 12%,transparent 13%);
+  opacity:.72;
+}
+.wrap{position:relative;z-index:1;width:min(1180px,96vw);margin:0 auto}
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+.home,.pill{
+  background:#ffffffbb;
+  color:var(--navy);
+  border:3px solid #ffffff;
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:900;
+  box-shadow:0 8px 0 rgba(7,29,66,.12);
+}
+.screen{display:none}
+.screen.active{display:block}
+.panel{
+  background:linear-gradient(135deg,rgba(255,255,255,.84),rgba(234,249,255,.72));
+  border:5px solid rgba(255,255,255,.82);
+  border-radius:34px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  backdrop-filter:blur(8px);
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:22px;
+  align-items:center;
+  padding:34px clamp(24px,5vw,58px);
+  min-height:430px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.88),rgba(233,248,255,.72)),
+    radial-gradient(circle at 80% 20%,rgba(255,200,61,.28),transparent 20%);
+}
+.kicker,.room-kicker,.key-chip{font-family:Bungee,system-ui;letter-spacing:.08em}
+.kicker{
+  display:inline-block;
+  color:var(--royal);
+  background:#ffffffc8;
+  border:2px solid #d2ecff;
+  border-radius:999px;
+  padding:8px 12px;
+  margin-bottom:14px;
+  font-weight:900;
+}
+.hero h1,.room-title,.final-title{
+  font-family:Bungee,system-ui;
+  line-height:.96;
+  margin:0;
+  color:var(--navy);
+  text-shadow:0 5px 0 #fff,0 9px 0 rgba(255,200,61,.55);
+}
+.hero h1{font-size:clamp(44px,7vw,86px)}
+.hero p{
+  font-size:23px;
+  line-height:1.45;
+  font-weight:800;
+  color:#183a67;
+}
+.sky-palace{
+  min-height:340px;
+  border-radius:30px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.45),rgba(116,200,255,.28)),
+    radial-gradient(circle at 52% 82%,#fff 0 18%,transparent 19%),
+    linear-gradient(180deg,#79c9ff,#f8fdff);
+  border:4px solid #fff;
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.22),0 18px 36px rgba(7,29,66,.22);
+}
+.palace-svg{
+  width:min(390px,92%);
+  filter:drop-shadow(0 22px 22px rgba(7,29,66,.28));
+  animation:palaceFloat 2.8s ease-in-out infinite alternate;
+}
+@keyframes palaceFloat{to{transform:translateY(-12px)}}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.primary,.secondary,.choice,.dev-btn{
+  border-radius:18px;
+  font-weight:900;
+  padding:14px 18px;
+}
+.primary{
+  background:var(--gold);
+  color:var(--navy);
+  border:4px solid var(--navy);
+  box-shadow:0 9px 0 rgba(7,29,66,.22);
+  font-family:Bungee,system-ui;
+}
+.secondary{
+  background:#fff;
+  color:var(--navy);
+  border:3px solid #d2ecff;
+}
+.keys-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:16px 20px;
+  background:rgba(255,255,255,.76);
+  border-top:3px solid rgba(255,255,255,.88);
+  border-bottom:3px solid rgba(255,255,255,.88);
+}
+.key-track{display:flex;gap:8px;flex-wrap:wrap}
+.key{
+  width:34px;height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#d7e8f6;
+  border:3px solid #fff;
+  box-shadow:0 5px 0 rgba(7,29,66,.12);
+  filter:grayscale(.55);
+  opacity:.75;
+}
+.key.on{
+  background:radial-gradient(circle at 30% 25%,#fff7c8,#ffc83d 48%,#d8951e 100%);
+  filter:none;
+  opacity:1;
+  animation:keyPop .35s ease;
+}
+@keyframes keyPop{from{transform:scale(.4) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+.room{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  min-height:650px;
+}
+.room-scene{
+  position:relative;
+  min-height:650px;
+  border-right:4px solid #fff;
+  background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(7,29,66,.16)),var(--room-bg);
+  background-size:cover;
+  background-position:center;
+  overflow:hidden;
+}
+.room-scene::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 24% 20%,rgba(255,255,255,.70),transparent 22%),
+    linear-gradient(90deg,rgba(255,255,255,.14),transparent 48%,rgba(7,29,66,.16));
+}
+.room-art{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  font-size:clamp(110px,18vw,210px);
+  opacity:.82;
+  filter:drop-shadow(0 24px 20px rgba(7,29,66,.25));
+  animation:roomFloat 2s ease-in-out infinite alternate;
+}
+@keyframes roomFloat{to{transform:translateY(-14px) rotate(1deg)}}
+.guide{
+  position:absolute;
+  left:22px;
+  bottom:22px;
+  width:min(210px,34%);
+  min-height:230px;
+  display:grid;
+  place-items:center;
+  font-size:112px;
+  filter:drop-shadow(0 16px 18px rgba(7,29,66,.32));
+}
+.guide::before{
+  content:"🦅";
+  animation:guideBob 1.4s ease-in-out infinite alternate;
+}
+@keyframes guideBob{to{transform:translateY(-10px)}}
+.guide-bubble{
+  position:absolute;
+  left:22px;
+  top:24px;
+  max-width:min(500px,86%);
+  background:#ffffffe8;
+  border:4px solid var(--navy);
+  border-radius:24px;
+  padding:14px 16px;
+  font-weight:900;
+  font-size:20px;
+  line-height:1.32;
+  box-shadow:0 10px 0 rgba(7,29,66,.16);
+}
+.room-panel{
+  padding:28px;
+  background:rgba(255,250,241,.94);
+  display:flex;
+  flex-direction:column;
+  min-height:650px;
+}
+.room-kicker{color:var(--royal);font-size:14px;margin-bottom:8px}
+.room-title{font-size:clamp(34px,5vw,58px)}
+.passage{
+  background:white;
+  border:3px solid #dce8f6;
+  border-radius:24px;
+  padding:18px;
+  margin:18px 0 14px;
+  font-size:21px;
+  line-height:1.62;
+  font-weight:800;
+}
+.question{
+  background:#eef8ff;
+  border:3px solid #cfe7f9;
+  border-radius:22px;
+  padding:16px;
+  font-size:22px;
+  line-height:1.35;
+  font-weight:900;
+}
+.choices{
+  display:grid;
+  gap:12px;
+  margin:14px 0;
+}
+.choice{
+  text-align:left;
+  background:white;
+  color:var(--navy);
+  border:4px solid #dce8f6;
+  box-shadow:0 7px 0 rgba(7,29,66,.12);
+  font-size:20px;
+}
+.choice:hover,.choice:focus-visible{
+  transform:translateY(-3px);
+  border-color:var(--gold);
+  outline:0;
+}
+.choice.correct{background:#e8f7ee;border-color:#60c58d}
+.choice.wrong{background:#fff0ee;border-color:#e07878}
+.feedback{
+  min-height:76px;
+  border-radius:22px;
+  padding:15px;
+  font-size:20px;
+  line-height:1.45;
+  font-weight:900;
+  background:#fff8d8;
+  border:3px solid var(--gold);
+  display:none;
+}
+.feedback.show{display:block}
+.feedback.good{background:#e8f7ee;border-color:#60c58d;color:#0b5c38}
+.feedback.oops{background:#fff0ee;border-color:#e07878;color:#842c2c}
+.room-actions{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap}
+.next{
+  display:none;
+}
+.next.show{display:inline-flex}
+.final{
+  padding:34px;
+  display:grid;
+  grid-template-columns:1fr .9fr;
+  gap:22px;
+  align-items:center;
+  min-height:620px;
+  background:
+    radial-gradient(circle at 70% 28%,rgba(255,200,61,.35),transparent 25%),
+    linear-gradient(135deg,#fffdf0,#eaf9ff);
+}
+.final-title{font-size:clamp(44px,7vw,86px)}
+.final p{font-size:23px;line-height:1.45;font-weight:800;color:#183a67}
+.treasure{
+  min-height:390px;
+  border-radius:30px;
+  border:5px solid #fff;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle,#fffbdc 0 18%,#ffd56a 19% 38%,#7bcdf7 39% 100%);
+  box-shadow:inset 0 0 0 5px rgba(255,255,255,.32),0 20px 48px rgba(7,29,66,.28);
+  position:relative;
+  overflow:hidden;
+}
+.treasure::before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background:conic-gradient(from 0deg,transparent,#ffffff90,transparent,#ffc83d70,transparent);
+  animation:spin 8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.topaz{
+  position:relative;
+  z-index:1;
+  font-size:170px;
+  filter:drop-shadow(0 18px 18px rgba(7,29,66,.32));
+  animation:treasurePulse 1.3s ease-in-out infinite alternate;
+}
+@keyframes treasurePulse{to{transform:scale(1.08) translateY(-6px)}}
+.badge-card{
+  margin-top:18px;
+  background:#fff;
+  border:4px solid var(--gold);
+  border-radius:24px;
+  padding:18px;
+  font-weight:900;
+  font-size:21px;
+}
+.dev-panel{
+  position:fixed;
+  right:16px;
+  bottom:16px;
+  z-index:9999;
+  width:min(350px,92vw);
+  display:none;
+  background:#071d42f0;
+  color:white;
+  border:4px solid var(--gold);
+  border-radius:22px;
+  padding:14px;
+  box-shadow:0 18px 48px rgba(7,29,66,.45);
+}
+.dev-panel.show{display:block}
+.dev-panel h3{font-family:Bungee,system-ui;margin:0 0 8px;line-height:1}
+.dev-panel p{margin:0 0 10px;color:#fff8d8;font-weight:900;font-size:14px;line-height:1.35}
+.dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dev-btn{background:#fff;color:var(--navy);border:2px solid var(--gold);padding:10px;font-size:14px}
+.dev-close{position:absolute;right:8px;top:6px;background:transparent;color:white;font-size:22px;padding:4px}
+@media(max-width:900px){
+  .hero,.room,.final{grid-template-columns:1fr}
+  .room-scene{min-height:420px;border-right:0;border-bottom:4px solid #fff}
+  .room-panel{min-height:auto}
+  .hero{text-align:center}
+  .hero-actions{justify-content:center}
+  .keys-bar{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:560px){
+  .hero h1,.final-title{font-size:42px}
+  .room-title{font-size:34px}
+  .passage,.question{font-size:19px}
+  .guide{display:none}
+  .guide-bubble{position:relative;left:auto;top:auto;margin:18px}
+  .dev-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <main class="wrap">
+    <div class="top">
+      <a class="home" href="index.html">← CAMP</a>
+      <div class="pill">HIDDEN BONUS ADVENTURE</div>
+    </div>
+
+    <section class="screen active" id="intro">
+      <div class="panel hero">
+        <div>
+          <span class="kicker">THE LEGEND OF</span>
+          <h1>PRINSLOW<br>PALACE</h1>
+          <p>High above the clouds, a glass palace waits for brave readers. Seven crystal keys guard the path to the legendary Topaz Falcon.</p>
+          <div class="hero-actions">
+            <button class="primary" id="enterPalace">ENTER THE PALACE</button>
+            <a class="secondary" href="index.html">RETURN TO CAMP</a>
+          </div>
+        </div>
+        <div class="sky-palace" aria-label="Floating glass palace">
+          <svg class="palace-svg" viewBox="0 0 420 360" role="img" aria-label="Crystal palace in the clouds">
+            <defs>
+              <linearGradient id="glass" x1="0" x2="1">
+                <stop offset="0" stop-color="#ffffff"/>
+                <stop offset=".45" stop-color="#bfeaff"/>
+                <stop offset="1" stop-color="#ffffff"/>
+              </linearGradient>
+              <linearGradient id="gold" x1="0" x2="1">
+                <stop offset="0" stop-color="#ffc83d"/>
+                <stop offset="1" stop-color="#d8951e"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="210" cy="314" rx="180" ry="32" fill="#fff" opacity=".9"/>
+            <path d="M70 260h280l-28 48H98z" fill="url(#gold)" stroke="#fff" stroke-width="7"/>
+            <rect x="105" y="140" width="210" height="125" rx="18" fill="url(#glass)" stroke="#fff" stroke-width="8"/>
+            <path d="M115 140l95-95 95 95z" fill="url(#glass)" stroke="#fff" stroke-width="8"/>
+            <rect x="185" y="178" width="50" height="87" rx="16" fill="#fff8d8" stroke="#ffc83d" stroke-width="6"/>
+            <rect x="128" y="170" width="38" height="45" rx="10" fill="#eaf9ff" stroke="#fff" stroke-width="5"/>
+            <rect x="254" y="170" width="38" height="45" rx="10" fill="#eaf9ff" stroke="#fff" stroke-width="5"/>
+            <path d="M70 255V132l55-52 55 52v123z" fill="url(#glass)" stroke="#fff" stroke-width="8"/>
+            <path d="M240 255V112l55-62 55 62v143z" fill="url(#glass)" stroke="#fff" stroke-width="8"/>
+            <circle cx="210" cy="120" r="20" fill="#ffc83d" stroke="#fff" stroke-width="6"/>
+            <path d="M210 92l11 20 22 4-16 16 4 23-21-11-21 11 4-23-16-16 22-4z" fill="#fff8d8"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="game">
+      <div class="panel">
+        <div class="keys-bar">
+          <div><span class="key-chip">CRYSTAL KEYS:</span> <strong id="keyText">0/7</strong></div>
+          <div class="key-track" id="keyTrack"></div>
+        </div>
+        <div class="room">
+          <div class="room-scene" id="roomScene">
+            <div class="guide-bubble" id="guideBubble">Welcome, explorer. Solve the palace challenge to open the next door.</div>
+            <div class="room-art" id="roomArt">🏰</div>
+            <div class="guide" aria-hidden="true"></div>
+          </div>
+          <div class="room-panel">
+            <div class="room-kicker" id="roomKicker">CHAMBER 1</div>
+            <h1 class="room-title" id="roomTitle">Arrival Gate</h1>
+            <div class="passage" id="passage"></div>
+            <div class="question" id="question"></div>
+            <div class="choices" id="choices"></div>
+            <div class="feedback" id="feedback"></div>
+            <div class="room-actions">
+              <button class="primary next" id="nextRoom">OPEN NEXT DOOR</button>
+              <button class="secondary" id="restart">RESTART QUEST</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="final">
+      <div class="panel final">
+        <div>
+          <span class="kicker">THE FINAL CHAMBER</span>
+          <h1 class="final-title">TOPAZ<br>FALCON</h1>
+          <p>The seven crystal keys rise into the air. The glass doors open. At the center of Prinslow Palace, the Topaz Falcon glows with golden light.</p>
+          <div class="badge-card">🏆 You are now a <strong>Keeper of Prinslow Palace</strong>.</div>
+          <div class="hero-actions">
+            <button class="primary" id="playAgain">PLAY AGAIN</button>
+            <a class="secondary" href="index.html">RETURN TO CAMP</a>
+          </div>
+        </div>
+        <div class="treasure">
+          <div class="topaz">🦅</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="dev-panel" id="devPanel">
+  <button class="dev-close" id="devClose" type="button">×</button>
+  <h3>DEV MODE</h3>
+  <p>Type <strong>dev</strong> to toggle. Testing tools for Prinslow Palace.</p>
+  <div class="dev-grid">
+    <button class="dev-btn" data-dev="answer">Show Answer</button>
+    <button class="dev-btn" data-dev="correct">Mark Correct</button>
+    <button class="dev-btn" data-dev="next">Next Room</button>
+    <button class="dev-btn" data-dev="keys">All Keys</button>
+    <button class="dev-btn" data-dev="final">Final Chamber</button>
+    <button class="dev-btn" data-dev="reset">Reset</button>
+  </div>
+</div>
+
+<script>
+const ROOMS=[
+  {
+    title:'Hall of Main Ideas',
+    skill:'MAIN IDEA',
+    icon:'📖',
+    bg:'linear-gradient(135deg,#dff5ff,#ffffff 55%,#bdeaff)',
+    guide:'This crystal hall tests whether you can find what a passage is mostly about.',
+    passage:'The palace bridge was made of clear glass and gold. Clouds floated underneath it like soft white islands. Mina stepped carefully and watched seven crystal keys glow above the gate. She knew each key would open a new part of Prinslow Palace.',
+    question:'What is the main idea of the passage?',
+    choices:[
+      'Mina sees a glass bridge and glowing keys at Prinslow Palace.',
+      'Clouds are always soft and white.',
+      'Gold is the most important color in the palace.',
+      'Mina does not want to enter the palace.'
+    ],
+    answer:0,
+    explain:'Yes. The whole passage is mostly about Mina arriving at the palace bridge and seeing the crystal keys.'
+  },
+  {
+    title:'Cloud Library',
+    skill:'CONTEXT CLUES',
+    icon:'☁️',
+    bg:'linear-gradient(135deg,#f2fbff,#d6f1ff 52%,#fff)',
+    guide:'Books float through the Cloud Library. Use the words around a mystery word to unlock the shelf.',
+    passage:'The old book was fragile, so Leo turned each page slowly. The paper looked thin, cracked, and easy to tear. He held the corners gently so the story would not fall apart.',
+    question:'What does fragile most likely mean?',
+    choices:['easy to break','very heavy','brightly colored','full of jokes'],
+    answer:0,
+    explain:'Correct. Thin, cracked, and easy to tear are clues that fragile means easy to break.'
+  },
+  {
+    title:'Inference Observatory',
+    skill:'INFERENCE',
+    icon:'🔭',
+    bg:'linear-gradient(135deg,#d5e6ff,#ffffff 46%,#b0d4ff)',
+    guide:'The telescope shows clues, but not every answer is stated directly. Make an inference.',
+    passage:'Ari looked at the locked palace door and swallowed hard. His hands shook as he lifted the crystal key. He took one step back, then whispered, “I can do this.”',
+    question:'How does Ari probably feel?',
+    choices:['nervous but brave','bored and sleepy','angry at a friend','excited about lunch'],
+    answer:0,
+    explain:'Right. His shaking hands show nervousness, but saying “I can do this” shows courage.'
+  },
+  {
+    title:'Point of View Gallery',
+    skill:'POINT OF VIEW',
+    icon:'🖼️',
+    bg:'linear-gradient(135deg,#fff5d6,#e8f7ff 52%,#ffffff)',
+    guide:'Every painting tells a story from a certain point of view. Listen for the narrator.',
+    passage:'I pressed my hand against the glass wall and watched the clouds move below me. I had never seen a palace like this before.',
+    question:'Which point of view is used?',
+    choices:['first person','second person','third person','a weather report'],
+    answer:0,
+    explain:'Yes. The narrator uses I and my, so the passage is first person.'
+  },
+  {
+    title:'Theme Conservatory',
+    skill:'THEME',
+    icon:'🌿',
+    bg:'linear-gradient(135deg,#e6fff0,#ffffff 50%,#c8f1d6)',
+    guide:'In the glass garden, stories grow into lessons. Find the theme.',
+    passage:'Nia wanted to solve the palace puzzle alone. After three tries, she finally asked her friends for help. Together, they noticed a clue she had missed. The door opened when everyone worked as a team.',
+    question:'What is the best theme?',
+    choices:['Working together can help solve problems.','Doors are always easy to open.','Gardens need water to grow.','Friends should never share ideas.'],
+    answer:0,
+    explain:'Correct. The story shows that teamwork helped the characters solve the problem.'
+  },
+  {
+    title:'Wordsmith Workshop',
+    skill:'PREFIXES & SUFFIXES',
+    icon:'🔤',
+    bg:'linear-gradient(135deg,#fff8d8,#ffffff 52%,#dff5ff)',
+    guide:'The palace words are locked. Break the word parts to find the meaning.',
+    passage:'The palace keeper said the map was incomplete. One corner was missing, and the path to the final chamber was not fully drawn.',
+    question:'What does incomplete mean?',
+    choices:['not complete','complete again','full of color','easy to carry'],
+    answer:0,
+    explain:'Yes. The prefix in- can mean not, so incomplete means not complete.'
+  },
+  {
+    title:'Falcon Archives',
+    skill:'MIXED CHALLENGE',
+    icon:'🗝️',
+    bg:'linear-gradient(135deg,#eaf9ff,#fff8d8 50%,#ffffff)',
+    guide:'The final archive mixes your reading powers. One last answer will reveal the Topaz Chamber.',
+    passage:'The explorers found the last key behind a dusty statue. They had almost walked past it, but Sam noticed a tiny topaz sparkle. “Small clues can matter,” he said as the final door opened.',
+    question:'Which sentence best tells the theme?',
+    choices:['Small details can be important.','Dusty statues are always dangerous.','Topaz is too bright to see.','Explorers should walk quickly.'],
+    answer:0,
+    explain:'Correct. Sam learns that a small clue helped them open the final door.'
+  }
+];
+
+let roomIndex=0;
+let keys=0;
+let answered=false;
+const $=s=>document.querySelector(s);
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('#'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function renderKeys(){
+  $('#keyText').textContent=keys+'/7';
+  $('#keyTrack').innerHTML=ROOMS.map((_,i)=>`<div class="key ${i<keys?'on':''}">🔑</div>`).join('');
+}
+
+function renderRoom(){
+  answered=false;
+  const r=ROOMS[roomIndex];
+  $('#roomKicker').textContent='CHAMBER '+(roomIndex+1)+' · '+r.skill;
+  $('#roomTitle').textContent=r.title;
+  $('#roomScene').style.setProperty('--room-bg',r.bg);
+  $('#roomArt').textContent=r.icon;
+  $('#guideBubble').textContent=r.guide;
+  $('#passage').textContent=r.passage;
+  $('#question').textContent=r.question;
+  $('#feedback').className='feedback';
+  $('#feedback').textContent='';
+  $('#nextRoom').classList.remove('show');
+  $('#choices').innerHTML=r.choices.map((c,i)=>`<button class="choice" data-choice="${i}">${c}</button>`).join('');
+  renderKeys();
+}
+
+function startQuest(){
+  roomIndex=0;
+  keys=0;
+  showScreen('game');
+  renderRoom();
+}
+
+function chooseAnswer(i){
+  if(answered) return;
+  const r=ROOMS[roomIndex];
+  const buttons=[...document.querySelectorAll('[data-choice]')];
+  const fb=$('#feedback');
+  if(i===r.answer){
+    answered=true;
+    keys=Math.max(keys,roomIndex+1);
+    buttons.forEach((b,idx)=>b.classList.add(idx===r.answer?'correct':''));
+    fb.className='feedback show good';
+    fb.textContent=r.explain+' Crystal Key '+(roomIndex+1)+' unlocked.';
+    $('#nextRoom').classList.add('show');
+    renderKeys();
+    try{
+      const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};
+      save.prinslowPalaceProgress=keys;
+      if(keys>=7) save.prinslowPalaceComplete=true;
+      localStorage.setItem('falconCampSave',JSON.stringify(save));
+    }catch(e){}
+    setTimeout(()=>advanceRoom(),1450);
+  }else{
+    buttons[i].classList.add('wrong');
+    fb.className='feedback show oops';
+    fb.textContent='Not yet. Look back at the passage and try another answer.';
+  }
+}
+
+function advanceRoom(){
+  if(!answered && roomIndex < ROOMS.length) return;
+  if(roomIndex>=ROOMS.length-1){
+    showScreen('final');
+    return;
+  }
+  roomIndex++;
+  renderRoom();
+}
+
+function resetQuest(){
+  roomIndex=0;
+  keys=0;
+  answered=false;
+  renderKeys();
+  renderRoom();
+}
+
+document.addEventListener('click',e=>{
+  const choice=e.target.closest('[data-choice]');
+  if(choice) chooseAnswer(Number(choice.dataset.choice));
+});
+$('#enterPalace').addEventListener('click',startQuest);
+$('#nextRoom').addEventListener('click',advanceRoom);
+$('#restart').addEventListener('click',resetQuest);
+$('#playAgain').addEventListener('click',startQuest);
+renderKeys();
+
+// Hidden dev mode. Type "dev".
+(()=>{
+  const panel=$('#devPanel');
+  const close=$('#devClose');
+  let buffer='';
+  function toggle(force){
+    const visible=typeof force==='boolean'?force:!panel.classList.contains('show');
+    panel.classList.toggle('show',visible);
+  }
+  document.addEventListener('keydown',e=>{
+    const tag=(e.target&&e.target.tagName||'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||e.metaKey||e.ctrlKey||e.altKey) return;
+    buffer=(buffer+e.key.toLowerCase()).slice(-3);
+    if(buffer==='dev'){
+      e.preventDefault();
+      toggle();
+      buffer='';
+    }
+  });
+  close.addEventListener('click',()=>toggle(false));
+  panel.addEventListener('click',e=>{
+    const btn=e.target.closest('[data-dev]');
+    if(!btn) return;
+    const action=btn.dataset.dev;
+    if(action==='answer'){
+      alert('Answer: '+ROOMS[roomIndex].choices[ROOMS[roomIndex].answer]);
+    }
+    if(action==='correct'){
+      chooseAnswer(ROOMS[roomIndex].answer);
+    }
+    if(action==='next'){
+      answered=true;
+      keys=Math.max(keys,roomIndex+1);
+      advanceRoom();
+    }
+    if(action==='keys'){
+      keys=7;
+      renderKeys();
+    }
+    if(action==='final'){
+      keys=7;
+      showScreen('final');
+      renderKeys();
+    }
+    if(action==='reset'){
+      showScreen('game');
+      resetQuest();
+    }
+  });
+})();
+</script>
+</body>
+</html>
