@@ -68,7 +68,9 @@
 .notebook-card h3{margin:0 0 8px;color:var(--navy);font-size:20px}
 .notebook-card p{font-size:19px;line-height:1.45}
 .story-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
-.story-tab{background:#eef6ff;border:2px solid #cfe3f8;border-radius:18px;padding:12px;text-align:center;font-weight:900;color:var(--navy)}
+.story-tab{background:#eef6ff;border:2px solid #cfe3f8;border-radius:18px;padding:12px;text-align:center;font-weight:900;color:var(--navy);cursor:pointer;transition:.15s}
+.story-tab:hover{border-color:var(--blue);background:#ddefff}
+.story-tab.active-tab{background:var(--gold);border-color:var(--navy);color:var(--navy)}
 .story-tab span{display:block;font-size:36px}
 @media(max-width:980px){.snapshot-grid,.day-grid,.notebook-grid,.story-tabs{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.snapshot-grid,.day-grid,.notebook-grid,.story-tabs{grid-template-columns:1fr}}
@@ -99,11 +101,27 @@
       <button class="back" data-home>← WEATHER TYPES</button>
       <span class="kicker" style="margin-top:20px">LANGUAGE ARTS EXTENSIONS</span>
       <h1 class="title" style="font-size:clamp(38px,6vw,72px)">WEATHER STORY<br>WORKSHOP</h1>
-      <p class="story-lead">Imagine that you are getting ready for severe weather. Think about what the sky looks like, what your family does to prepare, what you wear, and how you stay safe when the weather arrives.</p>
-      <div class="story-tabs"><div class="story-tab"><span>🔎</span>Choose</div><div class="story-tab"><span>🎒</span>Prepare</div><div class="story-tab"><span>👀</span>Notice</div><div class="story-tab"><span>🦺</span>Stay Safe</div><div class="story-tab"><span>💭</span>Remember</div></div>
+      <p class="story-lead">Choose a weather type below, then use the five writing prompts to plan your story. Each prompt gives you a sentence starter to help you think like a weather narrator.</p>
+
+      <div style="margin:14px 0 6px"><strong style="font-family:Bungee,system-ui;color:var(--navy);font-size:16px;letter-spacing:.06em">STEP 1 — CHOOSE YOUR WEATHER</strong></div>
       <div class="topic-grid" id="storyTopics"></div>
-      <div class="story-box"><h2>Storm Opening</h2><p>I looked out the window and noticed the weather was changing. The air felt different, and everyone in my home started getting ready. I knew this weather could be serious, so I paid close attention to what we needed to do next.</p></div>
-      <div class="footer-note">A memorable storm journal can include the weather, the preparation, the problem, the safe choices, and what the narrator remembers afterward.</div>
+
+      <div id="storyPrompts" style="display:none;margin-top:18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
+          <strong id="storyWeatherLabel" style="font-family:Bungee,system-ui;color:var(--navy);font-size:18px"></strong>
+          <button class="back" style="padding:9px 13px;font-size:15px" data-story-clear>CHANGE WEATHER</button>
+        </div>
+        <div class="story-tabs" id="storyTabs">
+          <button class="story-tab active-tab" data-tab="0"><span>🔎</span>Choose</button>
+          <button class="story-tab" data-tab="1"><span>🎒</span>Prepare</button>
+          <button class="story-tab" data-tab="2"><span>👀</span>Notice</button>
+          <button class="story-tab" data-tab="3"><span>🦺</span>Stay Safe</button>
+          <button class="story-tab" data-tab="4"><span>💭</span>Remember</button>
+        </div>
+        <div id="storyPromptBox"></div>
+      </div>
+
+      <div class="footer-note" style="margin-top:18px">A strong weather story includes what it looked like, how your family prepared, what you noticed, how you stayed safe, and what you remember most.</div>
     </div>
   </section>
 </main></div>
@@ -136,8 +154,7 @@ function lookoutText(key){
 }
 function show(id){Object.values(screens).forEach(s=>s&&s.classList.remove('active'));if(screens[id]) screens[id].classList.add('active');window.scrollTo(0,0)}
 function safeSave(){try{const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};save.stormWatchComplete=true;localStorage.setItem('falconCampSave',JSON.stringify(save));}catch(e){}}
-function buildWeatherChoices(){grid.innerHTML='';storyTopics.innerHTML='';Object.entries(WEATHER).forEach(([key,w])=>{const card=document.createElement('button');card.type='button';card.className='weather-card';card.dataset.weather=key;card.style.setProperty('--bg',weatherBackground(key,w));card.setAttribute('aria-label',`Open ${w.title}`);card.innerHTML=`<div><img class="weather-card-icon" src="${WEATHER_ASSETS[key]?.station || 'weather-snapshot.png'}" alt=""><div class="emoji small">${w.emoji}</div><h2>${w.title}</h2><p>${w.short}</p></div><span class="open-label">OPEN</span>`;grid.appendChild(card);const topic=document.createElement('button');topic.type='button';topic.className='topic-card';topic.dataset.weather=key;topic.innerHTML=`<img class="weather-card-icon" src="${WEATHER_ASSETS[key]?.station || 'weather-snapshot.png'}" alt=""><span>${w.emoji}</span>${w.title}`;storyTopics.appendChild(topic);})}
-
+function buildWeatherChoices(){grid.innerHTML='';storyTopics.innerHTML='';Object.entries(WEATHER).forEach(([key,w])=>{const card=document.createElement('button');card.type='button';card.className='weather-card';card.dataset.weather=key;card.style.setProperty('--bg',weatherBackground(key,w));card.setAttribute('aria-label',`Open ${w.title}`);card.innerHTML=`<div><img class="weather-card-icon" src="${WEATHER_ASSETS[key]?.station || 'weather-snapshot.png'}" alt=""><div class="emoji small">${w.emoji}</div><h2>${w.title}</h2><p>${w.short}</p></div><span class="open-label">OPEN</span>`;grid.appendChild(card);const topic=document.createElement('button');topic.type='button';topic.className='topic-card';topic.dataset.storyTopic=key;topic.setAttribute('aria-label',`Write about ${w.title}`);topic.innerHTML=`<img class="weather-card-icon" src="${WEATHER_ASSETS[key]?.station || 'weather-snapshot.png'}" alt=""><span>${w.emoji}</span>${w.title}`;storyTopics.appendChild(topic);})}
 function snapshotHTML(key,w){
   const data={
     blizzard:['Very cold','Winter','Northern states and mountains','Low visibility'],
@@ -243,7 +260,14 @@ ${snapshotHTML(key,w)}
 <section class="section" id="activities"><h2>🎲 A Day During This Weather</h2><p>${w.activities}</p>${dayDuringHTML(key)}</section>
 <section class="section journal"><div class="section-with-art"><div><h2>💡 Weather Observer Notebook</h2><p>${w.learned}</p></div><img class="section-art" src="weather-journal.png" alt="Weather observer notebook"></div>${notebookHTML(w)}<div class="memory-card">One important thing to remember: preparation helps people make safer choices when weather changes.</div></section>
 </div>`;show('article')}
-document.addEventListener('click',e=>{const weatherButton=e.target.closest('[data-weather]');if(weatherButton){openWeather(weatherButton.dataset.weather);return}if(e.target.closest('[data-home]')){show('home');return}if(e.target.closest('[data-story]')){show('story')}});
+document.addEventListener('click',e=>{
+  const weatherButton=e.target.closest('[data-weather]');
+  if(weatherButton){openWeather(weatherButton.dataset.weather);return}
+  const storyTopicBtn=e.target.closest('[data-story-topic]');
+  if(storyTopicBtn){openStoryWorkshop(storyTopicBtn.dataset.storyTopic);return}
+  if(e.target.closest('[data-home]')){show('home');return}
+  if(e.target.closest('[data-story]')){show('story')}
+});
 
 window.FalconDev={
   site:'Severe Weather',
@@ -259,9 +283,99 @@ window.FalconDev={
     {label:'Open Heat Wave',run(){openWeather('heatwave');return 'Heat Wave opened.';}},
     {label:'Open Hailstorm',run(){openWeather('hailstorm');return 'Hailstorm opened.';}},
     {label:'Open Drought',run(){openWeather('drought');return 'Drought opened.';}},
-    {label:'Story Workshop',run(){show('story');return 'Story Workshop opened.';}}
+    {label:'Story Workshop',run(){show('story');resetStoryWorkshop();return 'Story Workshop opened.';}}
+  ]
   ]
 };
+
+// ── Story Workshop ────────────────────────────────────────────────────────────
+// Five writing prompt sets, one per weather type, one per story tab.
+const STORY_PROMPTS = {
+  blizzard: [
+    { label:'🔎 Choose Your Weather',   starter:'I chose to write about a blizzard because…', detail:'A blizzard is a winter storm with heavy snow, strong wind, and very low visibility. The wind can make it feel much colder than the temperature shows.' },
+    { label:'🎒 How We Prepared',        starter:'Before the blizzard arrived, my family…',      detail:'We gathered blankets, flashlights, batteries, canned food, and water. We charged our phones and checked the weather forecast.' },
+    { label:'👀 What I Noticed',         starter:'When the blizzard began, I noticed…',           detail:'The snow blew sideways past the windows. The sky turned gray, and the streets became quiet. Everything outside looked white.' },
+    { label:'🦺 How We Stayed Safe',     starter:'To stay safe during the storm, we…',            detail:'We stayed indoors and kept warm. We did not drive. We listened to weather alerts and waited for the storm to end.' },
+    { label:'💭 What I Remember Most',   starter:'The part of the blizzard I remember most is…', detail:'Think about one detail — a sound, a feeling, a moment with your family — that stands out the most from the whole experience.' }
+  ],
+  thunderstorm: [
+    { label:'🔎 Choose Your Weather',   starter:'I chose to write about a thunderstorm because…', detail:'A thunderstorm brings lightning, thunder, heavy rain, and strong wind. Thunder is the sound made when lightning heats the air very quickly.' },
+    { label:'🎒 How We Prepared',        starter:'Before the thunderstorm arrived, my family…',    detail:'We brought outdoor items inside, closed windows, charged devices, and made sure we knew where to go if the power went out.' },
+    { label:'👀 What I Noticed',         starter:'When the storm began, I noticed…',               detail:'Dark clouds moved across the sky. Rain hit the windows loudly. Lightning flashed and thunder followed. The lights flickered.' },
+    { label:'🦺 How We Stayed Safe',     starter:'To stay safe during the storm, we…',             detail:'We stayed away from windows. We did not use wired electronics. We waited indoors until the thunder stopped.' },
+    { label:'💭 What I Remember Most',   starter:'The part of the storm I remember most is…',     detail:'Think about one detail — a flash of lightning, a crack of thunder, or a feeling of relief — that stands out the most.' }
+  ],
+  heatwave: [
+    { label:'🔎 Choose Your Weather',   starter:'I chose to write about a heat wave because…',  detail:'A heat wave is a period of very hot weather that lasts more than one day. It can be dangerous because the body can overheat.' },
+    { label:'🎒 How We Prepared',        starter:'Before the heat wave hit, my family…',          detail:'We gathered water, fans, and sunscreen. We made plans to stay cool and checked on neighbors who might need help.' },
+    { label:'👀 What I Noticed',         starter:'During the heat wave, I noticed…',              detail:'The air felt heavy and still. Sidewalks shimmered. People moved slowly and looked for shade. Playgrounds were quiet.' },
+    { label:'🦺 How We Stayed Safe',     starter:'To stay safe in the heat, we…',                 detail:'We drank water often, rested in cool rooms, and avoided being outside during the hottest part of the day.' },
+    { label:'💭 What I Remember Most',   starter:'The part of the heat wave I remember most is…', detail:'Think about one detail — a cold drink, the feeling of relief in shade, or a moment with your family — that stands out.' }
+  ],
+  hailstorm: [
+    { label:'🔎 Choose Your Weather',   starter:'I chose to write about a hailstorm because…',  detail:'A hailstorm drops balls of ice from storm clouds. Hailstones can be small like peas or large enough to dent a car.' },
+    { label:'🎒 How We Prepared',        starter:'Before the hailstorm arrived, my family…',     detail:'We moved bikes and outdoor items inside. We watched the weather alerts and prepared flashlights in case the power went out.' },
+    { label:'👀 What I Noticed',         starter:'When the hailstorm hit, I noticed…',            detail:'Ice bounced off the roof and driveway. The sound was loud and sudden. Dark clouds covered the sky, and the wind picked up.' },
+    { label:'🦺 How We Stayed Safe',     starter:'To stay safe during the hailstorm, we…',       detail:'We moved inside a sturdy building. We stayed away from windows. We waited until the hail and lightning had stopped.' },
+    { label:'💭 What I Remember Most',   starter:'The part of the hailstorm I remember most is…', detail:'Think about one detail — a sound, a moment of worry, or the quiet after the storm — that stands out the most.' }
+  ],
+  drought: [
+    { label:'🔎 Choose Your Weather',   starter:'I chose to write about a drought because…',    detail:'A drought is a long period with much less rain than usual. It can affect water supplies, crops, animals, and communities.' },
+    { label:'🎒 How We Prepared',        starter:'When we learned about the drought, my family…', detail:'We started saving water, took shorter showers, and checked the news for updates. We watered outdoor plants carefully.' },
+    { label:'👀 What I Noticed',         starter:'During the drought, I noticed…',               detail:'The grass turned brown. Soil looked cracked. The air felt dry and dusty. A nearby pond or creek looked lower than usual.' },
+    { label:'🦺 How We Stayed Safe',     starter:'To stay safe and help during the drought, we…', detail:'We drank plenty of clean water, followed water-use rules, and watched for heat or dust that could be dangerous.' },
+    { label:'💭 What I Remember Most',   starter:'The part of the drought I remember most is…',  detail:'Think about one detail — a dry day, a water-saving action, or a sign of drought you spotted — that stands out.' }
+  ]
+};
+
+let storyWeatherKey = null;
+let activeTabIndex = 0;
+
+function showStoryPrompt(tabIndex){
+  activeTabIndex = tabIndex;
+  const prompts = STORY_PROMPTS[storyWeatherKey];
+  if (!prompts) return;
+  const p = prompts[tabIndex];
+  const box = document.getElementById('storyPromptBox');
+  if (!box) return;
+  box.innerHTML = `
+    <div class="story-box" style="margin-top:12px">
+      <h2 style="font-size:clamp(20px,2.4vw,28px)">${p.label}</h2>
+      <p style="background:#eef8ff;border-radius:16px;padding:14px;margin:10px 0;font-size:20px;line-height:1.5;font-weight:900">
+        <strong>Sentence starter:</strong><br>${p.starter}
+      </p>
+      <p style="font-size:19px;line-height:1.55;color:#183a67">${p.detail}</p>
+    </div>
+  `;
+  // Update active tab highlight
+  document.querySelectorAll('[data-tab]').forEach(btn => {
+    btn.classList.toggle('active-tab', Number(btn.dataset.tab) === tabIndex);
+  });
+}
+
+function openStoryWorkshop(weatherKey){
+  storyWeatherKey = weatherKey;
+  activeTabIndex = 0;
+  const w = WEATHER[weatherKey];
+  const label = document.getElementById('storyWeatherLabel');
+  if (label) label.textContent = w ? `${w.emoji} ${w.title}` : weatherKey;
+  document.getElementById('storyPrompts').style.display = 'block';
+  document.getElementById('storyTopics').style.display = 'none';
+  showStoryPrompt(0);
+}
+
+function resetStoryWorkshop(){
+  storyWeatherKey = null;
+  document.getElementById('storyPrompts').style.display = 'none';
+  document.getElementById('storyTopics').style.display = '';
+}
+
+// Tab and clear button clicks within the story screen
+document.addEventListener('click', e => {
+  const tab = e.target.closest('[data-tab]');
+  if (tab && storyWeatherKey) { showStoryPrompt(Number(tab.dataset.tab)); return; }
+  if (e.target.closest('[data-story-clear]')) { resetStoryWorkshop(); }
+});
 
 buildWeatherChoices();
 </script>

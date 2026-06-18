@@ -23,7 +23,7 @@
 .special-copy{position:relative;z-index:1}.special-kicker{font-family:Bungee,system-ui;color:#ffd66b;letter-spacing:.08em;font-size:14px}.special-title{font-family:Bungee,system-ui;font-size:clamp(24px,3.3vw,40px);line-height:1;margin:4px 0}.special-text{font-size:21px;line-height:1.35;font-weight:900;margin:0}.special-answer{position:relative;z-index:1;background:#fff8d8;color:var(--navy);border:3px solid var(--gold);border-radius:18px;padding:12px 16px;font-weight:900;box-shadow:0 7px 0 rgba(0,0,0,.18)}
 .station.featured{grid-column:span 2;border-color:var(--gold);min-height:250px}.station.featured::after{content:"MAIN ATTRACTION";position:absolute;right:14px;top:14px;background:var(--gold);color:var(--navy);border:3px solid var(--navy);border-radius:999px;padding:6px 9px;font-family:Bungee,system-ui;font-size:12px;z-index:2}.station.featured h2{font-size:34px}
 .builder-wrap{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.builder-pizza{width:260px;height:260px;border-radius:50%;background:#d39a3a;border:10px solid #b8742e;display:grid;place-items:center;position:relative;box-shadow:0 18px 28px rgba(0,0,0,.24)}.builder-slices{width:218px;height:218px;border-radius:50%;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:8px;overflow:hidden;transform:rotate(45deg)}.builder-slice{background:#ffd66b;border:3px solid #fff;border-radius:12px;display:grid;place-items:center;font-size:24px;transition:.15s ease}.builder-slice.on{background:#f5b24d;box-shadow:inset 0 0 0 100px rgba(168,50,43,.2)}.builder-slice span{transform:rotate(-45deg)}.builder-tools{display:grid;gap:10px}.builder-submit{background:var(--green);color:#fff;border:4px solid var(--navy);border-radius:16px;padding:12px 16px;font-family:Bungee,system-ui}.builder-count{font-size:22px;font-weight:900;color:var(--navy);background:#fff3c4;border:3px solid var(--gold);border-radius:18px;padding:12px}.receipt-printer{position:fixed;left:50%;top:16px;transform:translateX(-50%) translateY(-140%);z-index:9000;background:#2b2b2b;border:5px solid #111;border-radius:18px 18px 12px 12px;padding:12px 16px 0;box-shadow:0 18px 40px rgba(0,0,0,.35);transition:transform .35s ease}.receipt-printer.show{transform:translateX(-50%) translateY(0)}.receipt-paper{width:260px;background:#fff;color:var(--navy);border:3px dashed #d6e2ef;border-radius:0 0 14px 14px;padding:16px;text-align:center;font-weight:900;line-height:1.4;animation:printDrop .5s ease}.receipt-paper strong{font-family:Bungee,system-ui;display:block;font-size:20px}@keyframes printDrop{from{transform:translateY(-60px)}to{transform:translateY(0)}}
-.collect-toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(130%);z-index:9001;background:#fff8d8;color:var(--navy);border:4px solid var(--gold);border-radius:22px;padding:14px 18px;font-weight:900;box-shadow:0 18px 38px rgba(0,0,0,.28);transition:transform .28s ease}.collect-toast.show{transform:translateX(-50%) translateY(0)}.collect-shelf{display:flex;gap:8px;flex-wrap:wrap;background:#fff3c4;border:3px solid var(--gold);border-radius:18px;padding:10px;font-weight:900}.collect-item{background:#fff;border:2px solid #d6e2ef;border-radius:999px;padding:6px 9px}.town-label{font-size:13px;line-height:1.05;text-align:center}.block.end{font-size:20px}.block.start{font-size:20px}.shift-burst{position:fixed;inset:0;z-index:8500;display:none;place-items:center;background:rgba(6,27,61,.36);pointer-events:none}.shift-burst.show{display:grid}.shift-card{background:#fff8d8;border:6px solid var(--gold);border-radius:30px;padding:24px 30px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);animation:popIn .35s ease}.shift-card h2{font-family:Bungee,system-ui;color:var(--navy);line-height:1;margin:0 0 8px;font-size:42px}.shift-card p{font-size:24px;font-weight:900;margin:0}@keyframes popIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
+.collect-toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(130%);z-index:9001;background:#fff8d8;color:var(--navy);border:4px solid var(--gold);border-radius:22px;padding:14px 18px;font-weight:900;box-shadow:0 18px 38px rgba(0,0,0,.28);transition:transform .28s ease}.collect-toast.show{transform:translateX(-50%) translateY(0)}.collect-shelf{display:flex;gap:8px;flex-wrap:wrap;background:#fff3c4;border:3px solid var(--gold);border-radius:18px;padding:10px;font-weight:900}.collect-item{background:#fff;border:2px solid #d6e2ef;border-radius:999px;padding:6px 9px}.town-label{font-size:13px;line-height:1.05;text-align:center}.block.end{font-size:20px}.block.start{font-size:20px}.shift-burst{position:fixed;inset:0;z-index:8500;display:none;place-items:center;background:rgba(6,27,61,.36)}.shift-burst.show{display:grid}.shift-card{background:#fff8d8;border:6px solid var(--gold);border-radius:30px;padding:24px 30px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);animation:popIn .35s ease}.shift-card h2{font-family:Bungee,system-ui;color:var(--navy);line-height:1;margin:0 0 8px;font-size:42px}.shift-card p{font-size:24px;font-weight:900;margin:0}@keyframes popIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
 @media(max-width:900px){.daily-special,.builder-wrap{grid-template-columns:1fr}.station.featured{grid-column:span 1}.builder-pizza{width:220px;height:220px}.builder-slices{width:184px;height:184px}.receipt-paper{width:220px}}
 
 @media(max-width:1100px){.stations{grid-template-columns:repeat(2,1fr)}.counter{grid-template-columns:1fr}.parlor-panel{width:100%}}@media(max-width:720px){.hero{grid-template-columns:1fr}.stations,.choices{grid-template-columns:1fr}.scoreline{grid-template-columns:1fr}.pizza,.clock{width:190px;height:190px}.minute{height:72px;margin-top:-72px}.hour{height:52px;margin-top:-52px}}
@@ -61,7 +61,7 @@
 </div>
 <div class="receipt-printer" id="receiptPrinter" aria-hidden="true"><div class="receipt-paper" id="receiptPaper"><strong>ROGERS' FAMILY PIZZA</strong><br>ORDER COMPLETE<br>+1 COIN<br>THANK YOU!</div></div>
 <div class="collect-toast" id="collectToast">⭐ Secret unlocked!</div>
-<div class="shift-burst" id="shiftBurst"><div class="shift-card"><h2>SHIFT COMPLETE!</h2><p>The parlor is ready for more customers.</p></div></div>
+<div class="shift-burst" id="shiftBurst" role="button" aria-label="Shift complete - click to continue" style="cursor:pointer"><div class="shift-card"><h2>SHIFT COMPLETE!</h2><p>The parlor is ready for more customers.</p><p style="margin-top:12px;font-size:18px;opacity:.7">Tap anywhere to continue</p></div></div>
 
 <script>
 const stations=[
@@ -104,7 +104,29 @@ const specials=[
 function loadSpecial(){const s=specials[Math.floor(Math.random()*specials.length)];const t=$('#specialTitle'),txt=$('#specialText'),btn=$('#specialAnswer'); if(t)t.textContent=s.title; if(txt)txt.textContent=s.text; if(btn){btn.textContent='SHOW ANSWER';btn.onclick=()=>{btn.textContent=s.answer; unlockCollectible('Secret Sauce');}}}
 function showReceipt(message='ORDER COMPLETE', coins='+1 COIN'){const printer=$('#receiptPrinter'), paper=$('#receiptPaper'); if(!printer||!paper)return; paper.innerHTML=`<strong>ROGERS' FAMILY PIZZA</strong><br>${message}<br>${coins}<br>THANK YOU!`; printer.classList.add('show'); setTimeout(()=>printer.classList.remove('show'),1700)}
 function showShiftBurst(){const burst=$('#shiftBurst'); if(!burst)return; burst.classList.add('show'); setTimeout(()=>burst.classList.remove('show'),1400)}
-function autoAdvanceOrder(){if(round>=5){updatePanel();showShiftBurst();return}setTimeout(()=>next(),1250)}
+function autoAdvanceOrder(){
+  if(round>=5){
+    updatePanel();
+    showShiftBurst();
+    // After burst dismisses, pulse the NEW SHIFT button so students see it
+    setTimeout(()=>{
+      const btn=document.getElementById('replayBtn');
+      if(btn){
+        btn.style.transition='transform .15s ease, box-shadow .15s ease';
+        btn.style.background='var(--gold)';
+        btn.style.color='var(--navy)';
+        btn.style.transform='scale(1.12)';
+        btn.style.boxShadow='0 0 0 6px rgba(255,200,61,.45)';
+        setTimeout(()=>{
+          btn.style.transform='';
+          btn.style.boxShadow='';
+        }, 600);
+      }
+    }, 1500);
+    return;
+  }
+  setTimeout(()=>next(),1250);
+}
 function unlockCollectible(name){try{const key='pizzaParlorCollectibles'; const list=JSON.parse(localStorage.getItem(key)||'[]'); if(!list.includes(name)){list.push(name); localStorage.setItem(key,JSON.stringify(list)); const toast=$('#collectToast'); if(toast){toast.textContent='⭐ '+name+' unlocked!'; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1700)}}}catch(e){}}
 function builderOrder(){const parts=[4,6,8][Math.floor(Math.random()*3)], target=1+Math.floor(Math.random()*(parts-1)); const topping=['pepperoni','green pepper','mushroom','olive'][Math.floor(Math.random()*4)]; const icon={pepperoni:'🍖','green pepper':'🫑',mushroom:'🍄',olive:'🫒'}[topping]; current={answer:String(target),also:[],builder:true,parts,target,topping,icon,selected:new Set()}; return {title:'Pizza Builder',prompt:`Coach Pepperoni needs ${target}/${parts} of this pizza covered with ${topping}. Click ${target} slices, then serve it.`,visual:builderHTML(parts,icon),choices:[]}}
 function builderHTML(parts,icon){return `<div class="builder-wrap"><div class="builder-pizza"><div class="builder-slices" style="grid-template-columns:repeat(${parts===8?4:parts===6?3:2},1fr);grid-template-rows:repeat(${parts===8?2:parts===6?2:2},1fr)">${Array.from({length:parts},(_,i)=>`<button type="button" class="builder-slice" data-build-slice="${i}"><span>🍕</span></button>`).join('')}</div></div><div class="builder-tools"><div class="builder-count" id="builderCount">0 selected</div><button type="button" class="builder-submit" data-build-submit>SERVE PIZZA</button></div></div>`}
@@ -117,7 +139,14 @@ function next(){if(round>=5){updatePanel();return} round++; const q=makeQuestion
 function answer(v){const ok=v===current.answer||(current.also||[]).includes(v); const fb=$('#feedback'); if(ok){score++; streak++; if(streak>0 && streak%3===0){score++; fb.textContent=round>=5?'Shift complete!':'Hot streak! Loading the next ticket...'; showReceipt('HOT STREAK ORDER','BONUS COIN');}else{fb.textContent=round>=5?'Shift complete!':'Order up! Loading the next ticket...'; showReceipt('ORDER COMPLETE','+1 COIN');} fb.className='feedback good'; tone(820); updatePanel(); gameBox.querySelectorAll('.choice').forEach(b=>b.disabled=true); autoAdvanceOrder()}else{streak=0; fb.textContent='Try another slice of thinking.'; fb.className='feedback oops'; tone(280); updatePanel()}}
 document.querySelector('#stations').innerHTML=stations.map(s=>`<button class="station ${s.featured ? 'featured' : ''}" style="--bg:${s.bg}" data-station="${s.key}"><div><div class="emoji">${s.emoji}</div><h2>${s.title}</h2><p>${s.line}</p></div><span class="start">PLAY</span></button>`).join('');
 document.addEventListener('click',e=>{const st=e.target.closest('[data-station]'); if(st) start(st.dataset.station); const ch=e.target.closest('[data-choice]'); if(ch) answer(ch.dataset.choice); const bs=e.target.closest('[data-build-slice]'); if(bs) toggleBuilderSlice(bs); if(e.target.closest('[data-build-submit]')) submitBuilder()});
-$('#nextBtn')?.addEventListener('click',next); $('#replayBtn').addEventListener('click',()=>start(mode)); $('#backHome').addEventListener('click',()=>show('home')); loadSpecial(); document.querySelector('.pizza-logo')?.addEventListener('click',()=>unlockCollectible('Golden Pizza')); document.querySelector('.ticket')?.addEventListener('click',()=>unlockCollectible('Master Chef')); document.querySelector('.tipjar')?.addEventListener('click',()=>unlockCollectible('Mega Pepperoni'));
+$('#nextBtn')?.addEventListener('click',next); // kept as no-op: #nextBtn does not exist in markup
+$('#replayBtn').addEventListener('click',()=>start(mode));
+$('#backHome').addEventListener('click',()=>show('home'));
+$('#shiftBurst').addEventListener('click',()=>{ document.getElementById('shiftBurst').classList.remove('show'); });
+loadSpecial();
+document.querySelector('.pizza-logo')?.addEventListener('click',()=>unlockCollectible('Golden Pizza'));
+document.querySelector('.ticket')?.addEventListener('click',()=>unlockCollectible('Master Chef'));
+document.querySelector('.tipjar')?.addEventListener('click',()=>unlockCollectible('Mega Pepperoni'));
 
 
 

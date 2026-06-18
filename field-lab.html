@@ -264,12 +264,26 @@ function openHabitatResearch(key){
     </div>
   `;
 
+  // Track which animals have been viewed in this habitat session.
+  // When all animals have been opened, mark Field Lab complete.
+  const habitatViewed = new Set([0]); // first animal shown by default
+  function checkHabitatComplete(){
+    if(!research || !research.animals) return;
+    if(habitatViewed.size >= research.animals.length){
+      markFieldLabComplete();
+    }
+  }
+  checkHabitatComplete(); // in case there's only one animal
+
   document.querySelectorAll('[data-research-animal]').forEach(btn=>{
     btn.onclick=()=>{
       document.querySelectorAll('[data-research-animal]').forEach(b=>b.classList.remove('selected'));
       btn.classList.add('selected');
-      const animal=research.animals[Number(btn.dataset.researchAnimal)];
+      const idx = Number(btn.dataset.researchAnimal);
+      const animal=research.animals[idx];
       document.getElementById('habitatAnimalCard').innerHTML=`<h3>${animal.name}</h3><p>${animal.text}</p>`;
+      habitatViewed.add(idx);
+      checkHabitatComplete();
     };
   });
 
