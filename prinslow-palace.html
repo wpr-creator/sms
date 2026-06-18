@@ -19,7 +19,9 @@ body{
   margin:0;
   font-family:"Atkinson Hyperlegible",system-ui,sans-serif;
   color:var(--ink);
-  background:linear-gradient(180deg,#78c6ff 0%,#d9f6ff 38%,#fff8df 100%);
+  background:
+    linear-gradient(180deg,rgba(120,198,255,.68),rgba(255,248,223,.88)),
+    url('bg-sky-dock.png') center/cover fixed;
   overflow-x:hidden;
 }
 button,a{font:inherit}
@@ -30,9 +32,9 @@ a{text-decoration:none;color:inherit}
   position:relative;
   padding:18px clamp(14px,4vw,42px) 34px;
   background:
-    radial-gradient(circle at 18% 10%,rgba(255,255,255,.8),transparent 16%),
-    radial-gradient(circle at 80% 18%,rgba(255,255,255,.55),transparent 18%),
-    linear-gradient(180deg,rgba(255,255,255,.05),rgba(7,29,66,.10));
+    radial-gradient(circle at 18% 10%,rgba(255,255,255,.62),transparent 16%),
+    radial-gradient(circle at 80% 18%,rgba(255,255,255,.42),transparent 18%),
+    linear-gradient(180deg,rgba(255,255,255,.05),rgba(7,29,66,.18));
 }
 .page::before{
   content:"";
@@ -47,7 +49,7 @@ a{text-decoration:none;color:inherit}
 }
 .wrap{position:relative;z-index:1;width:min(1180px,96vw);margin:0 auto}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.home,.pill{
+.home{
   background:#ffffffbb;color:var(--navy);border:3px solid #ffffff;border-radius:999px;
   padding:10px 14px;font-weight:900;box-shadow:0 8px 0 rgba(7,29,66,.12);
 }
@@ -59,10 +61,20 @@ a{text-decoration:none;color:inherit}
 }
 .hero{
   display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:center;
-  padding:34px clamp(24px,5vw,58px);min-height:430px;
-  background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(233,248,255,.72)),
-    radial-gradient(circle at 80% 20%,rgba(255,200,61,.28),transparent 20%);
+  padding:34px clamp(24px,5vw,58px);min-height:500px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.86),rgba(233,248,255,.68)),
+    url('card-prinslow-palace.png') center/cover;
+  position:relative;
 }
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.72) 42%,rgba(255,255,255,.08) 100%);
+  pointer-events:none;
+}
+.hero > *{position:relative;z-index:1}
 .kicker,.room-kicker,.key-chip,.map-title{font-family:Bungee,system-ui;letter-spacing:.08em}
 .kicker{
   display:inline-block;color:var(--royal);background:#ffffffc8;border:2px solid #d2ecff;border-radius:999px;
@@ -76,14 +88,14 @@ a{text-decoration:none;color:inherit}
 .hero p{font-size:23px;line-height:1.45;font-weight:800;color:#183a67}
 .sky-palace{
   min-height:340px;border-radius:30px;display:grid;place-items:center;position:relative;overflow:hidden;
-  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(116,200,255,.28)),
-    radial-gradient(circle at 52% 82%,#fff 0 18%,transparent 19%),linear-gradient(180deg,#79c9ff,#f8fdff);
+  background:
+    radial-gradient(circle at 50% 82%,rgba(255,255,255,.84),transparent 30%),
+    linear-gradient(180deg,rgba(255,255,255,.18),rgba(116,200,255,.16)),
+    url('card-prinslow-palace.png') center/contain no-repeat;
   border:4px solid #fff;box-shadow:inset 0 0 0 4px rgba(255,255,255,.22),0 18px 36px rgba(7,29,66,.22);
 }
-.palace-svg{width:min(390px,92%);filter:drop-shadow(0 22px 22px rgba(7,29,66,.28));animation:palaceFloat 2.8s ease-in-out infinite alternate}
-@keyframes palaceFloat{to{transform:translateY(-12px)}}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-.primary,.secondary,.choice,.dev-btn,.map-node{border-radius:18px;font-weight:900;padding:14px 18px}
+.primary,.secondary,.choice,.map-node{border-radius:18px;font-weight:900;padding:14px 18px}
 .primary{
   background:var(--gold);color:var(--navy);border:4px solid var(--navy);box-shadow:0 9px 0 rgba(7,29,66,.22);font-family:Bungee,system-ui;
 }
@@ -116,21 +128,28 @@ a{text-decoration:none;color:inherit}
 .room{display:grid;grid-template-columns:1fr 1fr;min-height:690px}
 .room-scene{
   position:relative;min-height:690px;border-right:4px solid #fff;
-  background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(7,29,66,.16)),var(--room-bg);
+  background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(7,29,66,.18)),var(--room-bg);
   background-size:cover;background-position:center;overflow:hidden;
 }
 .room-scene::before{
   content:"";position:absolute;inset:0;background:
-    radial-gradient(circle at 24% 20%,rgba(255,255,255,.70),transparent 22%),
-    linear-gradient(90deg,rgba(255,255,255,.14),transparent 48%,rgba(7,29,66,.16));
+    radial-gradient(circle at 24% 20%,rgba(255,255,255,.46),transparent 22%),
+    linear-gradient(90deg,rgba(255,255,255,.08),transparent 48%,rgba(7,29,66,.22));
 }
-.room-art{
-  position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(110px,18vw,210px);opacity:.82;
-  filter:drop-shadow(0 24px 20px rgba(7,29,66,.25));animation:roomFloat 2s ease-in-out infinite alternate;
+.guide{
+  position:absolute;left:22px;bottom:22px;
+  width:min(240px,38%);min-height:300px;
+  font-size:0;
 }
-@keyframes roomFloat{to{transform:translateY(-14px) rotate(1deg)}}
-.guide{position:absolute;left:22px;bottom:22px;width:min(210px,34%);min-height:230px;display:grid;place-items:center;font-size:112px;filter:drop-shadow(0 16px 18px rgba(7,29,66,.32))}
-.guide::before{content:"🦅";animation:guideBob 1.4s ease-in-out infinite alternate}
+.guide::after{
+  content:"";
+  display:block;
+  width:100%;
+  height:300px;
+  background:url('falcon-palace-guide.png') center bottom/contain no-repeat;
+  filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));
+  animation:guideBob 1.4s ease-in-out infinite alternate;
+}
 @keyframes guideBob{to{transform:translateY(-10px)}}
 .guide-bubble{
   position:absolute;left:22px;top:24px;max-width:min(520px,86%);background:#ffffffe8;border:4px solid var(--navy);
@@ -171,13 +190,18 @@ a{text-decoration:none;color:inherit}
 .room-actions{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap}.next{display:none}.next.show{display:inline-flex}
 .final{
   padding:34px;display:grid;grid-template-columns:1fr .9fr;gap:22px;align-items:center;min-height:620px;
-  background:radial-gradient(circle at 70% 28%,rgba(255,200,61,.35),transparent 25%),linear-gradient(135deg,#fffdf0,#eaf9ff);
+  background:
+    radial-gradient(circle at 70% 28%,rgba(255,200,61,.35),transparent 25%),
+    linear-gradient(135deg,rgba(255,253,240,.90),rgba(234,249,255,.74)),
+    url('bg-topaz-chamber.png') center/cover;
 }
 .final-title{font-size:clamp(44px,7vw,86px)}
 .final p{font-size:23px;line-height:1.45;font-weight:800;color:#183a67}
 .treasure{
   min-height:390px;border-radius:30px;border:5px solid #fff;display:grid;place-items:center;
-  background:radial-gradient(circle,#fffbdc 0 18%,#ffd56a 19% 38%,#7bcdf7 39% 100%);
+  background:
+    radial-gradient(circle,rgba(255,251,220,.88) 0 18%,rgba(255,213,106,.62) 19% 38%,rgba(123,205,247,.42) 39% 100%),
+    url('bg-topaz-chamber.png') center/cover;
   box-shadow:inset 0 0 0 5px rgba(255,255,255,.32),0 20px 48px rgba(7,29,66,.28);
   position:relative;overflow:hidden;
 }
@@ -191,109 +215,23 @@ a{text-decoration:none;color:inherit}
 }
 .journal-summary h2{font-family:Bungee,system-ui;line-height:1;margin:0 0 10px;color:var(--navy)}
 .journal-summary ul{margin:0;padding-left:22px;font-size:19px;line-height:1.5;font-weight:900}
-.dev-panel{
-  position:fixed;right:16px;bottom:16px;z-index:9999;width:min(350px,92vw);display:none;background:#071d42f0;color:white;
-  border:4px solid var(--gold);border-radius:22px;padding:14px;box-shadow:0 18px 48px rgba(7,29,66,.45);
-}
-.dev-panel.show{display:block}.dev-panel h3{font-family:Bungee,system-ui;margin:0 0 8px;line-height:1}.dev-panel p{margin:0 0 10px;color:#fff8d8;font-weight:900;font-size:14px;line-height:1.35}
-.dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dev-btn{background:#fff;color:var(--navy);border:2px solid var(--gold);padding:10px;font-size:14px}
-.dev-close{position:absolute;right:8px;top:6px;background:transparent;color:white;font-size:22px;padding:4px}
 @media(max-width:900px){
-  .hero,.room,.final{grid-template-columns:1fr}.room-scene{min-height:420px;border-right:0;border-bottom:4px solid #fff}.room-panel{min-height:auto}
+  .hero,.room,.final{grid-template-columns:1fr}
+  .room-scene{min-height:420px;border-right:0;border-bottom:4px solid #fff}.room-panel{min-height:auto}
   .hero{text-align:center}.hero-actions{justify-content:center}.keys-bar{align-items:flex-start;grid-template-columns:1fr}.map-track{grid-template-columns:1fr 1fr}
+  .hero::after{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.45))}
+  .guide{width:190px}.guide::after{height:230px}
 }
 @media(max-width:560px){
   .hero h1,.final-title{font-size:42px}.room-title{font-size:34px}.passage,.question{font-size:19px}.guide{display:none}
-  .guide-bubble{position:relative;left:auto;top:auto;margin:18px}.dev-grid{grid-template-columns:1fr}.map-track{grid-template-columns:1fr}
+  .guide-bubble{position:relative;left:auto;top:auto;margin:18px}.map-track{grid-template-columns:1fr}
 }
-
-/* Prinslow Palace asset integration */
-body{
-  background:
-    linear-gradient(180deg,rgba(120,198,255,.68),rgba(255,248,223,.88)),
-    url('bg-sky-dock.png') center/cover fixed;
-}
-.page{
-  background:
-    radial-gradient(circle at 18% 10%,rgba(255,255,255,.62),transparent 16%),
-    radial-gradient(circle at 80% 18%,rgba(255,255,255,.42),transparent 18%),
-    linear-gradient(180deg,rgba(255,255,255,.05),rgba(7,29,66,.18));
-}
-.top .pill{display:none}
-.hero{
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.86),rgba(233,248,255,.68)),
-    url('card-prinslow-palace.png') center/cover;
-  min-height:500px;
-}
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.72) 42%,rgba(255,255,255,.08) 100%);
-  pointer-events:none;
-}
-.hero > *{position:relative;z-index:1}
-.sky-palace{
-  background:
-    radial-gradient(circle at 50% 82%,rgba(255,255,255,.84),transparent 30%),
-    linear-gradient(180deg,rgba(255,255,255,.18),rgba(116,200,255,.16)),
-    url('card-prinslow-palace.png') center/contain no-repeat;
-}
-.palace-svg{display:none}
-.guide{
-  width:min(240px,38%);
-  min-height:300px;
-  font-size:0;
-}
-.guide::before{display:none}
-.guide::after{
-  content:"";
-  display:block;
-  width:100%;
-  height:300px;
-  background:url('falcon-palace-guide.png') center bottom/contain no-repeat;
-  filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));
-  animation:guideBob 1.4s ease-in-out infinite alternate;
-}
-.room-art{
-  display:none;
-}
-.room-scene{
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.18),rgba(7,29,66,.18)),
-    var(--room-bg);
-  background-size:cover;
-  background-position:center;
-}
-.room-scene::before{
-  background:
-    radial-gradient(circle at 24% 20%,rgba(255,255,255,.46),transparent 22%),
-    linear-gradient(90deg,rgba(255,255,255,.08),transparent 48%,rgba(7,29,66,.22));
-}
-.final{
-  background:
-    radial-gradient(circle at 70% 28%,rgba(255,200,61,.35),transparent 25%),
-    linear-gradient(135deg,rgba(255,253,240,.90),rgba(234,249,255,.74)),
-    url('bg-topaz-chamber.png') center/cover;
-}
-.treasure{
-  background:
-    radial-gradient(circle,rgba(255,251,220,.88) 0 18%,rgba(255,213,106,.62) 19% 38%,rgba(123,205,247,.42) 39% 100%),
-    url('bg-topaz-chamber.png') center/cover;
-}
-@media(max-width:900px){
-  .hero::after{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.45))}
-  .guide{width:190px}
-  .guide::after{height:230px}
-}
-
 </style>
 </head>
 <body>
 <div class="page">
   <main class="wrap">
-    <div class="top"><a class="home" href="index.html">← SUMMER QUEST</a><div class="pill"></div></div>
+    <div class="top"><a class="home" href="index.html">← SUMMER QUEST</a></div>
 
     <section class="screen active" id="intro">
       <div class="panel hero">
@@ -306,7 +244,9 @@ body{
             <a class="secondary" href="index.html">RETURN TO CAMP</a>
           </div>
         </div>
-        <div class="sky-palace" aria-label="Prinslow Palace"><img src="falcon-palace-guide.png" alt="Falcon palace guide" style="width:min(250px,72%);max-height:310px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));"></div>
+        <div class="sky-palace" aria-label="Prinslow Palace">
+          <img src="falcon-palace-guide.png" alt="Falcon palace guide" style="width:min(250px,72%);max-height:310px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));">
+        </div>
       </div>
     </section>
 
@@ -324,7 +264,6 @@ body{
         <div class="room">
           <div class="room-scene" id="roomScene">
             <div class="guide-bubble" id="guideBubble">Welcome, explorer. Read the next page of the lost journal.</div>
-            <div class="room-art" id="roomArt">🏰</div>
             <div class="guide" aria-hidden="true"></div>
           </div>
           <div class="room-panel">
@@ -367,232 +306,285 @@ body{
   </main>
 </div>
 
-<div class="dev-panel" id="devPanel">
-  <button class="dev-close" id="devClose" type="button">×</button>
-  <h3>DEV MODE</h3>
-  <p>Type <strong>dev</strong> to toggle. Testing tools for Prinslow Palace.</p>
-  <div class="dev-grid">
-    <button class="dev-btn" data-dev="answer">Show Answer</button>
-    <button class="dev-btn" data-dev="correct">Mark Correct</button>
-    <button class="dev-btn" data-dev="next">Next Room</button>
-    <button class="dev-btn" data-dev="keys">All Keys</button>
-    <button class="dev-btn" data-dev="final">Final Chamber</button>
-    <button class="dev-btn" data-dev="reset">Reset</button>
-  </div>
-</div>
-
 <script>
-const ROOMS=[
+// ─── ROOM DATA ───────────────────────────────────────────────────────────────
+// bg strings now use double-outer / single-inner quotes — fixes the JS syntax error.
+// answer stores the INDEX into choices[] of the correct answer.
+// At render time, choices are shuffled and the correct answer is tracked by content,
+// so the correct position changes every playthrough.
+
+const ROOMS = [
   {
-    title:'The Sky Dock',
-    short:'Sky Dock',
-    skill:'MAIN IDEA',
-    icon:'🌉',
-    bg:"url(\'bg-sky-dock.png\')",
-    guide:'The bridge to Prinslow Palace is hidden in the clouds. Find what this chapter is mostly about.',
-    passage:'Avery had never seen clouds from above before. They spread below the sky dock like a white ocean, rolling and shining under the morning sun. Ahead stood Prinslow Palace, a castle of glass towers, golden rails, and floating bridges. Every wall caught the light and sent it flashing in soft blue and yellow. Avery held the old map with both hands. The map had belonged to a palace keeper who vanished years ago. At the bottom of the map, tiny writing warned, Only a careful reader can reach the Topaz Falcon. Avery took one step onto the glass bridge. A bronze falcon statue turned its head, even though no wind was blowing. Seven empty keyholes glowed along the palace gate.',
-    question:'What is the main idea of this chapter?',
-    choices:[
+    title: 'The Sky Dock',
+    short: 'Sky Dock',
+    skill: 'MAIN IDEA',
+    icon: '🌉',
+    bg: "url('bg-sky-dock.png')",
+    guide: 'The bridge to Prinslow Palace is hidden in the clouds. Find what this chapter is mostly about.',
+    passage: 'Avery had never seen clouds from above before. They spread below the sky dock like a white ocean, rolling and shining under the morning sun. Ahead stood Prinslow Palace, a castle of glass towers, golden rails, and floating bridges. Every wall caught the light and sent it flashing in soft blue and yellow. Avery held the old map with both hands. The map had belonged to a palace keeper who vanished years ago. At the bottom of the map, tiny writing warned, Only a careful reader can reach the Topaz Falcon. Avery took one step onto the glass bridge. A bronze falcon statue turned its head, even though no wind was blowing. Seven empty keyholes glowed along the palace gate.',
+    question: 'What is the main idea of this chapter?',
+    choices: [
       'Avery arrives at a hidden glass palace and sees signs of a mystery.',
       'Avery is afraid of walking on bridges.',
       'Clouds are always brighter in the morning.',
       'The palace keeper liked drawing maps.'
     ],
-    answer:0,
-    explain:'Yes. The chapter is mostly about Avery arriving at Prinslow Palace and discovering the mystery of the keys and Topaz Falcon.',
-    journal:'Avery reaches the sky dock and sees the glass palace, the old map, and seven empty keyholes.'
+    answer: 0,
+    explain: 'Yes. The chapter is mostly about Avery arriving at Prinslow Palace and discovering the mystery of the keys and Topaz Falcon.',
+    journal: 'Avery reaches the sky dock and sees the glass palace, the old map, and seven empty keyholes.'
   },
   {
-    title:'The Crystal Library',
-    short:'Library',
-    skill:'CONTEXT CLUES',
-    icon:'📚',
-    bg:"url(\'bg-crystal-library.png\')",
-    guide:'The library shelves drift through the clouds. Use clues around the word to unlock the next page.',
-    passage:'Inside the palace, Avery entered a library where shelves floated without ropes or ladders. Books glided through the air like birds. One silver book landed softly on a crystal table and opened by itself. Its pages were fragile. Avery knew this because the paper was thin, cracked at the edges, and trembling each time the room breathed a cool breeze. The writing inside described a bronze falcon that once guarded the palace. It was not a normal statue. It watched, listened, and learned from every visitor. Avery leaned closer, but a page corner began to tear. Slowly, Avery placed one finger under the page and turned it with care.',
-    question:'What does fragile most likely mean?',
-    choices:[
+    title: 'The Crystal Library',
+    short: 'Library',
+    skill: 'CONTEXT CLUES',
+    icon: '📚',
+    bg: "url('bg-crystal-library.png')",
+    guide: 'The library shelves drift through the clouds. Use clues around the word to unlock the next page.',
+    passage: 'Inside the palace, Avery entered a library where shelves floated without ropes or ladders. Books glided through the air like birds. One silver book landed softly on a crystal table and opened by itself. Its pages were fragile. Avery knew this because the paper was thin, cracked at the edges, and trembling each time the room breathed a cool breeze. The writing inside described a bronze falcon that once guarded the palace. It was not a normal statue. It watched, listened, and learned from every visitor. Avery leaned closer, but a page corner began to tear. Slowly, Avery placed one finger under the page and turned it with care.',
+    question: 'What does fragile most likely mean?',
+    choices: [
       'easy to break',
       'very loud',
       'covered in dust',
       'able to fly'
     ],
-    answer:0,
-    explain:'Correct. Thin, cracked, trembling, and beginning to tear are clues that fragile means easy to break.',
-    journal:'The Crystal Library reveals a fragile book about a bronze falcon that watches, listens, and learns.'
+    answer: 0,
+    explain: 'Correct. Thin, cracked, trembling, and beginning to tear are clues that fragile means easy to break.',
+    journal: 'The Crystal Library reveals a fragile book about a bronze falcon that watches, listens, and learns.'
   },
   {
-    title:'The Silent Falcon',
-    short:'Silent Falcon',
-    skill:'INFERENCE',
-    icon:'🦅',
-    bg:"url(\'bg-silent-falcon.png\')",
-    guide:'The palace falcon does not speak. Use its actions to infer what it may feel.',
-    passage:'The bronze falcon waited at the end of the hall. Its wings were folded tightly against its sides, and one claw rested on a cracked stone perch. Avery stepped closer. The falcon did not fly away. It only tilted its head and looked toward a locked door covered in dust. Beside the door sat a tiny metal bowl, empty except for one topaz feather. Avery noticed scratches on the floor, as if the falcon had walked back and forth for a very long time. When Avery picked up the feather, the falcon’s eyes glowed softly. It took one slow step forward, then stopped and waited.',
-    question:'What can the reader infer about the bronze falcon?',
-    choices:[
+    title: 'The Silent Falcon',
+    short: 'Silent Falcon',
+    skill: 'INFERENCE',
+    icon: '🦅',
+    bg: "url('bg-silent-falcon.png')",
+    guide: 'The palace falcon does not speak. Use its actions to infer what it may feel.',
+    passage: 'The bronze falcon waited at the end of the hall. Its wings were folded tightly against its sides, and one claw rested on a cracked stone perch. Avery stepped closer. The falcon did not fly away. It only tilted its head and looked toward a locked door covered in dust. Beside the door sat a tiny metal bowl, empty except for one topaz feather. Avery noticed scratches on the floor, as if the falcon had walked back and forth for a very long time. When Avery picked up the feather, the falcon\'s eyes glowed softly. It took one slow step forward, then stopped and waited.',
+    question: 'What can the reader infer about the bronze falcon?',
+    choices: [
       'It wants Avery to notice the feather and the locked door.',
       'It is trying to scare Avery out of the palace.',
       'It does not know where the door is.',
       'It wants to leave the palace and go swimming.'
     ],
-    answer:0,
-    explain:'Right. The falcon looks toward the door, stays near the feather, and reacts when Avery picks it up.',
-    journal:'The silent bronze falcon seems to guide Avery toward a locked door and a topaz feather.'
+    answer: 0,
+    explain: 'Right. The falcon looks toward the door, stays near the feather, and reacts when Avery picks it up.',
+    journal: 'The silent bronze falcon seems to guide Avery toward a locked door and a topaz feather.'
   },
   {
-    title:'The Observatory Window',
-    short:'Observatory',
-    skill:'TEXT EVIDENCE',
-    icon:'🔭',
-    bg:"url(\'bg-observatory.png\')",
-    guide:'The observatory shows clues through the glass. Choose the sentence that best supports the answer.',
-    passage:'Avery climbed a spiral staircase into the observatory. A giant telescope pointed through the glass ceiling, aimed at a ring of clouds around the palace. The bronze falcon followed, tapping its beak twice against the floor whenever Avery chose the correct stair. At the top, Avery found a journal page pinned beneath a crystal star. The page said the palace had been built to protect stories, not treasure. Avery read that sentence twice. If the palace protected stories, then the Topaz Falcon might not be valuable because it was gold. It might be valuable because it remembered every story the palace had ever kept.',
-    question:'Which sentence best supports the idea that the Topaz Falcon is important because of stories?',
-    choices:[
+    title: 'The Observatory Window',
+    short: 'Observatory',
+    skill: 'TEXT EVIDENCE',
+    icon: '🔭',
+    bg: "url('bg-observatory.png')",
+    guide: 'The observatory shows clues through the glass. Choose the sentence that best supports the answer.',
+    passage: 'Avery climbed a spiral staircase into the observatory. A giant telescope pointed through the glass ceiling, aimed at a ring of clouds around the palace. The bronze falcon followed, tapping its beak twice against the floor whenever Avery chose the correct stair. At the top, Avery found a journal page pinned beneath a crystal star. The page said the palace had been built to protect stories, not treasure. Avery read that sentence twice. If the palace protected stories, then the Topaz Falcon might not be valuable because it was gold. It might be valuable because it remembered every story the palace had ever kept.',
+    question: 'Which sentence best supports the idea that the Topaz Falcon is important because of stories?',
+    choices: [
       'The page said the palace had been built to protect stories, not treasure.',
       'A giant telescope pointed through the glass ceiling.',
       'The bronze falcon followed.',
       'Avery climbed a spiral staircase into the observatory.'
     ],
-    answer:0,
-    explain:'Yes. That sentence directly supports the idea that stories matter more than treasure in the palace.',
-    journal:'Avery learns that Prinslow Palace was built to protect stories, not just treasure.'
+    answer: 0,
+    explain: 'Yes. That sentence directly supports the idea that stories matter more than treasure in the palace.',
+    journal: 'Avery learns that Prinslow Palace was built to protect stories, not just treasure.'
   },
   {
-    title:'The Gallery of Voices',
-    short:'Gallery',
-    skill:'POINT OF VIEW',
-    icon:'🖼️',
-    bg:"url(\'bg-gallery.png\')",
-    guide:'The paintings speak in different voices. Watch for words that show who is telling the story.',
-    passage:'A painting shimmered, and a voice filled the gallery. I was the last keeper of Prinslow Palace. I polished the glass bridges each morning and read to the bronze falcon each night. I believed the falcon understood every word. When the storm clouds rose too high, I hid the Topaz Falcon where only a thoughtful explorer could find it. I left seven keys behind, not to keep readers out, but to help them slow down and notice what mattered. If you are reading this, the palace has chosen you to listen carefully.',
-    question:'Which point of view is used in the painting’s message?',
-    choices:[
+    title: 'The Gallery of Voices',
+    short: 'Gallery',
+    skill: 'POINT OF VIEW',
+    icon: '🖼️',
+    bg: "url('bg-gallery.png')",
+    guide: 'The paintings speak in different voices. Watch for words that show who is telling the story.',
+    passage: 'A painting shimmered, and a voice filled the gallery. I was the last keeper of Prinslow Palace. I polished the glass bridges each morning and read to the bronze falcon each night. I believed the falcon understood every word. When the storm clouds rose too high, I hid the Topaz Falcon where only a thoughtful explorer could find it. I left seven keys behind, not to keep readers out, but to help them slow down and notice what mattered. If you are reading this, the palace has chosen you to listen carefully.',
+    question: 'Which point of view is used in the painting\'s message?',
+    choices: [
       'first person',
       'second person only',
       'third person',
       'a weather forecast'
     ],
-    answer:0,
-    explain:'Correct. The narrator says I and my, which shows first-person point of view.',
-    journal:'A palace keeper speaks from a painting and explains why the seven keys were left behind.'
+    answer: 0,
+    explain: 'Correct. The narrator says I and my, which shows first-person point of view.',
+    journal: 'A palace keeper speaks from a painting and explains why the seven keys were left behind.'
   },
   {
-    title:'The Garden of Glass',
-    short:'Garden',
-    skill:'THEME',
-    icon:'🌿',
-    bg:"url(\'bg-glass-garden.png\')",
-    guide:'A glass garden grows high above the clouds. Find the lesson hidden in this chapter.',
-    passage:'In the glass garden, Avery found the sixth key trapped inside a crystal vine. The bronze falcon pulled at the vine with its beak, but the vine tightened. Avery tried to tug the key free alone, but the crystal only scraped Avery’s hands. Then Avery remembered the journal: slow down and notice what mattered. The vine had six leaves, and each leaf glowed when touched gently. Avery touched one leaf, and the falcon tapped another. Together they moved around the vine until all six leaves shone. The vine opened without breaking, and the key dropped softly into Avery’s palm.',
-    question:'What is the best theme of this chapter?',
-    choices:[
+    title: 'The Garden of Glass',
+    short: 'Garden',
+    skill: 'THEME',
+    icon: '🌿',
+    bg: "url('bg-glass-garden.png')",
+    guide: 'A glass garden grows high above the clouds. Find the lesson hidden in this chapter.',
+    passage: 'In the glass garden, Avery found the sixth key trapped inside a crystal vine. The bronze falcon pulled at the vine with its beak, but the vine tightened. Avery tried to tug the key free alone, but the crystal only scraped Avery\'s hands. Then Avery remembered the journal: slow down and notice what mattered. The vine had six leaves, and each leaf glowed when touched gently. Avery touched one leaf, and the falcon tapped another. Together they moved around the vine until all six leaves shone. The vine opened without breaking, and the key dropped softly into Avery\'s palm.',
+    question: 'What is the best theme of this chapter?',
+    choices: [
       'Working carefully with others can solve problems.',
       'Gardens are always dangerous places.',
       'Keys should be pulled as hard as possible.',
       'Falcons do not like crystal vines.'
     ],
-    answer:0,
-    explain:'Yes. Avery and the falcon solve the problem by slowing down, noticing, and working together.',
-    journal:'Avery and the bronze falcon unlock the garden key by working carefully together.'
+    answer: 0,
+    explain: 'Yes. Avery and the falcon solve the problem by slowing down, noticing, and working together.',
+    journal: 'Avery and the bronze falcon unlock the garden key by working carefully together.'
   },
   {
-    title:'The Topaz Chamber',
-    short:'Topaz Chamber',
-    skill:'MIXED CHALLENGE',
-    icon:'🗝️',
-    bg:"url(\'bg-topaz-chamber.png\')",
-    guide:'The final chamber mixes your reading powers. Use inference, theme, and evidence to finish the quest.',
-    passage:'The final door opened into a quiet chamber filled with golden light. The bronze falcon stepped onto a round platform and lowered its head. Avery placed the seven keys into the floor. One by one, the keys began to shine. The old journal pages lifted into the air and circled the room like bright birds. Avery finally understood. The palace had not been testing readers to keep them away. It had been teaching them how to pay attention. The Topaz Falcon appeared, glowing at the center of the chamber. The bronze falcon looked at Avery, then at the journal pages, as if asking the explorer to remember what had been learned.',
-    question:'Which sentence best states the lesson Avery learns?',
-    choices:[
+    title: 'The Topaz Chamber',
+    short: 'Topaz Chamber',
+    skill: 'MIXED CHALLENGE',
+    icon: '🗝️',
+    bg: "url('bg-topaz-chamber.png')",
+    guide: 'The final chamber mixes your reading powers. Use inference, theme, and evidence to finish the quest.',
+    passage: 'The final door opened into a quiet chamber filled with golden light. The bronze falcon stepped onto a round platform and lowered its head. Avery placed the seven keys into the floor. One by one, the keys began to shine. The old journal pages lifted into the air and circled the room like bright birds. Avery finally understood. The palace had not been testing readers to keep them away. It had been teaching them how to pay attention. The Topaz Falcon appeared, glowing at the center of the chamber. The bronze falcon looked at Avery, then at the journal pages, as if asking the explorer to remember what had been learned.',
+    question: 'Which sentence best states the lesson Avery learns?',
+    choices: [
       'Careful readers notice clues, think deeply, and learn from stories.',
       'Golden rooms are brighter than blue rooms.',
       'Every palace needs seven doors.',
       'Maps are never useful during a quest.'
     ],
-    answer:0,
-    explain:'Correct. Avery learns that reading carefully means noticing clues, thinking, and learning from stories.',
-    journal:'Avery discovers that Prinslow Palace was teaching readers to notice clues and think deeply.'
+    answer: 0,
+    explain: 'Correct. Avery learns that reading carefully means noticing clues, thinking, and learning from stories.',
+    journal: 'Avery discovers that Prinslow Palace was teaching readers to notice clues and think deeply.'
   }
 ];
 
-let roomIndex=0, keys=0, answered=false;
-const $=s=>document.querySelector(s);
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let roomIndex = 0;
+let keys = 0;
+let answered = false;
+// shuffledOrder stores the display order of choices for the current room.
+// correctDisplayIndex is which button position holds the right answer.
+let correctDisplayIndex = 0;
 
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  $('#'+id).classList.add('active');
-  window.scrollTo(0,0);
+const $ = s => document.querySelector(s);
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function shuffle(arr) {
+  // Fisher-Yates — unbiased shuffle
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-function renderKeys(){
-  $('#keyText').textContent=keys+'/7';
-  $('#journalCount').textContent=keys+'/7';
-  $('#keyTrack').innerHTML=ROOMS.map((_,i)=>`<div class="key ${i<keys?'on':''}">🔑</div>`).join('');
-  $('#mapTrack').innerHTML=ROOMS.map((r,i)=>`<div class="map-node ${i<keys?'done':''} ${i===roomIndex?'current':''}">${i+1}. ${r.short}</div>`).join('');
+function tone(freq, dur) {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0.001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.07, ctx.currentTime + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(g); g.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + dur + 0.02);
+  } catch(e) {}
 }
 
-function renderRoom(){
-  answered=false;
-  const r=ROOMS[roomIndex];
-  $('#roomKicker').textContent='CHAPTER '+(roomIndex+1)+' · '+r.skill;
-  $('#roomTitle').textContent=r.title;
-  $('#roomScene').style.setProperty('--room-bg',r.bg);
-  $('#roomArt').textContent=r.icon;
-  $('#guideBubble').textContent=r.guide;
-  $('#passage').textContent=r.passage;
-  $('#question').textContent=r.question;
-  $('#feedback').className='feedback';
-  $('#feedback').textContent='';
-  $('#journalPage').className='journal-page';
-  $('#journalPage').innerHTML='';
+// ─── SCREENS ─────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $('#' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─── PROGRESS ────────────────────────────────────────────────────────────────
+function saveProgress() {
+  try {
+    const save = JSON.parse(localStorage.getItem('falconCampSave')) || {};
+    save.prinslowPalaceProgress = keys;
+    if (keys >= 7) save.prinslowPalaceComplete = true;
+    localStorage.setItem('falconCampSave', JSON.stringify(save));
+  } catch(e) {}
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderKeys() {
+  $('#keyText').textContent = keys + '/7';
+  $('#journalCount').textContent = keys + '/7';
+  $('#keyTrack').innerHTML = ROOMS.map((_, i) =>
+    `<div class="key ${i < keys ? 'on' : ''}">🔑</div>`).join('');
+  $('#mapTrack').innerHTML = ROOMS.map((r, i) =>
+    `<div class="map-node ${i < keys ? 'done' : ''} ${i === roomIndex ? 'current' : ''}">${i + 1}. ${r.short}</div>`).join('');
+}
+
+function renderRoom() {
+  answered = false;
+  const r = ROOMS[roomIndex];
+
+  $('#roomKicker').textContent = 'CHAPTER ' + (roomIndex + 1) + ' · ' + r.skill;
+  $('#roomTitle').textContent = r.title;
+  $('#roomScene').style.setProperty('--room-bg', r.bg);
+  $('#guideBubble').textContent = r.guide;
+  $('#passage').textContent = r.passage;
+  $('#question').textContent = r.question;
+  $('#feedback').className = 'feedback';
+  $('#feedback').textContent = '';
+  $('#journalPage').className = 'journal-page';
+  $('#journalPage').innerHTML = '';
   $('#nextRoom').classList.remove('show');
-  $('#choices').innerHTML=r.choices.map((c,i)=>`<button class="choice" data-choice="${i}">${c}</button>`).join('');
+
+  // Shuffle choices so the correct answer isn't always first.
+  // We store the correct answer TEXT, then find its new index after shuffling.
+  const correctText = r.choices[r.answer];
+  const shuffled = shuffle(r.choices);
+  correctDisplayIndex = shuffled.indexOf(correctText);
+
+  $('#choices').innerHTML = shuffled
+    .map((c, i) => `<button class="choice" data-choice="${i}">${c}</button>`)
+    .join('');
+
   renderKeys();
 }
 
-function saveProgress(){
-  try{
-    const save=JSON.parse(localStorage.getItem('falconCampSave'))||{};
-    save.prinslowPalaceProgress=keys;
-    if(keys>=7) save.prinslowPalaceComplete=true;
-    localStorage.setItem('falconCampSave',JSON.stringify(save));
-  }catch(e){}
-}
+// ─── GAME LOGIC ───────────────────────────────────────────────────────────────
+function chooseAnswer(i) {
+  if (answered) return;
+  const r = ROOMS[roomIndex];
+  const buttons = [...document.querySelectorAll('[data-choice]')];
+  const fb = $('#feedback');
 
-function startQuest(){
-  roomIndex=0;keys=0;showScreen('game');renderRoom();
-}
+  if (i === correctDisplayIndex) {
+    answered = true;
+    keys = Math.max(keys, roomIndex + 1);
 
-function chooseAnswer(i){
-  if(answered) return;
-  const r=ROOMS[roomIndex];
-  const buttons=[...document.querySelectorAll('[data-choice]')];
-  const fb=$('#feedback');
-  if(i===r.answer){
-    answered=true;
-    keys=Math.max(keys,roomIndex+1);
-    buttons.forEach((b,idx)=>b.classList.add(idx===r.answer?'correct':''));
-    fb.className='feedback show good';
-    fb.textContent=r.explain+' Crystal Key '+(roomIndex+1)+' unlocked.';
-    $('#journalPage').className='journal-page show';
-    $('#journalPage').innerHTML=`<strong>Journal Page ${roomIndex+1} Collected</strong>${r.journal}`;
+    // Mark correct button green, dim others
+    buttons.forEach((b, idx) => {
+      b.disabled = true;
+      if (idx === correctDisplayIndex) b.classList.add('correct');
+    });
+
+    fb.className = 'feedback show good';
+    fb.textContent = r.explain + ' Crystal Key ' + (roomIndex + 1) + ' unlocked.';
+
+    $('#journalPage').className = 'journal-page show';
+    $('#journalPage').innerHTML =
+      `<strong>Journal Page ${roomIndex + 1} Collected</strong>${r.journal}`;
+
+    // Show the OPEN NEXT DOOR button — student advances at their own pace.
     $('#nextRoom').classList.add('show');
+
     renderKeys();
     saveProgress();
-    setTimeout(()=>advanceRoom(),2200);
-  }else{
+    tone(660, 0.18);
+    setTimeout(() => tone(880, 0.14), 120);
+
+  } else {
     buttons[i].classList.add('wrong');
-    fb.className='feedback show oops';
-    fb.textContent='Not yet. Look back at the journal page and try another answer.';
+    fb.className = 'feedback show oops';
+    fb.textContent = 'Not yet. Look back at the journal page and try another answer.';
+    tone(220, 0.22);
   }
 }
 
-function advanceRoom(){
-  if(!answered && roomIndex < ROOMS.length) return;
-  if(roomIndex>=ROOMS.length-1){
+function advanceRoom() {
+  if (!answered && roomIndex < ROOMS.length) return;
+  if (roomIndex >= ROOMS.length - 1) {
     renderFinalJournal();
     showScreen('final');
     return;
@@ -601,50 +593,86 @@ function advanceRoom(){
   renderRoom();
 }
 
-function renderFinalJournal(){
-  $('#finalJournal').innerHTML=ROOMS.map((r,i)=>`<li><strong>Page ${i+1}:</strong> ${r.journal}</li>`).join('');
+function renderFinalJournal() {
+  $('#finalJournal').innerHTML = ROOMS
+    .map((r, i) => `<li><strong>Page ${i + 1}:</strong> ${r.journal}</li>`)
+    .join('');
 }
 
-function resetQuest(){
-  roomIndex=0;keys=0;answered=false;renderRoom();
+function startQuest() {
+  roomIndex = 0; keys = 0; answered = false;
+  showScreen('game');
+  renderRoom();
 }
 
-document.addEventListener('click',e=>{
-  const choice=e.target.closest('[data-choice]');
-  if(choice) chooseAnswer(Number(choice.dataset.choice));
+function resetQuest() {
+  roomIndex = 0; keys = 0; answered = false;
+  renderRoom();
+}
+
+// ─── EVENTS ───────────────────────────────────────────────────────────────────
+document.addEventListener('click', e => {
+  const choice = e.target.closest('[data-choice]');
+  if (choice) chooseAnswer(Number(choice.dataset.choice));
 });
-$('#enterPalace').addEventListener('click',startQuest);
-$('#nextRoom').addEventListener('click',advanceRoom);
-$('#restart').addEventListener('click',resetQuest);
-$('#playAgain').addEventListener('click',startQuest);
+$('#enterPalace').addEventListener('click', startQuest);
+$('#nextRoom').addEventListener('click', advanceRoom);
+$('#restart').addEventListener('click', resetQuest);
+$('#playAgain').addEventListener('click', startQuest);
+
+// Initial key render so the bar shows 0/7 before the game starts
 renderKeys();
 
-(()=>{
-  const panel=$('#devPanel'), close=$('#devClose');
-  let buffer='';
-  function toggle(force){
-    const visible=typeof force==='boolean'?force:!panel.classList.contains('show');
-    panel.classList.toggle('show',visible);
-  }
-  document.addEventListener('keydown',e=>{
-    const tag=(e.target&&e.target.tagName||'').toLowerCase();
-    if(tag==='input'||tag==='textarea'||e.metaKey||e.ctrlKey||e.altKey) return;
-    buffer=(buffer+e.key.toLowerCase()).slice(-3);
-    if(buffer==='dev'){e.preventDefault();toggle();buffer='';}
-  });
-  close.addEventListener('click',()=>toggle(false));
-  panel.addEventListener('click',e=>{
-    const btn=e.target.closest('[data-dev]');
-    if(!btn) return;
-    const action=btn.dataset.dev;
-    if(action==='answer') alert('Answer: '+ROOMS[roomIndex].choices[ROOMS[roomIndex].answer]);
-    if(action==='correct') chooseAnswer(ROOMS[roomIndex].answer);
-    if(action==='next'){answered=true;keys=Math.max(keys,roomIndex+1);advanceRoom();}
-    if(action==='keys'){keys=7;renderKeys();saveProgress();}
-    if(action==='final'){keys=7;renderFinalJournal();showScreen('final');saveProgress();}
-    if(action==='reset'){showScreen('game');resetQuest();}
-  });
-})();
+// ─── DEV TOOLS ────────────────────────────────────────────────────────────────
+// Exposes window.FalconDev so the shared dev-tools.js panel can control this page.
+window.FalconDev = {
+  site: 'Prinslow Palace',
+  complete() {
+    keys = 7;
+    roomIndex = ROOMS.length - 1;
+    answered = true;
+    renderFinalJournal();
+    showScreen('final');
+    saveProgress();
+    return 'Prinslow Palace marked complete.';
+  },
+  reset() {
+    try {
+      const save = JSON.parse(localStorage.getItem('falconCampSave')) || {};
+      save.prinslowPalaceComplete = false;
+      save.prinslowPalaceProgress = 0;
+      localStorage.setItem('falconCampSave', JSON.stringify(save));
+    } catch(e) {}
+    startQuest();
+    return 'Prinslow Palace reset.';
+  },
+  actions: [
+    { label: 'Show Answer', run() {
+      const r = ROOMS[roomIndex];
+      const correctText = r.choices[r.answer];
+      return 'Answer: ' + correctText;
+    }},
+    { label: 'Mark Correct', run() {
+      chooseAnswer(correctDisplayIndex);
+      return 'Marked correct.';
+    }},
+    { label: 'Next Room', run() {
+      answered = true;
+      keys = Math.max(keys, roomIndex + 1);
+      advanceRoom();
+      return 'Advanced to next room.';
+    }},
+    { label: 'All Keys', run() {
+      keys = 7; renderKeys(); saveProgress();
+      return 'All 7 keys set.';
+    }},
+    { label: 'Final Chamber', run() {
+      keys = 7; renderFinalJournal(); showScreen('final'); saveProgress();
+      return 'Final chamber opened.';
+    }}
+  ]
+};
 </script>
+<script src="dev-tools.js"></script>
 </body>
 </html>
