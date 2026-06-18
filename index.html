@@ -630,25 +630,84 @@
       .destination-copy{min-height:auto}
     }
 
+  
+    /* Great Summer Quest homepage hero */
+    .hero.quest-hero{
+      min-height:300px;
+      grid-template-columns:1fr;
+      text-align:center;
+      place-items:center;
+      padding:36px clamp(24px,6vw,76px);
+    }
+    .hero.quest-hero::before{
+      opacity:.32;
+    }
+    .hero.quest-hero .hero-copy{
+      max-width:960px;
+      margin:auto;
+    }
+    .hero.quest-hero h1{
+      font-size:clamp(48px,8vw,104px);
+    }
+    .hero.quest-hero .subtitle{
+      max-width:850px;
+      margin:20px auto 0;
+      font-size:clamp(21px,2.1vw,30px);
+      line-height:1.35;
+    }
+    .quest-buttons{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+    .quest-chip{
+      font-family:'Bungee',system-ui;
+      font-size:13px;
+      color:#fff;
+      background:var(--navy);
+      border:3px solid var(--gold);
+      border-radius:999px;
+      padding:10px 15px;
+      box-shadow:0 6px 0 rgba(0,0,0,.18);
+    }
+    .camp-progress-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:10px;
+    }
+    .camp-progress-row .chip{
+      background:rgba(6,27,61,.92);
+    }
+    .camp-section .camp-goal{
+      box-shadow:none;
+      border-color:rgba(255,255,255,.52);
+      margin-top:4px;
+    }
+    .camp-section .paths{
+      margin-top:4px;
+    }
+    .camp-section .section-label{
+      align-items:flex-start;
+    }
+
   </style>
 </head>
 <body>
   <div class="sparkle-layer" aria-hidden="true"></div>
   <div class="page">
-    <section class="hero" aria-label="Falcon Adventure Camp">
+    <section class="hero quest-hero" aria-label="The Great Summer Quest">
       <div class="hero-copy">
         <div class="tag">SUMMER QUEST</div>
-        <h1>FALCON<br>ADVENTURE<br>CAMP</h1>
-        <p class="subtitle">Where will you go today?</p>
-        <div class="chips" aria-label="Progress tracker">
-          <span class="chip">RANK: <span id="rankName">SKY SCOUT</span></span>
-          <span class="chip">BADGES: <span id="badgeCount">0</span></span>
-          <span class="chip">PATHS: <span id="pathCount">0</span>/4</span>
+        <h1>THE GREAT<br>SUMMER QUEST</h1>
+        <p class="subtitle">Explore special adventures, run a pizza parlor, unlock a hidden palace, and earn camp badges along the way.</p>
+        <div class="quest-buttons" aria-label="Quest highlights">
+          <span class="quest-chip">SPECIAL ADVENTURES</span>
+          <span class="quest-chip">CAMP PATHS</span>
+          <span class="quest-chip">BONUS GAMES</span>
         </div>
-      </div>
-      <div class="hero-art">
-        <div class="speech" id="guideSpeech">Choose a path to start your adventure!</div>
-        <img class="camp-falcon" src="falcon-camp.png" alt="Falcon camp guide">
       </div>
     </section>
     <section class="section-label" aria-label="Special Adventures heading">
@@ -678,11 +737,16 @@
       </a>
     </section>
 
-    <section class="camp-section" aria-label="Falcon Adventure Camp paths">
+    <section class="camp-section" aria-label="Camp Paths">
       <div class="section-label">
         <div>
-          <h2>FALCON ADVENTURE CAMP</h2>
-          <p>Choose one of the original camp paths.</p>
+          <h2>CAMP PATHS</h2>
+          <p>Earn badges in the original Falcon Adventure Camp paths.</p>
+          <div class="camp-progress-row" aria-label="Camp progress tracker">
+            <span class="chip">RANK: <span id="rankName">SKY SCOUT</span></span>
+            <span class="chip">BADGES: <span id="badgeCount">0</span></span>
+            <span class="chip">PATHS: <span id="pathCount">0</span>/4</span>
+          </div>
         </div>
       </div>
 
@@ -738,15 +802,16 @@
         </div>
       </a>
     </main>
+      <section class="camp-goal" aria-label="Camp progress">
+        <strong>🏆 CAMP GOAL: COMPLETE ALL 4 PATHS</strong>
+        <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
+        <strong id="goalText">0%</strong>
+      </section>
+
 
 
 
     
-    </section>
-<section class="camp-goal" aria-label="Camp progress">
-      <strong>🏆 CAMP GOAL: COMPLETE ALL 4 PATHS</strong>
-      <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
-      <strong id="goalText">0%</strong>
     </section>
   </div>
   <div class="wipe" id="wipe" aria-hidden="true"></div>
