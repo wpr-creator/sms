@@ -34,25 +34,201 @@ a{text-decoration:none;color:inherit}.page{position:relative;z-index:1;min-heigh
 @media (prefers-reduced-motion:reduce){.quest-sign,.sparkle{animation:none}.path-card,.path-card:hover,.path-card:focus-visible,.destination-card,.destination-card:hover,.destination-card:focus-visible{transition:none;transform:none}}
 @media (max-width:1180px){.paths{grid-template-columns:repeat(2,1fr)}.destinations{grid-template-columns:1fr}.destination-card{min-height:540px}}
 @media (max-width:760px){.page{padding:18px 14px 30px;gap:22px}.title-screen{min-height:240px}.main-title{font-size:clamp(48px,15vw,76px)}.quest-sign{max-height:150px}.destination-card{grid-template-rows:auto minmax(260px,1fr);min-height:0}.destination-image{min-height:280px}.destination-title{font-size:38px}.paths{grid-template-columns:1fr}.path-card,.card-inner{min-height:285px}.camp-goal{flex-direction:column;text-align:center}.goal-track{width:100%}}
+
+/* Homepage polish v14 */
+body:before{
+  opacity:.34;
+}
+body:after{
+  background:
+    radial-gradient(ellipse at 18% 94%,rgba(255,255,255,.86) 0 11%,transparent 12%),
+    radial-gradient(ellipse at 59% 98%,rgba(255,255,255,.70) 0 16%,transparent 17%),
+    radial-gradient(ellipse at 92% 93%,rgba(255,255,255,.78) 0 12%,transparent 13%),
+    linear-gradient(180deg,rgba(6,27,61,.03),rgba(6,27,61,.30));
+}
+.page{
+  gap:24px;
+  padding-top:18px;
+}
+.title-screen{
+  min-height:220px;
+  padding:6px 10px 0;
+}
+.main-title{display:none}
+.hero-sign{
+  width:min(900px,88vw);
+  max-height:260px;
+  margin:0 auto;
+  object-fit:contain;
+}
+.section-heading{
+  margin-top:-2px;
+}
+.section-heading h2{
+  font-size:clamp(28px,3.6vw,50px);
+  color:#fff;
+  letter-spacing:.03em;
+}
+.special-shell{
+  gap:16px;
+}
+.destinations{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:26px;
+  align-items:stretch;
+}
+.destination-card{
+  min-height:0;
+  display:grid;
+  grid-template-rows:auto 1fr;
+  border-radius:34px;
+  background:rgba(255,255,255,.92);
+  overflow:hidden;
+}
+.destination-copy{
+  padding:22px 24px 18px;
+  min-height:190px;
+  border-bottom:5px solid rgba(255,255,255,.9);
+}
+.destination-title{
+  font-size:clamp(34px,3.6vw,56px);
+}
+.destination-button{
+  margin-top:4px;
+}
+.destination-image{display:none}
+.destination-art{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:390px;
+  max-height:470px;
+  object-fit:cover;
+  object-position:center;
+  background:#fff8e7;
+  transition:transform .28s ease, filter .28s ease;
+}
+.destination-card.palace .destination-art{
+  object-fit:cover;
+  object-position:center top;
+}
+.destination-card:hover .destination-art,
+.destination-card:focus-visible .destination-art{
+  transform:scale(1.035);
+  filter:saturate(1.06) brightness(1.03);
+}
+.cloud-divider{
+  height:74px;
+  margin:-4px 0 -10px;
+  opacity:.95;
+}
+.camp-section{
+  margin-top:0;
+  padding:24px;
+  background:rgba(255,255,255,.18);
+}
+.camp-banner{
+  min-height:72px;
+  background-size:contain;
+  margin:-8px 0 -2px;
+}
+.camp-title-fallback{
+  display:none;
+}
+.camp-progress-row{
+  margin-top:0;
+}
+.paths{
+  gap:22px;
+}
+.path-card{
+  min-height:330px;
+}
+.card-inner{
+  min-height:330px;
+}
+.path-title{
+  font-size:clamp(32px,2.6vw,43px);
+}
+.path-line{
+  font-size:16.5px;
+}
+.camp-goal{
+  margin-top:4px;
+}
+@media (max-width:1180px){
+  .destinations{grid-template-columns:1fr}
+  .destination-card{
+    grid-template-columns:minmax(320px,.74fr) 1fr;
+    grid-template-rows:1fr;
+    min-height:360px;
+  }
+  .destination-copy{
+    min-height:0;
+    border-bottom:0;
+    border-right:5px solid rgba(255,255,255,.9);
+    align-content:center;
+  }
+  .destination-art{
+    min-height:360px;
+    max-height:none;
+  }
+}
+@media (max-width:760px){
+  .title-screen{min-height:150px}
+  .hero-sign{max-height:160px}
+  .destination-card{
+    grid-template-columns:1fr;
+    grid-template-rows:auto 1fr;
+  }
+  .destination-copy{
+    border-right:0;
+    border-bottom:5px solid rgba(255,255,255,.9);
+    min-height:auto;
+  }
+  .destination-art{
+    min-height:270px;
+  }
+  .destination-title{font-size:36px}
+  .camp-section{padding:16px}
+  .camp-banner{min-height:54px}
+}
+
 </style>
 </head>
 <body>
 <div class="sparkle-layer" aria-hidden="true"></div>
 <div class="page">
-<header class="title-screen" aria-label="The Great Summer Quest"><div><h1 class="main-title">THE GREAT<br>SUMMER QUEST</h1><img class="quest-sign" src="hero-summer-quest-sign.png" alt="" aria-hidden="true"></div></header>
+<header class="title-screen" aria-label="The Great Summer Quest">
+  <img class="quest-sign hero-sign" src="hero-summer-quest-sign.png" alt="The Great Summer Quest">
+</header>
 
-<section class="section-shell" aria-label="Special Adventures">
+<section class="section-shell special-shell" aria-label="Special Adventures">
 <div class="section-heading"><h2>SPECIAL ADVENTURES</h2></div>
 <div class="destinations">
-<a class="destination-card pizza" href="pizza-parlor.html" data-go aria-label="Open The Rogers' Family Pizza Parlor"><div class="destination-copy"><div class="destination-kicker">MATH PARLOR</div><h2 class="destination-title">Rogers' Family<br>Pizza Parlor</h2><span class="destination-button">OPEN PARLOR!</span></div><div class="destination-image" aria-hidden="true"></div></a>
-<a class="destination-card palace" href="prinslow-palace.html" data-go aria-label="Open Legend of Prinslow Palace"><div class="destination-copy"><div class="destination-kicker">ELA QUEST</div><h2 class="destination-title">Legend of<br>Prinslow Palace</h2><span class="destination-button">ENTER PALACE!</span></div><div class="destination-image" aria-hidden="true"></div></a>
+<a class="destination-card pizza" href="pizza-parlor.html" data-go aria-label="Open The Rogers' Family Pizza Parlor">
+  <div class="destination-copy">
+    <div class="destination-kicker">MATH PARLOR</div>
+    <h2 class="destination-title">Rogers' Family<br>Pizza Parlor</h2>
+    <span class="destination-button">OPEN PARLOR!</span>
+  </div>
+  <img class="destination-art" src="card-pizza-parlor.png" alt="" aria-hidden="true">
+</a>
+<a class="destination-card palace" href="prinslow-palace.html" data-go aria-label="Open Legend of Prinslow Palace">
+  <div class="destination-copy">
+    <div class="destination-kicker">ELA QUEST</div>
+    <h2 class="destination-title">Legend of<br>Prinslow Palace</h2>
+    <span class="destination-button">ENTER PALACE!</span>
+  </div>
+  <img class="destination-art" src="card-prinslow-palace.png" alt="" aria-hidden="true">
+</a>
 </div>
 </section>
 
 <div class="cloud-divider" aria-hidden="true"></div>
 
 <section class="camp-section" aria-label="Camp Paths">
-<div class="camp-banner" aria-hidden="true"><span class="camp-title-fallback">CAMP PATHS</span></div>
+<div class="camp-banner" aria-hidden="true"><span class="camp-title-fallback"></span></div>
 <div class="camp-progress-row" aria-label="Camp progress tracker"><span class="chip">RANK: <span id="rankName">SKY SCOUT</span></span><span class="chip">BADGES: <span id="badgeCount">0</span></span><span class="chip">PATHS: <span id="pathCount">0</span>/4</span></div>
 <main class="paths" aria-label="Choose a Falcon Adventure Camp path">
 <a class="path-card flight" href="flight-school.html" data-go><div class="card-inner"><div class="subject">MATH</div><div class="character-wrap"><img class="path-character" src="falcon-pilot.png" alt="Pilot falcon"></div><div><h2 class="path-title">Flight<br>School</h2><p class="path-line">Earn math badges in the sky.</p><div class="button-row"><span class="game-button">TAKE OFF!</span></div></div></div></a>
