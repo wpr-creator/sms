@@ -32,6 +32,14 @@
 /* Storm Watch asset integration */
 .station-hero-art{display:grid;place-items:center;min-height:330px;border-radius:28px;background:linear-gradient(#ffffff55,#ffffff18),url('bg-storm.png') center/cover;overflow:hidden;position:relative}
 .station-hero-art img{width:min(300px,78%);filter:drop-shadow(0 18px 18px #071d4260)}
+.storm-guide-hero{grid-template-rows:1fr auto;gap:8px;padding:16px}
+.storm-guide-hero img{width:min(320px,82%);max-height:300px;object-fit:contain}
+.storm-guide-tip{display:grid;grid-template-columns:74px 1fr;gap:14px;align-items:center;background:#fff8d8;border:3px solid var(--gold);border-radius:22px;padding:14px;margin-top:14px}
+.storm-guide-tip img{width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 8px 8px #071d4230)}
+.storm-guide-tip h3{font-family:Bungee,system-ui;color:var(--navy);line-height:1.05;margin:0 0 5px;font-size:20px}
+.storm-guide-tip p{font-size:19px;line-height:1.45;margin:0}
+@media(max-width:560px){.storm-guide-tip{grid-template-columns:1fr}.storm-guide-tip img{width:88px;height:88px}}
+
 .weather-card-icon{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 8px 8px #071d4235);margin-bottom:6px}
 .weather-card .emoji.small{font-size:34px;line-height:1}
 .article-icon-img{width:136px;height:136px;object-fit:contain;justify-self:center;filter:drop-shadow(0 14px 14px #071d4245)}
@@ -75,7 +83,7 @@
     <div class="panel">
       <div class="hero">
         <div><span class="kicker">LANGUAGE ARTS EXTENSIONS</span><h1>STORM WATCH<br>STATION</h1><p>Choose a severe weather event. Explore facts, places, supplies, sensory details, safety ideas, and story details.</p></div>
-        <div class="station-hero-art"><img src="weather-snapshot.png" alt="Weather station display"></div>
+        <div class="station-hero-art storm-guide-hero"><img src="falcon-storm-tracker.png" alt="Storm tracker falcon guide"><div class="station-caption">Storm Tracker Guide</div></div>
       </div>
       <div class="weather-grid" id="weatherGrid"></div><div class="weather-choice-note">Pick one weather type to study first. Each guide gives you facts, supplies, sensory details, safety ideas, and story ideas.</div>
     </div>
@@ -202,6 +210,18 @@ function safetyTips(key){
   return (tips[key]||[]).map(t=>`<div class="safety-tip">${t}</div>`).join('');
 }
 
+
+function stormTrackerTip(key){
+  const tips={
+    blizzard:'Blizzards often happen in cold climates where winter temperatures stay below freezing and strong winds can blow snow across open areas.',
+    thunderstorm:'Warm air and moisture help thunderstorms form, so places with humid spring and summer weather can see storms more often.',
+    heatwave:'A heat wave can happen when hot air stays over one area for days, especially in cities, deserts, valleys, and warm climate regions.',
+    hailstorm:'Hail usually forms inside strong thunderstorms when rising air carries water drops high into freezing parts of a cloud.',
+    drought:'Droughts build slowly when a place gets much less rain than usual, especially in dry climates and farming regions that depend on steady water.'
+  };
+  return `<div class="storm-guide-tip"><img src="falcon-storm-tracker.png" alt="Storm tracker falcon"><div><h3>Storm Tracker Tip</h3><p>${tips[key]||'Weather observers look for patterns in the sky, air, water, and land.'}</p></div></div>`;
+}
+
 function openWeather(key){const w=WEATHER[key];if(!w||!articleBody)return;safeSave();articleBody.innerHTML=`
 <div class="article-hero" style="--bg:${weatherBackground(key,w)}"><div><span class="kicker">MY SEVERE WEATHER PLAN</span><h1 class="weather-title">${w.emoji} ${w.title}</h1><p>${w.short}</p><div class="station-caption">Today's Weather Station: ${w.title} Observation Area</div></div><img class="article-icon-img" src="${WEATHER_ASSETS[key]?.station || 'weather-snapshot.png'}" alt=""></div>
 ${snapshotHTML(key,w)}
@@ -215,7 +235,7 @@ ${snapshotHTML(key,w)}
 </div>
 <nav class="subnav" aria-label="Weather page sections"><a class="jump" href="#about">About</a><a class="jump" href="#prepare">Prepare</a><a class="jump" href="#experience">Experience</a><a class="jump" href="#safe">Stay Safe</a><a class="jump" href="#wear">Wear</a><a class="jump" href="#activities">Activities</a><button type="button" class="jump" data-story>Weather Story Workshop</button></nav>
 <div class="article-body">
-<section class="section feature" id="about"><span class="section-label">I chose to learn about ${w.title}</span><h2>🔎 About My Weather Event</h2><p>${w.about}</p><div class="info-grid"><div class="mini-card"><h3>What is it?</h3><p>${w.short}</p></div><div class="mini-card"><h3>What causes it?</h3><p>${w.causes}</p></div><div class="mini-card"><h3>Common Places</h3><p>${w.where}</p></div></div></section>
+<section class="section feature" id="about"><span class="section-label">I chose to learn about ${w.title}</span><h2>🔎 About My Weather Event</h2><p>${w.about}</p>${stormTrackerTip(key)}<div class="info-grid"><div class="mini-card"><h3>What is it?</h3><p>${w.short}</p></div><div class="mini-card"><h3>What causes it?</h3><p>${w.causes}</p></div><div class="mini-card"><h3>Common Places</h3><p>${w.where}</p></div></div></section>
 <section class="section" id="prepare"><div class="section-with-art"><div><h2>🎒 How I Prepared</h2><p>${w.prepare}</p><h3 style="margin:16px 0 0;color:var(--navy)">Supplies We Might Need</h3></div><img class="section-art" src="weather-backpack.png" alt="Weather supply backpack"></div><div class="supplies">${supplyHTML(w.supplies)}</div></section>
 <section class="section" id="experience"><h2>👀 What I Might Experience</h2><p>Severe weather can change what people notice around them. These details can help a weather observer describe the day clearly.</p><div class="sense-grid"><div class="sense"><h3>👀 See</h3><p>${w.see}</p></div><div class="sense"><h3>👂 Hear</h3><p>${w.hear}</p></div><div class="sense"><h3>✋ Feel</h3><p>${w.feel}</p></div><div class="sense"><h3>👃 Smell</h3><p>${w.smell}</p></div></div></section>
 <section class="section" id="safe"><h2>🦺 How I Will Stay Safe</h2><p>${w.safe}</p><div class="safety-list">${safetyTips(key)}</div></section>
