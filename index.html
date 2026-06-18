@@ -8,297 +8,659 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#061b3d;--gold:#ffc83d;--gold2:#ffdd7a;--cream:#fff8e7;--ink:#071b3b;--shadow:0 22px 56px rgba(0,0,0,.32)}
-*{box-sizing:border-box}html,body{min-height:100%}
-body{margin:0;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,#7fd0ff 0%,#dff7ff 38%,#fff4cf 100%);overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;background-image:url('bg-summer-quest-sky.png'),url('bg-camp.png');background-size:cover;background-position:center;opacity:.42;filter:saturate(1.08) contrast(1.02);pointer-events:none}
-body:after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 15% 92%,rgba(255,255,255,.88) 0 12%,transparent 13%),radial-gradient(ellipse at 58% 95%,rgba(255,255,255,.78) 0 18%,transparent 19%),radial-gradient(ellipse at 92% 90%,rgba(255,255,255,.82) 0 13%,transparent 14%),linear-gradient(180deg,rgba(6,27,61,.02),rgba(6,27,61,.35));pointer-events:none}
-a{text-decoration:none;color:inherit}.page{position:relative;z-index:1;min-height:100vh;padding:28px clamp(16px,4vw,44px) 40px;display:grid;gap:28px}
-.title-screen{min-height:300px;display:grid;place-items:center;text-align:center;padding:28px 10px 8px}
-.main-title{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:clamp(54px,9vw,132px);line-height:.82;margin:0;color:var(--navy);text-shadow:0 5px 0 #fff,0 10px 0 var(--gold2),0 20px 32px rgba(6,27,61,.28);text-transform:uppercase}
-.quest-sign{width:min(760px,86vw);max-height:210px;object-fit:contain;margin-top:12px;filter:drop-shadow(0 22px 28px rgba(6,27,61,.28));animation:signFloat 2.8s ease-in-out infinite alternate}@keyframes signFloat{from{transform:translateY(4px) rotate(-.4deg)}to{transform:translateY(-8px) rotate(.4deg)}}
-.section-shell{display:grid;gap:18px}.section-heading{display:flex;align-items:center;justify-content:center;gap:14px;text-align:center;color:white;text-shadow:0 4px 12px rgba(6,27,61,.42)}.section-heading h2{font-family:'Bungee',system-ui;font-size:clamp(26px,3.5vw,48px);line-height:1;margin:0;color:white}.section-heading:before,.section-heading:after{content:"";height:6px;width:min(170px,18vw);border-radius:999px;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 3px 12px rgba(255,200,61,.4)}
-.destinations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.destination-card{position:relative;overflow:hidden;border-radius:34px;border:5px solid rgba(255,255,255,.84);box-shadow:var(--shadow);color:var(--navy);background:rgba(255,248,231,.98);display:grid;grid-template-rows:auto minmax(340px,1fr);min-height:570px;transform:translateY(0);transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}.destination-card:hover,.destination-card:focus-visible{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 32px 70px rgba(0,0,0,.42);outline:none}
-.destination-copy{position:relative;z-index:2;padding:24px;display:grid;gap:8px;align-content:start;background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(255,248,231,.96));border-bottom:4px solid rgba(255,255,255,.86)}.destination-card.palace .destination-copy{background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(229,248,255,.97))}
-.destination-kicker,.subject{justify-self:start;font-family:'Bungee',system-ui;font-size:13px;letter-spacing:.08em;color:white;background:rgba(6,27,61,.94);border:3px solid var(--gold);border-radius:999px;padding:8px 12px;box-shadow:0 7px 0 rgba(0,0,0,.15)}.subject:before{content:"★";margin-right:6px;color:var(--gold)}
-.destination-title{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:clamp(34px,4vw,60px);line-height:.9;margin:0;color:var(--navy);text-shadow:0 4px 0 var(--gold2);text-transform:uppercase}
-.destination-button,.game-button{justify-self:start;display:inline-flex;align-items:center;justify-content:center;min-height:52px;margin-top:8px;padding:0 22px;border-radius:18px;border:4px solid var(--navy);background:var(--gold);color:var(--navy);font-family:'Bungee',system-ui;font-size:16px;box-shadow:0 8px 0 rgba(6,27,61,.25);transition:transform .18s ease,box-shadow .18s ease}.destination-card:hover .destination-button,.path-card:hover .game-button,.destination-card:focus-visible .destination-button,.path-card:focus-visible .game-button{transform:translateY(-2px);box-shadow:0 10px 0 rgba(6,27,61,.25)}
-.destination-image{min-height:340px;background-image:var(--dest-img);background-size:contain;background-repeat:no-repeat;background-position:center;background-color:rgba(255,255,255,.22);transition:transform .28s ease,filter .28s ease}.destination-card.pizza .destination-image{background-size:cover}.destination-card:hover .destination-image,.destination-card:focus-visible .destination-image{transform:scale(1.035);filter:saturate(1.06) brightness(1.03)}.destination-card.pizza{--dest-img:url('card-pizza-parlor.png')}.destination-card.palace{--dest-img:url('card-prinslow-palace.png')}
-.cloud-divider{height:90px;background:url('cloud-divider.png') center/contain no-repeat;filter:drop-shadow(0 12px 18px rgba(6,27,61,.16));margin:-4px 0 -2px}
-.camp-section{display:grid;gap:18px;background:rgba(255,255,255,.13);border:3px solid rgba(255,255,255,.26);border-radius:34px;padding:22px;box-shadow:0 20px 42px rgba(0,0,0,.18);backdrop-filter:blur(2px)}.camp-banner{display:grid;place-items:center;min-height:96px;background:url('camp-paths-banner.png') center/contain no-repeat;margin:-4px 0 -8px}.camp-title-fallback{font-family:'Bungee',system-ui;color:white;text-shadow:0 4px 12px rgba(6,27,61,.42);font-size:clamp(28px,3.4vw,46px);line-height:1}
-.camp-progress-row{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}.chip{font-family:'Bungee',system-ui;font-size:13px;color:#fff;background:rgba(6,27,61,.94);border:3px solid var(--gold);border-radius:999px;padding:10px 15px;box-shadow:0 6px 0 rgba(0,0,0,.18)}
-.paths{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}.path-card{min-height:315px;display:flex;flex-direction:column;justify-content:space-between;color:var(--navy);border:4px solid rgba(255,255,255,.82);border-radius:32px;overflow:hidden;background:rgba(255,255,255,.94);box-shadow:0 20px 42px rgba(0,0,0,.25);position:relative;transform:translateY(0);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}.path-card:hover,.path-card:focus-visible{transform:translateY(-8px);box-shadow:0 26px 54px rgba(0,0,0,.34);border-color:var(--gold);outline:none}.path-card:before{content:"";position:absolute;inset:0;background-size:cover;background-position:center;opacity:.68;transform:scale(1.04);transition:opacity .22s ease,transform .22s ease}.path-card:hover:before{opacity:.84;transform:scale(1.08)}.path-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.78) 56%,rgba(255,255,255,.97) 100%)}
-.flight:before{background-image:url('bg-canyon.png')}.lab:before{background-image:url('bg-lab.png')}.expedition:before{background-image:url('bg-geography.png')}.storm:before{background-image:url('bg-storm.png')}.card-inner{position:relative;z-index:1;min-height:315px;display:grid;grid-template-rows:auto 1fr auto;padding:24px}.character-wrap{display:flex;align-items:center;justify-content:center;min-height:135px}.path-character{width:178px;max-height:170px;object-fit:contain;filter:drop-shadow(0 17px 18px rgba(0,0,0,.31));transition:transform .22s ease}.path-card:hover .path-character{transform:translateY(-6px) scale(1.07)}.path-title{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:clamp(31px,2.75vw,45px);line-height:.92;margin:0 0 8px;color:var(--navy);text-transform:uppercase;text-shadow:0 3px 0 var(--gold2)}.expedition-title{font-size:clamp(27px,2.4vw,39px)}.path-line{margin:0 0 14px;font-size:17px;line-height:1.28;font-weight:900;color:#12325d}.button-row{display:flex;align-items:center;justify-content:flex-start}
-.camp-goal{display:flex;align-items:center;justify-content:space-between;gap:18px;background:rgba(255,248,231,.94);border:4px solid rgba(255,255,255,.74);border-radius:28px;padding:18px 22px;color:var(--navy)}.camp-goal strong{font-family:'Bungee',system-ui;font-size:clamp(18px,2vw,26px)}.goal-track{flex:1;height:18px;min-width:160px;border-radius:999px;background:#d6e2ef;border:3px solid #fff;overflow:hidden;box-shadow:inset 0 2px 6px rgba(0,0,0,.16)}.goal-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),#52d273);border-radius:999px;transition:width .4s ease}.wipe{position:fixed;inset:0;z-index:10;background:radial-gradient(circle at center,var(--gold) 0%,var(--navy) 70%);opacity:0;pointer-events:none;transform:scale(.6);transition:opacity .24s ease,transform .34s ease}.wipe.on{opacity:1;transform:scale(1.4)}
-.sparkle-layer{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}.sparkle{position:absolute;width:9px;height:9px;border-radius:50%;background:rgba(255,200,61,.72);box-shadow:0 0 18px rgba(255,221,122,.85);animation:sparkleFloat var(--speed,8s) ease-in-out infinite alternate;opacity:.72}@keyframes sparkleFloat{from{transform:translate3d(0,0,0) scale(.72)}to{transform:translate3d(var(--drift,24px),-34px,0) scale(1.12)}}
-@media (prefers-reduced-motion:reduce){.quest-sign,.sparkle{animation:none}.path-card,.path-card:hover,.path-card:focus-visible,.destination-card,.destination-card:hover,.destination-card:focus-visible{transition:none;transform:none}}
-@media (max-width:1180px){.paths{grid-template-columns:repeat(2,1fr)}.destinations{grid-template-columns:1fr}.destination-card{min-height:540px}}
-@media (max-width:760px){.page{padding:18px 14px 30px;gap:22px}.title-screen{min-height:240px}.main-title{font-size:clamp(48px,15vw,76px)}.quest-sign{max-height:150px}.destination-card{grid-template-rows:auto minmax(260px,1fr);min-height:0}.destination-image{min-height:280px}.destination-title{font-size:38px}.paths{grid-template-columns:1fr}.path-card,.card-inner{min-height:285px}.camp-goal{flex-direction:column;text-align:center}.goal-track{width:100%}}
+/* ── Reset & tokens ──────────────────────────────────────────────────── */
+:root{
+  --navy:#061b3d;
+  --gold:#ffc83d;
+  --gold2:#ffdd7a;
+  --ink:#071b3b;
+  --shadow:0 22px 56px rgba(0,0,0,.32);
+}
+*{box-sizing:border-box}
+html,body{min-height:100%;margin:0}
+body{
+  font-family:'Atkinson Hyperlegible',system-ui,sans-serif;
+  color:var(--ink);
+  overflow-x:hidden;
+  /* Sky-to-warm gradient always visible behind everything */
+  background:linear-gradient(180deg,#5ab8f0 0%,#b8e8ff 36%,#fff4d6 100%);
+}
+a{text-decoration:none;color:inherit}
 
-/* Homepage polish v14 */
-body:before{
-  opacity:.34;
+/* ── Background scene layer ──────────────────────────────────────────── */
+/* Single fixed overlay: the camp scene art at low opacity.
+   Kept subtle so cards read clearly on top. */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url('bg-camp.png') center/cover no-repeat;
+  opacity:.28;
+  pointer-events:none;
+  z-index:0;
 }
-body:after{
-  background:
-    radial-gradient(ellipse at 18% 94%,rgba(255,255,255,.86) 0 11%,transparent 12%),
-    radial-gradient(ellipse at 59% 98%,rgba(255,255,255,.70) 0 16%,transparent 17%),
-    radial-gradient(ellipse at 92% 93%,rgba(255,255,255,.78) 0 12%,transparent 13%),
-    linear-gradient(180deg,rgba(6,27,61,.03),rgba(6,27,61,.30));
-}
+
+/* ── Page shell ──────────────────────────────────────────────────────── */
 .page{
-  gap:24px;
-  padding-top:18px;
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  padding:20px clamp(14px,4vw,44px) 48px;
+  display:grid;
+  gap:28px;
 }
+
+/* ── Hero sign ───────────────────────────────────────────────────────── */
 .title-screen{
-  min-height:220px;
-  padding:6px 10px 0;
+  display:grid;
+  place-items:center;
+  padding:8px 10px 0;
 }
-.main-title{display:none}
 .hero-sign{
-  width:min(900px,88vw);
-  max-height:260px;
-  margin:0 auto;
+  width:min(860px,88vw);
+  max-height:240px;
   object-fit:contain;
+  filter:drop-shadow(0 18px 24px rgba(6,27,61,.32));
+  animation:signFloat 2.8s ease-in-out infinite alternate;
 }
+@keyframes signFloat{
+  from{transform:translateY(3px) rotate(-.3deg)}
+  to{transform:translateY(-8px) rotate(.3deg)}
+}
+@media(prefers-reduced-motion:reduce){.hero-sign{animation:none}}
+
+/* ── Section headings ────────────────────────────────────────────────── */
+.section-shell{display:grid;gap:14px}
 .section-heading{
-  margin-top:-2px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  text-align:center;
 }
 .section-heading h2{
-  font-size:clamp(28px,3.6vw,50px);
+  font-family:'Bungee',system-ui;
+  font-size:clamp(26px,3.2vw,46px);
+  line-height:1;margin:0;
   color:#fff;
+  text-shadow:0 3px 10px rgba(6,27,61,.45);
   letter-spacing:.03em;
 }
-.special-shell{
-  gap:16px;
+.section-heading::before,.section-heading::after{
+  content:"";
+  height:5px;
+  width:min(160px,16vw);
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
+
+/* ── Destination cards (Special Adventures) ─────────────────────────── */
+/* Each card is a flex column: copy on top, image fills the rest.
+   Both cards are forced to the same height via align-items:stretch. */
 .destinations{
+  display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:26px;
-  align-items:stretch;
+  gap:24px;
+  align-items:stretch;   /* equal heights */
 }
 .destination-card{
-  min-height:0;
-  display:grid;
-  grid-template-rows:auto 1fr;
-  border-radius:34px;
-  background:rgba(255,255,255,.92);
+  display:flex;
+  flex-direction:column;
+  border-radius:32px;
+  border:5px solid rgba(255,255,255,.85);
+  box-shadow:var(--shadow);
   overflow:hidden;
+  background:#fff;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+  min-height:520px;
 }
+.destination-card:hover,
+.destination-card:focus-visible{
+  transform:translateY(-7px);
+  border-color:var(--gold);
+  box-shadow:0 32px 70px rgba(0,0,0,.4);
+  outline:none;
+}
+
+/* Copy block — fixed height, no min-height bloat */
 .destination-copy{
-  padding:22px 24px 18px;
-  min-height:190px;
-  border-bottom:5px solid rgba(255,255,255,.9);
+  padding:22px 24px 20px;
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(255,248,231,.96));
+  border-bottom:4px solid rgba(255,255,255,.9);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  align-items:flex-start;
+  flex-shrink:0;   /* never squish */
 }
-.destination-title{
-  font-size:clamp(34px,3.6vw,56px);
+.destination-card.palace .destination-copy{
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(229,248,255,.97));
 }
-.destination-button{
-  margin-top:4px;
+
+/* Art block — flex-grow fills all remaining card height */
+.destination-art-wrap{
+  flex:1;
+  overflow:hidden;
+  min-height:300px;
 }
-.destination-image{display:none}
 .destination-art{
   display:block;
   width:100%;
   height:100%;
-  min-height:390px;
-  max-height:470px;
   object-fit:cover;
   object-position:center;
-  background:#fff8e7;
-  transition:transform .28s ease, filter .28s ease;
+  transition:transform .28s ease,filter .28s ease;
 }
 .destination-card.palace .destination-art{
-  object-fit:cover;
   object-position:center top;
 }
 .destination-card:hover .destination-art,
 .destination-card:focus-visible .destination-art{
-  transform:scale(1.035);
+  transform:scale(1.04);
   filter:saturate(1.06) brightness(1.03);
 }
-.cloud-divider{
-  height:74px;
-  margin:-4px 0 -10px;
-  opacity:.95;
+
+/* Kicker pill */
+.destination-kicker{
+  font-family:'Bungee',system-ui;
+  font-size:12px;
+  letter-spacing:.1em;
+  color:#fff;
+  background:rgba(6,27,61,.94);
+  border:2px solid var(--gold);
+  border-radius:999px;
+  padding:7px 12px;
+  box-shadow:0 5px 0 rgba(0,0,0,.14);
 }
+/* Title */
+.destination-title{
+  font-family:'Baloo 2',system-ui,sans-serif;
+  font-weight:800;
+  font-size:clamp(32px,3.4vw,54px);
+  line-height:.92;
+  margin:0;
+  color:var(--navy);
+  text-shadow:0 4px 0 var(--gold2);
+  text-transform:uppercase;
+}
+/* CTA button */
+.destination-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  margin-top:4px;
+  padding:0 20px;
+  border-radius:16px;
+  border:4px solid var(--navy);
+  background:var(--gold);
+  color:var(--navy);
+  font-family:'Bungee',system-ui;
+  font-size:15px;
+  box-shadow:0 7px 0 rgba(6,27,61,.24);
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.destination-card:hover .destination-button{
+  transform:translateY(-2px);
+  box-shadow:0 9px 0 rgba(6,27,61,.24);
+}
+
+/* Palace complete badge */
+.destination-card.palace-done{border-color:var(--gold)}
+.destination-card.palace-done .destination-copy::after{
+  content:'🏆 KEEPER OF THE PALACE';
+  display:block;
+  background:var(--gold);
+  color:var(--navy);
+  border:2px solid var(--navy);
+  border-radius:999px;
+  padding:6px 12px;
+  font-family:'Bungee',system-ui;
+  font-size:12px;
+  letter-spacing:.06em;
+  width:fit-content;
+  box-shadow:0 4px 0 rgba(6,27,61,.18);
+  margin-top:2px;
+}
+
+/* ── Cloud divider ───────────────────────────────────────────────────── */
+.cloud-divider{
+  height:72px;
+  background:url('cloud-divider.png') center/contain no-repeat;
+  filter:drop-shadow(0 10px 16px rgba(6,27,61,.14));
+  margin:-6px 0 -12px;
+  opacity:.9;
+}
+
+/* ── Camp section ────────────────────────────────────────────────────── */
 .camp-section{
-  margin-top:0;
-  padding:24px;
-  background:rgba(255,255,255,.18);
+  display:grid;
+  gap:16px;
+  background:rgba(255,255,255,.16);
+  border:3px solid rgba(255,255,255,.28);
+  border-radius:34px;
+  padding:22px;
+  box-shadow:0 18px 40px rgba(0,0,0,.16);
+  backdrop-filter:blur(3px);
 }
 .camp-banner{
   min-height:72px;
-  background-size:contain;
-  margin:-8px 0 -2px;
-}
-.camp-title-fallback{
-  display:none;
+  background:url('camp-paths-banner.png') center/contain no-repeat;
+  margin:-6px 0 -4px;
 }
 .camp-progress-row{
-  margin-top:0;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
 }
-.paths{
-  gap:22px;
+.chip{
+  font-family:'Bungee',system-ui;
+  font-size:13px;
+  color:#fff;
+  background:rgba(6,27,61,.94);
+  border:3px solid var(--gold);
+  border-radius:999px;
+  padding:9px 14px;
+  box-shadow:0 5px 0 rgba(0,0,0,.18);
 }
-.path-card{
-  min-height:330px;
-}
-.card-inner{
-  min-height:330px;
-}
-.path-title{
-  font-size:clamp(32px,2.6vw,43px);
-}
-.path-line{
-  font-size:16.5px;
-}
-.camp-goal{
-  margin-top:4px;
-}
-@media (max-width:1180px){
-  .destinations{grid-template-columns:1fr}
-  .destination-card{
-    grid-template-columns:minmax(320px,.74fr) 1fr;
-    grid-template-rows:1fr;
-    min-height:360px;
-  }
-  .destination-copy{
-    min-height:0;
-    border-bottom:0;
-    border-right:5px solid rgba(255,255,255,.9);
-    align-content:center;
-  }
-  .destination-art{
-    min-height:360px;
-    max-height:none;
-  }
-}
-@media (max-width:760px){
-  .title-screen{min-height:150px}
-  .hero-sign{max-height:160px}
-  .destination-card{
-    grid-template-columns:1fr;
-    grid-template-rows:auto 1fr;
-  }
-  .destination-copy{
-    border-right:0;
-    border-bottom:5px solid rgba(255,255,255,.9);
-    min-height:auto;
-  }
-  .destination-art{
-    min-height:270px;
-  }
-  .destination-title{font-size:36px}
-  .camp-section{padding:16px}
-  .camp-banner{min-height:54px}
-}
-
-/* ── Guide speech bubble ─────────────────────────────────────────── */
 .guide-speech{
   text-align:center;
   font-family:'Bungee',system-ui;
-  font-size:clamp(15px,1.6vw,20px);
-  color:rgba(255,255,255,.92);
-  text-shadow:0 2px 8px rgba(6,27,61,.38);
-  margin:2px 0 0;
+  font-size:clamp(14px,1.5vw,19px);
+  color:rgba(255,255,255,.94);
+  text-shadow:0 2px 8px rgba(6,27,61,.4);
+  margin:0;
   min-height:1.4em;
   letter-spacing:.02em;
 }
 
-/* ── Path card complete badge ────────────────────────────────────── */
-.path-card.path-done{
-  border-color:var(--gold);
+/* ── Path cards ──────────────────────────────────────────────────────── */
+.paths{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px;
 }
+.path-card{
+  min-height:320px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  color:var(--navy);
+  border:4px solid rgba(255,255,255,.82);
+  border-radius:30px;
+  overflow:hidden;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 18px 40px rgba(0,0,0,.22);
+  position:relative;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.path-card:hover,.path-card:focus-visible{
+  transform:translateY(-7px);
+  box-shadow:0 26px 54px rgba(0,0,0,.32);
+  border-color:var(--gold);
+  outline:none;
+}
+/* Background scene */
+.path-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:.65;
+  transition:opacity .22s ease;
+}
+.path-card:hover::before{opacity:.82}
+/* Fade overlay so text stays readable */
+.path-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.80) 52%,rgba(255,255,255,.97) 100%);
+}
+.flight::before{background-image:url('bg-canyon.png')}
+.lab::before{background-image:url('bg-lab.png')}
+.expedition::before{background-image:url('bg-geography.png')}
+.storm::before{background-image:url('bg-storm.png')}
+
+.card-inner{
+  position:relative;
+  z-index:1;
+  min-height:320px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  padding:22px;
+}
+.subject{
+  justify-self:start;
+  font-family:'Bungee',system-ui;
+  font-size:12px;
+  letter-spacing:.08em;
+  color:#fff;
+  background:rgba(6,27,61,.94);
+  border:2px solid var(--gold);
+  border-radius:999px;
+  padding:7px 11px;
+  box-shadow:0 5px 0 rgba(0,0,0,.14);
+}
+.subject::before{content:"★";margin-right:5px;color:var(--gold)}
+.character-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:130px;
+}
+.path-character{
+  width:168px;
+  max-height:160px;
+  object-fit:contain;
+  filter:drop-shadow(0 16px 16px rgba(0,0,0,.28));
+  transition:transform .22s ease;
+}
+.path-card:hover .path-character{transform:translateY(-6px) scale(1.07)}
+.path-title{
+  font-family:'Baloo 2',system-ui,sans-serif;
+  font-weight:800;
+  font-size:clamp(30px,2.6vw,43px);
+  line-height:.92;
+  margin:0 0 6px;
+  color:var(--navy);
+  text-transform:uppercase;
+  text-shadow:0 3px 0 var(--gold2);
+}
+.expedition-title{font-size:clamp(26px,2.2vw,37px)}
+.path-line{
+  margin:0 0 12px;
+  font-size:16px;
+  line-height:1.3;
+  font-weight:900;
+  color:#12325d;
+}
+.button-row{display:flex;align-items:center}
+.game-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:0 18px;
+  border-radius:16px;
+  border:4px solid var(--navy);
+  background:var(--gold);
+  color:var(--navy);
+  font-family:'Bungee',system-ui;
+  font-size:15px;
+  box-shadow:0 7px 0 rgba(6,27,61,.24);
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.path-card:hover .game-button{
+  transform:translateY(-2px);
+  box-shadow:0 9px 0 rgba(6,27,61,.24);
+}
+
+/* Path complete badge */
+.path-card.path-done{border-color:var(--gold)}
 .path-card.path-done::after{
-  /* Override the existing ::after gradient to keep a slight warm tint */
-  background:linear-gradient(180deg,rgba(255,248,200,.28) 0%,rgba(255,255,255,.78) 56%,rgba(255,248,200,.97) 100%);
+  background:linear-gradient(180deg,rgba(255,248,200,.22) 0%,rgba(255,255,255,.80) 52%,rgba(255,248,200,.97) 100%);
 }
 .path-card.path-done .card-inner::before{
   content:'✓ COMPLETE';
   position:absolute;
-  top:14px;right:14px;
+  top:12px;right:12px;
   background:var(--gold);
   color:var(--navy);
   border:2px solid var(--navy);
   border-radius:999px;
-  padding:5px 10px;
+  padding:4px 9px;
   font-family:'Bungee',system-ui;
-  font-size:12px;
+  font-size:11px;
   letter-spacing:.06em;
-  box-shadow:0 4px 0 rgba(6,27,61,.2);
+  box-shadow:0 3px 0 rgba(6,27,61,.18);
   z-index:2;
 }
 
-/* ── Palace complete badge ───────────────────────────────────────── */
-.destination-card.palace-done{
-  border-color:var(--gold);
-}
-.destination-card.palace-done .destination-copy::after{
-  content:'🏆 KEEPER OF THE PALACE';
-  display:block;
-  margin-top:8px;
-  background:var(--gold);
+/* ── Progress bar ────────────────────────────────────────────────────── */
+.camp-goal{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  background:rgba(255,248,231,.94);
+  border:4px solid rgba(255,255,255,.74);
+  border-radius:26px;
+  padding:16px 20px;
   color:var(--navy);
-  border:2px solid var(--navy);
-  border-radius:999px;
-  padding:7px 13px;
+}
+.camp-goal strong{
   font-family:'Bungee',system-ui;
-  font-size:13px;
-  letter-spacing:.06em;
-  width:fit-content;
-  box-shadow:0 5px 0 rgba(6,27,61,.2);
+  font-size:clamp(16px,1.8vw,24px);
+  white-space:nowrap;
+}
+.goal-track{
+  flex:1;
+  height:16px;
+  min-width:120px;
+  border-radius:999px;
+  background:#d6e2ef;
+  border:3px solid #fff;
+  overflow:hidden;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.14);
+}
+.goal-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--gold),#52d273);
+  border-radius:999px;
+  transition:width .4s ease;
 }
 
+/* ── Wipe transition ─────────────────────────────────────────────────── */
+.wipe{
+  position:fixed;inset:0;z-index:10;
+  background:radial-gradient(circle at center,var(--gold) 0%,var(--navy) 70%);
+  opacity:0;pointer-events:none;
+  transform:scale(.6);
+  transition:opacity .24s ease,transform .34s ease;
+}
+.wipe.on{opacity:1;transform:scale(1.4)}
+
+/* ── Sparkles ────────────────────────────────────────────────────────── */
+.sparkle-layer{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.sparkle{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:rgba(255,200,61,.7);
+  box-shadow:0 0 16px rgba(255,221,122,.8);
+  animation:sparkleFloat var(--speed,8s) ease-in-out infinite alternate;
+  opacity:.68;
+}
+@keyframes sparkleFloat{
+  from{transform:translate3d(0,0,0) scale(.7)}
+  to{transform:translate3d(var(--drift,24px),-32px,0) scale(1.1)}
+}
+@media(prefers-reduced-motion:reduce){
+  .sparkle,.hero-sign{animation:none}
+  .path-card,.destination-card{transition:none;transform:none}
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media(max-width:1180px){
+  .paths{grid-template-columns:repeat(2,1fr)}
+  .destinations{grid-template-columns:1fr}
+  /* Side-by-side layout on tablets: copy left, art right */
+  .destination-card{
+    flex-direction:row;
+    min-height:320px;
+  }
+  .destination-copy{
+    width:340px;
+    flex-shrink:0;
+    border-bottom:0;
+    border-right:4px solid rgba(255,255,255,.9);
+    justify-content:center;
+  }
+  .destination-art-wrap{
+    flex:1;
+    min-height:320px;
+  }
+}
+@media(max-width:760px){
+  .page{padding:14px 12px 36px;gap:20px}
+  .hero-sign{max-height:170px}
+  .destinations{gap:16px}
+  /* Back to stacked layout on phones */
+  .destination-card{
+    flex-direction:column;
+    min-height:0;
+  }
+  .destination-copy{
+    width:auto;
+    border-right:0;
+    border-bottom:4px solid rgba(255,255,255,.9);
+    justify-content:flex-start;
+  }
+  .destination-art-wrap{min-height:240px}
+  .destination-title{font-size:34px}
+  .paths{grid-template-columns:1fr}
+  .path-card,.card-inner{min-height:270px}
+  .camp-section{padding:16px}
+  .camp-goal{flex-direction:column;text-align:center}
+  .goal-track{width:100%}
+}
+@media(max-width:480px){
+  .destination-title{font-size:30px}
+  .destination-button{font-size:13px;min-height:42px;padding:0 16px}
+}
 </style>
 </head>
 <body>
 <div class="sparkle-layer" aria-hidden="true"></div>
 <div class="page">
+
 <header class="title-screen" aria-label="The Great Summer Quest">
-  <img class="quest-sign hero-sign" src="hero-summer-quest-sign.png" alt="The Great Summer Quest">
+  <img class="hero-sign" src="hero-summer-quest-sign.png" alt="The Great Summer Quest">
 </header>
 
 <section class="section-shell special-shell" aria-label="Special Adventures">
-<div class="section-heading"><h2>SPECIAL ADVENTURES</h2></div>
-<div class="destinations">
-<a class="destination-card pizza" href="pizza-parlor.html" data-go aria-label="Open The Rogers' Family Pizza Parlor">
-  <div class="destination-copy">
-    <div class="destination-kicker">MATH PARLOR</div>
-    <h2 class="destination-title">Rogers' Family<br>Pizza Parlor</h2>
-    <span class="destination-button">OPEN PARLOR!</span>
+  <div class="section-heading"><h2>SPECIAL ADVENTURES</h2></div>
+  <div class="destinations">
+
+    <a class="destination-card pizza" href="pizza-parlor.html" data-go aria-label="Open The Rogers' Family Pizza Parlor">
+      <div class="destination-copy">
+        <div class="destination-kicker">MATH PARLOR</div>
+        <h2 class="destination-title">Rogers' Family<br>Pizza Parlor</h2>
+        <span class="destination-button">OPEN PARLOR!</span>
+      </div>
+      <div class="destination-art-wrap">
+        <img class="destination-art" src="card-pizza-parlor.png" alt="" aria-hidden="true">
+      </div>
+    </a>
+
+    <a class="destination-card palace" href="prinslow-palace.html" data-go aria-label="Open Legend of Prinslow Palace">
+      <div class="destination-copy">
+        <div class="destination-kicker">ELA QUEST</div>
+        <h2 class="destination-title">Legend of<br>Prinslow Palace</h2>
+        <span class="destination-button">ENTER PALACE!</span>
+      </div>
+      <div class="destination-art-wrap">
+        <img class="destination-art" src="card-prinslow-palace.png" alt="" aria-hidden="true">
+      </div>
+    </a>
+
   </div>
-  <img class="destination-art" src="card-pizza-parlor.png" alt="" aria-hidden="true">
-</a>
-<a class="destination-card palace" href="prinslow-palace.html" data-go aria-label="Open Legend of Prinslow Palace">
-  <div class="destination-copy">
-    <div class="destination-kicker">ELA QUEST</div>
-    <h2 class="destination-title">Legend of<br>Prinslow Palace</h2>
-    <span class="destination-button">ENTER PALACE!</span>
-  </div>
-  <img class="destination-art" src="card-prinslow-palace.png" alt="" aria-hidden="true">
-</a>
-</div>
 </section>
 
 <div class="cloud-divider" aria-hidden="true"></div>
 
 <section class="camp-section" aria-label="Camp Paths">
-<div class="camp-banner" aria-hidden="true"><span class="camp-title-fallback"></span></div>
-<div class="camp-progress-row" aria-label="Camp progress tracker"><span class="chip">RANK: <span id="rankName">SKY SCOUT</span></span><span class="chip">BADGES: <span id="badgeCount">0</span></span><span class="chip">PATHS: <span id="pathCount">0</span>/4</span></div>
-<p class="guide-speech" id="guideSpeech" aria-live="polite"></p>
-<main class="paths" aria-label="Choose a Falcon Adventure Camp path">
-<a class="path-card flight" href="flight-school.html" data-go><div class="card-inner"><div class="subject">MATH</div><div class="character-wrap"><img class="path-character" src="falcon-pilot.png" alt="Pilot falcon"></div><div><h2 class="path-title">Flight<br>School</h2><p class="path-line">Earn math badges in the sky.</p><div class="button-row"><span class="game-button">TAKE OFF!</span></div></div></div></a>
-<a class="path-card lab" href="field-lab.html" data-go><div class="card-inner"><div class="subject">SCIENCE</div><div class="character-wrap"><img class="path-character" src="falcon-science.png" alt="Scientist falcon"></div><div><h2 class="path-title">Field<br>Lab</h2><p class="path-line">Explore habitats, animals, and weather.</p><div class="button-row"><span class="game-button">EXPLORE!</span></div></div></div></a>
-<a class="path-card expedition" href="expedition-corps.html" data-go><div class="card-inner"><div class="subject">SOCIAL STUDIES</div><div class="character-wrap"><img class="path-character" src="falcon-explorer.png" alt="Explorer falcon"></div><div><h2 class="path-title expedition-title">Expedition<br>Corps</h2><p class="path-line">Explore helpers, places, and choices.</p><div class="button-row"><span class="game-button">LET'S GO!</span></div></div></div></a>
-<a class="path-card storm" href="storm-watch.html" data-go><div class="card-inner"><div class="subject">LANGUAGE ARTS</div><div class="character-wrap"><img class="path-character" src="falcon-storm-tracker-card.png" alt="Storm tracker falcon"></div><div><h2 class="path-title">Severe<br>Weather</h2><p class="path-line">Track storms, study climates, and plan a story.</p><div class="button-row"><span class="game-button">START!</span></div></div></div></a>
-</main>
-<section class="camp-goal" aria-label="Camp progress"><strong>🏆 COMPLETE ALL 4 PATHS</strong><div class="goal-track"><div class="goal-fill" id="goalFill"></div></div><strong id="goalText">0%</strong></section>
+  <div class="camp-banner" aria-hidden="true"></div>
+  <div class="camp-progress-row" aria-label="Camp progress tracker">
+    <span class="chip">RANK: <span id="rankName">SKY SCOUT</span></span>
+    <span class="chip">BADGES: <span id="badgeCount">0</span></span>
+    <span class="chip">PATHS: <span id="pathCount">0</span>/4</span>
+  </div>
+  <p class="guide-speech" id="guideSpeech" aria-live="polite"></p>
+  <main class="paths" aria-label="Choose a Falcon Adventure Camp path">
+
+    <a class="path-card flight" href="flight-school.html" data-go>
+      <div class="card-inner">
+        <div class="subject">MATH</div>
+        <div class="character-wrap">
+          <img class="path-character" src="falcon-pilot.png" alt="Pilot falcon">
+        </div>
+        <div>
+          <h2 class="path-title">Flight<br>School</h2>
+          <p class="path-line">Earn math badges in the sky.</p>
+          <div class="button-row"><span class="game-button">TAKE OFF!</span></div>
+        </div>
+      </div>
+    </a>
+
+    <a class="path-card lab" href="field-lab.html" data-go>
+      <div class="card-inner">
+        <div class="subject">SCIENCE</div>
+        <div class="character-wrap">
+          <img class="path-character" src="falcon-science.png" alt="Scientist falcon">
+        </div>
+        <div>
+          <h2 class="path-title">Field<br>Lab</h2>
+          <p class="path-line">Explore habitats, animals, and weather.</p>
+          <div class="button-row"><span class="game-button">EXPLORE!</span></div>
+        </div>
+      </div>
+    </a>
+
+    <a class="path-card expedition" href="expedition-corps.html" data-go>
+      <div class="card-inner">
+        <div class="subject">SOCIAL STUDIES</div>
+        <div class="character-wrap">
+          <img class="path-character" src="falcon-explorer.png" alt="Explorer falcon">
+        </div>
+        <div>
+          <h2 class="path-title expedition-title">Expedition<br>Corps</h2>
+          <p class="path-line">Explore helpers, places, and choices.</p>
+          <div class="button-row"><span class="game-button">LET'S GO!</span></div>
+        </div>
+      </div>
+    </a>
+
+    <a class="path-card storm" href="storm-watch.html" data-go>
+      <div class="card-inner">
+        <div class="subject">LANGUAGE ARTS</div>
+        <div class="character-wrap">
+          <img class="path-character" src="falcon-storm-tracker-card.png" alt="Storm tracker falcon">
+        </div>
+        <div>
+          <h2 class="path-title">Severe<br>Weather</h2>
+          <p class="path-line">Track storms, study climates, and plan a story.</p>
+          <div class="button-row"><span class="game-button">START!</span></div>
+        </div>
+      </div>
+    </a>
+
+  </main>
+  <section class="camp-goal" aria-label="Camp progress">
+    <strong>🏆 COMPLETE ALL 4 PATHS</strong>
+    <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
+    <strong id="goalText">0%</strong>
+  </section>
 </section>
+
 </div>
 <div class="wipe" id="wipe" aria-hidden="true"></div>
 <script>
-(()=>{const layer=document.querySelector('.sparkle-layer');if(layer&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){const spots=[[8,82,18],[18,20,28],[31,74,36],[48,18,22],[62,78,30],[77,24,26],[89,70,34],[94,38,20]];spots.forEach(([left,top,drift],i)=>{const dot=document.createElement('span');dot.className='sparkle';dot.style.left=left+'%';dot.style.top=top+'%';dot.style.setProperty('--drift',drift+'px');dot.style.setProperty('--speed',(6+(i%4))+'s');dot.style.animationDelay=(-i*.7)+'s';layer.appendChild(dot);});}})();
+(()=>{
+  const layer = document.querySelector('.sparkle-layer');
+  if(layer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    [[8,82,18],[18,20,28],[31,74,36],[48,18,22],[62,78,30],[77,24,26],[89,70,34],[94,38,20]]
+      .forEach(([left,top,drift],i)=>{
+        const dot = document.createElement('span');
+        dot.className = 'sparkle';
+        dot.style.left = left+'%';
+        dot.style.top = top+'%';
+        dot.style.setProperty('--drift', drift+'px');
+        dot.style.setProperty('--speed', (6+(i%4))+'s');
+        dot.style.animationDelay = (-i*.7)+'s';
+        layer.appendChild(dot);
+      });
+  }
+})();
 </script>
 <script src="camp.js"></script>
 <script src="dev-tools.js"></script>
