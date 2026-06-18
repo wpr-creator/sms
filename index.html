@@ -22,23 +22,12 @@ body{
   font-family:'Atkinson Hyperlegible',system-ui,sans-serif;
   color:var(--ink);
   overflow-x:hidden;
-  /* Sky-to-warm gradient always visible behind everything */
-  background:linear-gradient(180deg,#5ab8f0 0%,#b8e8ff 36%,#fff4d6 100%);
+  /* Clean sky-to-warm gradient — no background image competing with the cards */
+  background:linear-gradient(160deg,#4ab4f0 0%,#89d4f5 28%,#c8ecff 52%,#fff4d6 100%);
 }
 a{text-decoration:none;color:inherit}
 
-/* ── Background scene layer ──────────────────────────────────────────── */
-/* Single fixed overlay: the camp scene art at low opacity.
-   Kept subtle so cards read clearly on top. */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:url('bg-camp.png') center/cover no-repeat;
-  opacity:.28;
-  pointer-events:none;
-  z-index:0;
-}
+/* No body::before background scene overlay — the gradient is the atmosphere */
 
 /* ── Page shell ──────────────────────────────────────────────────────── */
 .page{
@@ -50,18 +39,44 @@ body::before{
   gap:28px;
 }
 
-/* ── Hero sign ───────────────────────────────────────────────────────── */
+/* ── Hero title ──────────────────────────────────────────────────────── */
 .title-screen{
-  display:grid;
-  place-items:center;
-  padding:8px 10px 0;
+  padding:32px clamp(14px,4vw,44px) 20px;
+  text-align:center;
 }
+/* Full-width hero banner — used if the sign image loads */
 .hero-sign{
-  width:min(860px,88vw);
-  max-height:240px;
+  width:100%;
+  max-width:920px;
+  max-height:280px;
   object-fit:contain;
-  filter:drop-shadow(0 18px 24px rgba(6,27,61,.32));
+  display:block;
+  margin:0 auto;
+  filter:drop-shadow(0 14px 22px rgba(6,27,61,.28));
   animation:signFloat 2.8s ease-in-out infinite alternate;
+}
+/* Fallback title shown when hero-sign.png fails or as the primary title treatment */
+.hero-title{
+  font-family:'Baloo 2',system-ui,sans-serif;
+  font-weight:800;
+  font-size:clamp(48px,8vw,110px);
+  line-height:.88;
+  margin:0 auto;
+  color:var(--navy);
+  text-shadow:
+    0 4px 0 #fff,
+    0 8px 0 var(--gold2),
+    0 18px 28px rgba(6,27,61,.22);
+  text-transform:uppercase;
+  letter-spacing:-.01em;
+}
+.hero-sub{
+  font-family:'Bungee',system-ui;
+  font-size:clamp(14px,1.8vw,22px);
+  color:rgba(6,27,61,.72);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-top:10px;
 }
 @keyframes signFloat{
   from{transform:translateY(3px) rotate(-.3deg)}
@@ -220,13 +235,25 @@ body::before{
   margin-top:2px;
 }
 
-/* ── Cloud divider ───────────────────────────────────────────────────── */
-.cloud-divider{
-  height:72px;
-  background:url('cloud-divider.png') center/contain no-repeat;
-  filter:drop-shadow(0 10px 16px rgba(6,27,61,.14));
-  margin:-6px 0 -12px;
-  opacity:.9;
+/* ── Section divider ─────────────────────────────────────────────────── */
+/* Full-width wave shape between Special Adventures and Camp Paths.
+   Pure CSS — no image dependency. */
+.section-divider{
+  position:relative;
+  height:52px;
+  margin:-2px 0;
+  overflow:hidden;
+}
+.section-divider::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 12% 90%,rgba(255,255,255,.82) 0 14%,transparent 15%),
+    radial-gradient(ellipse at 34% 85%,rgba(255,255,255,.72) 0 18%,transparent 19%),
+    radial-gradient(ellipse at 58% 92%,rgba(255,255,255,.78) 0 16%,transparent 17%),
+    radial-gradient(ellipse at 78% 86%,rgba(255,255,255,.68) 0 14%,transparent 15%),
+    radial-gradient(ellipse at 94% 91%,rgba(255,255,255,.74) 0 12%,transparent 13%);
 }
 
 /* ── Camp section ────────────────────────────────────────────────────── */
@@ -241,9 +268,25 @@ body::before{
   backdrop-filter:blur(3px);
 }
 .camp-banner{
-  min-height:72px;
-  background:url('camp-paths-banner.png') center/contain no-repeat;
-  margin:-6px 0 -4px;
+  text-align:center;
+  padding:4px 0 8px;
+}
+.camp-banner-title{
+  font-family:'Bungee',system-ui;
+  font-size:clamp(28px,3.8vw,52px);
+  line-height:1;
+  color:#fff;
+  text-shadow:0 3px 0 rgba(6,27,61,.22),0 8px 18px rgba(6,27,61,.28);
+  letter-spacing:.04em;
+  margin:0;
+}
+.camp-banner-sub{
+  font-weight:900;
+  font-size:clamp(13px,1.4vw,18px);
+  color:rgba(255,255,255,.78);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin:4px 0 0;
 }
 .camp-progress-row{
   display:flex;
@@ -502,7 +545,8 @@ body::before{
 }
 @media(max-width:760px){
   .page{padding:14px 12px 36px;gap:20px}
-  .hero-sign{max-height:170px}
+  .hero-sign{max-height:200px}
+  .hero-title{font-size:clamp(40px,14vw,72px)}
   .destinations{gap:16px}
   /* Back to stacked layout on phones */
   .destination-card{
@@ -534,7 +578,15 @@ body::before{
 <div class="page">
 
 <header class="title-screen" aria-label="The Great Summer Quest">
-  <img class="hero-sign" src="hero-summer-quest-sign.png" alt="The Great Summer Quest">
+  <!-- Sign image — shows if asset exists, hides if not via onerror -->
+  <img class="hero-sign" src="hero-summer-quest-sign.png"
+       alt="The Great Summer Quest"
+       onerror="this.style.display='none';document.getElementById('heroFallback').style.display='block'">
+  <!-- CSS fallback title — hidden while image loads, shown if image fails -->
+  <div id="heroFallback" style="display:none">
+    <h1 class="hero-title">THE GREAT<br>SUMMER QUEST</h1>
+    <p class="hero-sub">Falcon Adventure Camp</p>
+  </div>
 </header>
 
 <section class="section-shell special-shell" aria-label="Special Adventures">
@@ -566,10 +618,13 @@ body::before{
   </div>
 </section>
 
-<div class="cloud-divider" aria-hidden="true"></div>
+<div class="section-divider" aria-hidden="true"></div>
 
 <section class="camp-section" aria-label="Camp Paths">
-  <div class="camp-banner" aria-hidden="true"></div>
+  <div class="camp-banner" aria-label="Falcon Adventure Camp">
+    <h2 class="camp-banner-title">🦅 FALCON ADVENTURE CAMP</h2>
+    <p class="camp-banner-sub">Choose your path · Earn your badges</p>
+  </div>
   <div class="camp-progress-row" aria-label="Camp progress tracker">
     <span class="chip">RANK: <span id="rankName">SKY SCOUT</span></span>
     <span class="chip">BADGES: <span id="badgeCount">0</span></span>
