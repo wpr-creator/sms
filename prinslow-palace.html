@@ -9,474 +9,694 @@
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#071d42;--royal:#163b86;--sky:#bfeaff;--cloud:#f6fbff;--glass:#eaf9ffcc;
-  --gold:#ffc83d;--topaz:#f6b93b;--ink:#102033;--green:#247a59;--red:#c94b4b;
+  --navy:#071d42;--royal:#163b86;--gold:#ffc83d;--gold2:#ffdd7a;
+  --ink:#102033;--green:#247a59;--red:#c94b4b;
   --shadow:0 22px 62px rgba(7,29,66,.35);
 }
-*{box-sizing:border-box}
-html,body{min-height:100%}
-body{
-  margin:0;
-  font-family:"Atkinson Hyperlegible",system-ui,sans-serif;
-  color:var(--ink);
-  background:
-    linear-gradient(180deg,rgba(120,198,255,.68),rgba(255,248,223,.88)),
-    url('bg-sky-dock.png') center/cover fixed;
-  overflow-x:hidden;
-}
-button,a{font:inherit}
-button{border:0;cursor:pointer}
-a{text-decoration:none;color:inherit}
-.page{
-  min-height:100vh;
-  position:relative;
-  padding:18px clamp(14px,4vw,42px) 34px;
-  background:
-    radial-gradient(circle at 18% 10%,rgba(255,255,255,.62),transparent 16%),
+*{box-sizing:border-box}html,body{min-height:100%;margin:0}
+body{font-family:"Atkinson Hyperlegible",system-ui,sans-serif;color:var(--ink);
+  background:linear-gradient(180deg,rgba(120,198,255,.68),rgba(255,248,223,.88)),
+    url('bg-sky-dock.png') center/cover fixed;overflow-x:hidden}
+button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;color:inherit}
+.page{min-height:100vh;position:relative;padding:18px clamp(14px,4vw,42px) 34px;
+  background:radial-gradient(circle at 18% 10%,rgba(255,255,255,.62),transparent 16%),
     radial-gradient(circle at 80% 18%,rgba(255,255,255,.42),transparent 18%),
-    linear-gradient(180deg,rgba(255,255,255,.05),rgba(7,29,66,.18));
-}
-.page::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse at 18% 84%,rgba(255,255,255,.85) 0 12%,transparent 13%),
-    radial-gradient(ellipse at 62% 88%,rgba(255,255,255,.72) 0 17%,transparent 18%),
-    radial-gradient(ellipse at 90% 78%,rgba(255,255,255,.72) 0 12%,transparent 13%);
-  opacity:.72;
-}
+    linear-gradient(180deg,rgba(255,255,255,.05),rgba(7,29,66,.18))}
 .wrap{position:relative;z-index:1;width:min(1180px,96vw);margin:0 auto}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.home{
-  background:#ffffffbb;color:var(--navy);border:3px solid #ffffff;border-radius:999px;
-  padding:10px 14px;font-weight:900;box-shadow:0 8px 0 rgba(7,29,66,.12);
-}
+.home{background:#ffffffbb;color:var(--navy);border:3px solid #fff;border-radius:999px;
+  padding:10px 14px;font-weight:900;box-shadow:0 8px 0 rgba(7,29,66,.12)}
 .screen{display:none}.screen.active{display:block}
-.panel{
-  background:linear-gradient(135deg,rgba(255,255,255,.84),rgba(234,249,255,.72));
+.panel{background:linear-gradient(135deg,rgba(255,255,255,.84),rgba(234,249,255,.72));
   border:5px solid rgba(255,255,255,.82);border-radius:34px;box-shadow:var(--shadow);
-  overflow:hidden;backdrop-filter:blur(8px);
-}
-.hero{
-  display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:center;
-  padding:34px clamp(24px,5vw,58px);min-height:500px;
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.86),rgba(233,248,255,.68)),
-    url('card-prinslow-palace.png') center/cover;
-  position:relative;
-}
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
+  overflow:hidden;backdrop-filter:blur(8px)}
+/* ── Hero ── */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:center;
+  padding:34px clamp(24px,5vw,58px);min-height:500px;position:relative;
+  background:linear-gradient(135deg,rgba(255,255,255,.86),rgba(233,248,255,.68)),
+    url('card-prinslow-palace.png') center/cover}
+.hero::after{content:"";position:absolute;inset:0;
   background:linear-gradient(90deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.72) 42%,rgba(255,255,255,.08) 100%);
-  pointer-events:none;
-}
-.hero > *{position:relative;z-index:1}
-.kicker,.room-kicker,.key-chip,.map-title{font-family:Bungee,system-ui;letter-spacing:.08em}
-.kicker{
-  display:inline-block;color:var(--royal);background:#ffffffc8;border:2px solid #d2ecff;border-radius:999px;
-  padding:8px 12px;margin-bottom:14px;font-weight:900;
-}
-.hero h1,.room-title,.final-title{
-  font-family:Bungee,system-ui;line-height:.96;margin:0;color:var(--navy);
-  text-shadow:0 5px 0 #fff,0 9px 0 rgba(255,200,61,.55);
-}
-.hero h1{font-size:clamp(44px,7vw,86px)}
+  pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.kicker{display:inline-block;color:var(--royal);background:#ffffffc8;border:2px solid #d2ecff;
+  border-radius:999px;padding:8px 12px;margin-bottom:14px;font-weight:900;font-family:Bungee,system-ui;letter-spacing:.08em}
+.hero h1{font-family:Bungee,system-ui;line-height:.96;margin:0;color:var(--navy);
+  font-size:clamp(44px,7vw,86px);text-shadow:0 5px 0 #fff,0 9px 0 rgba(255,200,61,.55)}
 .hero p{font-size:23px;line-height:1.45;font-weight:800;color:#183a67}
-.sky-palace{
-  min-height:340px;border-radius:30px;display:grid;place-items:center;position:relative;overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 82%,rgba(255,255,255,.84),transparent 30%),
+.sky-palace{min-height:340px;border-radius:30px;display:grid;place-items:center;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 50% 82%,rgba(255,255,255,.84),transparent 30%),
     linear-gradient(180deg,rgba(255,255,255,.18),rgba(116,200,255,.16)),
     url('card-prinslow-palace.png') center/contain no-repeat;
-  border:4px solid #fff;box-shadow:inset 0 0 0 4px rgba(255,255,255,.22),0 18px 36px rgba(7,29,66,.22);
-}
+  border:4px solid #fff;box-shadow:inset 0 0 0 4px rgba(255,255,255,.22),0 18px 36px rgba(7,29,66,.22)}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-.primary,.secondary,.choice,.map-node{border-radius:18px;font-weight:900;padding:14px 18px}
-.primary{
-  background:var(--gold);color:var(--navy);border:4px solid var(--navy);box-shadow:0 9px 0 rgba(7,29,66,.22);font-family:Bungee,system-ui;
-}
-.secondary{background:#fff;color:var(--navy);border:3px solid #d2ecff}
-.keys-bar{
-  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;
+.primary{background:var(--gold);color:var(--navy);border:4px solid var(--navy);
+  box-shadow:0 9px 0 rgba(7,29,66,.22);font-family:Bungee,system-ui;border-radius:18px;
+  font-weight:900;padding:14px 22px;cursor:pointer}
+.primary:hover{transform:translateY(-2px)}
+.secondary{background:#fff;color:var(--navy);border:3px solid #d2ecff;border-radius:18px;
+  font-weight:900;padding:14px 18px}
+/* ── Keys bar ── */
+.keys-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;
   padding:16px 20px;background:rgba(255,255,255,.76);
-  border-top:3px solid rgba(255,255,255,.88);border-bottom:3px solid rgba(255,255,255,.88);
-}
+  border-top:3px solid rgba(255,255,255,.88);border-bottom:3px solid rgba(255,255,255,.88)}
+.key-chip{font-family:Bungee,system-ui;letter-spacing:.08em}
 .key-track{display:flex;gap:8px;flex-wrap:wrap}
-.key{
-  width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#d7e8f6;border:3px solid #fff;
-  box-shadow:0 5px 0 rgba(7,29,66,.12);filter:grayscale(.55);opacity:.75;
-}
-.key.on{
-  background:radial-gradient(circle at 30% 25%,#fff7c8,#ffc83d 48%,#d8951e 100%);filter:none;opacity:1;animation:keyPop .35s ease;
-}
+.key{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:#d7e8f6;border:3px solid #fff;box-shadow:0 5px 0 rgba(7,29,66,.12);
+  filter:grayscale(.55);opacity:.75}
+.key.on{background:radial-gradient(circle at 30% 25%,#fff7c8,#ffc83d 48%,#d8951e 100%);
+  filter:none;opacity:1;animation:keyPop .35s ease}
 @keyframes keyPop{from{transform:scale(.4) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
-.palace-map{
-  padding:14px 20px;background:rgba(255,250,241,.92);border-bottom:4px solid #fff;display:grid;gap:10px;
-}
-.map-title{color:var(--royal);font-size:14px}
+/* ── Palace map ── */
+.palace-map{padding:14px 20px;background:rgba(255,250,241,.92);border-bottom:4px solid #fff;display:grid;gap:10px}
+.map-title{color:var(--royal);font-size:14px;font-family:Bungee,system-ui;letter-spacing:.08em}
 .map-track{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.map-node{
-  padding:10px 8px;text-align:center;background:#fff;border:3px solid #dce8f6;color:var(--navy);
-  font-size:14px;line-height:1.15;box-shadow:0 6px 0 rgba(7,29,66,.10);
-}
+.map-node{padding:10px 8px;text-align:center;background:#fff;border:3px solid #dce8f6;
+  color:var(--navy);font-size:14px;line-height:1.15;box-shadow:0 6px 0 rgba(7,29,66,.10);border-radius:18px;font-weight:900}
 .map-node.current{border-color:var(--gold);background:#fff8d8;transform:translateY(-3px)}
 .map-node.done{background:#e8f7ee;border-color:#60c58d}
+/* ── Room layout ── */
 .room{display:grid;grid-template-columns:1fr 1fr;min-height:690px}
-.room-scene{
-  position:relative;min-height:690px;border-right:4px solid #fff;
+.room-scene{position:relative;min-height:690px;border-right:4px solid #fff;
   background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(7,29,66,.18)),var(--room-bg);
-  background-size:cover;background-position:center;overflow:hidden;
-}
-.room-scene::before{
-  content:"";position:absolute;inset:0;background:
-    radial-gradient(circle at 24% 20%,rgba(255,255,255,.46),transparent 22%),
-    linear-gradient(90deg,rgba(255,255,255,.08),transparent 48%,rgba(7,29,66,.22));
-}
-.guide{
-  position:absolute;left:22px;bottom:22px;
-  width:min(240px,38%);min-height:300px;
-  font-size:0;
-}
-.guide::after{
-  content:"";
-  display:block;
-  width:100%;
-  height:300px;
+  background-size:cover;background-position:center;overflow:hidden}
+.room-scene::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 24% 20%,rgba(255,255,255,.46),transparent 22%),
+    linear-gradient(90deg,rgba(255,255,255,.08),transparent 48%,rgba(7,29,66,.22))}
+.guide{position:absolute;left:22px;bottom:22px;width:min(240px,38%);min-height:300px;font-size:0}
+.guide::after{content:"";display:block;width:100%;height:300px;
   background:url('falcon-palace-guide.png') center bottom/contain no-repeat;
   filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));
-  animation:guideBob 1.4s ease-in-out infinite alternate;
-}
+  animation:guideBob 1.4s ease-in-out infinite alternate}
 @keyframes guideBob{to{transform:translateY(-10px)}}
-.guide-bubble{
-  position:absolute;left:22px;top:24px;max-width:min(520px,86%);background:#ffffffe8;border:4px solid var(--navy);
-  border-radius:24px;padding:14px 16px;font-weight:900;font-size:20px;line-height:1.32;box-shadow:0 10px 0 rgba(7,29,66,.16);
-}
-.room-panel{padding:28px;background:rgba(255,250,241,.94);display:flex;flex-direction:column;min-height:690px}
-.room-kicker{color:var(--royal);font-size:14px;margin-bottom:8px}
-.room-title{font-size:clamp(34px,5vw,58px)}
-.story-label{
-  margin-top:14px;display:inline-block;background:#eef8ff;border:2px solid #cfe7f9;border-radius:999px;padding:7px 11px;
-  font-weight:900;color:var(--royal)
-}
-.passage{
-  background:white;border:3px solid #dce8f6;border-radius:24px;padding:18px;margin:12px 0 14px;
-  font-size:21px;line-height:1.62;font-weight:800;max-height:300px;overflow:auto;
-}
-.question{
-  background:#eef8ff;border:3px solid #cfe7f9;border-radius:22px;padding:16px;font-size:22px;line-height:1.35;font-weight:900;
-}
-.choices{display:grid;gap:12px;margin:14px 0}
-.choice{
-  text-align:left;background:white;color:var(--navy);border:4px solid #dce8f6;box-shadow:0 7px 0 rgba(7,29,66,.12);font-size:20px;
-}
-.choice:hover,.choice:focus-visible{transform:translateY(-3px);border-color:var(--gold);outline:0}
-.choice.correct{background:#e8f7ee;border-color:#60c58d}
-.choice.wrong{background:#fff0ee;border-color:#e07878}
-.feedback{
-  min-height:76px;border-radius:22px;padding:15px;font-size:20px;line-height:1.45;font-weight:900;
-  background:#fff8d8;border:3px solid var(--gold);display:none;
-}
-.feedback.show{display:block}.feedback.good{background:#e8f7ee;border-color:#60c58d;color:#0b5c38}.feedback.oops{background:#fff0ee;border-color:#e07878;color:#842c2c}
-.journal-page{
-  display:none;margin-top:12px;background:linear-gradient(135deg,#fff,#fff8d8);border:3px solid var(--gold);border-radius:22px;padding:15px;font-size:19px;line-height:1.45;font-weight:900;
-}
+.guide-bubble{position:absolute;left:22px;top:24px;max-width:min(520px,86%);
+  background:#ffffffe8;border:4px solid var(--navy);border-radius:24px;
+  padding:14px 16px;font-weight:900;font-size:20px;line-height:1.32;
+  box-shadow:0 10px 0 rgba(7,29,66,.16)}
+.room-panel{padding:28px;background:rgba(255,250,241,.94);display:flex;flex-direction:column;min-height:690px;overflow-y:auto}
+.room-kicker{color:var(--royal);font-size:14px;margin-bottom:8px;font-family:Bungee,system-ui;letter-spacing:.08em}
+.room-title{font-family:Bungee,system-ui;line-height:.96;margin:0;color:var(--navy);
+  text-shadow:0 5px 0 #fff,0 9px 0 rgba(255,200,61,.55);font-size:clamp(34px,5vw,58px)}
+.story-label{margin-top:14px;display:inline-block;background:#eef8ff;border:2px solid #cfe7f9;
+  border-radius:999px;padding:7px 11px;font-weight:900;color:var(--royal)}
+.passage{background:white;border:3px solid #dce8f6;border-radius:24px;padding:18px;margin:12px 0 14px;
+  font-size:20px;line-height:1.62;font-weight:800;max-height:260px;overflow:auto}
+/* ── Passage sentence highlighting (Room 4 & 7) ── */
+.passage .p-sent{display:inline;cursor:pointer;border-radius:6px;padding:1px 3px;transition:.15s}
+.passage .p-sent:hover{background:#fff3c0}
+.passage .p-sent.wrong-sent{background:#ffd8d8;animation:sentShake .3s ease}
+.passage .p-sent.correct-sent{background:#c8f5d8;font-weight:900}
+@keyframes sentShake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+/* ── Instruction box ── */
+.instruction{background:#eef8ff;border:3px solid #cfe7f9;border-radius:22px;padding:16px;
+  font-size:21px;line-height:1.35;font-weight:900;margin-bottom:12px}
+/* ── Feedback ── */
+.feedback{min-height:72px;border-radius:22px;padding:15px;font-size:20px;line-height:1.45;font-weight:900;
+  background:#fff8d8;border:3px solid var(--gold);display:none}
+.feedback.show{display:block}
+.feedback.good{background:#e8f7ee;border-color:#60c58d;color:#0b5c38}
+.feedback.oops{background:#fff0ee;border-color:#e07878;color:#842c2c}
+.feedback.hint{background:#fff8d8;border-color:var(--gold);color:#7a4f00}
+/* ── Journal page ── */
+.journal-page{display:none;margin-top:12px;background:linear-gradient(135deg,#fff,#fff8d8);
+  border:3px solid var(--gold);border-radius:22px;padding:15px;font-size:19px;line-height:1.45;font-weight:900}
 .journal-page.show{display:block;animation:journalIn .35s ease}
 .journal-page strong{font-family:Bungee,system-ui;color:var(--navy);display:block;margin-bottom:6px}
 @keyframes journalIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.room-actions{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap}.next{display:none}.next.show{display:inline-flex}
-.final{
-  padding:34px;display:grid;grid-template-columns:1fr .9fr;gap:22px;align-items:center;min-height:620px;
-  background:
-    radial-gradient(circle at 70% 28%,rgba(255,200,61,.35),transparent 25%),
+/* ── Room actions ── */
+.room-actions{margin-top:auto;padding-top:14px;display:flex;gap:12px;flex-wrap:wrap}
+.next{display:none}.next.show{display:inline-flex}
+/* ── Hint counter ── */
+.hint-counter{font-size:14px;font-weight:900;color:var(--royal);margin-bottom:8px}
+/* ── Sharp Reader badge ── */
+.sharp-badge{display:none;background:linear-gradient(135deg,#fff7c8,#ffc83d);
+  border:3px solid var(--navy);border-radius:999px;padding:8px 14px;
+  font-family:Bungee,system-ui;font-size:14px;color:var(--navy);width:fit-content;margin-top:8px}
+.sharp-badge.show{display:block;animation:keyPop .35s ease}
+/* ════════════════════════════════════════════════════════════════
+   MECHANIC-SPECIFIC STYLES
+   ════════════════════════════════════════════════════════════════ */
+/* Room 1 — Sentence Sort */
+.sort-zone{display:grid;gap:10px;margin:12px 0}
+.sort-pool{display:grid;gap:8px;margin:12px 0}
+.sent-tile{background:#fff;border:3px solid #dce8f6;border-radius:16px;padding:12px 14px;
+  font-size:18px;font-weight:900;color:var(--navy);cursor:pointer;transition:.18s;line-height:1.4;
+  box-shadow:0 5px 0 rgba(7,29,66,.10);text-align:left;width:100%}
+.sent-tile:hover:not(:disabled){transform:translateY(-2px);border-color:var(--gold)}
+.sent-tile.selected{background:#fff8d8;border-color:var(--gold)}
+.sent-tile.wrong{background:#fff0ee;border-color:var(--red);animation:sentShake .3s ease}
+.sent-tile.correct{background:#e8f7ee;border-color:#60c58d;cursor:default}
+.sent-tile:disabled{cursor:default}
+.main-idea-zone{min-height:60px;border:3px dashed #cfe7f9;border-radius:20px;
+  background:#eef8ff;padding:12px;margin:8px 0}
+.main-idea-zone h3{font-family:Bungee,system-ui;font-size:14px;color:var(--royal);margin:0 0 8px}
+.sort-slots{display:grid;gap:6px}
+.sort-slot{min-height:44px;border:2px dashed #cfe7f9;border-radius:12px;
+  background:rgba(255,255,255,.6);padding:8px;font-size:17px;font-weight:900;color:#8aa0bc;
+  display:flex;align-items:center}
+.sort-slot.filled{background:#e8f7ee;border-color:#60c58d;color:var(--navy)}
+/* Room 2 — Context Clues */
+.clue-passage{background:white;border:3px solid #dce8f6;border-radius:24px;padding:18px;
+  margin:12px 0;font-size:20px;line-height:1.72;font-weight:800}
+.mystery-word{background:var(--gold);color:var(--navy);border-radius:8px;padding:2px 8px;
+  font-family:Bungee,system-ui;font-size:22px;cursor:default}
+.clue-mask{background:#d2ecff;color:var(--royal);border:2px solid #cfe7f9;border-radius:8px;
+  padding:2px 8px;font-size:19px;font-weight:900;cursor:pointer;transition:.15s;display:inline-block}
+.clue-mask:hover{background:#bde2ff;transform:scale(1.05)}
+.clue-mask.revealed{background:#e8f7ee;border-color:#60c58d;cursor:default;color:var(--green)}
+.clue-reveal-info{font-size:16px;font-weight:900;color:var(--royal);margin:8px 0 4px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:10px 0}
+.choice-btn{background:white;border:4px solid #dce8f6;border-radius:18px;padding:14px;
+  font-size:20px;font-weight:900;color:var(--navy);box-shadow:0 6px 0 rgba(7,29,66,.10);
+  cursor:pointer;transition:.15s;text-align:left}
+.choice-btn:hover:not(:disabled){transform:translateY(-2px);border-color:var(--gold)}
+.choice-btn.correct{background:#e8f7ee;border-color:#60c58d}
+.choice-btn.wrong{background:#fff0ee;border-color:var(--red)}
+.choice-btn:disabled{cursor:default}
+/* Room 3 — Sequence */
+.seq-board{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:12px 0}
+.seq-slot{min-height:100px;border:3px dashed #cfe7f9;border-radius:18px;
+  background:#eef8ff;padding:10px;position:relative}
+.seq-slot-label{font-family:Bungee,system-ui;font-size:12px;color:var(--royal);margin-bottom:6px;letter-spacing:.06em}
+.seq-slot.has-card{background:white;border-color:#dce8f6;border-style:solid}
+.seq-slot.correct-slot{background:#e8f7ee;border-color:#60c58d}
+.seq-slot.wrong-slot{background:#fff0ee;border-color:var(--red);animation:sentShake .3s ease}
+.seq-pool{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+.seq-card{background:white;border:3px solid #dce8f6;border-radius:16px;padding:12px;
+  font-size:17px;font-weight:900;color:var(--navy);cursor:pointer;transition:.18s;
+  box-shadow:0 5px 0 rgba(7,29,66,.10);text-align:left;min-height:80px;
+  display:flex;align-items:center;gap:8px}
+.seq-card:hover:not(.placed){border-color:var(--gold);transform:translateY(-2px)}
+.seq-card.selected{border-color:var(--gold);background:#fff8d8;transform:translateY(-2px)}
+.seq-card.placed{opacity:.42;cursor:default}
+.seq-card .seq-icon{font-size:26px;flex-shrink:0}
+/* Room 4 — Click the sentence */
+.claim-box{background:linear-gradient(135deg,#eef8ff,#fff);border:3px solid var(--royal);
+  border-radius:20px;padding:14px 16px;font-size:20px;font-weight:900;margin-bottom:12px;
+  color:var(--navy);line-height:1.4}
+.claim-box strong{color:var(--royal)}
+.evidence-slot{min-height:52px;background:#fff8d8;border:3px dashed var(--gold);
+  border-radius:16px;padding:12px;margin-bottom:12px;font-size:18px;font-weight:900;
+  color:#7a4f00;display:flex;align-items:center}
+.evidence-slot.filled{background:#e8f7ee;border-style:solid;border-color:#60c58d;color:var(--green)}
+.clickable-passage{background:white;border:3px solid #dce8f6;border-radius:24px;padding:18px;margin:12px 0;
+  font-size:19px;line-height:1.8;font-weight:800}
+/* Room 5 — POV Sort */
+.pov-bins{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.pov-bin{border:3px solid #dce8f6;border-radius:20px;padding:12px;background:#eef8ff;min-height:120px}
+.pov-bin h3{font-family:Bungee,system-ui;font-size:13px;color:var(--royal);margin:0 0 8px;letter-spacing:.06em;text-align:center}
+.pov-bin .bin-slots{display:grid;gap:5px;min-height:60px}
+.chip-pool{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;min-height:44px;
+  background:#fff;border:3px solid #dce8f6;border-radius:18px;padding:10px}
+.pov-chip{background:var(--gold);color:var(--navy);border:3px solid var(--navy);
+  border-radius:999px;padding:8px 14px;font-weight:900;font-size:17px;cursor:pointer;
+  transition:.15s;white-space:nowrap}
+.pov-chip:hover:not(.placed){transform:translateY(-2px);box-shadow:0 4px 0 rgba(7,29,66,.2)}
+.pov-chip.selected{transform:translateY(-3px);box-shadow:0 0 0 3px rgba(7,29,66,.3);background:#ffdd7a}
+.pov-chip.placed{opacity:0;pointer-events:none;width:0;padding:0;border:0;margin:0}
+.pov-chip.wrong-chip{animation:sentShake .3s ease;background:#ffd8d8;border-color:var(--red)}
+.bin-chip{background:#e8f7ee;border:2px solid #60c58d;border-radius:999px;
+  padding:6px 12px;font-weight:900;font-size:15px;color:var(--green)}
+.bin-chip.wrong{background:#fff0ee;border-color:var(--red);color:var(--red)}
+/* Room 6 — Word Bank Builder */
+.theme-builder{background:white;border:3px solid #dce8f6;border-radius:22px;padding:16px;margin:12px 0}
+.theme-display{min-height:56px;background:#eef8ff;border:3px dashed #cfe7f9;border-radius:14px;
+  padding:12px;margin-bottom:10px;font-size:20px;font-weight:900;color:var(--navy);
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.theme-display .built-word{background:var(--gold);border:2px solid var(--navy);border-radius:999px;
+  padding:4px 10px;font-size:18px;cursor:pointer;transition:.12s}
+.theme-display .built-word:hover{background:#ffdd7a}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.word-btn{background:white;border:3px solid #dce8f6;border-radius:999px;padding:9px 14px;
+  font-size:18px;font-weight:900;color:var(--navy);cursor:pointer;transition:.15s;
+  box-shadow:0 4px 0 rgba(7,29,66,.10)}
+.word-btn:hover:not(:disabled){border-color:var(--gold);transform:translateY(-2px)}
+.word-btn:disabled{opacity:.38;cursor:default}
+.word-btn.trap-shake{animation:sentShake .3s ease;border-color:var(--red);background:#fff0ee}
+.word-btn.used{opacity:.28;cursor:default}
+.builder-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.undo-btn{background:#fff;border:3px solid #dce8f6;border-radius:999px;padding:8px 14px;
+  font-weight:900;font-size:16px;color:var(--navy);cursor:pointer}
+.undo-btn:hover{border-color:var(--royal);background:#eef8ff}
+.check-btn{background:var(--navy);color:#fff;border-radius:999px;padding:10px 18px;
+  font-family:Bungee,system-ui;font-size:16px;cursor:pointer;box-shadow:0 5px 0 rgba(7,29,66,.22)}
+.check-btn:hover{transform:translateY(-1px)}
+/* Room 7 — Three-part gauntlet */
+.gauntlet-progress{display:flex;gap:8px;margin-bottom:14px;align-items:center}
+.gauntlet-key{width:38px;height:38px;border-radius:50%;background:#d7e8f6;border:3px solid #fff;
+  display:grid;place-items:center;font-size:18px;box-shadow:0 4px 0 rgba(7,29,66,.12)}
+.gauntlet-key.lit{background:radial-gradient(circle at 30% 25%,#fff7c8,#ffc83d 48%,#d8951e 100%);
+  animation:keyPop .35s ease}
+.gauntlet-label{font-family:Bungee,system-ui;font-size:14px;color:var(--royal);letter-spacing:.06em}
+.part-label{font-family:Bungee,system-ui;font-size:13px;color:var(--royal);letter-spacing:.06em;
+  margin-bottom:6px}
+.tf-grid{display:grid;gap:8px;margin:10px 0}
+.tf-row{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:#fff;border:3px solid #dce8f6;border-radius:16px;padding:12px 14px}
+.tf-stmt{font-size:18px;font-weight:900;color:var(--navy);flex:1;line-height:1.35}
+.tf-btns{display:flex;gap:6px;flex-shrink:0}
+.tf-btn{background:#eef8ff;border:3px solid #dce8f6;border-radius:12px;padding:8px 12px;
+  font-weight:900;font-size:16px;cursor:pointer;transition:.14s}
+.tf-btn:hover:not(:disabled){border-color:var(--gold)}
+.tf-btn.correct{background:#e8f7ee;border-color:#60c58d;color:var(--green)}
+.tf-btn.wrong{background:#fff0ee;border-color:var(--red);color:var(--red)}
+.tf-btn:disabled{cursor:default}
+/* ── Final screen ── */
+.final{padding:34px;display:grid;grid-template-columns:1fr .9fr;gap:22px;align-items:center;min-height:620px;
+  background:radial-gradient(circle at 70% 28%,rgba(255,200,61,.35),transparent 25%),
     linear-gradient(135deg,rgba(255,253,240,.90),rgba(234,249,255,.74)),
-    url('bg-topaz-chamber.png') center/cover;
-}
-.final-title{font-size:clamp(44px,7vw,86px)}
+    url('bg-topaz-chamber.png') center/cover}
+.final-title{font-family:Bungee,system-ui;line-height:.96;margin:0;color:var(--navy);
+  font-size:clamp(44px,7vw,86px);text-shadow:0 5px 0 #fff,0 9px 0 rgba(255,200,61,.55)}
 .final p{font-size:23px;line-height:1.45;font-weight:800;color:#183a67}
-.treasure{
-  min-height:390px;border-radius:30px;border:5px solid #fff;display:grid;place-items:center;
-  background:
-    radial-gradient(circle,rgba(255,251,220,.88) 0 18%,rgba(255,213,106,.62) 19% 38%,rgba(123,205,247,.42) 39% 100%),
+.treasure{min-height:390px;border-radius:30px;border:5px solid #fff;display:grid;place-items:center;
+  background:radial-gradient(circle,rgba(255,251,220,.88) 0 18%,rgba(255,213,106,.62) 19% 38%,rgba(123,205,247,.42) 39% 100%),
     url('bg-topaz-chamber.png') center/cover;
   box-shadow:inset 0 0 0 5px rgba(255,255,255,.32),0 20px 48px rgba(7,29,66,.28);
-  position:relative;overflow:hidden;
-}
-.treasure::before{content:"";position:absolute;inset:-30%;background:conic-gradient(from 0deg,transparent,#ffffff90,transparent,#ffc83d70,transparent);animation:spin 8s linear infinite}
+  position:relative;overflow:hidden}
+.treasure::before{content:"";position:absolute;inset:-30%;
+  background:conic-gradient(from 0deg,transparent,#ffffff90,transparent,#ffc83d70,transparent);
+  animation:spin 8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.topaz{position:relative;z-index:1;font-size:170px;filter:drop-shadow(0 18px 18px rgba(7,29,66,.32));animation:treasurePulse 1.3s ease-in-out infinite alternate}
+.topaz{position:relative;z-index:1;font-size:170px;filter:drop-shadow(0 18px 18px rgba(7,29,66,.32));
+  animation:treasurePulse 1.3s ease-in-out infinite alternate}
 @keyframes treasurePulse{to{transform:scale(1.08) translateY(-6px)}}
-.badge-card{margin-top:18px;background:#fff;border:4px solid var(--gold);border-radius:24px;padding:18px;font-weight:900;font-size:21px}
-.journal-summary{
-  margin-top:18px;background:#eef8ff;border:3px solid #cfe7f9;border-radius:24px;padding:18px;
-}
+.badge-card{margin-top:18px;background:#fff;border:4px solid var(--gold);border-radius:24px;
+  padding:18px;font-weight:900;font-size:21px}
+.journal-summary{margin-top:18px;background:#eef8ff;border:3px solid #cfe7f9;border-radius:24px;padding:18px}
 .journal-summary h2{font-family:Bungee,system-ui;line-height:1;margin:0 0 10px;color:var(--navy)}
 .journal-summary ul{margin:0;padding-left:22px;font-size:19px;line-height:1.5;font-weight:900}
+.sharp-reader-award{margin-top:14px;background:linear-gradient(135deg,#fff7c8,#ffd86d);
+  border:4px solid var(--navy);border-radius:24px;padding:16px;font-weight:900;font-size:20px;display:none}
+.sharp-reader-award.show{display:block;animation:journalIn .4s ease}
+/* ── Responsive ── */
 @media(max-width:900px){
   .hero,.room,.final{grid-template-columns:1fr}
-  .room-scene{min-height:420px;border-right:0;border-bottom:4px solid #fff}.room-panel{min-height:auto}
-  .hero{text-align:center}.hero-actions{justify-content:center}.keys-bar{align-items:flex-start;grid-template-columns:1fr}.map-track{grid-template-columns:1fr 1fr}
+  .room-scene{min-height:420px;border-right:0;border-bottom:4px solid #fff}
+  .room-panel{min-height:auto}
+  .hero{text-align:center}.hero-actions{justify-content:center}
+  .keys-bar{align-items:flex-start;grid-template-columns:1fr}
+  .map-track{grid-template-columns:1fr 1fr}
   .hero::after{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.45))}
   .guide{width:190px}.guide::after{height:230px}
+  .seq-board,.pov-bins,.choice-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:560px){
-  .hero h1,.final-title{font-size:42px}.room-title{font-size:34px}.passage,.question{font-size:19px}.guide{display:none}
-  .guide-bubble{position:relative;left:auto;top:auto;margin:18px}.map-track{grid-template-columns:1fr}
+  .hero h1,.final-title{font-size:42px}.room-title{font-size:34px}
+  .guide{display:none}
+  .guide-bubble{position:relative;left:auto;top:auto;margin:18px}
+  .map-track{grid-template-columns:1fr}
+  .seq-board,.pov-bins{grid-template-columns:1fr}
+  .choice-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <div class="page">
-  <main class="wrap">
-    <div class="top"><a class="home" href="index.html">← SUMMER QUEST</a></div>
+<main class="wrap">
+<div class="top"><a class="home" href="index.html">← SUMMER QUEST</a></div>
 
-    <section class="screen active" id="intro">
-      <div class="panel hero">
-        <div>
-          <span class="kicker">THE LEGEND OF</span>
-          <h1>PRINSLOW<br>PALACE</h1>
-          <p>High above the clouds, a glass palace waits for brave readers. Read the lost palace journal, unlock seven crystal keys, and search for the Topaz Falcon.</p>
-          <div class="hero-actions">
-            <button class="primary" id="enterPalace">ENTER THE PALACE</button>
-            <a class="secondary" href="index.html">RETURN TO CAMP</a>
-          </div>
-        </div>
-        <div class="sky-palace" aria-label="Prinslow Palace">
-          <img src="falcon-palace-guide.png" alt="Falcon palace guide" style="width:min(250px,72%);max-height:310px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));">
+<!-- ═══════ INTRO SCREEN ═══════ -->
+<section class="screen active" id="intro">
+  <div class="panel hero">
+    <div>
+      <span class="kicker">THE LEGEND OF</span>
+      <h1>PRINSLOW<br>PALACE</h1>
+      <p>High above the clouds, a glass palace waits for brave readers. Read the lost palace journal, unlock seven crystal keys, and search for the Topaz Falcon.</p>
+      <div class="hero-actions">
+        <button class="primary" id="enterPalace">ENTER THE PALACE</button>
+        <a class="secondary" href="index.html">RETURN TO CAMP</a>
+      </div>
+    </div>
+    <div class="sky-palace" aria-label="Prinslow Palace">
+      <img src="falcon-palace-guide.png" alt="Falcon palace guide" style="width:min(250px,72%);max-height:310px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ GAME SCREEN ═══════ -->
+<section class="screen" id="game">
+  <div class="panel">
+    <div class="keys-bar">
+      <div><span class="key-chip">CRYSTAL KEYS:</span> <strong id="keyText">0/7</strong></div>
+      <div class="key-track" id="keyTrack"></div>
+      <div><span class="key-chip">JOURNAL PAGES:</span> <strong id="journalCount">0/7</strong></div>
+    </div>
+    <div class="palace-map">
+      <div class="map-title">PALACE MAP</div>
+      <div class="map-track" id="mapTrack"></div>
+    </div>
+    <div class="room">
+      <div class="room-scene" id="roomScene">
+        <div class="guide-bubble" id="guideBubble">Welcome, explorer. Read the lost journal carefully.</div>
+        <div class="guide" aria-hidden="true"></div>
+      </div>
+      <div class="room-panel" id="roomPanel">
+        <div class="room-kicker" id="roomKicker">CHAPTER 1</div>
+        <h1 class="room-title" id="roomTitle">Arrival Gate</h1>
+        <div class="story-label">Lost Palace Journal</div>
+        <div id="passageArea"></div>
+        <div id="mechanicArea"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="journal-page" id="journalPage"></div>
+        <div class="sharp-badge" id="sharpBadge">⭐ SHARP READER — no hints used!</div>
+        <div class="room-actions">
+          <button class="primary next" id="nextRoom">OPEN NEXT DOOR</button>
+          <button class="secondary" id="restart">RESTART QUEST</button>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section class="screen" id="game">
-      <div class="panel">
-        <div class="keys-bar">
-          <div><span class="key-chip">CRYSTAL KEYS:</span> <strong id="keyText">0/7</strong></div>
-          <div class="key-track" id="keyTrack"></div>
-          <div><span class="key-chip">JOURNAL PAGES:</span> <strong id="journalCount">0/7</strong></div>
-        </div>
-        <div class="palace-map">
-          <div class="map-title">PALACE MAP</div>
-          <div class="map-track" id="mapTrack"></div>
-        </div>
-        <div class="room">
-          <div class="room-scene" id="roomScene">
-            <div class="guide-bubble" id="guideBubble">Welcome, explorer. Read the next page of the lost journal.</div>
-            <div class="guide" aria-hidden="true"></div>
-          </div>
-          <div class="room-panel">
-            <div class="room-kicker" id="roomKicker">CHAPTER 1</div>
-            <h1 class="room-title" id="roomTitle">Arrival Gate</h1>
-            <div class="story-label" id="storyLabel">Lost Palace Journal</div>
-            <div class="passage" id="passage"></div>
-            <div class="question" id="question"></div>
-            <div class="choices" id="choices"></div>
-            <div class="feedback" id="feedback"></div>
-            <div class="journal-page" id="journalPage"></div>
-            <div class="room-actions">
-              <button class="primary next" id="nextRoom">OPEN NEXT DOOR</button>
-              <button class="secondary" id="restart">RESTART QUEST</button>
-            </div>
-          </div>
-        </div>
+<!-- ═══════ FINAL SCREEN ═══════ -->
+<section class="screen" id="final">
+  <div class="panel final">
+    <div>
+      <span class="kicker">THE FINAL CHAMBER</span>
+      <h1 class="final-title">TOPAZ<br>FALCON</h1>
+      <p>The seven crystal keys rise into the air. The journal pages flutter open. The bronze bird folds its wings, and the glass doors reveal the Topaz Falcon glowing with golden light.</p>
+      <div class="badge-card">🏆 You are now a <strong>Keeper of Prinslow Palace</strong>.</div>
+      <div class="sharp-reader-award" id="sharpAward">⭐ SHARP READER — You completed the palace without using any hints. Exceptional reading!</div>
+      <div class="journal-summary">
+        <h2>Lost Journal Complete</h2>
+        <ul id="finalJournal"></ul>
       </div>
-    </section>
-
-    <section class="screen" id="final">
-      <div class="panel final">
-        <div>
-          <span class="kicker">THE FINAL CHAMBER</span>
-          <h1 class="final-title">TOPAZ<br>FALCON</h1>
-          <p>The seven crystal keys rise into the air. The journal pages flutter open. The bronze bird folds its wings, and the glass doors reveal the Topaz Falcon glowing with golden light.</p>
-          <div class="badge-card">🏆 You are now a <strong>Keeper of Prinslow Palace</strong>.</div>
-          <div class="journal-summary">
-            <h2>Lost Journal Complete</h2>
-            <ul id="finalJournal"></ul>
-          </div>
-          <div class="hero-actions">
-            <button class="primary" id="playAgain">PLAY AGAIN</button>
-            <a class="secondary" href="index.html">RETURN TO CAMP</a>
-          </div>
-        </div>
-        <div class="treasure"><div class="topaz">🦅</div></div>
+      <div class="hero-actions">
+        <button class="primary" id="playAgain">PLAY AGAIN</button>
+        <a class="secondary" href="index.html">RETURN TO CAMP</a>
       </div>
-    </section>
-  </main>
+    </div>
+    <div class="treasure"><div class="topaz">🦅</div></div>
+  </div>
+</section>
+</main>
 </div>
 
 <script>
-// ─── ROOM DATA ───────────────────────────────────────────────────────────────
-// bg strings now use double-outer / single-inner quotes — fixes the JS syntax error.
-// answer stores the INDEX into choices[] of the correct answer.
-// At render time, choices are shuffled and the correct answer is tracked by content,
-// so the correct position changes every playthrough.
-
+// ═══════════════════════════════════════════════════════════════════
+// ROOM DATA
+// Each room defines its passage, skill, background, guide hint,
+// journal entry, and a `mechanic` key that tells the engine which
+// interaction type to render.
+// ═══════════════════════════════════════════════════════════════════
 const ROOMS = [
+  // ──────────────────────────────────────────────────────────────
+  // ROOM 1 · THE SKY DOCK · MAIN IDEA · Sentence Sort
+  // Student picks exactly 3 sentences that express the main idea.
+  // The other 6 are supporting details or irrelevant facts.
+  // ──────────────────────────────────────────────────────────────
   {
     title: 'The Sky Dock',
     short: 'Sky Dock',
     skill: 'MAIN IDEA',
     icon: '🌉',
     bg: "url('bg-sky-dock.png')",
-    guide: 'The bridge to Prinslow Palace is hidden in the clouds. Find what this chapter is mostly about.',
-    passage: 'Avery had never seen clouds from above before. They spread below the sky dock like a white ocean, rolling and shining under the morning sun. Ahead stood Prinslow Palace, a castle of glass towers, golden rails, and floating bridges. Every wall caught the light and sent it flashing in soft blue and yellow. Avery held the old map with both hands. The map had belonged to a palace keeper who vanished years ago. At the bottom of the map, tiny writing warned, Only a careful reader can reach the Topaz Falcon. Avery took one step onto the glass bridge. A bronze falcon statue turned its head, even though no wind was blowing. Seven empty keyholes glowed along the palace gate.',
-    question: 'What is the main idea of this chapter?',
-    choices: [
-      'Avery arrives at a hidden glass palace and sees signs of a mystery.',
-      'Avery is afraid of walking on bridges.',
-      'Clouds are always brighter in the morning.',
-      'The palace keeper liked drawing maps.'
+    guide: 'Some sentences tell the main idea. Others are just small details. Choose the three sentences that tell what this chapter is MOSTLY about.',
+    passage: 'Avery had never seen clouds from above before. They spread below the sky dock like a white ocean, rolling and shining under the morning sun. Ahead stood Prinslow Palace, a castle of glass towers, golden rails, and floating bridges. Every wall caught the light and sent it flashing in soft blue and yellow. Avery held the old map with both hands. The map had belonged to a palace keeper who vanished years ago. At the bottom of the map, tiny writing warned: Only a careful reader can reach the Topaz Falcon. Avery took one step onto the glass bridge. A bronze falcon statue turned its head, even though no wind was blowing. Seven empty keyholes glowed along the palace gate.',
+    journal: 'Avery reaches the sky dock and sees the glass palace, the old map, and seven empty keyholes.',
+    mechanic: 'sort',
+    instruction: 'Three of these sentences tell the MAIN IDEA of the chapter. Click them to move them into the journal. The other sentences are details — they do not belong.',
+    // The 9 sentences of the passage as separate tiles
+    sentences: [
+      { text: 'Avery had never seen clouds from above before.', main: false },
+      { text: 'They spread below the sky dock like a white ocean, rolling and shining under the morning sun.', main: false },
+      { text: 'Ahead stood Prinslow Palace, a castle of glass towers, golden rails, and floating bridges.', main: true },
+      { text: 'Every wall caught the light and sent it flashing in soft blue and yellow.', main: false },
+      { text: 'The map had belonged to a palace keeper who vanished years ago.', main: true },
+      { text: 'At the bottom of the map, tiny writing warned: Only a careful reader can reach the Topaz Falcon.', main: true },
+      { text: 'Avery took one step onto the glass bridge.', main: false },
+      { text: 'A bronze falcon statue turned its head, even though no wind was blowing.', main: false },
+      { text: 'Seven empty keyholes glowed along the palace gate.', main: false }
     ],
-    answer: 0,
-    explain: 'Yes. The chapter is mostly about Avery arriving at Prinslow Palace and discovering the mystery of the keys and Topaz Falcon.',
-    journal: 'Avery reaches the sky dock and sees the glass palace, the old map, and seven empty keyholes.'
+    explain: 'The main idea is that Avery arrives at a mysterious glass palace with a vanishing keeper, a map with a warning, and seven empty keyholes. The cloud description and wall colors are setting details, not the main point.',
+    hintAfter: 1  // show hint after 1 wrong attempt
   },
+
+  // ──────────────────────────────────────────────────────────────
+  // ROOM 2 · THE CRYSTAL LIBRARY · CONTEXT CLUES · Masked Clues
+  // Three clue words in the passage are masked. Student reveals
+  // them one at a time. Fewer reveals used = Sharp Reader bonus.
+  // Then chooses the meaning from 4 options.
+  // ──────────────────────────────────────────────────────────────
   {
     title: 'The Crystal Library',
     short: 'Library',
     skill: 'CONTEXT CLUES',
     icon: '📚',
     bg: "url('bg-crystal-library.png')",
-    guide: 'The library shelves drift through the clouds. Use clues around the word to unlock the next page.',
-    passage: 'Inside the palace, Avery entered a library where shelves floated without ropes or ladders. Books glided through the air like birds. One silver book landed softly on a crystal table and opened by itself. Its pages were fragile. Avery knew this because the paper was thin, cracked at the edges, and trembling each time the room breathed a cool breeze. The writing inside described a bronze falcon that once guarded the palace. It was not a normal statue. It watched, listened, and learned from every visitor. Avery leaned closer, but a page corner began to tear. Slowly, Avery placed one finger under the page and turned it with care.',
-    question: 'What does fragile most likely mean?',
-    choices: [
-      'easy to break',
-      'very loud',
-      'covered in dust',
-      'able to fly'
+    guide: 'The glowing word is the mystery. Tap the hidden clue words one at a time to help you figure out what it means. Fewer clues used makes you a sharper reader.',
+    passage: 'Inside the palace, Avery entered a library where shelves floated without ropes or ladders. Books glided through the air like birds. One silver book landed softly on a crystal table and opened by itself. Its pages were [FRAGILE]. Avery knew this because the paper was [CLUE1], cracked at the edges, and [CLUE2] each time the room breathed a cool breeze. The writing inside described a bronze falcon that once guarded the palace. It was not a normal statue. It watched, listened, and learned from every visitor. Avery leaned closer, but a page corner began to [CLUE3]. Slowly, Avery placed one finger under the page and turned it with care.',
+    journal: 'The Crystal Library holds a fragile book about a bronze falcon that watches, listens, and learns.',
+    mechanic: 'context',
+    instruction: 'The word FRAGILE is highlighted in gold. Use the hidden clue words to figure out what it means. Tap each [?] to reveal a clue. Try to figure it out with as few clues as possible.',
+    targetWord: 'FRAGILE',
+    clues: [
+      { mask: '[CLUE1]', word: 'thin', hint: '"thin" — the paper was thin' },
+      { mask: '[CLUE2]', word: 'trembling', hint: '"trembling" — shaking easily in a breeze' },
+      { mask: '[CLUE3]', word: 'tear', hint: '"tear" — the page began to tear apart' }
     ],
-    answer: 0,
-    explain: 'Correct. Thin, cracked, trembling, and beginning to tear are clues that fragile means easy to break.',
-    journal: 'The Crystal Library reveals a fragile book about a bronze falcon that watches, listens, and learns.'
+    choices: ['easy to break', 'very loud', 'covered in dust', 'able to fly'],
+    answer: 'easy to break',
+    explain: 'Fragile means easy to break. The clues are that the paper was thin, trembling in a light breeze, and beginning to tear — all signs of something that breaks easily.',
+    hintAfter: 2
   },
+
+  // ──────────────────────────────────────────────────────────────
+  // ROOM 3 · THE SILENT FALCON · INFERENCE · Sequence
+  // 4 action cards must be placed in correct story order.
+  // Each card shows what the falcon does. Student selects from
+  // pool then clicks a slot to place. Partial hint at 1 wrong.
+  // ──────────────────────────────────────────────────────────────
   {
     title: 'The Silent Falcon',
     short: 'Silent Falcon',
     skill: 'INFERENCE',
     icon: '🦅',
     bg: "url('bg-silent-falcon.png')",
-    guide: 'The palace falcon does not speak. Use its actions to infer what it may feel.',
+    guide: 'The falcon never speaks — but its actions tell a story. Read each action carefully. Put them in the order they happened in the chapter.',
     passage: 'The bronze falcon waited at the end of the hall. Its wings were folded tightly against its sides, and one claw rested on a cracked stone perch. Avery stepped closer. The falcon did not fly away. It only tilted its head and looked toward a locked door covered in dust. Beside the door sat a tiny metal bowl, empty except for one topaz feather. Avery noticed scratches on the floor, as if the falcon had walked back and forth for a very long time. When Avery picked up the feather, the falcon\'s eyes glowed softly. It took one slow step forward, then stopped and waited.',
-    question: 'What can the reader infer about the bronze falcon?',
-    choices: [
-      'It wants Avery to notice the feather and the locked door.',
-      'It is trying to scare Avery out of the palace.',
-      'It does not know where the door is.',
-      'It wants to leave the palace and go swimming.'
+    journal: 'The silent bronze falcon guides Avery to a locked door and a topaz feather without ever speaking.',
+    mechanic: 'sequence',
+    instruction: 'These four events happened in the chapter — but they are mixed up. Click an event card from the pool, then click the slot where it belongs (First, Second, Third, Fourth).',
+    events: [
+      { id: 0, icon: '👁️', text: 'The falcon tilted its head toward a locked dusty door.', order: 1 },
+      { id: 1, icon: '🪶', text: 'Avery noticed scratches on the floor from the falcon pacing.', order: 2 },
+      { id: 2, icon: '✨', text: 'Avery picked up the topaz feather and the falcon\'s eyes glowed.', order: 3 },
+      { id: 3, icon: '🦅', text: 'The falcon took one slow step forward, then stopped and waited.', order: 4 }
     ],
-    answer: 0,
-    explain: 'Right. The falcon looks toward the door, stays near the feather, and reacts when Avery picks it up.',
-    journal: 'The silent bronze falcon seems to guide Avery toward a locked door and a topaz feather.'
+    explain: 'The falcon first directed Avery to the door, which let Avery notice the pacing scratches — evidence the falcon had been waiting a long time. Picking up the feather triggered the glow. Finally the falcon stepped forward, signaling Avery was on the right path.',
+    hintAfter: 1
   },
+
+  // ──────────────────────────────────────────────────────────────
+  // ROOM 4 · THE OBSERVATORY · TEXT EVIDENCE · Click the sentence
+  // A claim is shown. The passage is split into clickable sentences.
+  // Wrong sentences get a brief explanation of why they don't work.
+  // ──────────────────────────────────────────────────────────────
   {
     title: 'The Observatory Window',
     short: 'Observatory',
     skill: 'TEXT EVIDENCE',
     icon: '🔭',
     bg: "url('bg-observatory.png')",
-    guide: 'The observatory shows clues through the glass. Choose the sentence that best supports the answer.',
+    guide: 'A claim sits at the top. Your job is to find the exact sentence in the passage that proves it. Read carefully — some sentences seem close but do not directly support the claim.',
     passage: 'Avery climbed a spiral staircase into the observatory. A giant telescope pointed through the glass ceiling, aimed at a ring of clouds around the palace. The bronze falcon followed, tapping its beak twice against the floor whenever Avery chose the correct stair. At the top, Avery found a journal page pinned beneath a crystal star. The page said the palace had been built to protect stories, not treasure. Avery read that sentence twice. If the palace protected stories, then the Topaz Falcon might not be valuable because it was gold. It might be valuable because it remembered every story the palace had ever kept.',
-    question: 'Which sentence best supports the idea that the Topaz Falcon is important because of stories?',
-    choices: [
-      'The page said the palace had been built to protect stories, not treasure.',
-      'A giant telescope pointed through the glass ceiling.',
-      'The bronze falcon followed.',
-      'Avery climbed a spiral staircase into the observatory.'
+    journal: 'A journal page in the observatory reveals that Prinslow Palace was built to protect stories, not treasure.',
+    mechanic: 'evidence',
+    instruction: 'Read the claim below. Then tap the ONE sentence in the passage that best supports it.',
+    claim: 'The Topaz Falcon is important because of the stories it has kept — not because it is made of gold.',
+    // Sentence index that is correct (0-based split by '. ')
+    sentences: [
+      { text: 'Avery climbed a spiral staircase into the observatory.', correct: false, wrongFeedback: 'This tells us where Avery is, but it says nothing about the Falcon or stories.' },
+      { text: 'A giant telescope pointed through the glass ceiling, aimed at a ring of clouds around the palace.', correct: false, wrongFeedback: 'This describes the telescope. It does not say anything about what the Falcon is worth.' },
+      { text: 'The bronze falcon followed, tapping its beak twice against the floor whenever Avery chose the correct stair.', correct: false, wrongFeedback: 'This shows the falcon helping Avery, but it does not explain why the Topaz Falcon is valuable.' },
+      { text: 'At the top, Avery found a journal page pinned beneath a crystal star.', correct: false, wrongFeedback: 'This tells us where the journal page was found — not what it says about value.' },
+      { text: 'The page said the palace had been built to protect stories, not treasure.', correct: true, wrongFeedback: '' },
+      { text: 'Avery read that sentence twice.', correct: false, wrongFeedback: 'This tells us Avery found it important — but it does not directly tell us WHY the Falcon matters.' },
+      { text: 'If the palace protected stories, then the Topaz Falcon might not be valuable because it was gold.', correct: false, wrongFeedback: 'Close — but this sentence is Avery\'s reasoning, not the direct evidence from the page.' },
+      { text: 'It might be valuable because it remembered every story the palace had ever kept.', correct: false, wrongFeedback: 'This is also Avery\'s reasoning. The claim asks for evidence FROM the text, not a conclusion drawn from it.' }
     ],
-    answer: 0,
-    explain: 'Yes. That sentence directly supports the idea that stories matter more than treasure in the palace.',
-    journal: 'Avery learns that Prinslow Palace was built to protect stories, not just treasure.'
+    explain: 'The sentence "The page said the palace had been built to protect stories, not treasure" is the direct text evidence. It is a fact stated in the journal — not Avery\'s opinion or conclusion.',
+    hintAfter: 2
   },
+
+  // ──────────────────────────────────────────────────────────────
+  // ROOM 5 · THE GALLERY · POINT OF VIEW · Pronoun Sort
+  // 8 chips from the passage sorted into 3 POV bins.
+  // Student selects a chip then clicks a bin to place it.
+  // Wrong placements bounce back and flash. Trap chips included.
+  // ──────────────────────────────────────────────────────────────
   {
     title: 'The Gallery of Voices',
     short: 'Gallery',
     skill: 'POINT OF VIEW',
     icon: '🖼️',
     bg: "url('bg-gallery.png')",
-    guide: 'The paintings speak in different voices. Watch for words that show who is telling the story.',
-    passage: 'A painting shimmered, and a voice filled the gallery. I was the last keeper of Prinslow Palace. I polished the glass bridges each morning and read to the bronze falcon each night. I believed the falcon understood every word. When the storm clouds rose too high, I hid the Topaz Falcon where only a thoughtful explorer could find it. I left seven keys behind, not to keep readers out, but to help them slow down and notice what mattered. If you are reading this, the palace has chosen you to listen carefully.',
-    question: 'Which point of view is used in the painting\'s message?',
-    choices: [
-      'first person',
-      'second person only',
-      'third person',
-      'a weather forecast'
+    guide: 'A painting is speaking. Sort the words and phrases into the correct point-of-view bins. Think carefully — some of these are trickier than they look.',
+    passage: 'A painting shimmered, and a voice filled the gallery. "I was the last keeper of Prinslow Palace. I polished the glass bridges each morning and read to the bronze falcon each night. I believed the falcon understood every word. When the storm clouds rose too high, I hid the Topaz Falcon where only a thoughtful explorer could find it. I left seven keys behind, not to keep readers out, but to help them slow down and notice what mattered. If you are reading this, the palace has chosen you to listen carefully."',
+    journal: 'The last palace keeper speaks from a painting, explaining why the seven keys were left for careful readers.',
+    mechanic: 'pov',
+    instruction: 'Sort each word or phrase into the correct point-of-view bin. Click a chip to select it, then click the bin where it belongs.',
+    chips: [
+      { text: 'I was', pov: 'first', id: 0 },
+      { text: 'I polished', pov: 'first', id: 1 },
+      { text: 'I believed', pov: 'first', id: 2 },
+      { text: 'I hid', pov: 'first', id: 3 },
+      { text: 'If you are reading this', pov: 'second', id: 4 },
+      { text: 'the palace has chosen you', pov: 'second', id: 5 },
+      { text: 'the storm clouds rose', pov: 'third', id: 6 },
+      { text: 'a thoughtful explorer could find it', pov: 'third', id: 7 }
     ],
-    answer: 0,
-    explain: 'Correct. The narrator says I and my, which shows first-person point of view.',
-    journal: 'A palace keeper speaks from a painting and explains why the seven keys were left behind.'
+    bins: [
+      { key: 'first', label: 'FIRST PERSON', hint: 'Uses I, me, my, we, our' },
+      { key: 'second', label: 'SECOND PERSON', hint: 'Uses you, your' },
+      { key: 'third', label: 'THIRD PERSON', hint: 'Uses he, she, they, it, or names' }
+    ],
+    explain: 'The keeper uses first person ("I") to tell her own story. She shifts to second person ("you") when she speaks directly to the reader. Phrases about the storm and the explorer are in third person because they refer to things outside the speaker.',
+    hintAfter: 2
   },
+
+  // ──────────────────────────────────────────────────────────────
+  // ROOM 6 · THE GARDEN OF GLASS · THEME · Word Bank Builder
+  // Student taps 7 words in sequence to build the theme sentence.
+  // 2 trap words ("alone", "quickly") cause the last built word
+  // to be removed and the trap shakes red. Student cannot skip
+  // or pre-see the answer order — must think through the meaning.
+  // ──────────────────────────────────────────────────────────────
   {
     title: 'The Garden of Glass',
     short: 'Garden',
     skill: 'THEME',
     icon: '🌿',
     bg: "url('bg-glass-garden.png')",
-    guide: 'A glass garden grows high above the clouds. Find the lesson hidden in this chapter.',
+    guide: 'The theme is the big lesson the whole story teaches. Build the theme sentence by tapping words from the crystal vine in the right order. Watch out — two of the words do not belong.',
     passage: 'In the glass garden, Avery found the sixth key trapped inside a crystal vine. The bronze falcon pulled at the vine with its beak, but the vine tightened. Avery tried to tug the key free alone, but the crystal only scraped Avery\'s hands. Then Avery remembered the journal: slow down and notice what mattered. The vine had six leaves, and each leaf glowed when touched gently. Avery touched one leaf, and the falcon tapped another. Together they moved around the vine until all six leaves shone. The vine opened without breaking, and the key dropped softly into Avery\'s palm.',
-    question: 'What is the best theme of this chapter?',
-    choices: [
-      'Working carefully with others can solve problems.',
-      'Gardens are always dangerous places.',
-      'Keys should be pulled as hard as possible.',
-      'Falcons do not like crystal vines.'
-    ],
-    answer: 0,
-    explain: 'Yes. Avery and the falcon solve the problem by slowing down, noticing, and working together.',
-    journal: 'Avery and the bronze falcon unlock the garden key by working carefully together.'
+    journal: 'Avery and the bronze falcon unlock the garden key by slowing down, working together, and noticing carefully.',
+    mechanic: 'builder',
+    instruction: 'Tap the words in order to build the theme sentence. Two words in the bank are TRAPS — they will undo your last word if you tap them.',
+    // The correct sentence (words in order)
+    targetWords: ['Working', 'patiently', 'with', 'others', 'can', 'solve', 'problems'],
+    // All words shown in the bank (target + traps, shuffled in render)
+    bankWords: ['Working', 'patiently', 'with', 'others', 'can', 'solve', 'problems', 'alone', 'quickly'],
+    traps: ['alone', 'quickly'],
+    explain: 'The theme is "Working patiently with others can solve problems." Avery pulling alone made things worse. Only by working gently together with the falcon — noticing and taking turns — did the vine open.',
+    hintAfter: 2
   },
+
+  // ──────────────────────────────────────────────────────────────
+  // ROOM 7 · THE TOPAZ CHAMBER · MIXED · Three-Part Gauntlet
+  // Part A: click the evidence sentence (text evidence)
+  // Part B: word bank — fill the missing 4 words in a sentence
+  // Part C: true/false battery — 4 inference statements
+  // Each part lights one of three key slots. All three = complete.
+  // ──────────────────────────────────────────────────────────────
   {
     title: 'The Topaz Chamber',
     short: 'Topaz Chamber',
     skill: 'MIXED CHALLENGE',
     icon: '🗝️',
     bg: "url('bg-topaz-chamber.png')",
-    guide: 'The final chamber mixes your reading powers. Use inference, theme, and evidence to finish the quest.',
+    guide: 'Three challenges stand between you and the Topaz Falcon. Use everything you have learned. Each challenge lights one of the three final keys.',
     passage: 'The final door opened into a quiet chamber filled with golden light. The bronze falcon stepped onto a round platform and lowered its head. Avery placed the seven keys into the floor. One by one, the keys began to shine. The old journal pages lifted into the air and circled the room like bright birds. Avery finally understood. The palace had not been testing readers to keep them away. It had been teaching them how to pay attention. The Topaz Falcon appeared, glowing at the center of the chamber. The bronze falcon looked at Avery, then at the journal pages, as if asking the explorer to remember what had been learned.',
-    question: 'Which sentence best states the lesson Avery learns?',
-    choices: [
-      'Careful readers notice clues, think deeply, and learn from stories.',
-      'Golden rooms are brighter than blue rooms.',
-      'Every palace needs seven doors.',
-      'Maps are never useful during a quest.'
-    ],
-    answer: 0,
-    explain: 'Correct. Avery learns that reading carefully means noticing clues, thinking, and learning from stories.',
-    journal: 'Avery discovers that Prinslow Palace was teaching readers to notice clues and think deeply.'
+    journal: 'The Topaz Chamber reveals that Prinslow Palace was never a test to keep readers out — it was a school for paying attention.',
+    mechanic: 'gauntlet',
+    // Part A — Text Evidence
+    partA: {
+      label: 'PART A · TEXT EVIDENCE',
+      claim: 'The palace was designed to teach careful attention, not to stop readers from entering.',
+      sentences: [
+        { text: 'The final door opened into a quiet chamber filled with golden light.', correct: false, wrongFeedback: 'This describes the setting. It does not say anything about the palace\'s purpose.' },
+        { text: 'The bronze falcon stepped onto a round platform and lowered its head.', correct: false, wrongFeedback: 'This shows the falcon\'s action — not what the palace was built to do.' },
+        { text: 'Avery placed the seven keys into the floor.', correct: false, wrongFeedback: 'This describes Avery\'s action, not the palace\'s purpose.' },
+        { text: 'The palace had not been testing readers to keep them away.', correct: false, wrongFeedback: 'This sentence tells us what the palace was NOT doing — the next sentence explains what it was DOING. Both together work, but the question asks for the one that best shows the purpose.' },
+        { text: 'It had been teaching them how to pay attention.', correct: true, wrongFeedback: '' },
+        { text: 'The Topaz Falcon appeared, glowing at the center of the chamber.', correct: false, wrongFeedback: 'This describes the falcon appearing — not what the palace was designed for.' },
+        { text: 'The bronze falcon looked at Avery, then at the journal pages, as if asking the explorer to remember what had been learned.', correct: false, wrongFeedback: 'This shows the falcon\'s gesture — it hints at the theme but is not the direct evidence about the palace\'s purpose.' }
+      ]
+    },
+    // Part B — Word Builder (fill 4 missing words)
+    partB: {
+      label: 'PART B · THEME BUILDER',
+      instruction: 'Build the missing part of this sentence by tapping the correct words in order.',
+      prefix: 'Prinslow Palace taught Avery that',
+      targetWords: ['careful', 'readers', 'notice', 'and', 'learn'],
+      bankWords: ['careful', 'readers', 'notice', 'and', 'learn', 'fast', 'ignore'],
+      traps: ['fast', 'ignore'],
+      suffix: 'from every story.'
+    },
+    // Part C — True/False battery
+    partC: {
+      label: 'PART C · TRUE OR FALSE',
+      instruction: 'Mark each statement TRUE or FALSE based on what the passage tells you.',
+      statements: [
+        { text: 'The bronze falcon lowered its head when Avery entered the chamber.', answer: true, wrongFeedback: 'Reread: "The bronze falcon stepped onto a round platform and lowered its head." TRUE.' },
+        { text: 'The palace was built to prevent careless readers from reaching the Topaz Falcon.', answer: false, wrongFeedback: 'The text says the palace was "teaching them how to pay attention" — not trying to keep people out. FALSE.' },
+        { text: 'The journal pages rose into the air and circled the room.', answer: true, wrongFeedback: 'Reread: "The old journal pages lifted into the air and circled the room like bright birds." TRUE.' },
+        { text: 'Avery placed the Topaz Falcon into the floor to make the keys shine.', answer: false, wrongFeedback: 'Avery placed the KEYS into the floor, not the Topaz Falcon. The Falcon then appeared. FALSE.' }
+      ]
+    },
+    explain: 'The Topaz Chamber confirms everything: the palace taught attention through each challenge. The evidence sentence, the theme, and the inference statements all connect back to the same idea — careful readers grow by paying attention.',
+    hintAfter: 1
   }
 ];
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
 let roomIndex = 0;
 let keys = 0;
-let answered = false;
-// shuffledOrder stores the display order of choices for the current room.
-// correctDisplayIndex is which button position holds the right answer.
-let correctDisplayIndex = 0;
+let roomAnswered = false;
+let totalHintsUsed = 0;
+let roomHintsUsed = 0;
+
+// Room 1 state
+let sortSelected = null;
+let sortSlotsFilled = [];
+
+// Room 2 state
+let cluesRevealed = 0;
+let contextAnswered = false;
+
+// Room 3 state
+let seqSelected = null;
+let seqPlaced = {}; // slotIndex → eventId
+let seqAttempts = 0;
+
+// Room 4 state
+let evidenceAttempts = 0;
+
+// Room 5 state
+let povSelected = null;
+let povPlaced = {}; // chipId → bin key
+let povAttempts = 0;
+
+// Room 6 state
+let builtWords = [];
+let builderAttempts = 0;
+
+// Room 7 state
+let gauntletPart = 0; // 0=A, 1=B, 2=C
+let gauntletKeys = [false, false, false];
+let g7BuiltWords = [];
+let g7TFAnswered = [false, false, false, false];
+let g7TFCorrect = [false, false, false, false];
+let g7EvidenceAttempts = 0;
+let g7BuilderAttempts = 0;
 
 const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
-function shuffle(arr) {
-  // Fisher-Yates — unbiased shuffle
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function tone(freq, dur) {
+// ═══════════════════════════════════════════════════════════════════
+// AUDIO
+// ═══════════════════════════════════════════════════════════════════
+function tone(freq, dur, type = 'triangle') {
   try {
-    const Ctx = window.AudioContext || window.webkitAudioContext;
-    const ctx = new Ctx();
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const osc = ctx.createOscillator();
     const g = ctx.createGain();
-    osc.type = 'triangle';
+    osc.type = type;
     osc.frequency.value = freq;
     g.gain.setValueAtTime(0.001, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.07, ctx.currentTime + 0.01);
@@ -485,105 +705,990 @@ function tone(freq, dur) {
     osc.start(); osc.stop(ctx.currentTime + dur + 0.02);
   } catch(e) {}
 }
+function playCorrect(){ tone(660, 0.14); setTimeout(()=>tone(880, 0.12), 110); }
+function playWrong(){ tone(200, 0.18, 'sawtooth'); }
+function playKey(){ tone(523, 0.1); setTimeout(()=>tone(659, 0.1), 90); setTimeout(()=>tone(784, 0.18), 180); }
 
-// ─── SCREENS ─────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// SCREEN / NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $$('.screen').forEach(s => s.classList.remove('active'));
   $('#' + id).classList.add('active');
   window.scrollTo(0, 0);
 }
 
-// ─── PROGRESS ────────────────────────────────────────────────────────────────
-function saveProgress() {
-  try {
-    const save = JSON.parse(localStorage.getItem('falconCampSave')) || {};
-    save.prinslowPalaceProgress = keys;
-    if (keys >= 7) save.prinslowPalaceComplete = true;
-    localStorage.setItem('falconCampSave', JSON.stringify(save));
-  } catch(e) {}
+function shuffleArr(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-// ─── RENDER ───────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// KEYS + MAP
+// ═══════════════════════════════════════════════════════════════════
 function renderKeys() {
   $('#keyText').textContent = keys + '/7';
   $('#journalCount').textContent = keys + '/7';
   $('#keyTrack').innerHTML = ROOMS.map((_, i) =>
     `<div class="key ${i < keys ? 'on' : ''}">🔑</div>`).join('');
   $('#mapTrack').innerHTML = ROOMS.map((r, i) =>
-    `<div class="map-node ${i < keys ? 'done' : ''} ${i === roomIndex ? 'current' : ''}">${i + 1}. ${r.short}</div>`).join('');
+    `<div class="map-node ${i < keys ? 'done' : ''} ${i === roomIndex ? 'current' : ''}">${i+1}. ${r.short}</div>`).join('');
 }
 
-function renderRoom() {
-  answered = false;
-  const r = ROOMS[roomIndex];
+// ═══════════════════════════════════════════════════════════════════
+// FEEDBACK HELPERS
+// ═══════════════════════════════════════════════════════════════════
+function showFeedback(msg, type) {
+  const fb = $('#feedback');
+  fb.className = 'feedback show ' + type;
+  fb.innerHTML = msg;
+}
+function clearFeedback() {
+  $('#feedback').className = 'feedback';
+  $('#feedback').innerHTML = '';
+}
 
+function showHint(msg) {
+  roomHintsUsed++;
+  totalHintsUsed++;
+  showFeedback('💡 Hint: ' + msg, 'hint');
+}
+
+function showNextButton() {
+  $('#nextRoom').classList.add('show');
+  if (roomHintsUsed === 0) {
+    $('#sharpBadge').classList.add('show');
+  }
+}
+
+function lockRoom() {
+  roomAnswered = true;
+  keys = Math.max(keys, roomIndex + 1);
+  const r = ROOMS[roomIndex];
+  $('#journalPage').className = 'journal-page show';
+  $('#journalPage').innerHTML = `<strong>Journal Page ${roomIndex + 1} Collected</strong>${r.journal}`;
+  renderKeys();
+  saveProgress();
+  playKey();
+  showNextButton();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ROOM RENDERER — dispatches to mechanic-specific builder
+// ═══════════════════════════════════════════════════════════════════
+function renderRoom() {
+  roomAnswered = false;
+  roomHintsUsed = 0;
+  sortSelected = null;
+  sortSlotsFilled = [];
+  cluesRevealed = 0;
+  contextAnswered = false;
+  seqSelected = null;
+  seqPlaced = {};
+  seqAttempts = 0;
+  evidenceAttempts = 0;
+  povSelected = null;
+  povPlaced = {};
+  povAttempts = 0;
+  builtWords = [];
+  builderAttempts = 0;
+  gauntletPart = 0;
+  gauntletKeys = [false, false, false];
+  g7BuiltWords = [];
+  g7TFAnswered = [false, false, false, false];
+  g7TFCorrect = [false, false, false, false];
+  g7EvidenceAttempts = 0;
+  g7BuilderAttempts = 0;
+
+  const r = ROOMS[roomIndex];
   $('#roomKicker').textContent = 'CHAPTER ' + (roomIndex + 1) + ' · ' + r.skill;
   $('#roomTitle').textContent = r.title;
   $('#roomScene').style.setProperty('--room-bg', r.bg);
   $('#guideBubble').textContent = r.guide;
-  $('#passage').textContent = r.passage;
-  $('#question').textContent = r.question;
   $('#feedback').className = 'feedback';
-  $('#feedback').textContent = '';
+  $('#feedback').innerHTML = '';
   $('#journalPage').className = 'journal-page';
   $('#journalPage').innerHTML = '';
+  $('#sharpBadge').classList.remove('show');
   $('#nextRoom').classList.remove('show');
 
-  // Shuffle choices so the correct answer isn't always first.
-  // We store the correct answer TEXT, then find its new index after shuffling.
-  const correctText = r.choices[r.answer];
-  const shuffled = shuffle(r.choices);
-  correctDisplayIndex = shuffled.indexOf(correctText);
-
-  $('#choices').innerHTML = shuffled
-    .map((c, i) => `<button class="choice" data-choice="${i}">${c}</button>`)
-    .join('');
-
   renderKeys();
-}
 
-// ─── GAME LOGIC ───────────────────────────────────────────────────────────────
-function chooseAnswer(i) {
-  if (answered) return;
-  const r = ROOMS[roomIndex];
-  const buttons = [...document.querySelectorAll('[data-choice]')];
-  const fb = $('#feedback');
+  const passageArea = $('#passageArea');
+  const mechanicArea = $('#mechanicArea');
 
-  if (i === correctDisplayIndex) {
-    answered = true;
-    keys = Math.max(keys, roomIndex + 1);
-
-    // Mark correct button green, dim others
-    buttons.forEach((b, idx) => {
-      b.disabled = true;
-      if (idx === correctDisplayIndex) b.classList.add('correct');
-    });
-
-    fb.className = 'feedback show good';
-    fb.textContent = r.explain + ' Crystal Key ' + (roomIndex + 1) + ' unlocked.';
-
-    $('#journalPage').className = 'journal-page show';
-    $('#journalPage').innerHTML =
-      `<strong>Journal Page ${roomIndex + 1} Collected</strong>${r.journal}`;
-
-    // Show the OPEN NEXT DOOR button — student advances at their own pace.
-    $('#nextRoom').classList.add('show');
-
-    renderKeys();
-    saveProgress();
-    tone(660, 0.18);
-    setTimeout(() => tone(880, 0.14), 120);
-
-  } else {
-    buttons[i].classList.add('wrong');
-    fb.className = 'feedback show oops';
-    fb.textContent = 'Not yet. Look back at the journal page and try another answer.';
-    tone(220, 0.22);
+  if (r.mechanic === 'sort') {
+    renderSort(r, passageArea, mechanicArea);
+  } else if (r.mechanic === 'context') {
+    renderContext(r, passageArea, mechanicArea);
+  } else if (r.mechanic === 'sequence') {
+    renderSequence(r, passageArea, mechanicArea);
+  } else if (r.mechanic === 'evidence') {
+    renderEvidence(r, passageArea, mechanicArea);
+  } else if (r.mechanic === 'pov') {
+    renderPOV(r, passageArea, mechanicArea);
+  } else if (r.mechanic === 'builder') {
+    renderBuilder(r, passageArea, mechanicArea);
+  } else if (r.mechanic === 'gauntlet') {
+    renderGauntlet(r, passageArea, mechanicArea);
   }
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// ROOM 1 — SENTENCE SORT
+// ═══════════════════════════════════════════════════════════════════
+function renderSort(r, passageArea, mechanicArea) {
+  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+
+  const shuffled = shuffleArr(r.sentences);
+  const totalMain = r.sentences.filter(s => s.main).length; // 3
+
+  mechanicArea.innerHTML = `
+    <div class="instruction">${r.instruction}</div>
+    <div class="main-idea-zone">
+      <h3>📖 MAIN IDEA JOURNAL (choose ${totalMain})</h3>
+      <div class="sort-slots" id="sortSlots">
+        ${Array.from({length: totalMain}, (_, i) =>
+          `<div class="sort-slot" id="slot${i}" data-slot="${i}">Click a sentence below to place it here</div>`
+        ).join('')}
+      </div>
+    </div>
+    <div class="sort-pool" id="sortPool">
+      ${shuffled.map((s, i) =>
+        `<button class="sent-tile" data-sidx="${i}" data-main="${s.main}">${s.text}</button>`
+      ).join('')}
+    </div>
+    <button class="check-btn" id="sortCheck" style="margin-top:8px">CHECK MY CHOICES</button>
+  `;
+
+  // Store shuffled order for click handler
+  mechanicArea._shuffledSentences = shuffled;
+
+  let currentSlot = 0;
+
+  document.addEventListener('click', handleSortClick, { signal: roomSignal() });
+
+  function handleSortClick(e) {
+    if (roomAnswered) return;
+
+    const tile = e.target.closest('.sent-tile');
+    const checkBtn = e.target.closest('#sortCheck');
+
+    if (tile) {
+      if (tile.classList.contains('correct')) return;
+      // Toggle selection
+      $$('.sent-tile').forEach(t => t.classList.remove('selected'));
+      if (sortSelected === tile) {
+        sortSelected = null;
+        return;
+      }
+      sortSelected = tile;
+      tile.classList.add('selected');
+
+      // Auto-place into next available slot
+      const slot = document.getElementById('slot' + currentSlot);
+      if (slot && currentSlot < totalMain) {
+        const idx = Number(tile.dataset.sidx);
+        const sentence = shuffled[idx];
+        sortSlotsFilled[currentSlot] = { sentence, tile, idx };
+        slot.textContent = sentence.text;
+        slot.classList.add('filled');
+        slot.dataset.sidx = idx;
+        tile.classList.add('selected');
+        tile.disabled = true;
+        tile.style.opacity = '0.38';
+        sortSelected = null;
+        currentSlot++;
+        clearFeedback();
+      } else if (currentSlot >= totalMain) {
+        showFeedback('You have filled all three slots. Click CHECK MY CHOICES or click a filled slot to swap.', 'oops');
+      }
+    }
+
+    // Allow clicking a filled slot to return a sentence to the pool
+    const slot = e.target.closest('.sort-slot.filled');
+    if (slot && !roomAnswered) {
+      const sidx = Number(slot.dataset.sidx);
+      const tile = document.querySelector(`.sent-tile[data-sidx="${sidx}"]`);
+      if (tile) {
+        tile.disabled = false;
+        tile.style.opacity = '';
+        tile.classList.remove('selected');
+      }
+      slot.textContent = 'Click a sentence below to place it here';
+      slot.classList.remove('filled');
+      delete slot.dataset.sidx;
+      // Rebuild currentSlot
+      currentSlot = $$('.sort-slot.filled').length;
+      sortSlotsFilled = sortSlotsFilled.filter((_, i) => {
+        return document.getElementById('slot' + i)?.classList.contains('filled');
+      });
+    }
+
+    if (checkBtn) {
+      // Must have 3 slots filled
+      const filled = $$('.sort-slot.filled');
+      if (filled.length < totalMain) {
+        showFeedback('Choose ' + totalMain + ' sentences before checking. You have ' + filled.length + ' so far.', 'oops');
+        return;
+      }
+      const selectedIdxs = filled.map(s => Number(s.dataset.sidx));
+      const allCorrect = selectedIdxs.every(idx => shuffled[idx].main);
+      if (allCorrect) {
+        filled.forEach(s => s.classList.add('filled'));
+        $$('.sent-tile').forEach(t => t.disabled = true);
+        document.getElementById('sortCheck').disabled = true;
+        showFeedback('✅ ' + r.explain, 'good');
+        lockRoom();
+        playCorrect();
+      } else {
+        // Mark wrong ones
+        selectedIdxs.forEach((idx, i) => {
+          if (!shuffled[idx].main) {
+            filled[i].classList.add('wrong-slot');
+            setTimeout(() => filled[i].classList.remove('wrong-slot'), 400);
+          }
+        });
+        playWrong();
+        const attempts = (mechanicArea._attempts = (mechanicArea._attempts || 0) + 1);
+        if (attempts >= r.hintAfter) {
+          showHint('Look for the sentences that tell us about the PALACE, the MAP, and the WARNING. Details about clouds or walls are not the main idea.');
+        } else {
+          showFeedback('Not quite. At least one of your choices is a small detail, not a main idea. Review and try again.', 'oops');
+        }
+      }
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ROOM 2 — CONTEXT CLUES (Masked Clues)
+// ═══════════════════════════════════════════════════════════════════
+function renderContext(r, passageArea, mechanicArea) {
+  // Build passage HTML with mystery word highlighted and clues masked
+  let passageHTML = r.passage
+    .replace('[FRAGILE]', '<span class="mystery-word">FRAGILE</span>')
+    .replace('[CLUE1]', '<button class="clue-mask" data-clue="0">[?]</button>')
+    .replace('[CLUE2]', '<button class="clue-mask" data-clue="1">[?]</button>')
+    .replace('[CLUE3]', '<button class="clue-mask" data-clue="2">[?]</button>');
+
+  passageArea.innerHTML = `<div class="clue-passage">${passageHTML}</div>`;
+
+  const shuffledChoices = shuffleArr(r.choices);
+  mechanicArea.innerHTML = `
+    <div class="instruction">${r.instruction}</div>
+    <div class="clue-reveal-info" id="clueInfo">Clues revealed: 0 of 3 — (fewer clues = sharper reader)</div>
+    <div class="choice-grid" id="contextChoices" style="display:none">
+      ${shuffledChoices.map(c =>
+        `<button class="choice-btn" data-cval="${c}">${c}</button>`
+      ).join('')}
+    </div>
+    <p id="choicePrompt" style="font-size:19px;font-weight:900;color:var(--royal);margin:10px 0">Reveal at least one clue word, then choose what FRAGILE means.</p>
+  `;
+
+  document.addEventListener('click', handleContextClick, { signal: roomSignal() });
+
+  function handleContextClick(e) {
+    if (roomAnswered) return;
+
+    const clueBtn = e.target.closest('.clue-mask:not(.revealed)');
+    if (clueBtn) {
+      const idx = Number(clueBtn.dataset.clue);
+      const clue = r.clues[idx];
+      clueBtn.textContent = clue.word;
+      clueBtn.classList.add('revealed');
+      clueBtn.classList.remove('clue-mask');
+      cluesRevealed++;
+      document.getElementById('clueInfo').textContent =
+        `Clues revealed: ${cluesRevealed} of 3 — ${clue.hint}`;
+      // Unlock choices after first reveal
+      document.getElementById('contextChoices').style.display = 'grid';
+      document.getElementById('choicePrompt').style.display = 'none';
+      clearFeedback();
+    }
+
+    const choiceBtn = e.target.closest('.choice-btn:not(:disabled)');
+    if (choiceBtn) {
+      if (cluesRevealed === 0) {
+        showFeedback('Reveal at least one clue word first by clicking the [?] buttons.', 'oops');
+        return;
+      }
+      const val = choiceBtn.dataset.cval;
+      if (val === r.answer) {
+        choiceBtn.classList.add('correct');
+        $$('.choice-btn').forEach(b => b.disabled = true);
+        const bonus = cluesRevealed === 1 ? ' You figured it out with just ONE clue — excellent!' :
+                      cluesRevealed === 2 ? ' You used only two clues — sharp reading!' : '';
+        showFeedback('✅ ' + r.explain + bonus, 'good');
+        lockRoom();
+        playCorrect();
+      } else {
+        choiceBtn.classList.add('wrong');
+        setTimeout(() => choiceBtn.classList.remove('wrong'), 700);
+        playWrong();
+        const attempts = (mechanicArea._attempts = (mechanicArea._attempts || 0) + 1);
+        if (attempts >= r.hintAfter) {
+          showHint('Look at the clue words you have revealed. Thin, trembling, and tearing all point to something that breaks easily. Which answer matches?');
+        } else {
+          showFeedback('Not this one. Look at the clue words and think about what connects them.', 'oops');
+        }
+      }
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ROOM 3 — SEQUENCE (Drag-select and place)
+// ═══════════════════════════════════════════════════════════════════
+function renderSequence(r, passageArea, mechanicArea) {
+  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+
+  const shuffledEvents = shuffleArr(r.events);
+
+  mechanicArea.innerHTML = `
+    <div class="instruction">${r.instruction}</div>
+    <div class="seq-board">
+      ${[1,2,3,4].map(n =>
+        `<div class="seq-slot" id="seqSlot${n}" data-slot="${n}">
+          <div class="seq-slot-label">${n === 1 ? 'FIRST' : n === 2 ? 'SECOND' : n === 3 ? 'THIRD' : 'FOURTH'}</div>
+          <div class="seq-slot-content" id="seqContent${n}">— tap a card, then tap here —</div>
+        </div>`
+      ).join('')}
+    </div>
+    <div class="seq-pool" id="seqPool">
+      ${shuffledEvents.map(ev =>
+        `<button class="seq-card" data-evid="${ev.id}">
+          <span class="seq-icon">${ev.icon}</span>
+          <span>${ev.text}</span>
+        </button>`
+      ).join('')}
+    </div>
+    <button class="check-btn" id="seqCheck" style="margin-top:8px">CHECK MY ORDER</button>
+  `;
+
+  document.addEventListener('click', handleSeqClick, { signal: roomSignal() });
+
+  function handleSeqClick(e) {
+    if (roomAnswered) return;
+
+    const card = e.target.closest('.seq-card:not(.placed)');
+    const slot = e.target.closest('.seq-slot');
+    const checkBtn = e.target.closest('#seqCheck');
+
+    if (card) {
+      $$('.seq-card').forEach(c => c.classList.remove('selected'));
+      if (seqSelected === Number(card.dataset.evid)) {
+        seqSelected = null;
+      } else {
+        seqSelected = Number(card.dataset.evid);
+        card.classList.add('selected');
+      }
+    }
+
+    if (slot && seqSelected !== null) {
+      const slotNum = Number(slot.dataset.slot);
+      // If slot already has something, return it to pool
+      if (seqPlaced[slotNum] !== undefined) {
+        const prevEvId = seqPlaced[slotNum];
+        const prevCard = document.querySelector(`.seq-card[data-evid="${prevEvId}"]`);
+        if (prevCard) {
+          prevCard.classList.remove('placed');
+          prevCard.style.opacity = '';
+        }
+        delete seqPlaced[slotNum];
+      }
+      // Place selected card in slot
+      seqPlaced[slotNum] = seqSelected;
+      const ev = r.events.find(e => e.id === seqSelected);
+      document.getElementById('seqContent' + slotNum).textContent = ev.icon + ' ' + ev.text;
+      slot.classList.add('has-card');
+      const selCard = document.querySelector(`.seq-card[data-evid="${seqSelected}"]`);
+      if (selCard) { selCard.classList.add('placed'); selCard.style.opacity = '0.38'; }
+      seqSelected = null;
+      $$('.seq-card').forEach(c => c.classList.remove('selected'));
+      clearFeedback();
+    }
+
+    if (checkBtn) {
+      const filledSlots = Object.keys(seqPlaced).length;
+      if (filledSlots < 4) {
+        showFeedback('Place all four events before checking. You have ' + filledSlots + ' placed.', 'oops');
+        return;
+      }
+      // Check each slot
+      let allCorrect = true;
+      for (let n = 1; n <= 4; n++) {
+        const evId = seqPlaced[n];
+        const ev = r.events.find(e => e.id === evId);
+        const slotEl = document.getElementById('seqSlot' + n);
+        if (ev.order !== n) {
+          allCorrect = false;
+          slotEl.classList.add('wrong-slot');
+          setTimeout(() => slotEl.classList.remove('wrong-slot'), 500);
+        } else {
+          slotEl.classList.add('correct-slot');
+        }
+      }
+      seqAttempts++;
+      if (allCorrect) {
+        $$('.seq-card, #seqCheck').forEach(el => el.disabled = true);
+        showFeedback('✅ ' + r.explain, 'good');
+        lockRoom();
+        playCorrect();
+      } else {
+        playWrong();
+        if (seqAttempts >= r.hintAfter) {
+          showHint('Start with what the falcon does FIRST when Avery arrives. Then think about what Avery notices, what Avery does, and finally how the falcon responds to that action.');
+        } else {
+          showFeedback('Some are out of order. Look at what happens BEFORE and AFTER each event in the passage.', 'oops');
+        }
+        // Reset wrong slots back to unplaced so student can try again
+        for (let n = 1; n <= 4; n++) {
+          const slotEl = document.getElementById('seqSlot' + n);
+          slotEl.classList.remove('correct-slot', 'has-card');
+          document.getElementById('seqContent' + n).textContent = '— tap a card, then tap here —';
+        }
+        $$('.seq-card').forEach(c => {
+          c.classList.remove('placed', 'selected');
+          c.style.opacity = '';
+        });
+        seqPlaced = {};
+        seqSelected = null;
+      }
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ROOM 4 — EVIDENCE (Click the sentence)
+// ═══════════════════════════════════════════════════════════════════
+function renderEvidence(r, passageArea, mechanicArea) {
+  passageArea.style.display = 'none';
+
+  const sentenceButtons = r.sentences.map((s, i) =>
+    `<button class="p-sent" data-sentidx="${i}">${s.text}</button>`
+  ).join(' ');
+
+  mechanicArea.innerHTML = `
+    <div class="instruction">${r.instruction}</div>
+    <div class="claim-box">
+      <strong>CLAIM:</strong> ${r.claim}
+    </div>
+    <div class="evidence-slot" id="evidenceSlot">Click the sentence in the passage below that supports this claim</div>
+    <div class="clickable-passage">${sentenceButtons}</div>
+  `;
+
+  document.addEventListener('click', handleEvidenceClick, { signal: roomSignal() });
+
+  function handleEvidenceClick(e) {
+    if (roomAnswered) return;
+    const sentBtn = e.target.closest('.p-sent');
+    if (!sentBtn) return;
+    const idx = Number(sentBtn.dataset.sentidx);
+    const sent = r.sentences[idx];
+    if (sent.correct) {
+      sentBtn.classList.add('correct-sent');
+      document.getElementById('evidenceSlot').textContent = '✅ ' + sent.text;
+      document.getElementById('evidenceSlot').classList.add('filled');
+      $$('.p-sent').forEach(b => b.style.pointerEvents = 'none');
+      showFeedback('✅ ' + r.explain, 'good');
+      lockRoom();
+      playCorrect();
+    } else {
+      sentBtn.classList.add('wrong-sent');
+      setTimeout(() => sentBtn.classList.remove('wrong-sent'), 500);
+      evidenceAttempts++;
+      playWrong();
+      if (evidenceAttempts >= r.hintAfter) {
+        showHint('Find the sentence that directly states a FACT about what the palace was built for. Avery\'s thoughts and actions are not direct evidence — look for the journal page\'s words.');
+      } else {
+        showFeedback('❌ ' + sent.wrongFeedback, 'oops');
+      }
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ROOM 5 — POINT OF VIEW SORT
+// ═══════════════════════════════════════════════════════════════════
+function renderPOV(r, passageArea, mechanicArea) {
+  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+
+  const shuffledChips = shuffleArr(r.chips);
+
+  mechanicArea.innerHTML = `
+    <div class="instruction">${r.instruction}</div>
+    <div class="chip-pool" id="chipPool">
+      ${shuffledChips.map(c =>
+        `<button class="pov-chip" data-chipid="${c.id}" data-pov="${c.pov}">${c.text}</button>`
+      ).join('')}
+    </div>
+    <div class="pov-bins">
+      ${r.bins.map(b =>
+        `<div class="pov-bin" data-binkey="${b.key}">
+          <h3>${b.label}</h3>
+          <div style="font-size:13px;font-weight:900;color:#8aa0bc;margin-bottom:6px">${b.hint}</div>
+          <div class="bin-slots" id="bin_${b.key}"></div>
+        </div>`
+      ).join('')}
+    </div>
+    <button class="check-btn" id="povCheck" style="margin-top:8px">CHECK ALL PLACEMENTS</button>
+  `;
+
+  document.addEventListener('click', handlePOVClick, { signal: roomSignal() });
+
+  function handlePOVClick(e) {
+    if (roomAnswered) return;
+
+    const chip = e.target.closest('.pov-chip:not(.placed)');
+    const bin = e.target.closest('.pov-bin');
+    const checkBtn = e.target.closest('#povCheck');
+
+    if (chip) {
+      $$('.pov-chip').forEach(c => c.classList.remove('selected'));
+      if (povSelected === Number(chip.dataset.chipid)) {
+        povSelected = null;
+      } else {
+        povSelected = Number(chip.dataset.chipid);
+        chip.classList.add('selected');
+      }
+    }
+
+    if (bin && povSelected !== null) {
+      const binKey = bin.dataset.binkey;
+      const chipData = r.chips.find(c => c.id === povSelected);
+      // Add to bin visually
+      const binSlots = document.getElementById('bin_' + binKey);
+      const chipEl = document.querySelector(`.pov-chip[data-chipid="${povSelected}"]`);
+
+      // Remove from previous bin if already placed
+      if (povPlaced[povSelected] !== undefined) {
+        const prevBinEl = document.getElementById('bin_' + povPlaced[povSelected]);
+        const prevChipEl = prevBinEl?.querySelector(`[data-placed-chip="${povSelected}"]`);
+        if (prevChipEl) prevChipEl.remove();
+      }
+
+      povPlaced[chipData.id] = binKey;
+      chipEl.classList.add('placed');
+
+      const placed = document.createElement('span');
+      placed.className = 'bin-chip';
+      placed.dataset.placedChip = chipData.id;
+      placed.textContent = chipData.text;
+      binSlots.appendChild(placed);
+
+      povSelected = null;
+      $$('.pov-chip').forEach(c => c.classList.remove('selected'));
+      clearFeedback();
+    }
+
+    if (checkBtn) {
+      const placed = Object.keys(povPlaced).length;
+      if (placed < r.chips.length) {
+        showFeedback('Sort all ' + r.chips.length + ' chips before checking. You have placed ' + placed + '.', 'oops');
+        return;
+      }
+      let allCorrect = true;
+      r.chips.forEach(chip => {
+        const placedBin = povPlaced[chip.id];
+        const binEl = document.getElementById('bin_' + placedBin);
+        const placedChipEl = binEl?.querySelector(`[data-placed-chip="${chip.id}"]`);
+        if (placedBin !== chip.pov) {
+          allCorrect = false;
+          if (placedChipEl) {
+            placedChipEl.classList.add('wrong');
+            setTimeout(() => placedChipEl.classList.remove('wrong'), 600);
+          }
+        } else {
+          if (placedChipEl) placedChipEl.style.fontWeight = '900';
+        }
+      });
+      povAttempts++;
+      if (allCorrect) {
+        $$('#povCheck').forEach(b => b.disabled = true);
+        showFeedback('✅ ' + r.explain, 'good');
+        lockRoom();
+        playCorrect();
+      } else {
+        playWrong();
+        if (povAttempts >= r.hintAfter) {
+          showHint('"I" words are first person. "You" words are second person. If it says "the storm" or "the explorer" without I or you — that\'s third person, even inside a first-person speech.');
+        } else {
+          showFeedback('Some placements are wrong — they are flashing red. Remove wrong chips by placing them again into the correct bin.', 'oops');
+        }
+      }
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ROOM 6 — WORD BANK BUILDER
+// ═══════════════════════════════════════════════════════════════════
+function renderBuilder(r, passageArea, mechanicArea) {
+  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+
+  const shuffledBank = shuffleArr(r.bankWords);
+
+  mechanicArea.innerHTML = `
+    <div class="instruction">${r.instruction}</div>
+    <div class="theme-builder">
+      <div style="font-size:15px;font-weight:900;color:var(--royal);margin-bottom:8px">BUILD THE THEME:</div>
+      <div class="theme-display" id="themeDisplay"><span style="color:#aac0d8;font-size:18px">Tap words below to build your sentence...</span></div>
+      <div class="word-bank" id="wordBank">
+        ${shuffledBank.map(w =>
+          `<button class="word-btn" data-word="${w}" data-trap="${r.traps.includes(w)}">${w}</button>`
+        ).join('')}
+      </div>
+      <div class="builder-controls">
+        <button class="undo-btn" id="builderUndo">↩ Undo last word</button>
+        <button class="check-btn" id="builderCheck">CHECK SENTENCE</button>
+      </div>
+    </div>
+  `;
+
+  document.addEventListener('click', handleBuilderClick, { signal: roomSignal() });
+
+  function refreshDisplay() {
+    const display = $('#themeDisplay');
+    if (builtWords.length === 0) {
+      display.innerHTML = '<span style="color:#aac0d8;font-size:18px">Tap words below to build your sentence...</span>';
+    } else {
+      display.innerHTML = builtWords.map(w =>
+        `<span class="built-word">${w}</span>`
+      ).join('');
+    }
+  }
+
+  function handleBuilderClick(e) {
+    if (roomAnswered) return;
+
+    const wordBtn = e.target.closest('.word-btn:not(:disabled):not(.used)');
+    const undoBtn = e.target.closest('#builderUndo');
+    const checkBtn = e.target.closest('#builderCheck');
+
+    if (wordBtn) {
+      const word = wordBtn.dataset.word;
+      const isTrap = wordBtn.dataset.trap === 'true';
+      if (isTrap) {
+        // Shake and remove last built word
+        wordBtn.classList.add('trap-shake');
+        setTimeout(() => wordBtn.classList.remove('trap-shake'), 350);
+        if (builtWords.length > 0) {
+          const removed = builtWords.pop();
+          // Re-enable the removed word's button
+          document.querySelector(`.word-btn[data-word="${removed}"]`)?.classList.remove('used');
+          document.querySelector(`.word-btn[data-word="${removed}"]`)?.removeAttribute('disabled');
+        }
+        playWrong();
+        showFeedback('⚠️ Trap word! "' + word + '" doesn\'t fit the theme. Your last word was removed — try again.', 'oops');
+        refreshDisplay();
+      } else {
+        builtWords.push(word);
+        wordBtn.classList.add('used');
+        wordBtn.disabled = true;
+        refreshDisplay();
+        clearFeedback();
+      }
+    }
+
+    if (undoBtn) {
+      if (builtWords.length > 0) {
+        const removed = builtWords.pop();
+        const btn = document.querySelector(`.word-btn[data-word="${removed}"]`);
+        if (btn) { btn.classList.remove('used'); btn.disabled = false; }
+        refreshDisplay();
+      }
+    }
+
+    if (checkBtn) {
+      if (builtWords.length === 0) {
+        showFeedback('Build your sentence first by tapping words from the bank.', 'oops');
+        return;
+      }
+      const built = builtWords.join(' ');
+      const target = r.targetWords.join(' ');
+      if (built === target) {
+        $$('.word-btn, #builderCheck, #builderUndo').forEach(b => b.disabled = true);
+        showFeedback('✅ ' + r.explain, 'good');
+        lockRoom();
+        playCorrect();
+      } else {
+        builderAttempts++;
+        playWrong();
+        if (builderAttempts >= r.hintAfter) {
+          showHint('The theme is about working WITH someone else. Think about what Avery and the falcon had to do together — and think about HOW they did it (patiently, not quickly or alone).');
+        } else {
+          showFeedback('Not the right sentence yet. Think about the big lesson: what did Avery and the falcon have to do together to solve the problem?', 'oops');
+        }
+      }
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ROOM 7 — THREE-PART GAUNTLET
+// ═══════════════════════════════════════════════════════════════════
+function renderGauntlet(r, passageArea, mechanicArea) {
+  passageArea.innerHTML = `<div class="passage">${r.passage}</div>`;
+
+  mechanicArea.innerHTML = `
+    <div class="gauntlet-progress">
+      <span class="gauntlet-label">THREE KEYS TO UNLOCK:</span>
+      <div class="gauntlet-key" id="gKey0">🔑</div>
+      <div class="gauntlet-key" id="gKey1">🔑</div>
+      <div class="gauntlet-key" id="gKey2">🔑</div>
+    </div>
+    <div id="gauntletPart"></div>
+  `;
+  renderGauntletPart(r);
+}
+
+function renderGauntletPart(r) {
+  const partEl = document.getElementById('gauntletPart');
+  if (!partEl) return;
+
+  if (gauntletPart === 0) {
+    // Part A — Evidence
+    const sentenceButtons = r.partA.sentences.map((s, i) =>
+      `<button class="p-sent" data-gaidx="${i}">${s.text}</button>`
+    ).join(' ');
+    partEl.innerHTML = `
+      <div class="part-label">${r.partA.label}</div>
+      <div class="instruction">${r.instruction.replace('challenges', 'challenge (Part A)')} Find the sentence that supports the claim.</div>
+      <div class="claim-box"><strong>CLAIM:</strong> ${r.partA.claim}</div>
+      <div class="evidence-slot" id="gEvidenceSlot">Tap the sentence below that supports this claim</div>
+      <div class="clickable-passage">${sentenceButtons}</div>
+    `;
+    document.addEventListener('click', handleGauntletAClick, { signal: roomSignal() });
+
+  } else if (gauntletPart === 1) {
+    // Part B — Word Builder
+    const shuffledBank = shuffleArr(r.partB.bankWords);
+    partEl.innerHTML = `
+      <div class="part-label">${r.partB.label}</div>
+      <div class="instruction">${r.partB.instruction}</div>
+      <div class="theme-builder">
+        <div style="font-size:15px;font-weight:900;color:var(--royal);margin-bottom:8px">
+          ${r.partB.prefix} <span id="gBuiltDisplay" style="color:var(--navy)">___</span> ${r.partB.suffix}
+        </div>
+        <div class="word-bank" id="gWordBank">
+          ${shuffledBank.map(w =>
+            `<button class="word-btn" data-gword="${w}" data-gtrap="${r.partB.traps.includes(w)}">${w}</button>`
+          ).join('')}
+        </div>
+        <div class="builder-controls">
+          <button class="undo-btn" id="gBuilderUndo">↩ Undo</button>
+          <button class="check-btn" id="gBuilderCheck">CHECK</button>
+        </div>
+      </div>
+    `;
+    document.addEventListener('click', handleGauntletBClick, { signal: roomSignal() });
+
+  } else if (gauntletPart === 2) {
+    // Part C — True / False
+    partEl.innerHTML = `
+      <div class="part-label">${r.partC.label}</div>
+      <div class="instruction">${r.partC.instruction}</div>
+      <div class="tf-grid">
+        ${r.partC.statements.map((s, i) => `
+          <div class="tf-row" id="tfRow${i}">
+            <div class="tf-stmt">${i+1}. ${s.text}</div>
+            <div class="tf-btns">
+              <button class="tf-btn" data-tfidx="${i}" data-tfval="true">TRUE</button>
+              <button class="tf-btn" data-tfidx="${i}" data-tfval="false">FALSE</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <button class="check-btn" id="tfCheck" style="margin-top:12px">CHECK ALL</button>
+    `;
+    document.addEventListener('click', handleGauntletCClick, { signal: roomSignal() });
+  }
+}
+
+function advanceGauntlet(r) {
+  const keyEl = document.getElementById('gKey' + gauntletPart);
+  if (keyEl) keyEl.classList.add('lit');
+  gauntletKeys[gauntletPart] = true;
+  playKey();
+  gauntletPart++;
+  if (gauntletPart > 2) {
+    // All three parts done
+    showFeedback('✅ All three keys lit! ' + r.explain, 'good');
+    lockRoom();
+    playCorrect();
+  } else {
+    showFeedback('🔑 Key ' + gauntletPart + ' unlocked! Moving to Part ' + (['A','B','C'][gauntletPart]) + '…', 'good');
+    setTimeout(() => {
+      clearFeedback();
+      renderGauntletPart(r);
+    }, 1400);
+  }
+}
+
+function handleGauntletAClick(e) {
+  if (roomAnswered || gauntletPart !== 0) return;
+  const sentBtn = e.target.closest('[data-gaidx]');
+  if (!sentBtn) return;
+  const idx = Number(sentBtn.dataset.gaidx);
+  const sent = ROOMS[6].partA.sentences[idx];
+  if (sent.correct) {
+    sentBtn.classList.add('correct-sent');
+    document.getElementById('gEvidenceSlot').textContent = '✅ ' + sent.text;
+    document.getElementById('gEvidenceSlot').classList.add('filled');
+    $$('[data-gaidx]').forEach(b => b.style.pointerEvents = 'none');
+    advanceGauntlet(ROOMS[6]);
+  } else {
+    sentBtn.classList.add('wrong-sent');
+    setTimeout(() => sentBtn.classList.remove('wrong-sent'), 500);
+    g7EvidenceAttempts++;
+    playWrong();
+    if (g7EvidenceAttempts >= ROOMS[6].hintAfter) {
+      showHint('Find the sentence that directly states what the palace WAS doing — not what it was NOT doing. One sentence begins "It had been…"');
+    } else {
+      showFeedback('❌ ' + sent.wrongFeedback, 'oops');
+    }
+  }
+}
+
+function handleGauntletBClick(e) {
+  if (roomAnswered || gauntletPart !== 1) return;
+  const r = ROOMS[6];
+
+  const wordBtn = e.target.closest('[data-gword]:not(:disabled):not(.used)');
+  const undoBtn = e.target.closest('#gBuilderUndo');
+  const checkBtn = e.target.closest('#gBuilderCheck');
+
+  function refreshG7Display() {
+    const disp = document.getElementById('gBuiltDisplay');
+    if (disp) disp.textContent = g7BuiltWords.length ? g7BuiltWords.join(' ') : '___';
+  }
+
+  if (wordBtn) {
+    const word = wordBtn.dataset.gword;
+    const isTrap = wordBtn.dataset.gtrap === 'true';
+    if (isTrap) {
+      wordBtn.classList.add('trap-shake');
+      setTimeout(() => wordBtn.classList.remove('trap-shake'), 350);
+      if (g7BuiltWords.length > 0) {
+        const removed = g7BuiltWords.pop();
+        const btn = document.querySelector(`[data-gword="${removed}"]`);
+        if (btn) { btn.classList.remove('used'); btn.disabled = false; }
+      }
+      playWrong();
+      showFeedback('⚠️ "' + word + '" doesn\'t fit. Your last word was removed.', 'oops');
+      refreshG7Display();
+    } else {
+      g7BuiltWords.push(word);
+      wordBtn.classList.add('used');
+      wordBtn.disabled = true;
+      refreshG7Display();
+      clearFeedback();
+    }
+  }
+  if (undoBtn) {
+    if (g7BuiltWords.length > 0) {
+      const removed = g7BuiltWords.pop();
+      const btn = document.querySelector(`[data-gword="${removed}"]`);
+      if (btn) { btn.classList.remove('used'); btn.disabled = false; }
+      refreshG7Display();
+    }
+  }
+  if (checkBtn) {
+    const built = g7BuiltWords.join(' ');
+    const target = r.partB.targetWords.join(' ');
+    if (built === target) {
+      $$('[data-gword], #gBuilderCheck, #gBuilderUndo').forEach(b => b.disabled = true);
+      advanceGauntlet(r);
+    } else {
+      g7BuilderAttempts++;
+      playWrong();
+      if (g7BuilderAttempts >= r.hintAfter) {
+        showHint('The sentence is about what the palace taught Avery. Think: "careful readers NOTICE and LEARN" — those are the key words from the final passage.');
+      } else {
+        showFeedback('Not quite. Think about what the passage says Avery learned about reading.', 'oops');
+      }
+    }
+  }
+}
+
+function handleGauntletCClick(e) {
+  if (roomAnswered || gauntletPart !== 2) return;
+  const r = ROOMS[6];
+
+  const tfBtn = e.target.closest('.tf-btn:not(:disabled)');
+  const checkBtn = e.target.closest('#tfCheck');
+
+  if (tfBtn) {
+    const idx = Number(tfBtn.dataset.tfidx);
+    const val = tfBtn.dataset.tfval === 'true';
+    // Mark selection visually (don't reveal correctness yet)
+    const row = document.getElementById('tfRow' + idx);
+    row.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('selected'));
+    tfBtn.classList.add('selected');
+    g7TFAnswered[idx] = true;
+    g7TFCorrect[idx] = val;
+  }
+
+  if (checkBtn) {
+    const allAnswered = g7TFAnswered.every(Boolean);
+    if (!allAnswered) {
+      showFeedback('Answer all four statements before checking.', 'oops');
+      return;
+    }
+    let allCorrect = true;
+    r.partC.statements.forEach((s, i) => {
+      const isCorrect = g7TFCorrect[i] === s.answer;
+      const row = document.getElementById('tfRow' + i);
+      const btns = row.querySelectorAll('.tf-btn');
+      btns.forEach(b => {
+        b.disabled = true;
+        const bVal = b.dataset.tfval === 'true';
+        if (bVal === s.answer) b.classList.add('correct');
+        if (bVal === g7TFCorrect[i] && !isCorrect) b.classList.add('wrong');
+      });
+      if (!isCorrect) allCorrect = false;
+    });
+    if (allCorrect) {
+      advanceGauntlet(r);
+    } else {
+      playWrong();
+      // Re-enable for retry only the wrong ones
+      r.partC.statements.forEach((s, i) => {
+        if (g7TFCorrect[i] !== s.answer) {
+          const row = document.getElementById('tfRow' + i);
+          row.querySelectorAll('.tf-btn').forEach(b => {
+            b.disabled = false;
+            b.classList.remove('correct', 'wrong', 'selected');
+          });
+          g7TFAnswered[i] = false;
+          showFeedback('Some are wrong — check the red answers. ' + s.wrongFeedback, 'oops');
+        }
+      });
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ROOM SIGNAL — AbortController so event listeners clean up on
+// room change (prevents stale handlers firing in future rooms)
+// ═══════════════════════════════════════════════════════════════════
+let _abortController = null;
+function roomSignal() {
+  if (_abortController) _abortController.abort();
+  _abortController = new AbortController();
+  return _abortController.signal;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ADVANCE / NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
 function advanceRoom() {
-  if (!answered && roomIndex < ROOMS.length) return;
+  if (!roomAnswered && roomIndex < ROOMS.length) return;
   if (roomIndex >= ROOMS.length - 1) {
     renderFinalJournal();
     showScreen('final');
@@ -595,42 +1700,66 @@ function advanceRoom() {
 
 function renderFinalJournal() {
   $('#finalJournal').innerHTML = ROOMS
-    .map((r, i) => `<li><strong>Page ${i + 1}:</strong> ${r.journal}</li>`)
+    .map((r, i) => `<li><strong>Page ${i+1} — ${r.skill}:</strong> ${r.journal}</li>`)
     .join('');
+  if (totalHintsUsed === 0) {
+    $('#sharpAward').classList.add('show');
+  }
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════════════════════════════════════
+function saveProgress() {
+  try {
+    const save = JSON.parse(localStorage.getItem('falconCampSave')) || {};
+    save.prinslowPalaceProgress = keys;
+    if (keys >= 7) save.prinslowPalaceComplete = true;
+    localStorage.setItem('falconCampSave', JSON.stringify(save));
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// START / RESET
+// ═══════════════════════════════════════════════════════════════════
 function startQuest() {
-  roomIndex = 0; keys = 0; answered = false;
+  roomIndex = 0;
+  keys = 0;
+  totalHintsUsed = 0;
+  if (_abortController) _abortController.abort();
+  _abortController = null;
   showScreen('game');
   renderRoom();
 }
 
 function resetQuest() {
-  roomIndex = 0; keys = 0; answered = false;
+  roomIndex = 0;
+  keys = 0;
+  totalHintsUsed = 0;
+  if (_abortController) _abortController.abort();
+  _abortController = null;
   renderRoom();
 }
 
-// ─── EVENTS ───────────────────────────────────────────────────────────────────
-document.addEventListener('click', e => {
-  const choice = e.target.closest('[data-choice]');
-  if (choice) chooseAnswer(Number(choice.dataset.choice));
-});
+// ═══════════════════════════════════════════════════════════════════
+// FIXED BUTTON EVENTS
+// ═══════════════════════════════════════════════════════════════════
 $('#enterPalace').addEventListener('click', startQuest);
 $('#nextRoom').addEventListener('click', advanceRoom);
 $('#restart').addEventListener('click', resetQuest);
 $('#playAgain').addEventListener('click', startQuest);
 
-// Initial key render so the bar shows 0/7 before the game starts
 renderKeys();
 
-// ─── DEV TOOLS ────────────────────────────────────────────────────────────────
-// Exposes window.FalconDev so the shared dev-tools.js panel can control this page.
+// ═══════════════════════════════════════════════════════════════════
+// DEV TOOLS
+// ═══════════════════════════════════════════════════════════════════
 window.FalconDev = {
   site: 'Prinslow Palace',
   complete() {
     keys = 7;
     roomIndex = ROOMS.length - 1;
-    answered = true;
+    roomAnswered = true;
     renderFinalJournal();
     showScreen('final');
     saveProgress();
@@ -647,20 +1776,15 @@ window.FalconDev = {
     return 'Prinslow Palace reset.';
   },
   actions: [
-    { label: 'Show Answer', run() {
-      const r = ROOMS[roomIndex];
-      const correctText = r.choices[r.answer];
-      return 'Answer: ' + correctText;
-    }},
-    { label: 'Mark Correct', run() {
-      chooseAnswer(correctDisplayIndex);
-      return 'Marked correct.';
-    }},
     { label: 'Next Room', run() {
-      answered = true;
+      roomAnswered = true;
       keys = Math.max(keys, roomIndex + 1);
       advanceRoom();
-      return 'Advanced to next room.';
+      return 'Advanced.';
+    }},
+    { label: 'Complete Room', run() {
+      lockRoom();
+      return 'Room completed.';
     }},
     { label: 'All Keys', run() {
       keys = 7; renderKeys(); saveProgress();
