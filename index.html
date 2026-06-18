@@ -41,14 +41,18 @@ a{text-decoration:none;color:inherit}
 
 /* ── Hero title ──────────────────────────────────────────────────────── */
 .title-screen{
-  padding:32px clamp(14px,4vw,44px) 20px;
+  min-height:48vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:40px 20px 70px;
   text-align:center;
 }
 /* Full-width hero banner — used if the sign image loads */
 .hero-sign{
-  width:100%;
-  max-width:920px;
-  max-height:280px;
+  width:min(1150px,92vw);
+  max-width:none;
+  max-height:none;
   object-fit:contain;
   display:block;
   margin:0 auto;
@@ -545,7 +549,9 @@ a{text-decoration:none;color:inherit}
 }
 @media(max-width:760px){
   .page{padding:14px 12px 36px;gap:20px}
-  .hero-sign{max-height:200px}
+  .hero-sign{
+    width:min(900px,95vw);
+  }
   .hero-title{font-size:clamp(40px,14vw,72px)}
   .destinations{gap:16px}
   /* Back to stacked layout on phones */
