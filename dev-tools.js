@@ -74,8 +74,14 @@
   // ── Complete page ─────────────────────────────────────────────────────────
   // If the page exposes window.FalconDev.complete(), use it — that's the
   // authoritative source for each page's own completion logic.
-  // Fall back to the generic branch only if FalconDev isn't present.
+  // Abort any live room signal first so stale listeners don't fire.
   function completePage(){
+    // Clean up any active room event listeners before calling complete
+    if (window._abortController) {
+      window._abortController.abort();
+      window._abortController = null;
+    }
+
     if (window.FalconDev?.complete) {
       const result = window.FalconDev.complete();
       setText(result || 'Page marked complete via FalconDev.');
