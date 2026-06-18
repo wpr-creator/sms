@@ -194,6 +194,62 @@ body:after{
   .camp-banner{min-height:54px}
 }
 
+/* ── Guide speech bubble ─────────────────────────────────────────── */
+.guide-speech{
+  text-align:center;
+  font-family:'Bungee',system-ui;
+  font-size:clamp(15px,1.6vw,20px);
+  color:rgba(255,255,255,.92);
+  text-shadow:0 2px 8px rgba(6,27,61,.38);
+  margin:2px 0 0;
+  min-height:1.4em;
+  letter-spacing:.02em;
+}
+
+/* ── Path card complete badge ────────────────────────────────────── */
+.path-card.path-done{
+  border-color:var(--gold);
+}
+.path-card.path-done::after{
+  /* Override the existing ::after gradient to keep a slight warm tint */
+  background:linear-gradient(180deg,rgba(255,248,200,.28) 0%,rgba(255,255,255,.78) 56%,rgba(255,248,200,.97) 100%);
+}
+.path-card.path-done .card-inner::before{
+  content:'✓ COMPLETE';
+  position:absolute;
+  top:14px;right:14px;
+  background:var(--gold);
+  color:var(--navy);
+  border:2px solid var(--navy);
+  border-radius:999px;
+  padding:5px 10px;
+  font-family:'Bungee',system-ui;
+  font-size:12px;
+  letter-spacing:.06em;
+  box-shadow:0 4px 0 rgba(6,27,61,.2);
+  z-index:2;
+}
+
+/* ── Palace complete badge ───────────────────────────────────────── */
+.destination-card.palace-done{
+  border-color:var(--gold);
+}
+.destination-card.palace-done .destination-copy::after{
+  content:'🏆 KEEPER OF THE PALACE';
+  display:block;
+  margin-top:8px;
+  background:var(--gold);
+  color:var(--navy);
+  border:2px solid var(--navy);
+  border-radius:999px;
+  padding:7px 13px;
+  font-family:'Bungee',system-ui;
+  font-size:13px;
+  letter-spacing:.06em;
+  width:fit-content;
+  box-shadow:0 5px 0 rgba(6,27,61,.2);
+}
+
 </style>
 </head>
 <body>
@@ -230,6 +286,7 @@ body:after{
 <section class="camp-section" aria-label="Camp Paths">
 <div class="camp-banner" aria-hidden="true"><span class="camp-title-fallback"></span></div>
 <div class="camp-progress-row" aria-label="Camp progress tracker"><span class="chip">RANK: <span id="rankName">SKY SCOUT</span></span><span class="chip">BADGES: <span id="badgeCount">0</span></span><span class="chip">PATHS: <span id="pathCount">0</span>/4</span></div>
+<p class="guide-speech" id="guideSpeech" aria-live="polite"></p>
 <main class="paths" aria-label="Choose a Falcon Adventure Camp path">
 <a class="path-card flight" href="flight-school.html" data-go><div class="card-inner"><div class="subject">MATH</div><div class="character-wrap"><img class="path-character" src="falcon-pilot.png" alt="Pilot falcon"></div><div><h2 class="path-title">Flight<br>School</h2><p class="path-line">Earn math badges in the sky.</p><div class="button-row"><span class="game-button">TAKE OFF!</span></div></div></div></a>
 <a class="path-card lab" href="field-lab.html" data-go><div class="card-inner"><div class="subject">SCIENCE</div><div class="character-wrap"><img class="path-character" src="falcon-science.png" alt="Scientist falcon"></div><div><h2 class="path-title">Field<br>Lab</h2><p class="path-line">Explore habitats, animals, and weather.</p><div class="button-row"><span class="game-button">EXPLORE!</span></div></div></div></a>
