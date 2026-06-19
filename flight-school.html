@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <style>
     :root{--navy:#08254f;--blue:#12509b;--gold:#f5bd2f;--paper:#fffaf1;--ink:#102033;--green:#1c7a55;--red:#d64242}
     *{box-sizing:border-box}
@@ -81,7 +81,7 @@
     }
   </style>
 </head>
-<body class="flight-page" style="--mission-bg:url('bg-canyon.png');--falcon-x:8%">
+<body class="flight-page" style="--mission-bg:url('assets/backgrounds/bg-canyon.png');--falcon-x:8%">
   <header class="topbar">
     <a href="index.html">← CAMP</a>
     <div class="topbar-title">FLIGHT SCHOOL</div>
@@ -95,7 +95,7 @@
           <h1 id="missionTitle">MULTIPLICATION CANYON</h1>
           <p id="missionTag">Fly through the correct answer.</p>
         </div>
-        <img class="falcon-flyer" id="falconFlyer" src="falcon-pilot.png" alt="Pilot falcon" onerror="this.src='falcon.png'" />
+        <img class="falcon-flyer" id="falconFlyer" src="assets/characters/falcon-pilot.png" alt="Pilot falcon" onerror="this.src='assets/characters/falcon.png'" />
         <div class="goal-ring" aria-hidden="true"></div>
         <div class="start-card" id="startCard">
           <div class="start-inner">
@@ -128,8 +128,8 @@
       </div>
     </section>
   </main>
-  <script src="question-bank.js"></script>
-  <script src="flight-school.js"></script>
-  <script src="dev-tools.js"></script>
+  <script src="js/question-bank.js"></script>
+  <script src="js/flight-school.js"></script>
+  <script src="js/dev-tools.js"></script>
 </body>
 </html>

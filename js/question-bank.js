@@ -17,22 +17,22 @@
   }
 
   const missions=[
-    {id:'multiplication', name:'MULTIPLICATION CANYON', badge:'CANYON PILOT', bg:'bg-canyon.png', type:'cloud', tag:'Cross the canyon by finding the correct product.'},
-    {id:'division', name:'DIVISION NEST', badge:'NEST NAVIGATOR', bg:'bg-nest.png', type:'perch', tag:'Land safely in the nest by solving each division challenge.'},
-    {id:'oneStep', name:'WORD PROBLEM RUNWAY', badge:'RUNWAY READER', bg:'bg-camp.png', type:'cloud', tag:'Read the runway story and choose the safe answer.'},
-    {id:'twoStep', name:'TWO-STEP SKYWAY', badge:'SKYWAY SOLVER', bg:'bg-canyon.png', type:'cloud', tag:'Solve both steps to stay on the skyway.'},
-    {id:'placeValue', name:'PLACE VALUE PEAKS', badge:'PEAK BUILDER', bg:'bg-peaks.png', type:'block', tag:'Build, compare, and explain numbers by place value.'},
-    {id:'rounding', name:'ROUNDING RAPIDS', badge:'RAPID RIDER', bg:'bg-rapids.png', type:'perch', tag:'Ride the rapids by rounding to the nearest safe spot.'},
-    {id:'addition', name:'ADDITION OUTPOST', badge:'SUM BUILDER', bg:'bg-area.png', type:'block', tag:'Build the outpost by adding within 1,000.'},
-    {id:'subtraction', name:'SUBTRACTION RIDGE', badge:'DIFFERENCE DASHER', bg:'bg-ridge.png', type:'perch', tag:'Cross the ridge by finding the difference.'},
-    {id:'tens', name:'TENS TAKEOFF', badge:'TENS PILOT', bg:'bg-canyon.png', type:'cloud', tag:'Take off by multiplying with tens.'},
-    {id:'fracLine', name:'FRACTION FOREST TRAIL', badge:'FRACTION FINDER', bg:'bg-forest.png', type:'line', tag:'Follow the forest trail to find each fraction.'},
-    {id:'fracCompare', name:'FRACTION FOREST DUEL', badge:'FRACTION SCOUT', bg:'bg-forest.png', type:'cloud', tag:'Choose the greater fraction to win the forest duel.'},
-    {id:'partsWhole', name:'PARTS OF A WHOLE', badge:'WHOLE BUILDER', bg:'bg-forest.png', type:'block', tag:'Build the whole by naming equal parts.'},
-    {id:'time', name:'TIME TOWER', badge:'TIME KEEPER', bg:'bg-tower.png', type:'clock', tag:'Climb Time Tower by reading each clock.'},
-    {id:'area', name:'AREA OUTPOST', badge:'AREA ARCHITECT', bg:'bg-area.png', type:'tile', tag:'Map the outpost by finding the area.'},
-    {id:'perimeter', name:'PERIMETER RIDGE', badge:'RIDGE RANGER', bg:'bg-ridge.png', type:'perch', tag:'Trace the ridge by finding perimeter.'},
-    {id:'partition', name:'SHAPE SPLIT SKY', badge:'SHAPE SPLITTER', bg:'bg-peaks.png', type:'block', tag:'Split each shape into equal shares.'}
+    {id:'multiplication', name:'MULTIPLICATION CANYON', badge:'CANYON PILOT', bg:'assets/backgrounds/bg-canyon.png', type:'cloud', tag:'Cross the canyon by finding the correct product.'},
+    {id:'division', name:'DIVISION NEST', badge:'NEST NAVIGATOR', bg:'assets/backgrounds/bg-nest.png', type:'perch', tag:'Land safely in the nest by solving each division challenge.'},
+    {id:'oneStep', name:'WORD PROBLEM RUNWAY', badge:'RUNWAY READER', bg:'assets/backgrounds/bg-camp.png', type:'cloud', tag:'Read the runway story and choose the safe answer.'},
+    {id:'twoStep', name:'TWO-STEP SKYWAY', badge:'SKYWAY SOLVER', bg:'assets/backgrounds/bg-canyon.png', type:'cloud', tag:'Solve both steps to stay on the skyway.'},
+    {id:'placeValue', name:'PLACE VALUE PEAKS', badge:'PEAK BUILDER', bg:'assets/backgrounds/bg-peaks.png', type:'block', tag:'Build, compare, and explain numbers by place value.'},
+    {id:'rounding', name:'ROUNDING RAPIDS', badge:'RAPID RIDER', bg:'assets/backgrounds/bg-rapids.png', type:'perch', tag:'Ride the rapids by rounding to the nearest safe spot.'},
+    {id:'addition', name:'ADDITION OUTPOST', badge:'SUM BUILDER', bg:'assets/backgrounds/bg-area.png', type:'block', tag:'Build the outpost by adding within 1,000.'},
+    {id:'subtraction', name:'SUBTRACTION RIDGE', badge:'DIFFERENCE DASHER', bg:'assets/backgrounds/bg-ridge.png', type:'perch', tag:'Cross the ridge by finding the difference.'},
+    {id:'tens', name:'TENS TAKEOFF', badge:'TENS PILOT', bg:'assets/backgrounds/bg-canyon.png', type:'cloud', tag:'Take off by multiplying with tens.'},
+    {id:'fracLine', name:'FRACTION FOREST TRAIL', badge:'FRACTION FINDER', bg:'assets/backgrounds/bg-forest.png', type:'line', tag:'Follow the forest trail to find each fraction.'},
+    {id:'fracCompare', name:'FRACTION FOREST DUEL', badge:'FRACTION SCOUT', bg:'assets/backgrounds/bg-forest.png', type:'cloud', tag:'Choose the greater fraction to win the forest duel.'},
+    {id:'partsWhole', name:'PARTS OF A WHOLE', badge:'WHOLE BUILDER', bg:'assets/backgrounds/bg-forest.png', type:'block', tag:'Build the whole by naming equal parts.'},
+    {id:'time', name:'TIME TOWER', badge:'TIME KEEPER', bg:'assets/backgrounds/bg-tower.png', type:'clock', tag:'Climb Time Tower by reading each clock.'},
+    {id:'area', name:'AREA OUTPOST', badge:'AREA ARCHITECT', bg:'assets/backgrounds/bg-area.png', type:'tile', tag:'Map the outpost by finding the area.'},
+    {id:'perimeter', name:'PERIMETER RIDGE', badge:'RIDGE RANGER', bg:'assets/backgrounds/bg-ridge.png', type:'perch', tag:'Trace the ridge by finding perimeter.'},
+    {id:'partition', name:'SHAPE SPLIT SKY', badge:'SHAPE SPLITTER', bg:'assets/backgrounds/bg-peaks.png', type:'block', tag:'Split each shape into equal shares.'}
   ];
 
   function q(prompt,answer,options,kind){
