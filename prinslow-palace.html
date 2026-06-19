@@ -16,7 +16,7 @@
 *{box-sizing:border-box}html,body{min-height:100%;margin:0}
 body{font-family:"Atkinson Hyperlegible",system-ui,sans-serif;color:var(--ink);
   background:linear-gradient(180deg,rgba(120,198,255,.68),rgba(255,248,223,.88)),
-    url('bg-sky-dock.png') center/cover fixed;overflow-x:hidden}
+    url('assets/backgrounds/bg-sky-dock.png') center/cover fixed;overflow-x:hidden}
 button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;color:inherit}
 .page{min-height:100vh;position:relative;padding:18px clamp(14px,4vw,42px) 34px;
   background:radial-gradient(circle at 18% 10%,rgba(255,255,255,.62),transparent 16%),
@@ -34,7 +34,7 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
 .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:center;
   padding:34px clamp(24px,5vw,58px);min-height:500px;position:relative;
   background:linear-gradient(135deg,rgba(255,255,255,.86),rgba(233,248,255,.68)),
-    url('card-prinslow-palace.png') center/cover}
+    url('assets/cards/card-prinslow-palace.png') center/cover}
 .hero::after{content:"";position:absolute;inset:0;
   background:linear-gradient(90deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.72) 42%,rgba(255,255,255,.08) 100%);
   pointer-events:none}
@@ -47,7 +47,7 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
 .sky-palace{min-height:340px;border-radius:30px;display:grid;place-items:center;position:relative;overflow:hidden;
   background:radial-gradient(circle at 50% 82%,rgba(255,255,255,.84),transparent 30%),
     linear-gradient(180deg,rgba(255,255,255,.18),rgba(116,200,255,.16)),
-    url('card-prinslow-palace.png') center/contain no-repeat;
+    url('assets/cards/card-prinslow-palace.png') center/contain no-repeat;
   border:4px solid #fff;box-shadow:inset 0 0 0 4px rgba(255,255,255,.22),0 18px 36px rgba(7,29,66,.22)}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
 .primary{background:var(--gold);color:var(--navy);border:4px solid var(--navy);
@@ -124,7 +124,7 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
   width:min(150px,26%);z-index:3;font-size:0;
 }
 .guide::after{content:"";display:block;width:100%;height:200px;
-  background:url('falcon-palace-guide.png') center bottom/contain no-repeat;
+  background:url('assets/characters/falcon-palace-guide.png') center bottom/contain no-repeat;
   filter:drop-shadow(0 12px 12px rgba(7,29,66,.32));
   animation:guideBob 1.4s ease-in-out infinite alternate}
 @keyframes guideBob{to{transform:translateY(-8px)}}
@@ -312,13 +312,13 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
 .final{padding:34px;display:grid;grid-template-columns:1fr .9fr;gap:22px;align-items:center;min-height:620px;
   background:radial-gradient(circle at 70% 28%,rgba(255,200,61,.35),transparent 25%),
     linear-gradient(135deg,rgba(255,253,240,.90),rgba(234,249,255,.74)),
-    url('bg-topaz-chamber.png') center/cover}
+    url('assets/backgrounds/bg-topaz-chamber.png') center/cover}
 .final-title{font-family:Bungee,system-ui;line-height:.96;margin:0;color:var(--navy);
   font-size:clamp(44px,7vw,86px);text-shadow:0 5px 0 #fff,0 9px 0 rgba(255,200,61,.55)}
 .final p{font-size:23px;line-height:1.45;font-weight:800;color:#183a67}
 .treasure{min-height:390px;border-radius:30px;border:5px solid #fff;display:grid;place-items:center;
   background:radial-gradient(circle,rgba(255,251,220,.88) 0 18%,rgba(255,213,106,.62) 19% 38%,rgba(123,205,247,.42) 39% 100%),
-    url('bg-topaz-chamber.png') center/cover;
+    url('assets/backgrounds/bg-topaz-chamber.png') center/cover;
   box-shadow:inset 0 0 0 5px rgba(255,255,255,.32),0 20px 48px rgba(7,29,66,.28);
   position:relative;overflow:hidden}
 .treasure::before{content:"";position:absolute;inset:-30%;
@@ -379,7 +379,7 @@ button,a{font:inherit}button{border:0;cursor:pointer}a{text-decoration:none;colo
       </div>
     </div>
     <div class="sky-palace" aria-label="Prinslow Palace">
-      <img src="falcon-palace-guide.png" alt="Falcon palace guide" style="width:min(250px,72%);max-height:310px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));">
+      <img src="assets/characters/falcon-palace-guide.png" alt="Falcon palace guide" style="width:min(250px,72%);max-height:310px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(7,29,66,.34));">
     </div>
   </div>
 </section>
@@ -460,7 +460,7 @@ const ROOMS = [
     short: 'Sky Dock',
     skill: 'MAIN IDEA',
     icon: '🌉',
-    bg: "url('bg-sky-dock.png')",
+    bg: "url('assets/backgrounds/bg-sky-dock.png')",
     guide: 'Some sentences tell the main idea. Others are just small details. Choose the three sentences that tell what this chapter is MOSTLY about.',
     passage: 'Avery had never seen clouds from above before. They spread below the sky dock like a white ocean, rolling and shining under the morning sun. Ahead stood Prinslow Palace, a castle of glass towers, golden rails, and floating bridges. Every wall caught the light and sent it flashing in soft blue and yellow. Avery held the old map with both hands. The map had belonged to a palace keeper who vanished years ago. At the bottom of the map, tiny writing warned: Only a careful reader can reach the Topaz Falcon. Avery took one step onto the glass bridge. A bronze falcon statue turned its head, even though no wind was blowing. Seven empty keyholes glowed along the palace gate.',
     journal: 'Avery reaches the sky dock and sees the glass palace, the old map, and seven empty keyholes.',
@@ -493,7 +493,7 @@ const ROOMS = [
     short: 'Library',
     skill: 'CONTEXT CLUES',
     icon: '📚',
-    bg: "url('bg-crystal-library.png')",
+    bg: "url('assets/backgrounds/bg-crystal-library.png')",
     guide: 'The glowing word is the mystery. Tap the hidden clue words one at a time to help you figure out what it means. Fewer clues used makes you a sharper reader.',
     passage: 'Inside the palace, Avery entered a library where shelves floated without ropes or ladders. Books glided through the air like birds. One silver book landed softly on a crystal table and opened by itself. Its pages were [FRAGILE]. Avery knew this because the paper was [CLUE1], cracked at the edges, and [CLUE2] each time the room breathed a cool breeze. The writing inside described a bronze falcon that once guarded the palace. It was not a normal statue. It watched, listened, and learned from every visitor. Avery leaned closer, but a page corner began to [CLUE3]. Slowly, Avery placed one finger under the page and turned it with care.',
     journal: 'The Crystal Library holds a fragile book about a bronze falcon that watches, listens, and learns.',
@@ -522,7 +522,7 @@ const ROOMS = [
     short: 'Silent Falcon',
     skill: 'INFERENCE',
     icon: '🦅',
-    bg: "url('bg-silent-falcon.png')",
+    bg: "url('assets/backgrounds/bg-silent-assets/characters/falcon.png')",
     guide: 'The falcon never speaks — but its actions tell a story. Read each action carefully. Put them in the order they happened in the chapter.',
     passage: 'The bronze falcon waited at the end of the hall. Its wings were folded tightly against its sides, and one claw rested on a cracked stone perch. Avery stepped closer. The falcon did not fly away. It only tilted its head and looked toward a locked door covered in dust. Beside the door sat a tiny metal bowl, empty except for one topaz feather. Avery noticed scratches on the floor, as if the falcon had walked back and forth for a very long time. When Avery picked up the feather, the falcon\'s eyes glowed softly. It took one slow step forward, then stopped and waited.',
     journal: 'The silent bronze falcon guides Avery to a locked door and a topaz feather without ever speaking.',
@@ -548,7 +548,7 @@ const ROOMS = [
     short: 'Observatory',
     skill: 'TEXT EVIDENCE',
     icon: '🔭',
-    bg: "url('bg-observatory.png')",
+    bg: "url('assets/backgrounds/bg-observatory.png')",
     guide: 'A claim sits at the top. Your job is to find the exact sentence in the passage that proves it. Read carefully — some sentences seem close but do not directly support the claim.',
     passage: 'Avery climbed a spiral staircase into the observatory. A giant telescope pointed through the glass ceiling, aimed at a ring of clouds around the palace. The bronze falcon followed, tapping its beak twice against the floor whenever Avery chose the correct stair. At the top, Avery found a journal page pinned beneath a crystal star. The page said the palace had been built to protect stories, not treasure. Avery read that sentence twice. If the palace protected stories, then the Topaz Falcon might not be valuable because it was gold. It might be valuable because it remembered every story the palace had ever kept.',
     journal: 'A journal page in the observatory reveals that Prinslow Palace was built to protect stories, not treasure.',
@@ -581,7 +581,7 @@ const ROOMS = [
     short: 'Gallery',
     skill: 'POINT OF VIEW',
     icon: '🖼️',
-    bg: "url('bg-gallery.png')",
+    bg: "url('assets/backgrounds/bg-gallery.png')",
     guide: 'A painting is speaking. Sort the words and phrases into the correct point-of-view bins. Think carefully — some of these are trickier than they look.',
     passage: 'A painting shimmered, and a voice filled the gallery. "I was the last keeper of Prinslow Palace. I polished the glass bridges each morning and read to the bronze falcon each night. I believed the falcon understood every word. When the storm clouds rose too high, I hid the Topaz Falcon where only a thoughtful explorer could find it. I left seven keys behind, not to keep readers out, but to help them slow down and notice what mattered. If you are reading this, the palace has chosen you to listen carefully."',
     journal: 'The last palace keeper speaks from a painting, explaining why the seven keys were left for careful readers.',
@@ -618,7 +618,7 @@ const ROOMS = [
     short: 'Garden',
     skill: 'THEME',
     icon: '🌿',
-    bg: "url('bg-glass-garden.png')",
+    bg: "url('assets/backgrounds/bg-glass-garden.png')",
     guide: 'The theme is the big lesson the whole story teaches. Build the theme sentence by tapping words from the crystal vine in the right order. Watch out — two of the words do not belong.',
     passage: 'In the glass garden, Avery found the sixth key trapped inside a crystal vine. The bronze falcon pulled at the vine with its beak, but the vine tightened. Avery tried to tug the key free alone, but the crystal only scraped Avery\'s hands. Then Avery remembered the journal: slow down and notice what mattered. The vine had six leaves, and each leaf glowed when touched gently. Avery touched one leaf, and the falcon tapped another. Together they moved around the vine until all six leaves shone. The vine opened without breaking, and the key dropped softly into Avery\'s palm.',
     journal: 'Avery and the bronze falcon unlock the garden key by slowing down, working together, and noticing carefully.',
@@ -645,7 +645,7 @@ const ROOMS = [
     short: 'Topaz Chamber',
     skill: 'MIXED CHALLENGE',
     icon: '🗝️',
-    bg: "url('bg-topaz-chamber.png')",
+    bg: "url('assets/backgrounds/bg-topaz-chamber.png')",
     guide: 'Three challenges stand between you and the Topaz Falcon. Use everything you have learned. Each challenge lights one of the three final keys.',
     passage: 'The final door opened into a quiet chamber filled with golden light. The bronze falcon stepped onto a round platform and lowered its head. Avery placed the seven keys into the floor. One by one, the keys began to shine. The old journal pages lifted into the air and circled the room like bright birds. Avery finally understood. The palace had not been testing readers to keep them away. It had been teaching them how to pay attention. The Topaz Falcon appeared, glowing at the center of the chamber. The bronze falcon looked at Avery, then at the journal pages, as if asking the explorer to remember what had been learned.',
     journal: 'The Topaz Chamber reveals that Prinslow Palace was never a test to keep readers out — it was a school for paying attention.',
